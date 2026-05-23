@@ -1,0 +1,69 @@
+version: "1.0"
+
+rules:
+  - id: SI-001
+    severity: Critical
+    category: Injection
+    name: SQL Injection
+    description: User input concatenated directly into SQL queries
+    patterns:
+      - "f\"SELECT.*{.*}\""
+      - "\"SELECT\" \\+ .*variable"
+      - "execute\\(.*\\+.*\\)"
+    remediation: Use parameterized queries or an ORM.
+
+  - id: SI-002
+    severity: High
+    category: Injection
+    name: Cross-Site Scripting
+    description: Unescaped user input rendered in HTML context
+    patterns:
+      - "innerHTML\\s*="
+      - "dangerouslySetInnerHTML"
+      - "document\\.write\\("
+    remediation: Use safe DOM APIs or a templating engine that auto-escapes.
+
+  - id: SI-003
+    severity: High
+    category: Cryptography
+    name: Weak Hashing Algorithm
+    description: Use of MD5 or SHA-1 for security-sensitive hashing
+    patterns:
+      - "md5\\("
+      - "hashlib\\.md5"
+      - "hashlib\\.sha1"
+      - "MessageDigest\\.getInstance\\(\"MD5\"\\)"
+    remediation: Use SHA-256 or stronger; use bcrypt/argon2 for passwords.
+
+  - id: SI-004
+    severity: Medium
+    category: Access Control
+    name: Missing Authorization Check
+    description: Endpoint or function performs privileged action without verifying caller identity
+    patterns:
+      - "# TODO.*auth"
+      - "// TODO.*auth"
+      - "skip.*auth"
+    remediation: Add explicit authorization checks before privileged operations.
+
+  - id: SI-005
+    severity: Medium
+    category: Logging
+    name: Sensitive Data in Logs
+    description: Passwords, tokens, or PII written to log output
+    patterns:
+      - "log.*password"
+      - "print.*token"
+      - "console\\.log.*secret"
+    remediation: Redact sensitive fields before logging.
+
+  - id: SI-006
+    severity: Low
+    category: Configuration
+    name: Debug Mode in Production
+    description: Debug flags or verbose error output left enabled
+    patterns:
+      - "DEBUG\\s*=\\s*True"
+      - "debug=true"
+      - "app\\.run\\(debug=True\\)"
+    remediation: Disable debug mode and use structured error responses in production.
