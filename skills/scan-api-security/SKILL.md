@@ -24,7 +24,7 @@ Scan API routes, gateway configuration, and API specifications for common API se
    - Default to changed files on the current branch with `git diff main...HEAD --name-only`.
    - Include API-focused files such as route handlers, controllers, gateway configs, and API specs (OpenAPI/Swagger in `*.yaml`, `*.yml`, or `*.json`).
    - Scan a user-provided path when one is supplied.
-3. Skip binary files, lock files, vendored dependencies, and build output directories.
+3. Skip binary files, lock files, vendored dependencies, build output directories, and documentation-only files (`*.md`) unless explicitly targeted.
 4. Evaluate each file against every rule in `references/rules.yaml`.
    - For `match_strategy: regex`, report a finding when a pattern matches a line or API configuration block.
 5. Capture file path, line number, rule ID, matched snippet, and any OWASP API metadata in each finding.
