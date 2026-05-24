@@ -1,0 +1,93 @@
+version: "1.0"
+
+rules:
+  - id: SA-001
+    severity: High
+    category: Authentication/Authorization
+    name: Anonymous API Access
+    description: API endpoint or gateway configuration explicitly allows anonymous access.
+    owasp_api_2023_category: "API2:2023 - Broken Authentication"
+    cwe:
+      - 306
+      - 285
+    match_strategy: regex
+    patterns:
+      - "\\b(AllowAnonymous|AllowAny|@PermitAll|@Public|permitAll\\(\\)|skip_before_action\\s*:authenticate|skip_before_action\\s*:authorize)\\b"
+      - "authorizationType\\s*[:=]\\s*['\"]?NONE['\"]?"
+      - "x-auth-type\\s*[:=]\\s*['\"]?None['\"]?"
+    remediation: Require authentication and explicit authorization checks for all non-public API routes.
+
+  - id: SA-002
+    severity: High
+    category: Security Misconfiguration
+    name: Wildcard CORS Policy
+    description: CORS configuration allows all origins to access API responses.
+    owasp_api_2023_category: "API7:2023 - Security Misconfiguration"
+    cwe:
+      - 942
+    match_strategy: regex
+    patterns:
+      - "Access-Control-Allow-Origin\\s*[:=]\\s*\\*"
+      - "cors\\s*\\([^\\n]*origin\\s*:\\s*['\"]\\*['\"]"
+      - "allowedOrigins\\s*[:=]\\s*\\[?\\s*['\"]\\*['\"]\\s*\\]?"
+    remediation: Restrict CORS origins to trusted domains and avoid wildcard access.
+
+  - id: SA-003
+    severity: Medium
+    category: Authentication
+    name: API Tokens in Query String
+    description: API credentials appear to be passed via query string parameters.
+    owasp_api_2023_category: "API2:2023 - Broken Authentication"
+    cwe:
+      - 598
+    match_strategy: regex
+    patterns:
+      - "https?://[^\\s\"']+\\?(?:[^\\s\"']*&)?(api_key|apikey|access_token|auth_token|token)="
+      - "\\b(api_key|apikey|access_token|auth_token|token)\\s*[:=]\\s*req\\.query"
+    remediation: Send credentials in Authorization headers or signed tokens instead of query strings.
+
+  - id: SA-004
+    severity: Medium
+    category: Authentication/Authorization
+    name: OpenAPI Security Disabled
+    description: API specification explicitly disables security requirements for operations.
+    owasp_api_2023_category: "API2:2023 - Broken Authentication"
+    cwe:
+      - 306
+    match_strategy: regex
+    patterns:
+      - "security\\s*:\\s*\\[\\s*\\]"
+      - "security\\s*:\\s*null"
+      - "x-amazon-apigateway-api-key-required\\s*:\\s*false"
+    remediation: Define and apply security schemes globally or per operation in the API specification.
+
+  - id: SA-005
+    severity: Medium
+    category: Security Misconfiguration
+    name: Insecure API Transport
+    description: API specification or configuration references plaintext HTTP endpoints.
+    owasp_api_2023_category: "API7:2023 - Security Misconfiguration"
+    cwe:
+      - 319
+    match_strategy: regex
+    patterns:
+      - "schemes\\s*:\\s*\\[?\\s*http\\s*\\]?"
+      - "url\\s*:\\s*http://"
+    remediation: Require HTTPS/TLS for all API endpoints and remove plaintext HTTP schemes.
+
+  - id: SA-006
+    severity: Low
+    category: Improper Inventory
+    name: Exposed API Documentation or Debug Endpoints
+    description: API documentation or debug endpoints appear to be enabled in production routes.
+    owasp_api_2023_category: "API9:2023 - Improper Inventory Management"
+    cwe:
+      - 200
+    match_strategy: regex
+    patterns:
+      - "/swagger"
+      - "swagger-ui"
+      - "openapi\\.json"
+      - "graphiql"
+      - "/actuator"
+    remediation: Restrict API documentation and debug endpoints to authenticated or internal access.

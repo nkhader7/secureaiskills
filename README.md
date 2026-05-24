@@ -106,7 +106,7 @@ Use these skills while code, infrastructure, and dependencies are being added:
 | scan-iac | `/scan-iac` | — | Planned |
 | scan-kubernetes-manifests | `/scan-kubernetes-manifests` | — | Planned |
 | scan-container-image | `/scan-container-image` | — | Planned |
-| scan-api-security | `/scan-api-security` | — | Planned |
+| [scan-api-security](skills/scan-api-security/SKILL.md) | `/scan-api-security` | `SA-` | Ready |
 
 ## Repository Structure
 
