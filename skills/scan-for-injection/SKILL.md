@@ -1,12 +1,12 @@
 ---
 name: scan-for-injection
-description: Scans code for injection vulnerabilities including SQL injection, XSS, weak cryptography, and missing authorization checks
+description: Scans source code for injection vulnerabilities mapped to OWASP 2025 Injection coverage, including SQL, command, code, NoSQL, LDAP, XXE/XML, and expression language injection.
 triggers:
   - /scan-for-injection
   - "scan.*injection"
   - "detect.*injection"
-  - "find.*xss"
   - "check.*sql.*injection"
+  - "check.*command.*injection"
 references:
   rules: references/rules.yaml
   report_template: references/report-template.md
@@ -15,28 +15,29 @@ references:
 
 # scan-for-injection
 
-Scans source code for injection vulnerabilities and related code-level risks: SQL injection, cross-site scripting, weak cryptographic algorithms, missing authorization checks, and unsafe configuration patterns.
+Scans source code for injection vulnerabilities: SQL injection, command injection, code injection, NoSQL injection, LDAP injection, XXE/XML injection, and expression language injection.
 
 For hardcoded secrets and credentials, use `detect-secrets` instead.
 
 ## Orchestration
 
 1. Load `references/rules.yaml` to get the active rule set.
-2. Identify changed files on the current branch (`git diff main...HEAD --name-only`).
-3. For each changed file, evaluate every line against each rule's `patterns`.
-4. Aggregate findings by severity (Critical → High → Medium → Low → Info).
-5. Render the final report using `references/report-template.md`.
+2. Identify changed files on the current branch with `git diff main...HEAD --name-only`.
+3. For each changed file, evaluate every line or local code block against each rule's `patterns`.
+4. Include OWASP 2025, CWE, and CAPEC metadata in any finding when present.
+5. Aggregate findings by severity: Critical, High, Medium, Low, Info.
+6. Render the final report using `references/report-template.md`.
 
 ## Usage
 
 Scan changed files on the current branch:
 
-```
+```text
 /scan-for-injection
 ```
 
 Scan a specific path:
 
-```
+```text
 /scan-for-injection src/api/
 ```
