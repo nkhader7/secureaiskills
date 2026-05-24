@@ -85,9 +85,9 @@ rules:
       - 200
     match_strategy: regex
     patterns:
-      - '/swagger(?:/|\b)'
+      - '/swagger(?:/|$)'
       - '\bswagger-ui\b'
       - '/openapi\.json\b'
       - '\bgraphiql\b'
-      - '/actuator(?:/|\b)'
+      - '/actuator(?:/|$)'
     remediation: Restrict API documentation and debug endpoints to authenticated or internal access.
