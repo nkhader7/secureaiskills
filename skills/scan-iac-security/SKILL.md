@@ -1,6 +1,12 @@
 ---
 name: scan-iac-security
-description: Scans infrastructure-as-code changes for security misconfigurations in Terraform, CloudFormation, ARM/Bicep, Pulumi config, and related IaC files. Use when reviewing product or application infrastructure during design or development for exposed network access, weak encryption, public storage, missing logging, permissive IAM, and unsafe defaults.
+description: Scans infrastructure-as-code changes for security misconfigurations in Terraform, CloudFormation, ARM/Bicep, Pulumi config, and related IaC files.
+triggers:
+  - /scan-iac-security
+  - "scan.*iac"
+  - "iac.*security"
+  - "check.*terraform"
+  - "scan.*infrastructure"
 references:
   rules: references/rules.yaml
   report_template: references/report-template.md

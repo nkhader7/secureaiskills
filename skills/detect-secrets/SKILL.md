@@ -31,18 +31,18 @@ Detects hardcoded secrets, API keys, private keys, tokens, and credentials that 
 
 Scan changed files on the current branch:
 
-```
+```text
 /detect-secrets
 ```
 
 Scan a specific path or directory:
 
-```
+```text
 /detect-secrets src/config/
 ```
 
 Scan all tracked files in the repository:
 
-```
+```text
 /detect-secrets --all
 ```

@@ -7,6 +7,7 @@
 | Date | {{date}} |
 | Branch | {{branch}} |
 | Files Reviewed | {{file_count}} |
+| Findings | {{total_findings}} |
 | Overall Severity | {{overall_severity}} |
 
 ---
@@ -20,7 +21,7 @@
 **Category:** {{category}}
 **Description:** {{description}}
 
-```
+```text
 {{snippet}}
 ```
 

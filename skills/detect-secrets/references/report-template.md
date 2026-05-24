@@ -21,7 +21,7 @@
 **Category:** {{category}}
 **Description:** {{description}}
 
-```
+```text
 {{snippet_masked}}
 ```
 

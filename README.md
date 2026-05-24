@@ -82,6 +82,7 @@ Use these skills while code, infrastructure, and dependencies are being added:
 
 - `detect-secrets`
 - `scan-for-injection`
+- `scan-static-analysis`
 - `audit-crypto-usage`
 - `run-sast`
 - `scan-sca-dependencies`
@@ -96,17 +97,18 @@ Use these skills while code, infrastructure, and dependencies are being added:
 |-------|---------|-------------|--------|
 | [detect-secrets](skills/detect-secrets/SKILL.md) | `/detect-secrets` | `DS-` | Ready |
 | [scan-for-injection](skills/scan-for-injection/SKILL.md) | `/scan-for-injection` | `SI-` | Ready |
-| threat-model-system | `/threat-model-system` | — | Planned |
-| audit-crypto-usage | `/audit-crypto-usage` | — | Planned |
-| run-sast | `/run-sast` | — | Planned |
-| scan-sca-dependencies | `/scan-sca-dependencies` | — | Planned |
-| generate-sbom | `/generate-sbom` | — | Planned |
-| generate-dependency-graph | `/generate-dependency-graph` | — | Planned |
-| detect-supply-chain-risks | `/detect-supply-chain-risks` | — | Planned |
-| scan-iac | `/scan-iac` | — | Planned |
-| scan-kubernetes-manifests | `/scan-kubernetes-manifests` | — | Planned |
-| scan-container-image | `/scan-container-image` | — | Planned |
+| [threat-model-system](skills/threat-model-system/SKILL.md) | `/threat-model-system` | `TMS-` | Ready |
+| [scan-static-analysis](skills/scan-static-analysis/SKILL.md) | `/scan-static-analysis` | `SAS-` | Ready |
 | [scan-api-security](skills/scan-api-security/SKILL.md) | `/scan-api-security` | `SA-` | Ready |
+| audit-crypto-usage | `/audit-crypto-usage` | - | Planned |
+| run-sast | `/run-sast` | - | Planned |
+| scan-sca-dependencies | `/scan-sca-dependencies` | - | Planned |
+| generate-sbom | `/generate-sbom` | - | Planned |
+| generate-dependency-graph | `/generate-dependency-graph` | - | Planned |
+| detect-supply-chain-risks | `/detect-supply-chain-risks` | - | Planned |
+| scan-iac | `/scan-iac` | - | Planned |
+| scan-kubernetes-manifests | `/scan-kubernetes-manifests` | - | Planned |
+| scan-container-image | `/scan-container-image` | - | Planned |
 
 ## Repository Structure
 

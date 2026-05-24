@@ -15,13 +15,13 @@
 ## Findings
 
 {{#each findings}}
-### [{{severity}}] {{rule_id}} - {{rule_name}}
+### [{{severity}}] {{rule_id}} — {{rule_name}}
 
 **File:** `{{file}}` (line {{line}})
 **Category:** {{category}}
 **Description:** {{description}}
 
-```text
+```
 {{snippet}}
 ```
 
