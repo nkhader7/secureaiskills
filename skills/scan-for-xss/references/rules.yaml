@@ -1,0 +1,186 @@
+version: "1.0"
+
+source:
+  standard: "Cross-Site Scripting Scan"
+  focus: "Reflected, stored, DOM-based XSS, output encoding, dangerous HTML sinks, CSP, and template escaping"
+
+rules:
+  - id: XSS-001
+    severity: Critical
+    category: "Unsafe HTML Sink"
+    name: "Detect user input reaching innerHTML-like sinks"
+    match_strategy: xss_inner_html
+    description: >-
+      Identify untrusted data assigned to innerHTML, outerHTML, insertAdjacentHTML, dangerouslySetInnerHTML, or equivalent sinks.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use safe DOM APIs, framework escaping, or vetted sanitization with strict policies.
+
+  - id: XSS-002
+    severity: High
+    category: "Template Escaping"
+    name: "Detect disabled template escaping"
+    match_strategy: xss_template_escape_disabled
+    description: >-
+      Identify raw/unescaped template output such as triple braces or safe filters on user data.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use contextual output encoding and avoid marking untrusted data as safe.
+
+  - id: XSS-003
+    severity: High
+    category: "Reflected XSS"
+    name: "Detect reflected request data in responses"
+    match_strategy: xss_reflected
+    description: >-
+      Identify request parameters rendered into HTML without output encoding.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Apply contextual output encoding and validation.
+
+  - id: XSS-004
+    severity: High
+    category: "Stored XSS"
+    name: "Detect stored untrusted content rendered unsafely"
+    match_strategy: xss_stored
+    description: >-
+      Identify database or CMS content rendered into HTML/JS without sanitization or encoding.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Sanitize on write where appropriate and encode on output.
+
+  - id: XSS-005
+    severity: Critical
+    category: "DOM XSS"
+    name: "Detect URL/hash/location data reaching DOM sinks"
+    match_strategy: xss_dom
+    description: >-
+      Identify location, hash, search, postMessage, or storage data reaching DOM sinks.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Validate sources and use safe sinks such as textContent.
+
+  - id: XSS-006
+    severity: High
+    category: "Script Context"
+    name: "Detect untrusted data in JavaScript contexts"
+    match_strategy: xss_script_context
+    description: >-
+      Identify interpolation into inline scripts, event handlers, or JavaScript URLs.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Avoid inline scripts and use JavaScript string encoding or data attributes safely.
+
+  - id: XSS-007
+    severity: Medium
+    category: "URL Context"
+    name: "Detect unsafe URL construction"
+    match_strategy: xss_url_context
+    description: >-
+      Identify untrusted values placed in href/src/action without scheme allowlisting.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Allowlist http/https or expected schemes and encode attributes.
+
+  - id: XSS-008
+    severity: High
+    category: "Sanitizer Misuse"
+    name: "Detect unsafe sanitizer configuration"
+    match_strategy: xss_sanitizer_misuse
+    description: >-
+      Identify sanitizers allowing scripts, event handlers, dangerous URLs, or custom HTML unsafely.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use maintained sanitizers with restrictive configuration and tests.
+
+  - id: XSS-009
+    severity: Medium
+    category: "Markdown/HTML"
+    name: "Detect unsafe markdown rendering"
+    match_strategy: xss_markdown
+    description: >-
+      Identify markdown rendered with raw HTML enabled or unsafe plugins.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Disable raw HTML or sanitize rendered output.
+
+  - id: XSS-010
+    severity: Medium
+    category: "CSP Gap"
+    name: "Detect missing CSP for XSS mitigation"
+    match_strategy: xss_csp_gap
+    description: >-
+      Identify apps with XSS-exposed surfaces and no meaningful CSP.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Add restrictive CSP without unsafe-inline for scripts where possible.
+
+  - id: XSS-011
+    severity: Medium
+    category: "postMessage"
+    name: "Detect unsafe postMessage handling"
+    match_strategy: xss_postmessage
+    description: >-
+      Identify message handlers without origin validation or with HTML sinks.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Validate origin/schema and avoid dangerous sinks.
+
+  - id: XSS-012
+    severity: Medium
+    category: "Tests"
+    name: "Detect missing XSS regression tests"
+    match_strategy: xss_missing_tests
+    description: >-
+      Identify critical rendering paths without tests for escaping and sanitization.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Add tests for encoded output and blocked malicious payloads.

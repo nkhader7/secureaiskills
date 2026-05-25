@@ -1,0 +1,156 @@
+version: "1.0"
+
+source:
+  standard: "Exception Handling Scan"
+  focus: "Error handling, exception leakage, fail-open logic, crash behavior, recovery paths, and exceptional condition handling"
+
+rules:
+  - id: EXC-001
+    severity: High
+    category: "Fail Open"
+    name: "Detect fail-open security checks"
+    match_strategy: exception_fail_open
+    description: >-
+      Identify catch blocks or fallback logic that allows access after auth, policy, validation, or crypto errors.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Fail closed on security-control errors and return safe denial responses.
+
+  - id: EXC-002
+    severity: Medium
+    category: "Verbose Errors"
+    name: "Detect stack traces or internals in responses"
+    match_strategy: exception_verbose_response
+    description: >-
+      Identify stack traces, SQL errors, framework internals, or secrets exposed to clients.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Return generic client errors and log details server-side.
+
+  - id: EXC-003
+    severity: High
+    category: "Swallowed Exceptions"
+    name: "Detect swallowed security exceptions"
+    match_strategy: exception_swallowed_security
+    description: >-
+      Identify empty catch blocks around security-relevant operations.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Handle, log, and safely deny on security exceptions.
+
+  - id: EXC-004
+    severity: Medium
+    category: "Retry Storms"
+    name: "Detect unsafe retry behavior"
+    match_strategy: exception_retry_storm
+    description: >-
+      Identify unbounded retries, no backoff, or retries around non-idempotent operations.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use bounded retries, jittered backoff, idempotency keys, and circuit breakers.
+
+  - id: EXC-005
+    severity: High
+    category: "Transaction Safety"
+    name: "Detect missing rollback on failure"
+    match_strategy: exception_missing_rollback
+    description: >-
+      Identify partial writes or state transitions without rollback/compensation on errors.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use transactions or compensating actions for multi-step operations.
+
+  - id: EXC-006
+    severity: Medium
+    category: "Parser Errors"
+    name: "Detect unsafe parser exception handling"
+    match_strategy: exception_parser
+    description: >-
+      Identify parsing failures that fall back to unsafe defaults or partial trust.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Reject malformed input and avoid permissive fallback parsing.
+
+  - id: EXC-007
+    severity: High
+    category: "Deserialization Errors"
+    name: "Detect dangerous deserialization fallback"
+    match_strategy: exception_deserialization
+    description: >-
+      Identify deserialization exceptions that trigger unsafe alternate parsing or object construction.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use safe formats and strict schema validation.
+
+  - id: EXC-008
+    severity: Medium
+    category: "Crash Disclosure"
+    name: "Detect crash dumps or debug artifacts exposure"
+    match_strategy: exception_crash_artifacts
+    description: >-
+      Identify public crash dumps, debug endpoints, or error files.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Restrict crash artifacts and remove debug endpoints from production.
+
+  - id: EXC-009
+    severity: Medium
+    category: "Inconsistent Errors"
+    name: "Detect enumeration through inconsistent errors"
+    match_strategy: exception_enumeration
+    description: >-
+      Identify different error messages for user, token, reset, or object existence checks.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Normalize externally visible error responses.
+
+  - id: EXC-010
+    severity: Medium
+    category: "Missing Error Logs"
+    name: "Detect unlogged critical failures"
+    match_strategy: exception_missing_logs
+    description: >-
+      Identify critical exceptional paths without logs or monitoring.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Log security-relevant failures with correlation IDs and safe details.

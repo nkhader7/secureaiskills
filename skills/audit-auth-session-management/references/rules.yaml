@@ -1,0 +1,186 @@
+version: "1.0"
+
+source:
+  standard: "Authentication and Session Management Audit"
+  focus: "Authentication, session, MFA, password, JWT, OAuth, and account recovery controls"
+
+rules:
+  - id: ASM-001
+    severity: Critical
+    category: "Credential Verification"
+    name: "Detect weak password storage"
+    match_strategy: auth_password_storage
+    description: >-
+      Identify plaintext, reversible, unsalted, or fast-hash password storage.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use Argon2id, bcrypt, scrypt, or PBKDF2 with strong parameters and per-user salts.
+
+  - id: ASM-002
+    severity: High
+    category: "MFA"
+    name: "Detect missing MFA for sensitive actions"
+    match_strategy: auth_mfa_sensitive
+    description: >-
+      Identify admin, payment, account recovery, and high-risk actions without MFA or step-up auth.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Require MFA or step-up authentication for privileged and sensitive operations.
+
+  - id: ASM-003
+    severity: High
+    category: "Session Cookies"
+    name: "Detect insecure session cookie flags"
+    match_strategy: auth_cookie_flags
+    description: >-
+      Identify missing Secure, HttpOnly, SameSite, or overly broad Domain/Path attributes.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set Secure, HttpOnly, appropriate SameSite, narrow Domain/Path, and short session lifetimes.
+
+  - id: ASM-004
+    severity: Critical
+    category: "JWT"
+    name: "Detect unsafe JWT validation"
+    match_strategy: auth_jwt_validation
+    description: >-
+      Identify disabled signature verification, alg confusion, missing issuer/audience/expiry checks.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Verify signature, algorithm, issuer, audience, expiry, not-before, and key rotation.
+
+  - id: ASM-005
+    severity: High
+    category: "OAuth/OIDC"
+    name: "Detect unsafe redirect URI handling"
+    match_strategy: auth_oauth_redirect
+    description: >-
+      Identify wildcard or user-controlled redirect URIs and weak state/nonce handling.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Require exact redirect URI matching and validate state and nonce.
+
+  - id: ASM-006
+    severity: High
+    category: "Brute Force"
+    name: "Detect missing login throttling"
+    match_strategy: auth_bruteforce
+    description: >-
+      Identify login endpoints without rate limits, lockout, bot defenses, or anomaly detection.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Add adaptive throttling, monitoring, and safe account lockout or challenge flows.
+
+  - id: ASM-007
+    severity: Medium
+    category: "Credential Stuffing"
+    name: "Detect missing breached-password defenses"
+    match_strategy: auth_credential_stuffing
+    description: >-
+      Identify lack of breached password checks or impossible-travel/anomaly monitoring.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Check new passwords against breach corpuses and monitor credential stuffing patterns.
+
+  - id: ASM-008
+    severity: High
+    category: "Account Recovery"
+    name: "Detect weak password reset flows"
+    match_strategy: auth_recovery
+    description: >-
+      Identify reset tokens without expiry, replay protection, randomness, or account takeover safeguards.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use high-entropy single-use reset tokens, short expiry, and notification of recovery events.
+
+  - id: ASM-009
+    severity: Medium
+    category: "Session Rotation"
+    name: "Detect missing session rotation after login or privilege change"
+    match_strategy: auth_session_rotation
+    description: >-
+      Identify sessions not regenerated after authentication or privilege elevation.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Rotate session IDs after login, MFA, password change, and role elevation.
+
+  - id: ASM-010
+    severity: Medium
+    category: "Logout"
+    name: "Detect incomplete logout and revocation"
+    match_strategy: auth_logout_revocation
+    description: >-
+      Identify logout flows that do not invalidate server-side sessions or refresh tokens.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Invalidate sessions and refresh tokens server-side and clear client cookies.
+
+  - id: ASM-011
+    severity: High
+    category: "SAML"
+    name: "Detect unsafe SAML assertions"
+    match_strategy: auth_saml_validation
+    description: >-
+      Identify missing signature validation, audience checks, replay protection, or weak XML parser config.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Validate signatures, issuer, audience, time windows, and disable unsafe XML processing.
+
+  - id: ASM-012
+    severity: Medium
+    category: "Error Messages"
+    name: "Detect authentication enumeration"
+    match_strategy: auth_enumeration
+    description: >-
+      Identify login, reset, or registration responses that reveal account existence.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Return consistent responses and log detailed reasons server-side.

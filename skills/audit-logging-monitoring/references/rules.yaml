@@ -1,0 +1,186 @@
+version: "1.0"
+
+source:
+  standard: "Security Logging and Monitoring Audit"
+  focus: "Security event logging, alerting, audit trails, log integrity, sensitive log data, and monitoring gaps"
+
+rules:
+  - id: ALM-001
+    severity: High
+    category: "Auth Events"
+    name: "Log authentication success and failure"
+    match_strategy: log_auth_events
+    description: >-
+      Identify login, MFA, reset, and token events without security logs.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Log authentication events with subject, result, source, timestamp, and correlation ID.
+
+  - id: ALM-002
+    severity: High
+    category: "Authorization Events"
+    name: "Log access control denials and privilege changes"
+    match_strategy: log_authz_events
+    description: >-
+      Identify missing logs for denied access, role changes, permission changes, and tenant-boundary failures.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Log authorization decisions and privilege mutations with actor and target.
+
+  - id: ALM-003
+    severity: High
+    category: "Admin Events"
+    name: "Log administrative actions"
+    match_strategy: log_admin_events
+    description: >-
+      Identify admin operations without audit trails.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Log admin changes, settings changes, user management, and policy updates.
+
+  - id: ALM-004
+    severity: High
+    category: "Sensitive Data"
+    name: "Log sensitive data access safely"
+    match_strategy: log_sensitive_access
+    description: >-
+      Identify sensitive data access without audit trail or with raw sensitive values in logs.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Log metadata for sensitive access and redact protected values.
+
+  - id: ALM-005
+    severity: High
+    category: "Alerting"
+    name: "Alert on high-risk security events"
+    match_strategy: log_alerting
+    description: >-
+      Identify critical events without alerting or escalation.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Create alerts for suspicious auth, privilege changes, secret access, and integrity failures.
+
+  - id: ALM-006
+    severity: Medium
+    category: "Log Injection"
+    name: "Detect log injection risks"
+    match_strategy: log_injection
+    description: >-
+      Identify untrusted input logged without encoding, escaping, or structured logging.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use structured logging and encode untrusted values.
+
+  - id: ALM-007
+    severity: High
+    category: "Log Integrity"
+    name: "Protect logs from tampering"
+    match_strategy: log_integrity
+    description: >-
+      Identify logs stored where attackers or app users can alter them.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Send logs to append-only or centralized systems with restricted access.
+
+  - id: ALM-008
+    severity: Medium
+    category: "Retention"
+    name: "Validate log retention"
+    match_strategy: log_retention
+    description: >-
+      Identify missing retention policy for audit and security logs.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set retention based on incident response and compliance needs.
+
+  - id: ALM-009
+    severity: Medium
+    category: "Correlation"
+    name: "Require request and trace correlation IDs"
+    match_strategy: log_correlation
+    description: >-
+      Identify security logs without request, session, user, or trace correlation.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Add correlation identifiers to security-relevant logs.
+
+  - id: ALM-010
+    severity: High
+    category: "Error Monitoring"
+    name: "Monitor exceptional security conditions"
+    match_strategy: log_exception_monitoring
+    description: >-
+      Identify auth, validation, deserialization, crypto, or access exceptions without monitoring.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Alert on repeated or unusual security-relevant exceptions.
+
+  - id: ALM-011
+    severity: Medium
+    category: "PII in Logs"
+    name: "Detect sensitive data leakage in logs"
+    match_strategy: log_pii_leakage
+    description: >-
+      Identify credentials, tokens, PII, payment, or health data logged in cleartext.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Redact, tokenize, or avoid logging sensitive values.
+
+  - id: ALM-012
+    severity: Info
+    category: "Runbooks"
+    name: "Require response runbooks for critical alerts"
+    match_strategy: log_runbooks
+    description: >-
+      Identify critical alerts without owner or response guidance.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Define alert owners, severity, escalation path, and investigation runbook.

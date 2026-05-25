@@ -13,6 +13,7 @@ references:
   rules: references/rules.yaml
   report_template: references/report-template.md
   base_report: ../_shared/base-report.md
+  owasp_cheatsheets: ../_shared/owasp-cheatsheets.yaml
 ---
 
 # scan-static-analysis
@@ -22,29 +23,30 @@ Plans and runs static-analysis workflows using CodeQL, Semgrep, and SARIF result
 ## Orchestration
 
 1. Load `references/rules.yaml` to get the active static-analysis ruleset catalog.
-2. Identify the target:
+2. Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.
+3. Identify the target:
    - Default to the current workspace.
    - Use a user-provided file, directory, repository checkout, CodeQL database, or SARIF file when supplied.
-3. Classify the request:
+4. Classify the request:
    - Use CodeQL for deep interprocedural data-flow and taint analysis.
    - Use Semgrep for fast pattern-based and taint-mode scanning.
    - Use SARIF processing when results already exist.
-4. Detect languages, frameworks, infrastructure files, and existing scanner outputs.
-5. Select rules from `references/rules.yaml`:
+5. Detect languages, frameworks, infrastructure files, and existing scanner outputs.
+6. Select rules from `references/rules.yaml`:
    - Include baseline security rules.
    - Add language and framework-specific rulesets.
    - Add infrastructure rulesets when IaC, containers, CI/CD, or policy files are present.
    - Include required third-party rulesets when language coverage matches.
    - Choose CodeQL threat-model inputs that match the application boundary.
-6. Present the scan plan before running tools:
+7. Present the scan plan before running tools:
    - Target path.
    - Tooling selected.
    - Mode: `important-only` or `run-all`.
    - Rulesets and third-party sources.
    - Output directory.
-7. Run approved scans or parse approved SARIF files.
-8. Normalize, aggregate, deduplicate, and prioritize findings.
-9. Render the final report using `references/report-template.md`.
+8. Run approved scans or parse approved SARIF files.
+9. Normalize, aggregate, deduplicate, and prioritize findings.
+10. Render the final report using `references/report-template.md`.
 
 ## Usage
 
@@ -75,3 +77,7 @@ Parse existing SARIF:
 ## Review Guidance
 
 Prefer `important-only` for pull requests and CI-style blocking checks. Prefer `run-all` for manual audits, variant hunting, and research. Treat zero findings as inconclusive until tool installation, database quality, selected rulesets, and SARIF validity have been checked.
+
+## OWASP Cheat Sheets
+
+Use the shared mapping in `../_shared/owasp-cheatsheets.yaml` for authoritative OWASP Cheat Sheet Series references that match this skill. Include the relevant cheat sheet links in the report when they directly support a finding or remediation.

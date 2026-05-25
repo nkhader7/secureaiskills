@@ -6176,3 +6176,402 @@ rules:
       benchmark: "CIS Docker Benchmark"
       version: "1.8.0"
       sheet: "Combined Profiles"
+
+
+  # ── OWASP Docker Top 10 ──────────────────────────────────────────────────────
+  # Source: https://owasp.org/www-project-docker-top-10/
+  # These rules complement CIS Docker Benchmark with OWASP's higher-level framing.
+  # CIS covers implementation-level controls; OWASP captures architectural,
+  # process, and design principles not directly represented in the CIS ruleset.
+
+  - id: DTOP-D01
+    severity: Critical
+    category: OWASP Docker Top 10
+    name: "D01 – Secure User Mapping: containers running as root or with privileged flag"
+    match_strategy: cis_docker_review
+    description: >-
+      Containers running as root or with --privileged grant full host privileges if a vulnerability
+      is exploited. Microservices should run as a dedicated non-root user. User namespace remapping
+      (--userns-remap) provides an additional kernel-level isolation boundary that maps container
+      root to an unprivileged host UID. CIS Docker Benchmark covers the --privileged flag and USER
+      directive; this rule adds the user namespace remapping check and setcap usage not in CIS.
+    owasp_docker_top10: "D01"
+    patterns:
+      - "--privileged"
+      - "privileged:\\s*true"
+      - "USER root"
+    evidence_examples:
+      - "Dockerfile missing USER directive before CMD/ENTRYPOINT"
+      - "docker run --privileged or compose privileged: true"
+      - "/etc/docker/daemon.json missing userns-remap setting"
+      - "Container process running as uid=0 in docker inspect output"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Add a non-root USER directive in the Dockerfile before CMD or ENTRYPOINT. Never use
+      --privileged in production. Enable user namespace remapping by adding {"userns-remap": "default"}
+      to /etc/docker/daemon.json. Grant only specific Linux capabilities with setcap rather than
+      elevating to full root. Map services to unprivileged ports above 1024.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D02
+    severity: High
+    category: OWASP Docker Top 10
+    name: "D02 – Patch Management Strategy: no defined update process for container image stack"
+    match_strategy: design_review
+    description: >-
+      Unpatched infrastructure is the most frequent cause of container-related incidents. Four
+      domains require patch management: container images, container runtime (Docker/containerd),
+      orchestration software (Kubernetes/Swarm), and the host OS. Floating :latest tags and
+      unpinned base images make patch status opaque. This control has no CIS Docker Benchmark
+      equivalent — it is a process and policy control, not a configuration check.
+    owasp_docker_top10: "D02"
+    patterns:
+      - "FROM.*:latest"
+      - "FROM.*:stable"
+      - "FROM.*:current"
+    evidence_examples:
+      - "Dockerfile uses FROM ubuntu:latest instead of a pinned digest"
+      - "No automated image rebuild or base image update pipeline in CI"
+      - "Docker daemon version not tracked or updated on schedule"
+      - "Host OS kernel patch cycle undefined or undocumented"
+      - "EOL base image (e.g., ubuntu:18.04, python:3.7)"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Pin base images to a specific version tag and SHA digest (FROM python:3.12-slim@sha256:...).
+      Automate base image updates with Dependabot, Renovate, or a weekly rebuild pipeline.
+      Define patch timeframes per domain: container images (weekly rebuild), Docker runtime
+      (within 2 weeks of release), orchestration (monthly), host OS kernel (within 1 week for
+      critical CVEs). Track EOL dates for all base images. Use docker scout, trivy, or grype in
+      CI to block images with unpatched critical CVEs.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D03
+    severity: High
+    category: OWASP Docker Top 10
+    name: "D03 – Network Segmentation: management interfaces or APIs exposed on public interfaces"
+    match_strategy: cis_docker_review
+    description: >-
+      Container orchestration management interfaces (Docker API 2375/2376, Kubernetes API 6443,
+      etcd 2379/2380, Swarm 2377) exposed to the internet or a flat DMZ are a critical threat
+      vector for cryptomining and lateral movement campaigns. Inter-container networks should not
+      be flat; microservices should communicate only on explicitly defined paths. CIS covers
+      specific daemon networking settings; this rule focuses on management port exposure and
+      flat inter-service network design.
+    owasp_docker_top10: "D03"
+    patterns:
+      - "0\\.0\\.0\\.0:2375"
+      - "0\\.0\\.0\\.0:2376"
+      - "0\\.0\\.0\\.0:6443"
+      - "0\\.0\\.0\\.0:2379"
+      - "0\\.0\\.0\\.0:2380"
+      - "0\\.0\\.0\\.0:2377"
+      - "-H tcp://0\\.0\\.0\\.0"
+    evidence_examples:
+      - "Docker daemon started with -H tcp://0.0.0.0:2375 (unauthenticated API)"
+      - "Kubernetes API server accessible without authentication from a network scan"
+      - "etcd port 2379 reachable from outside the cluster"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Never expose the Docker API on TCP without mutual TLS. Restrict Kubernetes API server,
+      etcd, and dashboard access to management networks only. Apply whitelist-based egress and
+      ingress network policies to limit inter-container communication to required paths. Use
+      separate Docker networks per service tier (frontend, backend, database).
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D04
+    severity: High
+    category: OWASP Docker Top 10
+    name: "D04 – Secure Defaults: non-minimal base image or attack-surface binaries in final image"
+    match_strategy: cis_docker_review
+    description: >-
+      Large general-purpose base images (ubuntu, debian, centos) include compilers, package
+      managers, shell utilities (wget, curl, netcat), and SUID binaries that assist an attacker
+      post-breakin. Minimal images (Alpine, distroless, scratch) significantly reduce the attack
+      surface. CIS covers capability dropping and seccomp; this rule focuses on Dockerfile base
+      image choice and removal of unnecessary attack-surface tooling from the final stage.
+    owasp_docker_top10: "D04"
+    patterns:
+      - "FROM ubuntu(?!-minimal)"
+      - "FROM debian(?!-slim)"
+      - "FROM centos"
+      - "FROM fedora"
+      - "--cap-add=all"
+      - "--cap-add ALL"
+      - "RUN apt-get install.*\\bnetcat\\b"
+      - "apt-get install(?!.*--no-install-recommends)"
+    evidence_examples:
+      - "Dockerfile FROM ubuntu:22.04 — full OS with compiler and shell tools"
+      - "RUN apt-get install wget netcat — adds post-exploit pivot tools"
+      - "apt-get install without --no-install-recommends pulls unnecessary packages"
+      - "--cap-add=ALL grants all 38 Linux capabilities to the container"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Use Alpine Linux, gcr.io/distroless/, or scratch as the final stage in a multi-stage build.
+      Add --no-install-recommends to every apt-get install. Remove wget, curl, netcat, and shell
+      interpreters from the final image if not needed at runtime. Use --security-opt no-new-privileges
+      and --cap-drop=ALL then add back only required capabilities.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D05
+    severity: Medium
+    category: OWASP Docker Top 10
+    name: "D05 – Security Contexts: production and non-production containers co-located on same host"
+    match_strategy: design_review
+    description: >-
+      Mixing containers with different security contexts (production and development, different
+      tenants, different data sensitivity tiers) on the same host violates security boundary
+      separation. A vulnerability in a low-value development container can pivot to a high-value
+      production container sharing the same kernel. This is an architectural design control with
+      no direct CIS Docker Benchmark equivalent.
+    owasp_docker_top10: "D05"
+    patterns:
+      - "environment.*production.*development"
+      - "environment.*prod.*dev"
+    evidence_examples:
+      - "docker-compose.yml defines both prod and dev containers on the same host network"
+      - "Production database container on the same Docker host as a public-facing dev service"
+      - "No VM-level or host-level separation between tenants on shared hardware"
+      - "Production and staging workloads sharing the same Docker daemon"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Run production containers on dedicated hosts or VM clusters that serve no other purpose.
+      Use separate Docker hosts or Kubernetes node pools per security context. Apply strict
+      controls on who can deploy to production hosts. For multi-tenancy, use VM-level isolation
+      as the minimum boundary — container namespaces alone are insufficient for strong tenant
+      isolation.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D06
+    severity: Critical
+    category: OWASP Docker Top 10
+    name: "D06 – Protect Secrets: secrets stored in Dockerfile ENV, ARG, or image layers"
+    match_strategy: cis_docker_review
+    description: >-
+      Secrets stored in Dockerfile ENV instructions are baked into every image layer and are
+      visible in plain text via docker inspect, docker history, and registry pulls. Secrets passed
+      as build ARGs appear in docker history. Both patterns make secrets permanently retrievable
+      by anyone with access to the image. CIS covers secrets at the daemon level; this rule targets
+      Dockerfile authoring patterns that embed secrets in image layers.
+    owasp_docker_top10: "D06"
+    patterns:
+      - "ENV.*PASSWORD"
+      - "ENV.*SECRET"
+      - "ENV.*API_KEY"
+      - "ENV.*TOKEN"
+      - "ENV.*PRIVATE_KEY"
+      - "ENV.*ACCESS_KEY"
+      - "ARG.*PASSWORD"
+      - "ARG.*SECRET"
+      - "ARG.*API_KEY"
+      - "ARG.*TOKEN"
+      - "COPY.*\\.env"
+      - "ADD.*\\.env"
+    evidence_examples:
+      - "ENV DB_PASSWORD=mysecret123 in Dockerfile — stored in every layer"
+      - "ARG API_KEY passed during build — visible in docker history"
+      - "COPY .env . copies secret file into the image"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Never store secrets in ENV or ARG instructions. Use Docker secrets for Swarm, Kubernetes
+      Secrets backed by an external store, or a secrets manager (Vault, AWS Secrets Manager,
+      Azure Key Vault). Use BuildKit RUN --mount=type=secret to inject secrets at build time
+      without leaking them into image layers. Rotate any secret previously embedded in a
+      Dockerfile or image.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D07
+    severity: High
+    category: OWASP Docker Top 10
+    name: "D07 – Resource Protection: no CPU or memory limits configured on containers"
+    match_strategy: cis_docker_review
+    description: >-
+      Docker containers share the host's CPU and memory without limits by default. A software
+      failure or deliberate denial-of-service can exhaust host resources, causing all containers
+      and host services to become unavailable. The OOM killer may terminate critical non-offending
+      processes instead of the offending container. CIS checks for cgroup usage confirmation;
+      this rule adds explicit patterns for missing memory and CPU limit declarations in Compose
+      and Kubernetes specs.
+    owasp_docker_top10: "D07"
+    patterns:
+      - "mem_limit:\\s*0"
+      - "memory:\\s*0"
+      - "cpus:\\s*0"
+    evidence_examples:
+      - "docker-compose.yml service has no mem_limit or deploy.resources.limits"
+      - "docker run without --memory or --cpu-shares flags"
+      - "Kubernetes pod spec missing resources.limits.memory and resources.limits.cpu"
+      - "docker stats shows container consuming 100% of host memory"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Set explicit memory and CPU limits on every container. In Compose, use
+      deploy.resources.limits.memory and deploy.resources.limits.cpus. In docker run, use
+      --memory (hard limit), --memory-reservation (soft limit), and --cpus. In Kubernetes,
+      set resources.limits.memory and resources.limits.cpu on every container spec. Enable
+      resource quota enforcement at the namespace level in Kubernetes.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D08
+    severity: High
+    category: OWASP Docker Top 10
+    name: "D08 – Container Image Integrity: floating image tags without digest pinning or content trust"
+    match_strategy: cis_docker_review
+    description: >-
+      Container images pulled by name and tag are mutable — the registry can serve different
+      content for the same tag, enabling a registry compromise or tag reassignment to silently
+      inject malicious code. SHA256 digest pinning and image signing (Docker Content Trust,
+      Cosign, Sigstore) provide cryptographic guarantees of image integrity. CIS covers
+      DOCKER_CONTENT_TRUST; this rule adds digest pinning patterns and supply chain provenance
+      checks not in CIS.
+    owasp_docker_top10: "D08"
+    patterns:
+      - "DOCKER_CONTENT_TRUST=0"
+      - "DOCKER_CONTENT_TRUST=false"
+      - "--disable-content-trust"
+    evidence_examples:
+      - "FROM node:20-alpine — tag is mutable; pin with @sha256: digest"
+      - "DOCKER_CONTENT_TRUST=0 in CI pipeline disables signature verification"
+      - "docker pull --disable-content-trust skips image signature check"
+      - "No image signing in the release pipeline (Cosign, Notary)"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Pin all base images by SHA256 digest in Dockerfile (FROM python:3.12-slim@sha256:...).
+      Set DOCKER_CONTENT_TRUST=1 in all environments. Sign released images with Cosign or
+      Notary and enforce signature verification at deployment via admission controllers
+      (Kyverno, OPA Gatekeeper). Use a private registry with immutable tags and mandatory
+      signature policy. Include SBOM generation and attestation in the CI/CD pipeline.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D09
+    severity: Medium
+    category: OWASP Docker Top 10
+    name: "D09 – Immutable Paradigm: container filesystem is writable or modified at runtime"
+    match_strategy: cis_docker_review
+    description: >-
+      Treating containers as immutable (no runtime modifications, read-only root filesystem)
+      limits an attacker's ability to establish persistence, install tools, or exfiltrate data
+      after container breakin. A writable container filesystem allows an attacker with code
+      execution to install backdoors or modify application code. CIS covers the --read-only
+      flag; this rule adds Kubernetes readOnlyRootFilesystem and runtime-modification patterns.
+    owasp_docker_top10: "D09"
+    patterns:
+      - "readOnlyRootFilesystem:\\s*false"
+      - "read_only:\\s*false"
+      - "RUN.*chmod.*777"
+      - "RUN.*chmod.*a\\+w"
+      - "docker exec.*install"
+      - "docker exec.*apt-get"
+      - "docker exec.*apk"
+    evidence_examples:
+      - "Kubernetes container spec has readOnlyRootFilesystem: false"
+      - "docker-compose.yml missing read_only: true on container"
+      - "CI pipeline uses docker exec to modify a running container"
+      - "RUN chmod 777 makes directories world-writable in the final image"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Set readOnlyRootFilesystem: true in all Kubernetes container specs. Use --read-only
+      in docker run. Mount tmpfs volumes for paths the application must write at runtime
+      (/tmp, /var/run). Use Kubernetes emptyDir or PersistentVolume mounts for legitimate
+      writable paths. Never use docker exec to install packages or modify a running production
+      container — rebuild and redeploy the image instead.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"
+
+  - id: DTOP-D10
+    severity: Medium
+    category: OWASP Docker Top 10
+    name: "D10 – Logging: no logging driver configured or logging driver set to none"
+    match_strategy: cis_docker_review
+    description: >-
+      Containers without a configured logging driver produce logs only to the local Docker daemon,
+      which are lost on container restart and provide no visibility for security monitoring or
+      incident response. Setting the logging driver to none silences all container output. CIS
+      covers logging driver configuration at the daemon level; this rule adds application-level
+      and Compose-level logging configuration checks.
+    owasp_docker_top10: "D10"
+    patterns:
+      - "log-driver:\\s*none"
+      - "logging:\\s*driver:\\s*none"
+      - "--log-driver=none"
+      - "--log-driver none"
+    evidence_examples:
+      - "docker run --log-driver=none disables all container logging"
+      - "docker-compose.yml sets logging.driver: none"
+      - "/etc/docker/daemon.json has log-driver: none"
+      - "No centralized log aggregation configured (Fluentd, Logstash, Splunk)"
+    status_values:
+      - Pass
+      - Partial
+      - Fail
+      - Unknown
+      - Not Applicable
+    remediation: >-
+      Configure the Docker daemon with a production logging driver in /etc/docker/daemon.json:
+      json-file with log rotation for local development, or a centralized driver (fluentd,
+      awslogs, splunk, gelf) for production. Set log-opts max-size and max-file to prevent
+      log files from filling the host. Aggregate container logs to a SIEM for security
+      monitoring. Never set log-driver to none in any environment.
+    source:
+      standard: "OWASP Docker Top 10"
+      url: "https://owasp.org/www-project-docker-top-10/"

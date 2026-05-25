@@ -1,0 +1,186 @@
+version: "1.0"
+
+source:
+  standard: "Security Headers Scan"
+  focus: "HTTP security headers, cookie flags, browser protections, CORS, CSP, HSTS, and response hardening"
+
+rules:
+  - id: SHD-001
+    severity: High
+    category: "HSTS"
+    name: "Require Strict-Transport-Security"
+    match_strategy: header_hsts
+    description: >-
+      Identify missing or weak HSTS on HTTPS applications.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set Strict-Transport-Security with adequate max-age, includeSubDomains where safe, and preload when appropriate.
+
+  - id: SHD-002
+    severity: High
+    category: "CSP"
+    name: "Require a restrictive Content-Security-Policy"
+    match_strategy: header_csp
+    description: >-
+      Identify missing or overly permissive CSP such as unsafe-inline or wildcard script sources.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Deploy a restrictive CSP and remove unsafe script/style allowances where possible.
+
+  - id: SHD-003
+    severity: High
+    category: "Clickjacking"
+    name: "Prevent framing"
+    match_strategy: header_frame
+    description: >-
+      Identify missing X-Frame-Options or frame-ancestors for sensitive pages.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use CSP frame-ancestors and/or X-Frame-Options DENY/SAMEORIGIN.
+
+  - id: SHD-004
+    severity: Medium
+    category: "MIME Sniffing"
+    name: "Disable content sniffing"
+    match_strategy: header_nosniff
+    description: >-
+      Identify missing X-Content-Type-Options on browser content.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set X-Content-Type-Options: nosniff.
+
+  - id: SHD-005
+    severity: Medium
+    category: "Referrer Policy"
+    name: "Limit referrer leakage"
+    match_strategy: header_referrer
+    description: >-
+      Identify missing or permissive Referrer-Policy.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set strict-origin-when-cross-origin or stricter based on app needs.
+
+  - id: SHD-006
+    severity: High
+    category: "Cookies"
+    name: "Require secure cookie attributes"
+    match_strategy: header_cookie_flags
+    description: >-
+      Identify session or sensitive cookies missing Secure, HttpOnly, SameSite, or appropriate scope.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set Secure, HttpOnly, SameSite, and narrow Domain/Path attributes.
+
+  - id: SHD-007
+    severity: High
+    category: "CORS"
+    name: "Detect permissive CORS"
+    match_strategy: header_cors
+    description: >-
+      Identify wildcard/reflected origins, broad methods, or credentials with permissive origins.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use explicit origin allowlists and avoid credentialed broad CORS.
+
+  - id: SHD-008
+    severity: Medium
+    category: "Permissions Policy"
+    name: "Restrict browser features"
+    match_strategy: header_permissions_policy
+    description: >-
+      Identify missing Permissions-Policy on sensitive apps.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Disable unneeded browser capabilities such as camera, microphone, geolocation, and payment.
+
+  - id: SHD-009
+    severity: Medium
+    category: "Cache Control"
+    name: "Prevent sensitive response caching"
+    match_strategy: header_cache_sensitive
+    description: >-
+      Identify sensitive authenticated responses without no-store/private caching directives.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set Cache-Control: no-store for sensitive responses.
+
+  - id: SHD-010
+    severity: Low
+    category: "Legacy XSS Header"
+    name: "Avoid relying on X-XSS-Protection"
+    match_strategy: header_xss_protection
+    description: >-
+      Identify reliance on deprecated X-XSS-Protection as primary XSS defense.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Use CSP and output encoding; set X-XSS-Protection to 0 if needed to avoid browser quirks.
+
+  - id: SHD-011
+    severity: Medium
+    category: "COOP/COEP/CORP"
+    name: "Review cross-origin isolation headers"
+    match_strategy: header_cross_origin_isolation
+    description: >-
+      Identify missing cross-origin isolation where SharedArrayBuffer or sensitive embedding protections are needed.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Set COOP, COEP, and CORP according to application compatibility.
+
+  - id: SHD-012
+    severity: Medium
+    category: "Server Disclosure"
+    name: "Reduce server and framework disclosure"
+    match_strategy: header_server_disclosure
+    description: >-
+      Identify verbose Server, X-Powered-By, or framework headers.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Remove or minimize technology disclosure headers.

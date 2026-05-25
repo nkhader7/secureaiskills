@@ -1,0 +1,156 @@
+version: "1.0"
+
+source:
+  standard: "SBOM Generation"
+  focus: "SPDX, CycloneDX, dependency inventory, package URLs, image SBOMs, licensing, and component metadata"
+
+rules:
+  - id: SBOM-001
+    severity: High
+    category: "Format"
+    name: "Emit SPDX or CycloneDX SBOM"
+    match_strategy: sbom_format
+    description: >-
+      Ensure output uses a standard SBOM format instead of informal dependency lists.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Generate CycloneDX or SPDX JSON unless the user requests another format.
+
+  - id: SBOM-002
+    severity: High
+    category: "Component Identity"
+    name: "Include package name, version, ecosystem, and purl"
+    match_strategy: sbom_component_identity
+    description: >-
+      Identify components missing stable identity fields.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Include name, version, package URL, ecosystem, supplier, and source path.
+
+  - id: SBOM-003
+    severity: Medium
+    category: "Direct/Transitive"
+    name: "Record dependency relationships"
+    match_strategy: sbom_relationships
+    description: >-
+      Identify SBOMs without direct/transitive or dependsOn relationships.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Include dependency graph relationships where tooling supports them.
+
+  - id: SBOM-004
+    severity: High
+    category: "Container Image"
+    name: "Generate SBOMs for container image OS packages"
+    match_strategy: sbom_container
+    description: >-
+      Identify container artifacts without OS package inventory.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Generate image SBOMs with OS and application packages.
+
+  - id: SBOM-005
+    severity: Medium
+    category: "Licenses"
+    name: "Include license metadata"
+    match_strategy: sbom_license
+    description: >-
+      Identify missing or ambiguous license fields.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Include declared and detected licenses and flag unknown licenses.
+
+  - id: SBOM-006
+    severity: Medium
+    category: "Hashes"
+    name: "Include hashes for artifacts and packages"
+    match_strategy: sbom_hashes
+    description: >-
+      Identify missing checksums or digests.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Include hashes for files, packages, and container images when available.
+
+  - id: SBOM-007
+    severity: High
+    category: "Release Attachment"
+    name: "Attach SBOM to release artifacts"
+    match_strategy: sbom_release
+    description: >-
+      Identify releases without SBOM artifacts or links.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Publish SBOMs alongside release artifacts and container images.
+
+  - id: SBOM-008
+    severity: Medium
+    category: "Freshness"
+    name: "Regenerate SBOM during build"
+    match_strategy: sbom_freshness
+    description: >-
+      Identify stale SBOMs not generated from current lockfiles or image digests.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Generate SBOMs during CI from the exact release artifact.
+
+  - id: SBOM-009
+    severity: Medium
+    category: "VEX Link"
+    name: "Support VEX or vulnerability status links"
+    match_strategy: sbom_vex
+    description: >-
+      Identify no way to record vulnerability applicability decisions.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Attach VEX or equivalent vulnerability status documents where needed.
+
+  - id: SBOM-010
+    severity: Info
+    category: "Validation"
+    name: "Validate SBOM schema"
+    match_strategy: sbom_validation
+    description: >-
+      Identify SBOMs that do not validate against their declared schema.
+    evidence_examples:
+      - Source code
+      - API routes/controllers
+      - Tests or security assertions
+      - Configuration files
+    remediation: >-
+      Validate generated SBOMs before publication.
