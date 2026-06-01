@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: Skill Fixture API
+  version: 0.0.1
+paths:
+  /users/{id}:
+    get:
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User by ID without object authorization
+  /admin/users/{id}:
+    post:
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: x-tenant-id
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Admin role update without declared authorization

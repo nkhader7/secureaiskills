@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SecureAI Skill Format Benchmark</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5d6875;
+      --line: #d7dee8;
+      --soft: #f6f8fb;
+      --green: #13805f;
+      --blue: #2f65b8;
+      --teal: #08788c;
+      --amber: #a86600;
+      --red: #b44646;
+      --violet: #6952b8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 22px 28px 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    main {
+      padding: 22px 28px 36px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .metric {
+      min-height: 94px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--soft);
+      padding: 14px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 8px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, .8fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    section {
+      margin-bottom: 22px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      padding: 18px;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .chart {
+      min-height: 300px;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .chart-title {
+      font-size: 16px;
+      font-weight: 700;
+      fill: var(--ink);
+    }
+
+    .axis-label,
+    .value-label {
+      font-size: 12px;
+      fill: var(--muted);
+    }
+
+    .grid-line {
+      stroke: #e7ebf0;
+      stroke-width: 1;
+    }
+
+    .bar-0 {
+      fill: var(--green);
+    }
+
+    .bar-1 {
+      fill: var(--blue);
+    }
+
+    .bar-2 {
+      fill: var(--teal);
+    }
+
+    .bar-3 {
+      fill: var(--amber);
+    }
+
+    .bar-4 {
+      fill: var(--red);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    th {
+      background: var(--soft);
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    td:first-child,
+    th:first-child {
+      white-space: normal;
+    }
+
+    .structure {
+      display: grid;
+      gap: 10px;
+    }
+
+    .structure-item {
+      border-left: 4px solid var(--blue);
+      padding: 8px 0 8px 12px;
+    }
+
+    .structure-item strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .structure-item span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .callout {
+      border-left: 4px solid var(--green);
+      padding-left: 12px;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    @media (max-width: 1040px) {
+      .layout,
+      .chart-grid,
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      header,
+      main {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .panel {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SecureAI Skill Format Benchmark</h1>
+    <p>Detect-secrets packaged as Markdown, YAML, TOML, JSON, and XML, then scanned against the same test project fixture.</p>
+  </header>
+
+  <main>
+    <div class="metrics" id="metrics"></div>
+
+    <div class="layout">
+      <div>
+        <section class="panel">
+          <div class="chart-grid">
+            <div class="chart" id="runtimeChart"></div>
+            <div class="chart" id="sizeChart"></div>
+            <div class="chart" id="parseChart"></div>
+            <div class="chart" id="qualityChart"></div>
+          </div>
+          <div class="legend" id="legend"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Benchmark Results</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Format</th>
+                <th>Package</th>
+                <th>Total ms</th>
+                <th>Parse ms</th>
+                <th>Scan ms</th>
+                <th>Size</th>
+                <th>Signals</th>
+                <th>Findings</th>
+              </tr>
+            </thead>
+            <tbody id="resultRows"></tbody>
+          </table>
+        </section>
+      </div>
+
+      <aside>
+        <section class="panel">
+          <h2>Best Structure</h2>
+          <div class="callout">
+            <strong>Use Markdown with YAML frontmatter for authoring.</strong>
+            <p>Keep rules and report templates external. JSON/XML can be fast generated exchange formats, but they are weaker for human review and maintenance.</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Security Skill Layout</h2>
+          <div class="structure" id="structure"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Method</h2>
+          <p>The benchmark parses each skill package, compiles regex rules, scans <code>src/app.js</code> and <code>.env.example</code>, and compares the expected secret signals.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const benchmark = {
+      generatedAt: "2026-05-31T23:00:31.376401+00:00",
+      results: [
+        { format: "MD", label: "Markdown + YAML frontmatter", fileName: "detect-secrets.skill.md", bytes: 2408, totalMs: 233.508, parseMs: 214.112, scanMs: 13.162, signalsPresent: 3, expectedSignals: 3, findings: 442, qualityScore: 95.6 },
+        { format: "YAML", label: "YAML", fileName: "detect-secrets.skill.yaml", bytes: 286948, totalMs: 224.589, parseMs: 210.527, scanMs: 12.924, signalsPresent: 3, expectedSignals: 3, findings: 442, qualityScore: 66.4 },
+        { format: "TOML", label: "TOML", fileName: "detect-secrets.skill.toml", bytes: 256754, totalMs: 37.128, parseMs: 23.025, scanMs: 13.064, signalsPresent: 3, expectedSignals: 3, findings: 442, qualityScore: 61.7 },
+        { format: "JSON", label: "JSON", fileName: "detect-secrets.skill.json", bytes: 352947, totalMs: 14.759, parseMs: 0.829, scanMs: 12.912, signalsPresent: 3, expectedSignals: 3, findings: 442, qualityScore: 52.3 },
+        { format: "XML", label: "XML", fileName: "detect-secrets.skill.xml", bytes: 242748, totalMs: 16.275, parseMs: 2.306, scanMs: 13.008, signalsPresent: 3, expectedSignals: 3, findings: 442, qualityScore: 47.8 }
+      ],
+      structure: [
+        ["SKILL.md", "Human-readable name, description, triggers, references, orchestration, usage, evidence rules, and false-positive handling."],
+        ["references/rules.yaml", "Versioned rule catalog with IDs, severity, category, patterns, sources, and remediation."],
+        ["references/report-template.md", "Stable report contract with summary, evidence rows, remediation, references, and no-findings state."],
+        ["tests or fixture manifest", "Positive and negative cases with expected signals and target paths."],
+        ["results", "Generated JSON and dashboard HTML, not hand-maintained evidence."]
+      ]
+    };
+
+    const colors = ["#13805f", "#2f65b8", "#08788c", "#a86600", "#b44646"];
+    const formatNumber = new Intl.NumberFormat("en-US");
+
+    function metric(label, value) {
+      return `<div class="metric"><span>${label}</span><strong>${value}</strong></div>`;
+    }
+
+    function barChart(rows, metricName, title, suffix, decimals = 1) {
+      const width = 760;
+      const height = 310;
+      const left = 148;
+      const top = 48;
+      const barHeight = 32;
+      const gap = 18;
+      const maxValue = Math.max(...rows.map(row => row[metricName])) || 1;
+      const grid = [0.25, 0.5, 0.75, 1].map(step => {
+        const x = left + step * (width - left - 100);
+        return `<line x1="${x}" y1="${top - 8}" x2="${x}" y2="${height - 20}" class="grid-line"></line>`;
+      }).join("");
+      const bars = rows.map((row, index) => {
+        const y = top + index * (barHeight + gap);
+        const value = row[metricName];
+        const barWidth = Math.max(2, (value / maxValue) * (width - left - 100));
+        const label = decimals === 0 ? formatNumber.format(Math.round(value)) : value.toFixed(decimals);
+        return `
+          <text x="0" y="${y + 21}" class="axis-label">${row.format}</text>
+          <rect x="${left}" y="${y}" width="${barWidth}" height="${barHeight}" rx="4" class="bar-${index}"></rect>
+          <text x="${left + barWidth + 10}" y="${y + 21}" class="value-label">${label}${suffix}</text>
+        `;
+      }).join("");
+      return `
+        <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${title}">
+          <text x="0" y="22" class="chart-title">${title}</text>
+          ${grid}
+          ${bars}
+        </svg>
+      `;
+    }
+
+    const fastest = [...benchmark.results].sort((a, b) => a.totalMs - b.totalMs)[0];
+    const smallest = [...benchmark.results].sort((a, b) => a.bytes - b.bytes)[0];
+    const best = [...benchmark.results].sort((a, b) => b.qualityScore - a.qualityScore)[0];
+    const signals = `${best.signalsPresent}/${best.expectedSignals}`;
+
+    document.getElementById("metrics").innerHTML = [
+      metric("Best structure", best.label),
+      metric("Fastest runtime", `${fastest.format} ${fastest.totalMs.toFixed(1)} ms`),
+      metric("Smallest package", `${smallest.format} ${formatNumber.format(smallest.bytes)} bytes`),
+      metric("Fixture recall", `${signals} signals`)
+    ].join("");
+
+    document.getElementById("runtimeChart").innerHTML = barChart(
+      [...benchmark.results].sort((a, b) => a.totalMs - b.totalMs),
+      "totalMs",
+      "Mean Total Runtime",
+      " ms"
+    );
+    document.getElementById("sizeChart").innerHTML = barChart(
+      [...benchmark.results].sort((a, b) => a.bytes - b.bytes),
+      "bytes",
+      "Serialized Package Size",
+      " bytes",
+      0
+    );
+    document.getElementById("parseChart").innerHTML = barChart(
+      [...benchmark.results].sort((a, b) => a.parseMs - b.parseMs),
+      "parseMs",
+      "Parser Overhead",
+      " ms"
+    );
+    document.getElementById("qualityChart").innerHTML = barChart(
+      [...benchmark.results].sort((a, b) => b.qualityScore - a.qualityScore),
+      "qualityScore",
+      "Authoring Fitness Score",
+      ""
+    );
+
+    document.getElementById("legend").innerHTML = benchmark.results.map((row, index) => (
+      `<span><i class="swatch" style="background:${colors[index]}"></i>${row.format}</span>`
+    )).join("");
+
+    document.getElementById("resultRows").innerHTML = benchmark.results.map(row => `
+      <tr>
+        <td>${row.label}</td>
+        <td>${row.fileName}</td>
+        <td>${row.totalMs.toFixed(3)}</td>
+        <td>${row.parseMs.toFixed(3)}</td>
+        <td>${row.scanMs.toFixed(3)}</td>
+        <td>${formatNumber.format(row.bytes)}</td>
+        <td>${row.signalsPresent}/${row.expectedSignals}</td>
+        <td>${formatNumber.format(row.findings)}</td>
+      </tr>
+    `).join("");
+
+    document.getElementById("structure").innerHTML = benchmark.structure.map(([name, detail]) => `
+      <div class="structure-item">
+        <strong>${name}</strong>
+        <span>${detail}</span>
+      </div>
+    `).join("");
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+version: "1.0"
+default_match_strategy: regex
+
+rules:
+  - id: XML-001
+    severity: High
+    category: XML Parser
+    name: External Entity Declaration
+    description: XML document declares an external entity that can enable XXE.
+    cwe:
+      - 611
+    patterns:
+      - '<!ENTITY\s+[^>]+SYSTEM\s+["''][^"'']+["'']'
+      - '<!DOCTYPE\s+[^>]+\['
+    remediation: Disable external entity resolution and remove external entity declarations.
+
+  - id: XML-002
+    severity: High
+    category: Secrets
+    name: Plaintext Secret Element
+    description: XML contains secret-looking elements or attributes with inline values.
+    cwe:
+      - 798
+    patterns:
+      - '<(password|secret|token|apiKey|clientSecret)>[^<]{12,}</'
+      - '(password|secret|token|apiKey|clientSecret)=["''][^"'']{12,}["'']'
+    remediation: Store secrets in a secret manager and reference them outside the XML document.
+
+  - id: XML-003
+    severity: Medium
+    category: Transport Security
+    name: Secure Transport Disabled
+    description: XML security constraints do not require confidential transport.
+    cwe:
+      - 319
+    patterns:
+      - '<transport-guarantee>\s*NONE\s*</transport-guarantee>'
+      - '<ssl-enabled>\s*false\s*</ssl-enabled>'
+    remediation: Require confidential transport and TLS for protected resources.
+
+  - id: XML-004
+    severity: Medium
+    category: Authentication
+    name: Security Constraint Disabled
+    description: XML configuration disables or weakens authentication constraints.
+    cwe:
+      - 306
+    patterns:
+      - '<auth-method>\s*NONE\s*</auth-method>'
+      - '<security-enabled>\s*false\s*</security-enabled>'
+    remediation: Enforce authentication methods for protected routes and services.
+
+  - id: XML-005
+    severity: Low
+    category: Information Exposure
+    name: Debug Mode Enabled
+    description: XML configuration enables debug mode.
+    cwe:
+      - 489
+    patterns:
+      - '<debug>\s*true\s*</debug>'
+      - 'debug=["'']true["'']'
+    remediation: Disable debug mode in shared or production configuration.

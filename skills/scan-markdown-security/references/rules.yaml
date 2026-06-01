@@ -1,0 +1,66 @@
+version: "1.0"
+default_match_strategy: regex
+
+rules:
+  - id: MD-001
+    severity: High
+    category: Secrets
+    name: Credential in Documentation
+    description: Markdown includes secret-looking values or private key material.
+    cwe:
+      - 798
+    patterns:
+      - 'AKIA[0-9A-Z]{16}'
+      - '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'
+      - '(?i)\b(password|api[_-]?key|secret|token)\s*[:=]\s*[A-Za-z0-9_./+=-]{12,}'
+    remediation: Remove secrets from documentation and rotate exposed credentials.
+
+  - id: MD-002
+    severity: Medium
+    category: Transport Security
+    name: TLS Verification Disabled in Example
+    description: Markdown includes copy-paste commands that disable TLS verification.
+    cwe:
+      - 295
+    patterns:
+      - '\bcurl\b[^\r\n]*\s-k\b'
+      - '\bwget\b[^\r\n]*--no-check-certificate'
+      - '(?i)NODE_TLS_REJECT_UNAUTHORIZED=0'
+    remediation: Update examples to verify certificates and explain safe local-development alternatives.
+
+  - id: MD-003
+    severity: Medium
+    category: Supply Chain
+    name: Pipe to Shell Installer
+    description: Markdown instructs users to pipe remote code directly into a shell.
+    cwe:
+      - 494
+    patterns:
+      - '(curl|wget)[^\r\n]+\|\s*(bash|sh|pwsh|powershell)'
+    remediation: Download, verify, and execute pinned artifacts instead of piping remote code to a shell.
+
+  - id: MD-004
+    severity: Medium
+    category: Insecure Design
+    name: Missing Threat Model Evidence
+    description: Markdown explicitly states that threat modeling, abuse cases, or data classification are missing.
+    cwe:
+      - 1059
+    patterns:
+      - '(?i)threat boundaries are TBD'
+      - '(?i)no abuse cases'
+      - '(?i)no documented data classification'
+      - '(?i)threat model.*todo'
+    remediation: Complete threat modeling and document trust boundaries, abuse cases, and data classification.
+
+  - id: MD-005
+    severity: Low
+    category: Security Misconfiguration
+    name: Insecure Demo Credential
+    description: Markdown includes default or demo credentials that could be reused.
+    cwe:
+      - 1392
+    patterns:
+      - '(?i)(username|user):\s*admin'
+      - '(?i)(password|pass):\s*(admin|password|changeme|letmein)'
+    remediation: Remove default credentials or clearly scope them to disposable local-only fixtures.

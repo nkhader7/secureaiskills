@@ -1,0 +1,56 @@
+# scan-kubernetes-manifests fixture — RBAC misconfigurations
+# Intentionally vulnerable — do not deploy
+
+# CIS-K8S: ClusterRole with wildcard verbs and resources (admin equivalent)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: over-permissive-role
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+
+---
+# CIS-K8S: ClusterRoleBinding to system:masters group (bypasses RBAC entirely)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: insecure-binding
+subjects:
+  - kind: Group
+    name: system:masters
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# CIS-K8S: ServiceAccount with automount enabled (token injected into every pod)
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: over-privileged-sa
+automountServiceAccountToken: true
+
+---
+# CIS-K8S: Pod with no NetworkPolicy — accepts all ingress/egress
+apiVersion: v1
+kind: Pod
+metadata:
+  name: no-netpol-pod
+  labels:
+    app: vulnerable
+spec:
+  serviceAccountName: over-privileged-sa
+  automountServiceAccountToken: true
+  containers:
+    - name: app
+      image: nginx:latest        # unpinned tag
+      securityContext:
+        readOnlyRootFilesystem: false
+        allowPrivilegeEscalation: true
+        runAsNonRoot: false
+        runAsUser: 0
+      resources: {}              # no CPU/memory limits

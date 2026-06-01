@@ -1,0 +1,32 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "type": "library",
+      "name": "lodash",
+      "version": "4.17.20",
+      "purl": "pkg:npm/lodash@4.17.20",
+      "properties": [
+        { "name": "known_cve", "value": "CVE-2021-23337" }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minimist",
+      "version": "0.0.8",
+      "purl": "pkg:npm/minimist@0.0.8"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:npm/skill-fixture-vulnerable-app@0.0.1",
+      "dependsOn": ["pkg:npm/lodash@4.17.20", "pkg:npm/minimist@0.0.8"]
+    },
+    {
+      "ref": "pkg:npm/lodash@4.17.20",
+      "dependsOn": []
+    }
+  ]
+}

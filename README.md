@@ -50,6 +50,11 @@ skills/
 +-- scan-security-headers/
 +-- scan-api-security/
 +-- scan-static-analysis/
++-- scan-yaml-security/
++-- scan-json-security/
++-- scan-markdown-security/
++-- scan-xml-security/
++-- scan-toml-security/
 `-- audit-asvs-compliance/
 ```
 
@@ -87,6 +92,11 @@ Use these skills while code, infrastructure, containers, and dependencies are be
 - `scan-security-headers`
 - `scan-exception-handling`
 - `audit-logging-monitoring`
+- `scan-yaml-security`
+- `scan-json-security`
+- `scan-markdown-security`
+- `scan-xml-security`
+- `scan-toml-security`
 
 ## Current Skills
 
@@ -97,6 +107,11 @@ Use these skills while code, infrastructure, containers, and dependencies are be
 | [scan-iac-security](skills/scan-iac-security/SKILL.md) | `/scan-iac-security` | `IAC-` | 1746 | Ready |
 | [scan-api-security](skills/scan-api-security/SKILL.md) | `/scan-api-security` | `SA-` | 6 | Ready |
 | [scan-static-analysis](skills/scan-static-analysis/SKILL.md) | `/scan-static-analysis` | `SAS-` | 30 | Ready |
+| [scan-yaml-security](skills/scan-yaml-security/SKILL.md) | `/scan-yaml-security` | `YAML-` | 5 | Ready |
+| [scan-json-security](skills/scan-json-security/SKILL.md) | `/scan-json-security` | `JSON-` | 5 | Ready |
+| [scan-markdown-security](skills/scan-markdown-security/SKILL.md) | `/scan-markdown-security` | `MD-` | 5 | Ready |
+| [scan-xml-security](skills/scan-xml-security/SKILL.md) | `/scan-xml-security` | `XML-` | 5 | Ready |
+| [scan-toml-security](skills/scan-toml-security/SKILL.md) | `/scan-toml-security` | `TOML-` | 5 | Ready |
 | [scan-container-image](skills/scan-container-image/SKILL.md) | `/scan-container-image` | `CIS-DOCKER-`, `DTOP-` | 128 | Ready |
 | [scan-kubernetes-manifests](skills/scan-kubernetes-manifests/SKILL.md) | `/scan-kubernetes-manifests` | `CIS-K8S-` | 131 | Ready |
 | [audit-asvs-compliance](skills/audit-asvs-compliance/SKILL.md) | `/audit-asvs-compliance` | `ASVS-` | 345 | Ready |
@@ -132,7 +147,7 @@ All skills are validated against a common checklist before being marked Ready. E
 | Remediation present | Every rule includes a `remediation:` field |
 | Template contract | `{{target}}`, `{{date}}`, `{{#each findings}}`, `{{#if no_findings}}` all present |
 
-**Current result: 21 / 21 skills pass all checks — 2,956 rules across all skills.**
+**Current result: 26 / 26 skills pass all checks — 2,981 rules across all skills.**
 
 ## Application Security Coverage
 
@@ -150,6 +165,8 @@ The current skill set maps to OWASP Top 10 2025 categories and supporting supply
 | A08 Software or Data Integrity Failures | `detect-supply-chain-risks`, `generate-sbom`, `scan-sca-dependencies` |
 | A09 Security Logging and Alerting Failures | `audit-logging-monitoring`, `scan-container-image`, `scan-kubernetes-manifests` |
 | A10 Mishandling of Exceptional Conditions | `scan-exception-handling`, `scan-api-security` |
+
+File-format skills add focused review for configuration and documentation formats that often carry security-critical settings: `scan-yaml-security`, `scan-json-security`, `scan-markdown-security`, `scan-xml-security`, and `scan-toml-security`.
 
 ### External Guidance Fit
 

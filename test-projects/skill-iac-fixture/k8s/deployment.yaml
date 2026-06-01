@@ -1,0 +1,70 @@
+# scan-iac-security fixture — Kubernetes deployment misconfigurations
+# Intentionally vulnerable — do not deploy
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulnerable-app
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vulnerable-app
+  template:
+    metadata:
+      labels:
+        app: vulnerable-app
+    spec:
+      # IAC-K8S-001: host namespace sharing
+      hostNetwork: true
+      hostPID: true
+      hostIPC: true
+
+      # IAC-K8S-002: running as root
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+
+      serviceAccountName: over-privileged-sa
+      automountServiceAccountToken: true    # IAC-K8S-003: token auto-mounted
+
+      containers:
+        - name: app
+          image: nginx:latest                # IAC-K8S-004: unpinned image tag
+          imagePullPolicy: Always
+
+          securityContext:
+            privileged: true                 # IAC-K8S-005: full host privilege
+            runAsNonRoot: false
+            runAsUser: 0
+            allowPrivilegeEscalation: true   # IAC-K8S-006
+            readOnlyRootFilesystem: false    # IAC-K8S-007
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_ADMIN
+                - SYS_PTRACE
+                - ALL                        # IAC-K8S-008: all capabilities added
+
+          ports:
+            - containerPort: 80
+
+          env:
+            - name: DB_PASSWORD
+              value: "hardcoded_k8s_secret"  # IAC-K8S-009: secret in env literal
+            - name: API_KEY
+              value: "k8s_api_key_12345678901234567890"
+
+          resources: {}                      # IAC-K8S-010: no resource limits
+
+          # IAC-K8S-011: liveness probe missing
+          # IAC-K8S-012: readiness probe missing
+
+      volumes:
+        - name: host-root
+          hostPath:
+            path: /                          # IAC-K8S-013: full host filesystem mounted
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock       # IAC-K8S-014: docker socket mounted

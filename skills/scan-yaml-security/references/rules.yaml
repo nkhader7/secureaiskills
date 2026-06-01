@@ -1,0 +1,64 @@
+version: "1.0"
+default_match_strategy: regex
+
+rules:
+  - id: YAML-001
+    severity: High
+    category: Authentication
+    name: Authentication Disabled
+    description: YAML configuration disables authentication or authorization controls.
+    cwe:
+      - 306
+    patterns:
+      - '(?i)\b(auth|authentication|authorization):\s*(false|disabled|none)\b'
+      - '(?i)\benableAuth:\s*false\b'
+    remediation: Enable authentication and authorization for non-public services.
+
+  - id: YAML-002
+    severity: High
+    category: Exposure
+    name: Wildcard Network Exposure
+    description: YAML configuration exposes a listener, origin, or host rule to every network.
+    cwe:
+      - 284
+    patterns:
+      - '0\.0\.0\.0/0'
+      - '(?i)\b(allowedOrigins|corsOrigins|hosts):\s*\[\s*["'']?\*["'']?\s*\]'
+      - '(?i)\bhost:\s*["'']?0\.0\.0\.0["'']?'
+    remediation: Restrict exposure to trusted CIDRs, origins, and hostnames.
+
+  - id: YAML-003
+    severity: High
+    category: Secrets
+    name: Plaintext Secret Value
+    description: YAML configuration contains secret-looking keys with inline plaintext values.
+    cwe:
+      - 798
+    patterns:
+      - '(?i)\b(password|passwd|api[_-]?key|secret|token):\s*["'']?[A-Za-z0-9_./+=-]{12,}'
+    remediation: Move secrets to a managed secret store and reference them by name.
+
+  - id: YAML-004
+    severity: Medium
+    category: Transport Security
+    name: TLS Verification Disabled
+    description: YAML configuration disables TLS verification or allows insecure transport.
+    cwe:
+      - 295
+    patterns:
+      - '(?i)\b(insecureSkipVerify|skipTlsVerify|verify_ssl|sslVerify):\s*(false|true)\b'
+      - '(?i)\btls:\s*(false|disabled)\b'
+    remediation: Require TLS and certificate verification for outbound and inbound connections.
+
+  - id: YAML-005
+    severity: Medium
+    category: Runtime Privilege
+    name: Privileged Runtime Configuration
+    description: YAML configuration enables privileged execution or root containers.
+    cwe:
+      - 250
+    patterns:
+      - '(?i)\bprivileged:\s*true\b'
+      - '(?i)\brunAsUser:\s*0\b'
+      - '(?i)\bhostNetwork:\s*true\b'
+    remediation: Disable privileged mode and run workloads as a non-root user.

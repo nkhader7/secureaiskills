@@ -1,0 +1,16 @@
+name: insecure-build
+
+on:
+  pull_request_target:
+
+permissions: write-all
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@v3
+      - run: curl -s https://example.invalid/install.sh | bash
+      - run: npm install
+      - run: docker build -t skill-fixture:latest .

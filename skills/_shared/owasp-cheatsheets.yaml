@@ -160,3 +160,235 @@ skill_mappings:
         - "https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Abuse_Case_Cheat_Sheet.md"
         - "https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.md"
         - "https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Business_Logic_Security_Cheat_Sheet.md"
+
+owasp_project_curation:
+  source:
+    name: "OWASP Project Inventory"
+    url: "https://owasp.org/projects/"
+  purpose: >-
+    Curated AppSec project references for the security skills in this
+    repository. Use only the rules, standards, test cases, and remediation
+    content that directly support application, API, cloud, container, supply
+    chain, AI, LLM, agentic, or SDLC security findings. Do not import broad
+    awareness, training, game, niche hardware, or unrelated domain content
+    unless a target application explicitly falls into that domain.
+  include_when:
+    - "The project provides AppSec requirements, verification criteria, testing procedures, or secure coding guidance."
+    - "The project maps cleanly to an existing skill's evidence model, rule IDs, or remediation language."
+    - "The project supports AI, LLM, agentic, MCP, API, supply chain, CI/CD, cloud, container, IaC, Kubernetes, browser, or web application security."
+  exclude_by_default:
+    - "Training-only, awareness-only, game, card, or intentionally vulnerable application projects."
+    - "Highly specialized domains such as drone, maritime, XR, Wi-Fi, OT, blockchain, mobile, IoT, embedded, payment, or desktop unless the reviewed target uses that domain."
+    - "Operational tooling that does not add reusable rules, review criteria, test cases, or remediation content for these skills."
+
+owasp_project_mappings:
+  audit-asvs-compliance:
+    - label: "Application security requirements and verification"
+      use: "Primary requirements catalog for application security control coverage and gap reporting."
+      urls:
+        - "https://owasp.org/www-project-application-security-verification-standard/"
+        - "https://owasp.org/www-project-top-ten/"
+        - "https://owasp.org/www-project-proactive-controls/"
+        - "https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/"
+
+  audit-auth-session-management:
+    - label: "Identity, authentication, session, and non-human identity risks"
+      use: "Use for authentication, session, token, service account, workload identity, and automated actor review criteria."
+      urls:
+        - "https://owasp.org/www-project-application-security-verification-standard/"
+        - "https://owasp.org/www-project-web-security-testing-guide/"
+        - "https://owasp.org/www-project-non-human-identities-top-10/"
+
+  audit-crypto-usage:
+    - label: "Cryptographic control verification"
+      use: "Use ASVS and secure coding guidance for storage, transport, key management, and password protection checks."
+      urls:
+        - "https://owasp.org/www-project-application-security-verification-standard/"
+        - "https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/"
+
+  audit-logging-monitoring:
+    - label: "Security logging, detection, and observability"
+      use: "Use for event logging, alerting, detection, and agent observability expectations."
+      urls:
+        - "https://owasp.org/www-project-application-security-verification-standard/"
+        - "https://owasp.org/www-project-appsensor/"
+        - "https://owasp.org/www-project-secure-logging-benchmark/"
+        - "https://owasp.org/www-project-agent-observability-standard/"
+
+  detect-secrets:
+    - label: "Secrets handling examples and validation"
+      use: "Use for hardcoded secret patterns, unsafe examples, and secure handling expectations."
+      urls:
+        - "https://owasp.org/www-project-wrongsecrets/"
+        - "https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/"
+
+  detect-supply-chain-risks:
+    - label: "Software supply chain, CI/CD, and provenance risks"
+      use: "Use for dependency trust, build integrity, CI/CD hardening, provenance, signing, and component risk rules."
+      urls:
+        - "https://owasp.org/www-project-open-source-software-top-10/"
+        - "https://owasp.org/www-project-top-10-ci-cd-security-risks/"
+        - "https://owasp.org/www-project-software-component-verification-standard/"
+        - "https://owasp.org/www-project-devsecops-guideline/"
+        - "https://owasp.org/www-project-devsecops-verification-standard/"
+
+  generate-dependency-graph:
+    - label: "Dependency graph and component relationship evidence"
+      use: "Use for component relationship, transitive dependency, and dependency risk evidence."
+      urls:
+        - "https://owasp.org/www-project-cyclonedx/"
+        - "https://owasp.org/www-project-dependency-track/"
+        - "https://owasp.org/www-project-open-source-software-top-10/"
+
+  generate-sbom:
+    - label: "SBOM and bill of materials standards"
+      use: "Use CycloneDX as the primary BOM format reference and component inventory model."
+      urls:
+        - "https://owasp.org/www-project-cyclonedx/"
+        - "https://owasp.org/www-project-software-component-verification-standard/"
+        - "https://owasp.org/www-project-dependency-track/"
+
+  scan-api-security:
+    - label: "API security risks and testing"
+      use: "Use for API object authorization, authentication, mass assignment, rate limits, inventory, and gateway controls."
+      urls:
+        - "https://owasp.org/www-project-api-security/"
+        - "https://owasp.org/www-project-web-security-testing-guide/"
+        - "https://owasp.org/www-project-secure-api-gateway-blueprint/"
+
+  scan-broken-access-control:
+    - label: "Authorization, object access, and business logic abuse"
+      use: "Use for authorization, IDOR/BOLA, privilege boundary, workflow abuse, and business logic review rules."
+      urls:
+        - "https://owasp.org/www-project-application-security-verification-standard/"
+        - "https://owasp.org/www-project-api-security/"
+        - "https://owasp.org/www-project-top-10-for-business-logic-abuse/"
+        - "https://owasp.org/www-project-web-security-testing-guide/"
+
+  scan-container-image:
+    - label: "Container and Docker security"
+      use: "Use for Dockerfile, image, runtime, privilege, package, and deployment hardening checks."
+      urls:
+        - "https://owasp.org/www-project-docker-top-10/"
+        - "https://owasp.org/www-project-devsecops-guideline/"
+        - "https://owasp.org/www-project-open-source-software-top-10/"
+
+  scan-exception-handling:
+    - label: "Error handling, resilience, and automated abuse"
+      use: "Use for exception safety, information leakage, failure mode, denial of service, and automated threat checks."
+      urls:
+        - "https://owasp.org/www-project-application-security-verification-standard/"
+        - "https://owasp.org/www-project-automated-threats-to-web-applications/"
+        - "https://owasp.org/www-project-web-security-testing-guide/"
+
+  scan-for-injection:
+    - label: "Injection testing and secure coding"
+      use: "Use for SQL, OS command, LDAP, NoSQL, template, expression, and unsafe interpreter usage checks."
+      urls:
+        - "https://owasp.org/www-project-web-security-testing-guide/"
+        - "https://owasp.org/www-project-code-review-guide/"
+        - "https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/"
+        - "https://owasp.org/www-project-top-ten/"
+
+  scan-for-ssrf:
+    - label: "Server-side request and external interaction risks"
+      use: "Use for outbound request controls, metadata service protection, allowlists, and URL parsing review."
+      urls:
+        - "https://owasp.org/www-project-web-security-testing-guide/"
+        - "https://owasp.org/www-project-application-security-verification-standard/"
+
+  scan-for-xss:
+    - label: "XSS, client-side, and browser security"
+      use: "Use for output encoding, DOM sinks, CSP, browser APIs, client-side risk, and frontend trust boundaries."
+      urls:
+        - "https://owasp.org/www-project-web-security-testing-guide/"
+        - "https://owasp.org/www-project-code-review-guide/"
+        - "https://owasp.org/www-project-top-10-client-side-security-risks/"
+        - "https://owasp.org/www-project-browser-security-project/"
+
+  scan-iac-security:
+    - label: "Cloud, infrastructure, and tenant isolation"
+      use: "Use for cloud architecture, IaC, exposed services, tenant isolation, and infrastructure attack surface checks."
+      urls:
+        - "https://owasp.org/www-project-infrastructure-security-testing-guide/"
+        - "https://owasp.org/www-project-cloud-tenant-isolation/"
+        - "https://owasp.org/www-project-attack-surface-management-top-10/"
+        - "https://owasp.org/www-project-devsecops-guideline/"
+
+  scan-kubernetes-manifests:
+    - label: "Kubernetes and cloud-native workload security"
+      use: "Use for workload identity, pod hardening, network policy, secrets, image, and cluster exposure checks."
+      urls:
+        - "https://owasp.org/www-project-devsecops-guideline/"
+        - "https://owasp.org/www-project-open-source-software-top-10/"
+        - "https://owasp.org/www-project-non-human-identities-top-10/"
+
+  scan-sca-dependencies:
+    - label: "Vulnerable component and OSS risk review"
+      use: "Use for dependency vulnerability, component lifecycle, malicious packages, unsupported software, and remediation ownership."
+      urls:
+        - "https://owasp.org/www-project-open-source-software-top-10/"
+        - "https://owasp.org/www-project-dependency-check/"
+        - "https://owasp.org/www-project-dependency-track/"
+        - "https://owasp.org/www-project-software-component-verification-standard/"
+
+  scan-security-headers:
+    - label: "HTTP header and browser-side hardening"
+      use: "Use for HSTS, CSP, clickjacking, MIME sniffing, referrer policy, permissions policy, cookies, and browser controls."
+      urls:
+        - "https://owasp.org/www-project-secure-headers/"
+        - "https://owasp.org/www-project-browser-security-project/"
+        - "https://owasp.org/www-project-top-10-client-side-security-risks/"
+
+  scan-static-analysis:
+    - label: "Secure code review and SAST-oriented remediation"
+      use: "Use for secure code review criteria, SAST finding triage, fix guidance, and language-specific secure coding checks."
+      urls:
+        - "https://owasp.org/www-project-code-review-guide/"
+        - "https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/"
+        - "https://owasp.org/www-project-secure-coding-playbook/"
+        - "https://owasp.org/www-project-consigliere-your-sast-fixing-advisor/"
+
+  threat-model-system:
+    - label: "Threat modeling, attack surface, and secure design"
+      use: "Use for assets, actors, trust boundaries, abuse cases, attack surface, safeguards, and design risk review."
+      urls:
+        - "https://owasp.org/www-project-threat-modeling/"
+        - "https://owasp.org/www-project-threat-modeling-playbook/"
+        - "https://owasp.org/www-project-threat-modelling-guide/"
+        - "https://owasp.org/www-project-rapid-developer-driven-threat-modeling/"
+        - "https://owasp.org/www-project-secure-by-design-framework/"
+        - "https://owasp.org/www-project-threat-and-safeguard-matrix/"
+        - "https://owasp.org/www-project-attack-surface-management-top-10/"
+
+candidate_appsec_skill_sources:
+  ai_llm_and_agentic_security:
+    suggested_skills:
+      - "scan-llm-app-security"
+      - "audit-agentic-workflows"
+      - "scan-mcp-security"
+      - "audit-ai-observability"
+    urls:
+      - "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      - "https://owasp.org/www-project-agentic-skills-top-10/"
+      - "https://owasp.org/www-project-mcp-top-10/"
+      - "https://owasp.org/www-project-agent-observability-standard/"
+      - "https://owasp.org/www-project-ai-testing-guide/"
+      - "https://owasp.org/www-project-artificial-intelligence-security-verification-standard-aisvs-docs/"
+      - "https://aivss.owasp.org/"
+      - "https://owasp.org/www-project-machine-learning-security-top-ten/"
+
+  privacy_and_data_security:
+    suggested_skills:
+      - "audit-data-security"
+      - "audit-privacy-risks"
+    urls:
+      - "https://owasp.org/www-project-data-security-top-10/"
+      - "https://owasp.org/www-project-top-10-privacy-risks/"
+      - "https://owasp.org/www-project-authoritative-privacy-reference-project/"
+
+  serverless_security:
+    suggested_skills:
+      - "scan-serverless-security"
+    urls:
+      - "https://owasp.org/www-project-serverless-top-10/"

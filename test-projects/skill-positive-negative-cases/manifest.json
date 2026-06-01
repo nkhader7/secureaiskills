@@ -1,0 +1,190 @@
+﻿{
+    "generated_at":  "2026-05-31T02:03:39-05:00",
+    "source_skills":  "skills",
+    "source_positive_fixture":  "test-projects/skill-fixture",
+    "case_count":  52,
+    "skills":  [
+                   {
+                       "skill":  "audit-asvs-compliance",
+                       "trigger":  "/audit-asvs-compliance",
+                       "positive":  "audit-asvs-compliance/positive.md",
+                       "negative":  "audit-asvs-compliance/negative.md",
+                       "expected_report":  "audit-asvs-compliance/report.md"
+                   },
+                   {
+                       "skill":  "audit-auth-session-management",
+                       "trigger":  "/audit-auth-session-management",
+                       "positive":  "audit-auth-session-management/positive.md",
+                       "negative":  "audit-auth-session-management/negative.md",
+                       "expected_report":  "audit-auth-session-management/report.md"
+                   },
+                   {
+                       "skill":  "audit-crypto-usage",
+                       "trigger":  "/audit-crypto-usage",
+                       "positive":  "audit-crypto-usage/positive.md",
+                       "negative":  "audit-crypto-usage/negative.md",
+                       "expected_report":  "audit-crypto-usage/report.md"
+                   },
+                   {
+                       "skill":  "audit-logging-monitoring",
+                       "trigger":  "/audit-logging-monitoring",
+                       "positive":  "audit-logging-monitoring/positive.md",
+                       "negative":  "audit-logging-monitoring/negative.md",
+                       "expected_report":  "audit-logging-monitoring/report.md"
+                   },
+                   {
+                       "skill":  "detect-secrets",
+                       "trigger":  "/detect-secrets",
+                       "positive":  "detect-secrets/positive.md",
+                       "negative":  "detect-secrets/negative.md",
+                       "expected_report":  "detect-secrets/report.md"
+                   },
+                   {
+                       "skill":  "detect-supply-chain-risks",
+                       "trigger":  "/detect-supply-chain-risks",
+                       "positive":  "detect-supply-chain-risks/positive.md",
+                       "negative":  "detect-supply-chain-risks/negative.md",
+                       "expected_report":  "detect-supply-chain-risks/report.md"
+                   },
+                   {
+                       "skill":  "generate-dependency-graph",
+                       "trigger":  "/generate-dependency-graph",
+                       "positive":  "generate-dependency-graph/positive.md",
+                       "negative":  "generate-dependency-graph/negative.md",
+                       "expected_report":  "generate-dependency-graph/report.md"
+                   },
+                   {
+                       "skill":  "generate-sbom",
+                       "trigger":  "/generate-sbom",
+                       "positive":  "generate-sbom/positive.md",
+                       "negative":  "generate-sbom/negative.md",
+                       "expected_report":  "generate-sbom/report.md"
+                   },
+                   {
+                       "skill":  "scan-api-security",
+                       "trigger":  "/scan-api-security",
+                       "positive":  "scan-api-security/positive.md",
+                       "negative":  "scan-api-security/negative.md",
+                       "expected_report":  "scan-api-security/report.md"
+                   },
+                   {
+                       "skill":  "scan-broken-access-control",
+                       "trigger":  "/scan-broken-access-control",
+                       "positive":  "scan-broken-access-control/positive.md",
+                       "negative":  "scan-broken-access-control/negative.md",
+                       "expected_report":  "scan-broken-access-control/report.md"
+                   },
+                   {
+                       "skill":  "scan-container-image",
+                       "trigger":  "/scan-container-image",
+                       "positive":  "scan-container-image/positive.md",
+                       "negative":  "scan-container-image/negative.md",
+                       "expected_report":  "scan-container-image/report.md"
+                   },
+                   {
+                       "skill":  "scan-exception-handling",
+                       "trigger":  "/scan-exception-handling",
+                       "positive":  "scan-exception-handling/positive.md",
+                       "negative":  "scan-exception-handling/negative.md",
+                       "expected_report":  "scan-exception-handling/report.md"
+                   },
+                   {
+                       "skill":  "scan-for-injection",
+                       "trigger":  "/scan-for-injection",
+                       "positive":  "scan-for-injection/positive.md",
+                       "negative":  "scan-for-injection/negative.md",
+                       "expected_report":  "scan-for-injection/report.md"
+                   },
+                   {
+                       "skill":  "scan-for-ssrf",
+                       "trigger":  "/scan-for-ssrf",
+                       "positive":  "scan-for-ssrf/positive.md",
+                       "negative":  "scan-for-ssrf/negative.md",
+                       "expected_report":  "scan-for-ssrf/report.md"
+                   },
+                   {
+                       "skill":  "scan-for-xss",
+                       "trigger":  "/scan-for-xss",
+                       "positive":  "scan-for-xss/positive.md",
+                       "negative":  "scan-for-xss/negative.md",
+                       "expected_report":  "scan-for-xss/report.md"
+                   },
+                   {
+                       "skill":  "scan-iac-security",
+                       "trigger":  "/scan-iac-security",
+                       "positive":  "scan-iac-security/positive.md",
+                       "negative":  "scan-iac-security/negative.md",
+                       "expected_report":  "scan-iac-security/report.md"
+                   },
+                   {
+                       "skill":  "scan-json-security",
+                       "trigger":  "/scan-json-security",
+                       "positive":  "scan-json-security/positive.md",
+                       "negative":  "scan-json-security/negative.md",
+                       "expected_report":  "scan-json-security/report.md"
+                   },
+                   {
+                       "skill":  "scan-kubernetes-manifests",
+                       "trigger":  "/scan-kubernetes-manifests",
+                       "positive":  "scan-kubernetes-manifests/positive.md",
+                       "negative":  "scan-kubernetes-manifests/negative.md",
+                       "expected_report":  "scan-kubernetes-manifests/report.md"
+                   },
+                   {
+                       "skill":  "scan-markdown-security",
+                       "trigger":  "/scan-markdown-security",
+                       "positive":  "scan-markdown-security/positive.md",
+                       "negative":  "scan-markdown-security/negative.md",
+                       "expected_report":  "scan-markdown-security/report.md"
+                   },
+                   {
+                       "skill":  "scan-sca-dependencies",
+                       "trigger":  "/scan-sca-dependencies",
+                       "positive":  "scan-sca-dependencies/positive.md",
+                       "negative":  "scan-sca-dependencies/negative.md",
+                       "expected_report":  "scan-sca-dependencies/report.md"
+                   },
+                   {
+                       "skill":  "scan-security-headers",
+                       "trigger":  "/scan-security-headers",
+                       "positive":  "scan-security-headers/positive.md",
+                       "negative":  "scan-security-headers/negative.md",
+                       "expected_report":  "scan-security-headers/report.md"
+                   },
+                   {
+                       "skill":  "scan-static-analysis",
+                       "trigger":  "/scan-static-analysis",
+                       "positive":  "scan-static-analysis/positive.md",
+                       "negative":  "scan-static-analysis/negative.md",
+                       "expected_report":  "scan-static-analysis/report.md"
+                   },
+                   {
+                       "skill":  "scan-toml-security",
+                       "trigger":  "/scan-toml-security",
+                       "positive":  "scan-toml-security/positive.md",
+                       "negative":  "scan-toml-security/negative.md",
+                       "expected_report":  "scan-toml-security/report.md"
+                   },
+                   {
+                       "skill":  "scan-xml-security",
+                       "trigger":  "/scan-xml-security",
+                       "positive":  "scan-xml-security/positive.md",
+                       "negative":  "scan-xml-security/negative.md",
+                       "expected_report":  "scan-xml-security/report.md"
+                   },
+                   {
+                       "skill":  "scan-yaml-security",
+                       "trigger":  "/scan-yaml-security",
+                       "positive":  "scan-yaml-security/positive.md",
+                       "negative":  "scan-yaml-security/negative.md",
+                       "expected_report":  "scan-yaml-security/report.md"
+                   },
+                   {
+                       "skill":  "threat-model-system",
+                       "trigger":  "/threat-model-system",
+                       "positive":  "threat-model-system/positive.md",
+                       "negative":  "threat-model-system/negative.md",
+                       "expected_report":  "threat-model-system/report.md"
+                   }
+               ]
+}

@@ -1,0 +1,61 @@
+version: "1.0"
+default_match_strategy: regex
+
+rules:
+  - id: JSON-001
+    severity: High
+    category: Authentication
+    name: Authentication Disabled
+    description: JSON configuration disables authentication, authorization, or token validation.
+    cwe:
+      - 306
+    patterns:
+      - '"(auth|authentication|authorization|validateToken)"\s*:\s*(false|null)'
+      - '"authMode"\s*:\s*"(none|disabled|anonymous)"'
+    remediation: Require authentication and token validation for protected resources.
+
+  - id: JSON-002
+    severity: Medium
+    category: Exposure
+    name: Permissive CORS Origins
+    description: JSON configuration allows every origin or host.
+    cwe:
+      - 942
+    patterns:
+      - '"(cors|allowedOrigins|origins)"\s*:\s*\[\s*"\*"'
+      - '"Access-Control-Allow-Origin"\s*:\s*"\*"'
+    remediation: Restrict origins to trusted domains.
+
+  - id: JSON-003
+    severity: High
+    category: Secrets
+    name: Plaintext Credential
+    description: JSON contains secret-looking keys with inline plaintext values.
+    cwe:
+      - 798
+    patterns:
+      - '"(password|apiKey|api_key|secret|token|clientSecret)"\s*:\s*"[A-Za-z0-9_./+=-]{12,}"'
+    remediation: Store credentials in a secret manager and reference them indirectly.
+
+  - id: JSON-004
+    severity: Medium
+    category: Transport Security
+    name: TLS Verification Disabled
+    description: JSON disables TLS or certificate verification.
+    cwe:
+      - 295
+    patterns:
+      - '"(rejectUnauthorized|verifySSL|sslVerify|tlsVerify)"\s*:\s*false'
+      - '"tls"\s*:\s*false'
+    remediation: Enable TLS verification and reject invalid certificates.
+
+  - id: JSON-005
+    severity: Medium
+    category: Supply Chain
+    name: Risky Lifecycle Script
+    description: JSON package metadata executes network-loaded code during install.
+    cwe:
+      - 829
+    patterns:
+      - '"(preinstall|install|postinstall)"\s*:\s*"[^"]*(curl|wget|Invoke-WebRequest|bash|sh)[^"]*"'
+    remediation: Remove install-time network execution or pin and verify the fetched artifact.

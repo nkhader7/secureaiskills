@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SecureAI Skill Format Benchmark</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #5b6572;
+      --line: #d7dde5;
+      --panel: #f7f9fb;
+      --green: #12805c;
+      --blue: #2764c5;
+      --red: #bd3b3b;
+      --amber: #a66100;
+      --teal: #08788c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+    }
+    header {
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    p { color: var(--muted); margin: 0; line-height: 1.5; }
+    main { padding: 22px 28px 36px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 14px;
+      background: var(--panel);
+      min-height: 92px;
+    }
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, .8fr);
+      gap: 22px;
+      align-items: start;
+    }
+    section {
+      margin-bottom: 24px;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 18px;
+      background: #fff;
+    }
+    .chart-title {
+      font-size: 16px;
+      font-weight: 700;
+      fill: var(--ink);
+    }
+    .axis-label, .value-label {
+      font-size: 13px;
+      fill: var(--muted);
+    }
+    .bar-0 { fill: var(--green); }
+    .bar-1 { fill: var(--blue); }
+    .bar-2 { fill: var(--amber); }
+    .bar-3 { fill: var(--teal); }
+    .bar-4 { fill: var(--red); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-weight: 700;
+      background: var(--panel);
+    }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 920px) {
+      .summary, .layout { grid-template-columns: 1fr; }
+      header, main { padding-left: 16px; padding-right: 16px; }
+      .panel { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Skill Format Benchmark: detect-secrets</h1>
+    <p>Generated 2026-05-31T23:00:31.376401+00:00. Each format carries the same skill content and scans the same fixture targets.</p>
+  </header>
+  <main>
+    <div class="summary">
+      <div class="metric"><span>Best structure</span><strong>Markdown + YAML frontmatter</strong></div>
+      <div class="metric"><span>Fastest runtime</span><strong>JSON 14.759 ms</strong></div>
+      <div class="metric"><span>Smallest package</span><strong>MD 2,408 bytes</strong></div>
+      <div class="metric"><span>Fixture recall</span><strong>3/3 signals</strong></div>
+    </div>
+    <div class="layout">
+      <div>
+        <section class="panel">
+          <svg viewBox="0 0 760 320" role="img" aria-label="Mean Total Runtime by Format">
+<text x="0" y="22" class="chart-title">Mean Total Runtime by Format</text>
+<text x="0" y="70" class="axis-label">JSON</text>
+<rect x="150" y="48" width="30.97" height="34" rx="4" class="bar bar-0"></rect>
+<text x="190.97" y="70" class="value-label">14.759 ms</text>
+<text x="0" y="122" class="axis-label">XML</text>
+<rect x="150" y="100" width="34.15" height="34" rx="4" class="bar bar-1"></rect>
+<text x="194.15" y="122" class="value-label">16.275 ms</text>
+<text x="0" y="174" class="axis-label">TOML</text>
+<rect x="150" y="152" width="77.91" height="34" rx="4" class="bar bar-2"></rect>
+<text x="237.91" y="174" class="value-label">37.128 ms</text>
+<text x="0" y="226" class="axis-label">YAML</text>
+<rect x="150" y="204" width="471.28" height="34" rx="4" class="bar bar-3"></rect>
+<text x="631.28" y="226" class="value-label">224.589 ms</text>
+<text x="0" y="278" class="axis-label">MD</text>
+<rect x="150" y="256" width="490.00" height="34" rx="4" class="bar bar-4"></rect>
+<text x="650.00" y="278" class="value-label">233.508 ms</text>
+</svg>
+          <p class="note">Runtime includes parsing the skill package, compiling regex patterns, and scanning the detect-secrets fixture targets.</p>
+        </section>
+        <section class="panel">
+          <svg viewBox="0 0 760 320" role="img" aria-label="Serialized Skill Size by Format">
+<text x="0" y="22" class="chart-title">Serialized Skill Size by Format</text>
+<text x="0" y="70" class="axis-label">MD</text>
+<rect x="150" y="48" width="3.34" height="34" rx="4" class="bar bar-0"></rect>
+<text x="163.34" y="70" class="value-label">2408 bytes</text>
+<text x="0" y="122" class="axis-label">XML</text>
+<rect x="150" y="100" width="337.01" height="34" rx="4" class="bar bar-1"></rect>
+<text x="497.01" y="122" class="value-label">242748 bytes</text>
+<text x="0" y="174" class="axis-label">TOML</text>
+<rect x="150" y="152" width="356.45" height="34" rx="4" class="bar bar-2"></rect>
+<text x="516.45" y="174" class="value-label">256754 bytes</text>
+<text x="0" y="226" class="axis-label">YAML</text>
+<rect x="150" y="204" width="398.37" height="34" rx="4" class="bar bar-3"></rect>
+<text x="558.37" y="226" class="value-label">286948 bytes</text>
+<text x="0" y="278" class="axis-label">JSON</text>
+<rect x="150" y="256" width="490.00" height="34" rx="4" class="bar bar-4"></rect>
+<text x="650.00" y="278" class="value-label">352947 bytes</text>
+</svg>
+        </section>
+        <section class="panel">
+          <h2>Benchmark Table</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Format</th><th>Bytes</th><th>Parse ms</th><th>Compile ms</th><th>Scan ms</th><th>Total ms</th><th>Findings</th><th>Signals</th>
+              </tr>
+            </thead>
+            <tbody><tr><td>Markdown + YAML frontmatter</td><td>2,408</td><td>214.112</td><td>6.234</td><td>13.162</td><td>233.508</td><td>442</td><td>3/3</td></tr>
+<tr><td>YAML</td><td>286,948</td><td>210.527</td><td>1.138</td><td>12.924</td><td>224.589</td><td>442</td><td>3/3</td></tr>
+<tr><td>TOML</td><td>256,754</td><td>23.025</td><td>1.039</td><td>13.064</td><td>37.128</td><td>442</td><td>3/3</td></tr>
+<tr><td>JSON</td><td>352,947</td><td>0.829</td><td>1.019</td><td>12.912</td><td>14.759</td><td>442</td><td>3/3</td></tr>
+<tr><td>XML</td><td>242,748</td><td>2.306</td><td>0.961</td><td>13.008</td><td>16.275</td><td>442</td><td>3/3</td></tr></tbody>
+          </table>
+        </section>
+      </div>
+      <aside>
+        <section class="panel">
+          <h2>Best Structure</h2>
+          <ul><li>SKILL.md: name, description, triggers, references, orchestration, usage, evidence rules, false-positive handling.</li>
+<li>references/rules.yaml: version, default_match_strategy, rule IDs, severity, category, patterns, source, remediation.</li>
+<li>references/report-template.md: required placeholders, summary table, evidence rows, remediation, references.</li>
+<li>tests or fixture manifest: positive and negative cases with expected signals and target paths.</li>
+<li>results: generated benchmark JSON and dashboard HTML, not hand-maintained evidence.</li></ul>
+        </section>
+        <section class="panel">
+          <h2>Recommendation</h2>
+          <ul><li>Keep SKILL.md as the human-readable orchestration contract with YAML frontmatter.</li>
+<li>Keep large rule sets in references/rules.yaml so rules can be validated, diffed, and shared independently.</li>
+<li>Keep report output in references/report-template.md to avoid mixing scanner logic with presentation.</li>
+<li>Use JSON or XML only for generated indexes or machine exchange; use TOML for small hand-edited configs.</li></ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <script type="application/json" id="benchmark-data">{&quot;generatedAt&quot;: &quot;2026-05-31T23:00:31.376401+00:00&quot;, &quot;benchmark&quot;: &quot;detect-secrets skill format packaging&quot;, &quot;targets&quot;: [&quot;src/app.js&quot;, &quot;.env.example&quot;], &quot;formats&quot;: [&quot;md&quot;, &quot;yaml&quot;, &quot;toml&quot;, &quot;json&quot;, &quot;xml&quot;], &quot;results&quot;: [{&quot;format&quot;: &quot;MD&quot;, &quot;label&quot;: &quot;Markdown + YAML frontmatter&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.md&quot;, &quot;bytes&quot;: 2408, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 214.112, &quot;compileMs&quot;: 6.234, &quot;scanMs&quot;: 13.162, &quot;totalMs&quot;: 233.508, &quot;p95TotalMs&quot;: 262.591}, {&quot;format&quot;: &quot;YAML&quot;, &quot;label&quot;: &quot;YAML&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.yaml&quot;, &quot;bytes&quot;: 286948, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 210.527, &quot;compileMs&quot;: 1.138, &quot;scanMs&quot;: 12.924, &quot;totalMs&quot;: 224.589, &quot;p95TotalMs&quot;: 227.862}, {&quot;format&quot;: &quot;TOML&quot;, &quot;label&quot;: &quot;TOML&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.toml&quot;, &quot;bytes&quot;: 256754, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 23.025, &quot;compileMs&quot;: 1.039, &quot;scanMs&quot;: 13.064, &quot;totalMs&quot;: 37.128, &quot;p95TotalMs&quot;: 37.426}, {&quot;format&quot;: &quot;JSON&quot;, &quot;label&quot;: &quot;JSON&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.json&quot;, &quot;bytes&quot;: 352947, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 0.829, &quot;compileMs&quot;: 1.019, &quot;scanMs&quot;: 12.912, &quot;totalMs&quot;: 14.759, &quot;p95TotalMs&quot;: 15.148}, {&quot;format&quot;: &quot;XML&quot;, &quot;label&quot;: &quot;XML&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.xml&quot;, &quot;bytes&quot;: 242748, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 2.306, &quot;compileMs&quot;: 0.961, &quot;scanMs&quot;: 13.008, &quot;totalMs&quot;: 16.275, &quot;p95TotalMs&quot;: 16.753}], &quot;recommendation&quot;: {&quot;bestFormat&quot;: &quot;Markdown + YAML frontmatter&quot;, &quot;bestFileName&quot;: &quot;detect-secrets.skill.md&quot;, &quot;fastestRuntimeFormat&quot;: &quot;JSON&quot;, &quot;fastestRuntimeMs&quot;: 14.759, &quot;smallestFormat&quot;: &quot;Markdown + YAML frontmatter&quot;, &quot;smallestBytes&quot;: 2408, &quot;rationale&quot;: [&quot;Keep SKILL.md as the human-readable orchestration contract with YAML frontmatter.&quot;, &quot;Keep large rule sets in references/rules.yaml so rules can be validated, diffed, and shared independently.&quot;, &quot;Keep report output in references/report-template.md to avoid mixing scanner logic with presentation.&quot;, &quot;Use JSON or XML only for generated indexes or machine exchange; use TOML for small hand-edited configs.&quot;], &quot;securitySkillStructure&quot;: [&quot;SKILL.md: name, description, triggers, references, orchestration, usage, evidence rules, false-positive handling.&quot;, &quot;references/rules.yaml: version, default_match_strategy, rule IDs, severity, category, patterns, source, remediation.&quot;, &quot;references/report-template.md: required placeholders, summary table, evidence rows, remediation, references.&quot;, &quot;tests or fixture manifest: positive and negative cases with expected signals and target paths.&quot;, &quot;results: generated benchmark JSON and dashboard HTML, not hand-maintained evidence.&quot;], &quot;ranked&quot;: [{&quot;format&quot;: &quot;MD&quot;, &quot;label&quot;: &quot;Markdown + YAML frontmatter&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.md&quot;, &quot;bytes&quot;: 2408, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 214.112, &quot;compileMs&quot;: 6.234, &quot;scanMs&quot;: 13.162, &quot;totalMs&quot;: 233.508, &quot;p95TotalMs&quot;: 262.591, &quot;qualityScore&quot;: 95.6}, {&quot;format&quot;: &quot;YAML&quot;, &quot;label&quot;: &quot;YAML&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.yaml&quot;, &quot;bytes&quot;: 286948, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 210.527, &quot;compileMs&quot;: 1.138, &quot;scanMs&quot;: 12.924, &quot;totalMs&quot;: 224.589, &quot;p95TotalMs&quot;: 227.862, &quot;qualityScore&quot;: 66.4}, {&quot;format&quot;: &quot;TOML&quot;, &quot;label&quot;: &quot;TOML&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.toml&quot;, &quot;bytes&quot;: 256754, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 23.025, &quot;compileMs&quot;: 1.039, &quot;scanMs&quot;: 13.064, &quot;totalMs&quot;: 37.128, &quot;p95TotalMs&quot;: 37.426, &quot;qualityScore&quot;: 61.7}, {&quot;format&quot;: &quot;JSON&quot;, &quot;label&quot;: &quot;JSON&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.json&quot;, &quot;bytes&quot;: 352947, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 0.829, &quot;compileMs&quot;: 1.019, &quot;scanMs&quot;: 12.912, &quot;totalMs&quot;: 14.759, &quot;p95TotalMs&quot;: 15.148, &quot;qualityScore&quot;: 52.3}, {&quot;format&quot;: &quot;XML&quot;, &quot;label&quot;: &quot;XML&quot;, &quot;fileName&quot;: &quot;detect-secrets.skill.xml&quot;, &quot;bytes&quot;: 242748, &quot;rules&quot;: 393, &quot;compiledPatterns&quot;: 400, &quot;invalidPatterns&quot;: 33, &quot;expectedSignals&quot;: 3, &quot;signalsPresent&quot;: 3, &quot;findings&quot;: 442, &quot;recall&quot;: 1.0, &quot;parseMs&quot;: 2.306, &quot;compileMs&quot;: 0.961, &quot;scanMs&quot;: 13.008, &quot;totalMs&quot;: 16.275, &quot;p95TotalMs&quot;: 16.753, &quot;qualityScore&quot;: 47.8}]}}</script>
+</body>
+</html>

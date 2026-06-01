@@ -1,0 +1,218 @@
+﻿{
+    "totals":  {
+                   "skillsValidated":  26,
+                   "skillsPassed":  26,
+                   "skillsFailed":  0,
+                   "rulesValidated":  2981
+               },
+    "results":  [
+                    {
+                        "skill":  "audit-asvs-compliance",
+                        "status":  "Pass",
+                        "ruleCount":  345,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-auth-session-management",
+                        "status":  "Pass",
+                        "ruleCount":  12,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-crypto-usage",
+                        "status":  "Pass",
+                        "ruleCount":  12,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "audit-logging-monitoring",
+                        "status":  "Pass",
+                        "ruleCount":  12,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "detect-secrets",
+                        "status":  "Pass",
+                        "ruleCount":  393,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "detect-supply-chain-risks",
+                        "status":  "Pass",
+                        "ruleCount":  20,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "generate-dependency-graph",
+                        "status":  "Pass",
+                        "ruleCount":  10,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "generate-sbom",
+                        "status":  "Pass",
+                        "ruleCount":  10,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-api-security",
+                        "status":  "Pass",
+                        "ruleCount":  6,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-broken-access-control",
+                        "status":  "Pass",
+                        "ruleCount":  12,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-container-image",
+                        "status":  "Pass",
+                        "ruleCount":  128,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-exception-handling",
+                        "status":  "Pass",
+                        "ruleCount":  10,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-injection",
+                        "status":  "Pass",
+                        "ruleCount":  7,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-ssrf",
+                        "status":  "Pass",
+                        "ruleCount":  8,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-for-xss",
+                        "status":  "Pass",
+                        "ruleCount":  12,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-iac-security",
+                        "status":  "Pass",
+                        "ruleCount":  1746,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "status":  "Pass",
+                        "ruleCount":  5,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-kubernetes-manifests",
+                        "status":  "Pass",
+                        "ruleCount":  131,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "status":  "Pass",
+                        "ruleCount":  5,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-sca-dependencies",
+                        "status":  "Pass",
+                        "ruleCount":  28,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-security-headers",
+                        "status":  "Pass",
+                        "ruleCount":  12,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-static-analysis",
+                        "status":  "Pass",
+                        "ruleCount":  30,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "status":  "Pass",
+                        "ruleCount":  5,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "status":  "Pass",
+                        "ruleCount":  5,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "scan-yaml-security",
+                        "status":  "Pass",
+                        "ruleCount":  5,
+                        "failures":  [
+
+                                     ]
+                    },
+                    {
+                        "skill":  "threat-model-system",
+                        "status":  "Pass",
+                        "ruleCount":  12,
+                        "failures":  [
+
+                                     ]
+                    }
+                ]
+}

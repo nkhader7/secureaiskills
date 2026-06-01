@@ -1,0 +1,51 @@
+# scan-iac-security fixture — Missing / overly permissive NetworkPolicy
+# Intentionally vulnerable — do not deploy
+
+# IAC-K8S-NP-001: NetworkPolicy that allows all ingress and egress (no-op policy)
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all
+  namespace: default
+spec:
+  podSelector: {}      # applies to all pods
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - {}               # IAC-K8S-NP-001: allow all ingress from everywhere
+  egress:
+    - {}               # IAC-K8S-NP-001: allow all egress to everywhere
+
+---
+# IAC-K8S-NP-002: Ingress resource with no TLS
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: no-tls-ingress
+  namespace: default
+spec:
+  rules:
+    - host: app.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-service
+                port:
+                  number: 80
+  # No tls: block — IAC-K8S-NP-002: traffic in cleartext
+
+---
+# IAC-K8S-CM-001: ConfigMap with embedded secret values
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: default
+data:
+  database_url: "postgres://admin:configmap_password_123@db:5432/app"
+  api_key: "configmap_api_key_12345678"
+  smtp_password: "configmap_smtp_pass_999"

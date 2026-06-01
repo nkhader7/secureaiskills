@@ -1,0 +1,69 @@
+# scan-iac-security fixture — Kubernetes RBAC misconfigurations
+# Intentionally vulnerable — do not deploy
+
+# IAC-K8S-RBAC-001: ClusterRole with wildcard permissions
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: full-access-role
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+
+---
+# IAC-K8S-RBAC-002: ClusterRoleBinding to system:masters
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: bypass-rbac-binding
+subjects:
+  - kind: Group
+    name: system:masters
+    apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: anonymous
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# IAC-K8S-RBAC-003: ServiceAccount with automount enabled
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: over-privileged-sa
+  namespace: default
+automountServiceAccountToken: true
+
+---
+# IAC-K8S-RBAC-004: Role that allows pod exec and secret read
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-exec-secrets-reader
+  namespace: default
+rules:
+  - apiGroups: [""]
+    resources: ["pods/exec", "pods/attach"]
+    verbs: ["create", "get"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]   # IAC-K8S-RBAC-004: can read all secrets
+
+---
+# IAC-K8S-RBAC-005: Anonymous user bound to cluster-admin
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: anonymous-admin
+subjects:
+  - kind: User
+    name: "system:anonymous"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io

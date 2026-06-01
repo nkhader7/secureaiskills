@@ -1,0 +1,45 @@
+# detect-supply-chain-risks fixture
+# Intentionally vulnerable — do not deploy
+
+name: deploy
+
+# SCR: pull_request_target trigger gives write access to secrets from fork PRs
+on:
+  pull_request_target:
+    branches: [main]
+
+# SCR: write-all permissions — overly broad
+permissions: write-all
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # SCR: unpinned action — SHA not specified, mutable tag
+      - uses: actions/checkout@main
+
+      # SCR: third-party action not pinned to SHA
+      - uses: actions/setup-node@v3
+
+      # SCR: unverified install script piped to shell
+      - name: Install tools
+        run: curl -s https://example.invalid/install.sh | bash
+
+      # SCR: npm install without lockfile integrity check
+      - name: Install dependencies
+        run: npm install --ignore-scripts=false
+
+      # SCR: secret exposed in run step (visible in logs)
+      - name: Deploy
+        env:
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        run: |
+          echo "Deploying with key: $AWS_SECRET_KEY"
+          npm run deploy
+
+      # SCR: another unpinned third-party action
+      - uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: '{"text":"Deployed!"}'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

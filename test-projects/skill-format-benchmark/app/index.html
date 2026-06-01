@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Skill Format Benchmark</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#080b12;--surface:#0e1220;--card:#131828;--card-alt:#161c2e;
+  --border:#1f2a45;--border-hi:#2e3f63;--text:#e4eaf6;--muted:#7889a8;--faint:#3a4a6a;
+  --accent:#6366f1;--accent-lo:#6366f115;
+  --green:#22c55e;--yellow:#eab308;--red:#ef4444;--orange:#f97316;--blue:#3b82f6;
+  --fmt-md:#6366f1;--fmt-yaml:#22c55e;--fmt-toml:#f97316;--fmt-json:#3b82f6;--fmt-iy:#a855f7;
+  --r-sm:6px;--r-md:10px;--r-lg:16px;--gap:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+code{background:#1a2138;border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:.85em;font-family:'Cascadia Code',monospace}
+canvas{display:block;width:100%!important}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(8,11,18,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.topbar-inner{max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:11px 24px;flex-wrap:wrap}
+.topbar-brand{font-weight:800;font-size:.92rem;letter-spacing:-.01em;white-space:nowrap}
+.topbar-brand span{color:var(--accent)}
+.topbar-tabs{display:flex;gap:5px}
+.topbar-tab{padding:5px 13px;border-radius:var(--r-sm);font-size:.8rem;font-weight:600;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .14s}
+.topbar-tab:hover{border-color:var(--border-hi);color:var(--text)}
+.topbar-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.topbar-meta{margin-left:auto;color:var(--muted);font-size:.75rem;white-space:nowrap}
+.page{max-width:1360px;margin:0 auto;padding:0 24px 72px}
+.hero{padding:44px 0 36px}
+.hero h1{font-size:1.95rem;font-weight:800;letter-spacing:-.03em;background:linear-gradient(135deg,#e4eaf6 0%,#8b9fd4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+.hero p{color:var(--muted);font-size:.92rem;max-width:700px;line-height:1.7}
+.hero-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+.fmt-badge{display:inline-flex;align-items:center;gap:7px;padding:4px 12px;border-radius:999px;border:1px solid var(--border);background:var(--card);font-size:.78rem;font-weight:600;color:var(--text)}
+.fmt-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-bottom:40px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 22px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--kpi-color,var(--accent)) 0%,transparent 100%)}
+.kpi-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:9px}
+.kpi-value{font-size:1.8rem;font-weight:800;letter-spacing:-.03em;color:var(--kpi-color,var(--text));line-height:1.1}
+.kpi-sub{font-size:.75rem;color:var(--muted);margin-top:5px}
+.section{margin-bottom:48px}
+.section-header{display:flex;align-items:center;gap:11px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:var(--accent-lo);border:1px solid var(--accent);color:var(--accent);font-size:.68rem;font-weight:800;flex-shrink:0}
+.section-title{font-size:1rem;font-weight:700;letter-spacing:-.01em}
+.section-desc{font-size:.78rem;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px}
+.card-title{font-size:.86rem;font-weight:600;margin-bottom:3px}
+.card-desc{font-size:.74rem;color:var(--muted);margin-bottom:16px;line-height:1.55}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.tbl-wrap{overflow-x:auto;border-radius:var(--r-md)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead tr{background:#0d1422}
+th{padding:9px 13px;text-align:left;font-weight:600;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;border-bottom:1px solid var(--border)}
+td{padding:9px 13px;border-bottom:1px solid var(--border);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(99,102,241,.06)}
+.badge-best{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700;background:#0f3020;color:#4ade80;border:1px solid #166534}
+.fmt-cell{display:inline-flex;align-items:center;gap:7px;font-weight:700}
+.fmt-sq{width:10px;height:10px;border-radius:3px;display:inline-block;flex-shrink:0}
+.winner{background:linear-gradient(135deg,#1a2545 0%,var(--card) 70%);border:1px solid var(--border-hi);border-radius:var(--r-lg);padding:24px 28px;margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+.winner-icon{font-size:2rem;line-height:1;filter:drop-shadow(0 0 10px gold)}
+.winner-title{font-size:1rem;font-weight:700;margin-bottom:6px;color:#fcd34d}
+.winner-body{font-size:.82rem;color:var(--muted);line-height:1.75}
+.winner-scores{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.score-pill{padding:3px 10px;border-radius:999px;font-size:.71rem;font-weight:700;border:1px solid var(--border)}
+.radar-wrap{display:grid;grid-template-columns:1fr 260px;gap:28px;align-items:center}
+.rl{display:grid;gap:10px}
+.rl-item{display:flex;align-items:center;gap:10px;padding:10px 13px;background:#161c2e;border:1px solid var(--border);border-radius:var(--r-sm)}
+.rl-swatch{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.rl-name{font-weight:700;font-size:.8rem}
+.rl-score{font-size:.73rem;color:var(--muted);margin-top:1px}
+.findings{list-style:none}
+.fi{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:8px 12px;border-radius:var(--r-sm);border-left:3px solid var(--faint);background:#161c2e;margin-bottom:4px;font-size:.78rem}
+.fi.C{border-left-color:var(--red)}.fi.H{border-left-color:var(--orange)}.fi.M{border-left-color:var(--yellow)}.fi.L{border-left-color:var(--green)}
+.fi-sev{font-weight:800;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em}
+.fi-sev.C{color:var(--red)}.fi-sev.H{color:var(--orange)}.fi-sev.M{color:var(--yellow)}.fi-sev.L{color:var(--green)}
+.fi-snip{font-family:'Cascadia Code',monospace;font-size:.74rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fi-loc{color:var(--faint);font-size:.71rem;text-align:right;white-space:nowrap}
+.run-steps{background:#0a0f1c;border:1px solid var(--border);border-radius:var(--r-md);padding:14px 16px;font-family:'Cascadia Code','Fira Code',monospace;font-size:.75rem;line-height:1.7;color:#c9d6f0;overflow-x:auto;white-space:pre;margin-top:6px}
+.run-comment{color:var(--faint)}
+#loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;gap:14px;color:var(--muted)}
+.spinner{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#error-box{max-width:600px;margin:80px auto;background:#1a0a0a;border:1px solid var(--red);border-radius:var(--r-lg);padding:28px;color:#fca5a5;display:none}
+#main{display:none}
+@media(max-width:1100px){.kpi-row{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr 1fr}.radar-wrap{grid-template-columns:1fr}.rl{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.g2,.g3,.kpi-row{grid-template-columns:1fr}.topbar-meta{display:none}.hero h1{font-size:1.45rem}.winner{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">SecureAI <span>Skills</span> Benchmark</div>
+    <div class="topbar-tabs" id="skillTabs"></div>
+    <a href="#getStarted" style="margin-left:auto;padding:5px 13px;border-radius:var(--r-sm);border:1px solid var(--border);color:var(--muted);font-size:.78rem;font-weight:600;text-decoration:none;transition:all .14s" onmouseover="this.style.borderColor='#22c55e';this.style.color='#22c55e'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Get Started</a>
+    <div class="topbar-meta" id="topbarMeta"></div>
+  </div>
+</nav>
+<div id="loading"><div class="spinner"></div><span>Loading benchmark data&hellip;</span></div>
+<div id="error-box"></div>
+<div id="main">
+<div class="page">
+  <div class="hero">
+    <h1>Security Skill Format Benchmark</h1>
+    <p>Comparing five skill definition formats across two security skills and their test fixtures. Metrics cover parse speed (50-run avg), detection fidelity, structural quality, and composite efficiency.</p>
+    <div class="hero-badges">
+      <span class="fmt-badge"><span class="fmt-dot" style="background:var(--fmt-md)"></span>Markdown</span>
+      <span class="fmt-badge"><span class="fmt-dot" style="background:var(--fmt-yaml)"></span>YAML</span>
+      <span class="fmt-badge"><span class="fmt-dot" style="background:var(--fmt-toml)"></span>TOML</span>
+      <span class="fmt-badge"><span class="fmt-dot" style="background:var(--fmt-json)"></span>JSON</span>
+      <span class="fmt-badge"><span class="fmt-dot" style="background:var(--fmt-iy)"></span>Inline-YAML</span>
+    </div>
+  </div>
+  <div class="kpi-row" id="kpiRow"></div>
+  <div class="section">
+    <div class="section-header"><span class="section-num">1</span><span class="section-title">Performance</span><span class="section-desc">Parse speed and scan throughput across 5 formats</span></div>
+    <div class="g3">
+      <div class="card"><div class="card-title">Parse Time &mdash; Average (ms)</div><div class="card-desc">50-run average. JSON stdlib is 80&ndash;120&times; faster than pyyaml.</div><canvas id="chartParseTime" height="220"></canvas></div>
+      <div class="card"><div class="card-title">Parse Time &mdash; Spread</div><div class="card-desc">Min / Avg / p95 / Max. A tight spread means consistent, predictable startup.</div><canvas id="chartParseBox" height="220"></canvas></div>
+      <div class="card"><div class="card-title">Scan Time (ms)</div><div class="card-desc">Time to run compiled regex across all fixture files.</div><canvas id="chartScanTime" height="220"></canvas></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-num">2</span><span class="section-title">Detection Quality</span><span class="section-desc">Rule fire rate, total findings, and severity distribution</span></div>
+    <div class="g3">
+      <div class="card"><div class="card-title">Detection Rate (%)</div><div class="card-desc">% of rules that matched at least one line. Gaps reveal parser failures.</div><canvas id="chartDetection" height="220"></canvas></div>
+      <div class="card"><div class="card-title">Total Findings</div><div class="card-desc">All formats use identical patterns &mdash; divergence exposes rule-extraction failures.</div><canvas id="chartFindings" height="220"></canvas></div>
+      <div class="card"><div class="card-title">Findings by Severity</div><div class="card-desc">Stacked Critical &middot; High &middot; Medium &middot; Low.</div><canvas id="chartSeverity" height="220"></canvas></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-num">3</span><span class="section-title">Structural Quality</span><span class="section-desc">Seven authoring dimensions scored 0&ndash;10 plus file metrics</span></div>
+    <div class="radar-wrap">
+      <div class="card"><div class="card-title">Quality Radar</div><div class="card-desc">Readability &middot; Machine Parse &middot; Rule Density &middot; Extensibility &middot; Tooling &middot; Colocation &middot; Fragility Resilience</div><canvas id="chartRadar" height="340"></canvas></div>
+      <div class="rl" id="radarLegend"></div>
+    </div>
+    <div class="g2" style="margin-top:var(--gap)">
+      <div class="card"><div class="card-title">File Size (bytes)</div><div class="card-desc">Smaller = leaner PR diffs and faster LLM context loads.</div><canvas id="chartSize" height="200"></canvas></div>
+      <div class="card"><div class="card-title">Rules Extracted</div><div class="card-desc">Should equal intended rule count; any gap is a parser bug.</div><canvas id="chartRules" height="200"></canvas></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-num">4</span><span class="section-title">Composite Efficiency</span><span class="section-desc">25% parse speed + 35% detection rate + 40% quality average</span></div>
+    <div class="card"><div class="card-title">Efficiency Score (0&ndash;10)</div><div class="card-desc">Balances raw performance against authoring robustness.</div><canvas id="chartEfficiency" height="130"></canvas></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-num">5</span><span class="section-title">Full Comparison</span><span class="section-desc">All metrics side-by-side &mdash; green badge marks the best per column</span></div>
+    <div class="card">
+      <div class="tbl-wrap"><table id="summaryTable"></table></div>
+      <div class="winner"><div class="winner-icon">&#127942;</div><div><div class="winner-title" id="winnerTitle">Best Overall Format</div><div class="winner-body" id="winnerBody"></div><div class="winner-scores" id="winnerScores"></div></div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-num">6</span><span class="section-title">Sample Findings</span><span class="section-desc">First 10 matches (Critical &rarr; High) from the best-performing format</span></div>
+    <div class="card"><ul class="findings" id="findingsList"></ul></div>
+  </div>
+
+  <!-- Get Started -->
+  <div class="section" id="getStarted">
+    <div class="section-header">
+      <span class="section-num" style="background:#0f2a1a;border-color:#22c55e;color:#22c55e">&#8250;</span>
+      <span class="section-title">Get Started</span>
+      <span class="section-desc">Download, install, and run the benchmark locally</span>
+    </div>
+    <div class="g2">
+
+      <div class="card">
+        <div class="card-title">Requirements</div>
+        <div class="card-desc">Python 3.11+ and pyyaml are the only dependencies. tomllib ships with the stdlib.</div>
+        <table style="margin-top:4px">
+          <thead><tr><th>Requirement</th><th>Version</th></tr></thead>
+          <tbody>
+            <tr><td>Python</td><td>3.11 or later</td></tr>
+            <tr><td>pyyaml</td><td><code>pip install pyyaml</code></td></tr>
+            <tr><td>Browser</td><td>Any modern browser</td></tr>
+            <tr><td>tomllib</td><td>Bundled with Python 3.11+</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Quick Start</div>
+        <div class="card-desc">Clone, install, run benchmark, open dashboard.</div>
+        <pre class="run-steps"><span class="run-comment"># 1. Clone the repository</span>
+git clone https://github.com/nkhader7/secureaiskills.git
+cd secureaiskills
+
+<span class="run-comment"># 2. Install Python dependencies</span>
+pip install -r test-projects/skill-format-benchmark/requirements.txt
+
+<span class="run-comment"># 3. Navigate to the benchmark</span>
+cd test-projects/skill-format-benchmark
+
+<span class="run-comment"># 4. Run the benchmark (writes results/benchmark-results.json)</span>
+python benchmark.py
+
+<span class="run-comment"># 5. Serve the dashboard (opens browser automatically)</span>
+python serve.py</pre>
+        <p style="font-size:.75rem;color:var(--muted);margin-top:10px">Dashboard opens at <code>http://localhost:8765</code> &nbsp;&middot;&nbsp; Press <code>Ctrl+C</code> to stop</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Project Layout</div>
+        <div class="card-desc">Key files for understanding and extending the benchmark.</div>
+        <pre class="run-steps">skill-format-benchmark/
+  benchmark.py          <span class="run-comment"># runner — produces benchmark-results.json</span>
+  serve.py              <span class="run-comment"># HTTP server on port 8765</span>
+  simulator.html        <span class="run-comment"># browser-side format simulator</span>
+  app/index.html        <span class="run-comment"># this dashboard</span>
+  results/
+    benchmark-results.json
+  skill-variants/
+    detect-secrets.*    <span class="run-comment"># 5 format variants</span>
+    scan-iac-security.* <span class="run-comment"># 5 format variants</span>
+
+../skill-fixture/       <span class="run-comment"># secrets fixture (55 files)</span>
+../skill-iac-fixture/   <span class="run-comment"># IaC fixture (12 files)</span>
+  terraform/            <span class="run-comment"># AWS network, storage, IAM, compute</span>
+  k8s/                  <span class="run-comment"># deployment, RBAC, NetworkPolicy</span>
+  cloudformation/       <span class="run-comment"># CFN template</span>
+  bicep/                <span class="run-comment"># Azure Bicep</span>
+  pulumi/               <span class="run-comment"># Pulumi Python + config</span></pre>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Adding a New Skill</div>
+        <div class="card-desc">Create variant files, a fixture directory, and register the skill in benchmark.py.</div>
+        <pre class="run-steps"><span class="run-comment"># 1. Add 5 variant files in skill-variants/</span>
+your-skill.md  .yaml  .toml  .json  -inline.yaml
+
+<span class="run-comment"># 2. Create a fixture directory</span>
+mkdir ../skill-your-name-fixture/
+
+<span class="run-comment"># 3. Register in benchmark.py SKILLS list</span>
+{
+  "skill_id": "your-skill-name",
+  "fixture":  BENCH_DIR.parent / "skill-your-name-fixture",
+  "variants": [
+    ("md",          "your-skill.md",         parse_md),
+    ("yaml",        "your-skill.yaml",        parse_yaml),
+    ("toml",        "your-skill.toml",        parse_toml),
+    ("json",        "your-skill.json",        parse_json),
+    ("inline-yaml", "your-skill-inline.yaml", parse_inline_yaml),
+  ],
+},
+
+<span class="run-comment"># 4. Re-run</span>
+python benchmark.py &amp;&amp; python serve.py</pre>
+      </div>
+
+    </div><!-- .g2 -->
+  </div><!-- #getStarted -->
+
+</div>
+</div>
+<script>
+const FMT={"md":{color:"#6366f1",label:"Markdown"},"yaml":{color:"#22c55e",label:"YAML"},"toml":{color:"#f97316",label:"TOML"},"json":{color:"#3b82f6",label:"JSON"},"inline-yaml":{color:"#a855f7",label:"Inline-YAML"}};
+const fc=k=>FMT[k]?.color??"#888";
+const SEV={Critical:"#ef4444",High:"#f97316",Medium:"#eab308",Low:"#22c55e"};
+const COPT={responsive:true,animation:{duration:380},plugins:{legend:{display:false},tooltip:{backgroundColor:"#0e1220",borderColor:"#1f2a45",borderWidth:1,titleColor:"#e4eaf6",bodyColor:"#7889a8"}},scales:{x:{ticks:{color:"#7889a8",font:{size:11}},grid:{color:"#1a2340"}},y:{ticks:{color:"#7889a8",font:{size:11}},grid:{color:"#1a2340"}}}};
+function ds(label,data,bg,ex={}){return{label,data,backgroundColor:bg,borderRadius:5,borderSkipped:false,...ex}}
+const CR={};
+function mk(id,cfg){CR[id]?.destroy();const c=document.getElementById(id);if(c)CR[id]=new Chart(c,cfg)}
+function nuke(){Object.values(CR).forEach(c=>{try{c.destroy()}catch(_){}});Object.keys(CR).forEach(k=>delete CR[k])}
+let DATA=null,IDX=0;
+async function boot(){
+  let d;
+  for(const p of["../results/benchmark-results.json","./results/benchmark-results.json"]){try{const r=await fetch(p);if(r.ok){d=await r.json();break}}catch(_){}}
+  if(!d&&window.__BENCHMARK_DATA)d=window.__BENCHMARK_DATA;
+  if(!d){showErr("Could not load <code>benchmark-results.json</code>.<br>Run <code>python benchmark.py</code> then <code>python serve.py</code>.");return}
+  if(!d.skills)d.skills=[{skill_id:"detect-secrets",formats:d.formats,files_scanned:d.files_scanned}];
+  DATA=d;
+  const tabs=document.getElementById("skillTabs");
+  d.skills.forEach((s,i)=>{
+    const b=document.createElement("button");
+    b.className="topbar-tab"+(i===0?" active":"");b.textContent=s.skill_id;
+    b.onclick=()=>{IDX=i;tabs.querySelectorAll(".topbar-tab").forEach((t,j)=>t.classList.toggle("active",j===i));nuke();paint()};
+    tabs.appendChild(b);
+  });
+  paint();
+}
+function showErr(msg){document.getElementById("loading").style.display="none";const el=document.getElementById("error-box");el.innerHTML="<strong>Error</strong><br><br>"+msg;el.style.display="block"}
+function paint(){
+  document.getElementById("loading").style.display="none";
+  document.getElementById("main").style.display="block";
+  const skill=DATA.skills[IDX];
+  const fmts=skill.formats.filter(f=>!f.error);
+  const lbl=fmts.map(f=>f.format);
+  const col=lbl.map(fc);
+  document.getElementById("topbarMeta").textContent=DATA.benchmark_date.slice(0,10)+" · "+skill.files_scanned+" files · "+DATA.parse_runs+" parse runs";
+  const fast=[...fmts].sort((a,b)=>a.parse_avg_ms-b.parse_avg_ms)[0];
+  const bestE=[...fmts].sort((a,b)=>(b.efficiency_score||0)-(a.efficiency_score||0))[0];
+  const maxF=Math.max(...fmts.map(f=>f.total_findings));
+  const maxD=Math.max(...fmts.map(f=>f.detection_rate));
+  document.getElementById("kpiRow").innerHTML=[
+    {label:"Fastest Parser",value:(fast?.format||"--").toUpperCase(),sub:(fast?.parse_avg_ms||0).toFixed(3)+" ms avg",color:"#3b82f6"},
+    {label:"Best Detection",value:maxD+"%",sub:"Across "+(fmts[0]?.rule_count||0)+" rules",color:"#22c55e"},
+    {label:"Max Findings",value:maxF.toLocaleString(),sub:"From "+skill.files_scanned+" fixture files",color:"#f97316"},
+    {label:"Top Efficiency",value:(bestE?.format||"--").toUpperCase(),sub:"Score "+(bestE?.efficiency_score||0).toFixed(2)+" / 10",color:"#a855f7"},
+  ].map(k=>"<div class='kpi' style='--kpi-color:"+k.color+"'><div class='kpi-label'>"+k.label+"</div><div class='kpi-value'>"+k.value+"</div><div class='kpi-sub'>"+k.sub+"</div></div>").join("");
+  mk("chartParseTime",{type:"bar",data:{labels:lbl,datasets:[ds("Parse avg (ms)",fmts.map(f=>f.parse_avg_ms),col)]},options:COPT});
+  mk("chartParseBox",{type:"bar",data:{labels:lbl,datasets:[ds("Min",fmts.map(f=>f.parse_min_ms),col.map(c=>c+"44")),ds("Avg",fmts.map(f=>f.parse_avg_ms),col),ds("p95",fmts.map(f=>f.parse_p95_ms),col.map(c=>c+"99")),ds("Max",fmts.map(f=>f.parse_max_ms),col.map(c=>c+"33"))]},options:{...COPT,plugins:{...COPT.plugins,legend:{display:true,labels:{color:"#7889a8",boxWidth:11,font:{size:11}}}}}});
+  mk("chartScanTime",{type:"bar",data:{labels:lbl,datasets:[ds("Scan (ms)",fmts.map(f=>f.scan_ms),col)]},options:COPT});
+  mk("chartDetection",{type:"bar",data:{labels:lbl,datasets:[ds("Detection %",fmts.map(f=>f.detection_rate),col)]},options:{...COPT,scales:{...COPT.scales,y:{...COPT.scales.y,min:0,max:100}}}});
+  mk("chartFindings",{type:"bar",data:{labels:lbl,datasets:[ds("Findings",fmts.map(f=>f.total_findings),col)]},options:COPT});
+  mk("chartSeverity",{type:"bar",data:{labels:lbl,datasets:["Critical","High","Medium","Low"].map(s=>({label:s,data:fmts.map(f=>(f.severity_counts||{})[s]||0),backgroundColor:SEV[s],borderRadius:5,borderSkipped:false}))},options:{...COPT,plugins:{...COPT.plugins,legend:{display:true,labels:{color:"#7889a8",boxWidth:11,font:{size:11}}}},scales:{x:{...COPT.scales.x,stacked:true},y:{...COPT.scales.y,stacked:true}}}});
+  const dims=["readability","machine_parse","rule_density","extensibility","tooling","colocation","fragility"];
+  const dlbl=["Readability","Machine Parse","Rule Density","Extensibility","Tooling","Colocation","Fragility"];
+  mk("chartRadar",{type:"radar",data:{labels:dlbl,datasets:fmts.map(f=>({label:f.format,data:dims.map(d=>(f.quality_scores||{})[d]||0),borderColor:fc(f.format),backgroundColor:fc(f.format)+"20",pointBackgroundColor:fc(f.format),borderWidth:2,pointRadius:4}))},options:{responsive:true,animation:{duration:380},plugins:{legend:{display:false},tooltip:COPT.plugins.tooltip},scales:{r:{min:0,max:10,ticks:{color:"#7889a8",stepSize:2,font:{size:10},backdropColor:"transparent"},grid:{color:"#1a2340"},pointLabels:{color:"#e4eaf6",font:{size:12,weight:"600"}},angleLines:{color:"#1a2340"}}}}});
+  document.getElementById("radarLegend").innerHTML=fmts.map(f=>{const tot=dims.reduce((s,d)=>s+((f.quality_scores||{})[d]||0),0);return"<div class='rl-item'><div class='rl-swatch' style='background:"+fc(f.format)+"'></div><div><div class='rl-name'>"+(FMT[f.format]?.label||f.format)+"</div><div class='rl-score'>Quality total: "+tot+" / 70</div></div></div>"}).join("");
+  mk("chartSize",{type:"bar",data:{labels:lbl,datasets:[ds("Bytes",fmts.map(f=>f.file_bytes),col)]},options:COPT});
+  mk("chartRules",{type:"bar",data:{labels:lbl,datasets:[ds("Rules",fmts.map(f=>f.rule_count),col)]},options:COPT});
+  mk("chartEfficiency",{type:"bar",data:{labels:lbl,datasets:[ds("Efficiency",fmts.map(f=>f.efficiency_score||0),col)]},options:{...COPT,scales:{...COPT.scales,y:{...COPT.scales.y,min:0,max:10}}}});
+  const cols=[
+    {key:"format",label:"Format",fmt:v=>"<span class='fmt-cell'><span class='fmt-sq' style='background:"+fc(v)+"'></span>"+(FMT[v]?.label||v)+"</span>"},
+    {key:"file_bytes",label:"Size (B)",fmt:v=>v.toLocaleString(),best:"min"},
+    {key:"rule_count",label:"Rules",fmt:v=>v,best:"max"},
+    {key:"parse_avg_ms",label:"Parse avg",fmt:v=>v.toFixed(3)+" ms",best:"min"},
+    {key:"parse_p95_ms",label:"p95",fmt:v=>v.toFixed(3)+" ms",best:"min"},
+    {key:"scan_ms",label:"Scan",fmt:v=>v.toFixed(1)+" ms",best:"min"},
+    {key:"total_findings",label:"Findings",fmt:v=>v,best:"max"},
+    {key:"detection_rate",label:"Detection",fmt:v=>v+"%",best:"max"},
+    {key:"efficiency_score",label:"Efficiency",fmt:v=>(v||0).toFixed(2),best:"max"},
+  ];
+  const bv={};cols.forEach(c=>{if(!c.best)return;const vs=fmts.map(f=>+f[c.key]||0);bv[c.key]=c.best==="min"?Math.min(...vs):Math.max(...vs)});
+  document.getElementById("summaryTable").innerHTML="<thead><tr>"+cols.map(c=>"<th>"+c.label+"</th>").join("")+"</tr></thead><tbody>"+fmts.map(f=>"<tr>"+cols.map(col=>{const v=f[col.key],isBest=col.best&&(+v||0)===bv[col.key],cell=col.fmt(v,f);return"<td>"+(isBest&&col.key!=="format"?"<span class='badge-best'>"+cell+"</span>":cell)+"</td>"}).join("")+"</tr>").join("")+"</tbody>";
+  const sorted=[...fmts].sort((a,b)=>(b.efficiency_score||0)-(a.efficiency_score||0));
+  const top=sorted[0];
+  const desc={
+    "yaml":"<strong>YAML</strong> strikes the best balance: fast machine parsing, dense rule authoring, native in yamllint / JSON Schema / CI tooling. Recommended pattern: <code>SKILL.md</code> orchestration + <code>rules.yaml</code> catalog.",
+    "json":"<strong>JSON</strong> is the fastest parser (80&ndash;120&times; faster than pyyaml) with universal stdlib support. Best for programmatically generated catalogs. No comments is the main authoring limitation.",
+    "toml":"<strong>TOML</strong> combines human readability with structural integrity. The <code>[[rules]]</code> array-of-tables make each rule visually distinct with a fast stdlib parser.",
+    "md":"<strong>Markdown</strong> excels for skills reviewed by humans in GitHub. Rule extraction is fragile &mdash; regex parsers break on patterns containing commas inside quantifiers like <code>{24,}</code>. Always pair with a separate <code>rules.yaml</code>.",
+    "inline-yaml":"<strong>Inline-YAML</strong> wins on colocation &mdash; one file holds skill definition, rules, and report template. Ideal for self-contained skills with under 30 rules.",
+  };
+  document.getElementById("winnerTitle").textContent="Best Overall: "+(FMT[top?.format]?.label||top?.format||"--").toUpperCase();
+  document.getElementById("winnerBody").innerHTML=desc[top?.format]||"";
+  document.getElementById("winnerScores").innerHTML=sorted.map(f=>"<span class='score-pill' style='background:"+fc(f.format)+"22;color:"+fc(f.format)+";border-color:"+fc(f.format)+"44'>"+(FMT[f.format]?.label||f.format)+" "+(f.efficiency_score||0).toFixed(2)+"</span>").join("");
+  const bf=[...fmts].sort((a,b)=>b.total_findings-a.total_findings)[0];
+  const sc={Critical:"C",High:"H",Medium:"M",Low:"L"};
+  document.getElementById("findingsList").innerHTML=(bf?.top_findings||[]).map(f=>"<li class='fi "+(sc[f.severity]||"L")+"'><span class='fi-sev "+(sc[f.severity]||"L")+"'>"+f.severity+"</span><span class='fi-snip'>"+esc(f.snippet)+"</span><span class='fi-loc'>"+f.file+":"+f.line+"</span></li>").join("");
+}
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,1703 @@
+{
+  "benchmark_date": "2026-06-01T05:09:35Z",
+  "parse_runs": 50,
+  "skills": [
+    {
+      "skill_id": "detect-secrets",
+      "fixture": "D:\\Download\\CascadeProjects\\secureaiskills\\test-projects\\skill-fixture",
+      "files_scanned": 55,
+      "formats": [
+        {
+          "format": "md",
+          "file": "detect-secrets.md",
+          "file_bytes": 3418,
+          "file_lines": 82,
+          "rule_count": 15,
+          "parse_avg_ms": 0.3379,
+          "parse_min_ms": 0.2934,
+          "parse_max_ms": 1.1923,
+          "parse_p95_ms": 0.4107,
+          "scan_ms": 120.53,
+          "files_scanned": 55,
+          "total_findings": 45,
+          "rules_fired": 7,
+          "detection_rate": 46.7,
+          "severity_counts": {
+            "Critical": 39,
+            "High": 6
+          },
+          "quality_scores": {
+            "readability": 9,
+            "machine_parse": 5,
+            "rule_density": 6,
+            "extensibility": 5,
+            "tooling": 9,
+            "colocation": 7,
+            "fragility": 4
+          },
+          "efficiency_score": 6.54,
+          "top_findings": [
+            {
+              "file": ".env.example",
+              "line": 1,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": ".env.example",
+              "line": 3,
+              "rule_id": "DS-003",
+              "rule_name": "Azure Client Secret",
+              "severity": "Critical",
+              "snippet": "***REDACTED***\""
+            },
+            {
+              "file": ".env.example",
+              "line": 4,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+            },
+            {
+              "file": "config\\spring-beans.xml",
+              "line": 46,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "<value>***REDACTED***"
+            },
+            {
+              "file": "docs\\format-security.md",
+              "line": 13,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 19,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 22,
+              "rule_id": "DS-005",
+              "rule_name": "Stripe Secret Key",
+              "severity": "Critical",
+              "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 51,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+            }
+          ]
+        },
+        {
+          "format": "yaml",
+          "file": "detect-secrets.yaml",
+          "file_bytes": 4370,
+          "file_lines": 145,
+          "rule_count": 15,
+          "parse_avg_ms": 4.4351,
+          "parse_min_ms": 4.1313,
+          "parse_max_ms": 5.0262,
+          "parse_p95_ms": 4.8352,
+          "scan_ms": 113.87,
+          "files_scanned": 55,
+          "total_findings": 45,
+          "rules_fired": 7,
+          "detection_rate": 46.7,
+          "severity_counts": {
+            "Critical": 39,
+            "High": 6
+          },
+          "quality_scores": {
+            "readability": 7,
+            "machine_parse": 9,
+            "rule_density": 8,
+            "extensibility": 8,
+            "tooling": 7,
+            "colocation": 6,
+            "fragility": 6
+          },
+          "efficiency_score": 4.83,
+          "top_findings": [
+            {
+              "file": ".env.example",
+              "line": 1,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": ".env.example",
+              "line": 3,
+              "rule_id": "DS-003",
+              "rule_name": "Azure Client Secret",
+              "severity": "Critical",
+              "snippet": "***REDACTED***\""
+            },
+            {
+              "file": ".env.example",
+              "line": 4,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+            },
+            {
+              "file": "config\\spring-beans.xml",
+              "line": 46,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "<value>***REDACTED***"
+            },
+            {
+              "file": "docs\\format-security.md",
+              "line": 13,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 19,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 22,
+              "rule_id": "DS-005",
+              "rule_name": "Stripe Secret Key",
+              "severity": "Critical",
+              "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 51,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+            }
+          ]
+        },
+        {
+          "format": "toml",
+          "file": "detect-secrets.toml",
+          "file_bytes": 4306,
+          "file_lines": 174,
+          "rule_count": 15,
+          "parse_avg_ms": 0.4999,
+          "parse_min_ms": 0.4494,
+          "parse_max_ms": 0.9273,
+          "parse_p95_ms": 0.6251,
+          "scan_ms": 114.48,
+          "files_scanned": 55,
+          "total_findings": 45,
+          "rules_fired": 7,
+          "detection_rate": 46.7,
+          "severity_counts": {
+            "Critical": 39,
+            "High": 6
+          },
+          "quality_scores": {
+            "readability": 8,
+            "machine_parse": 8,
+            "rule_density": 5,
+            "extensibility": 6,
+            "tooling": 6,
+            "colocation": 5,
+            "fragility": 8
+          },
+          "efficiency_score": 6.51,
+          "top_findings": [
+            {
+              "file": ".env.example",
+              "line": 1,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": ".env.example",
+              "line": 3,
+              "rule_id": "DS-003",
+              "rule_name": "Azure Client Secret",
+              "severity": "Critical",
+              "snippet": "***REDACTED***\""
+            },
+            {
+              "file": ".env.example",
+              "line": 4,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+            },
+            {
+              "file": "config\\spring-beans.xml",
+              "line": 46,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "<value>***REDACTED***"
+            },
+            {
+              "file": "docs\\format-security.md",
+              "line": 13,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 19,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 22,
+              "rule_id": "DS-005",
+              "rule_name": "Stripe Secret Key",
+              "severity": "Critical",
+              "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 51,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+            }
+          ]
+        },
+        {
+          "format": "json",
+          "file": "detect-secrets.json",
+          "file_bytes": 5368,
+          "file_lines": 178,
+          "rule_count": 15,
+          "parse_avg_ms": 0.0552,
+          "parse_min_ms": 0.0411,
+          "parse_max_ms": 0.2063,
+          "parse_p95_ms": 0.1042,
+          "scan_ms": 125.85,
+          "files_scanned": 55,
+          "total_findings": 45,
+          "rules_fired": 7,
+          "detection_rate": 46.7,
+          "severity_counts": {
+            "Critical": 39,
+            "High": 6
+          },
+          "quality_scores": {
+            "readability": 5,
+            "machine_parse": 10,
+            "rule_density": 4,
+            "extensibility": 9,
+            "tooling": 10,
+            "colocation": 4,
+            "fragility": 7
+          },
+          "efficiency_score": 6.91,
+          "top_findings": [
+            {
+              "file": ".env.example",
+              "line": 1,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": ".env.example",
+              "line": 3,
+              "rule_id": "DS-003",
+              "rule_name": "Azure Client Secret",
+              "severity": "Critical",
+              "snippet": "***REDACTED***\""
+            },
+            {
+              "file": ".env.example",
+              "line": 4,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+            },
+            {
+              "file": "config\\spring-beans.xml",
+              "line": 46,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "<value>***REDACTED***"
+            },
+            {
+              "file": "docs\\format-security.md",
+              "line": 13,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 19,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 22,
+              "rule_id": "DS-005",
+              "rule_name": "Stripe Secret Key",
+              "severity": "Critical",
+              "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 51,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+            }
+          ]
+        },
+        {
+          "format": "inline-yaml",
+          "file": "detect-secrets-inline.yaml",
+          "file_bytes": 4890,
+          "file_lines": 81,
+          "rule_count": 15,
+          "parse_avg_ms": 4.6056,
+          "parse_min_ms": 4.3786,
+          "parse_max_ms": 4.9768,
+          "parse_p95_ms": 4.9235,
+          "scan_ms": 102.3,
+          "files_scanned": 55,
+          "total_findings": 45,
+          "rules_fired": 7,
+          "detection_rate": 46.7,
+          "severity_counts": {
+            "Critical": 39,
+            "High": 6
+          },
+          "quality_scores": {
+            "readability": 6,
+            "machine_parse": 9,
+            "rule_density": 9,
+            "extensibility": 7,
+            "tooling": 7,
+            "colocation": 10,
+            "fragility": 6
+          },
+          "efficiency_score": 4.92,
+          "top_findings": [
+            {
+              "file": ".env.example",
+              "line": 1,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": ".env.example",
+              "line": 3,
+              "rule_id": "DS-003",
+              "rule_name": "Azure Client Secret",
+              "severity": "Critical",
+              "snippet": "***REDACTED***\""
+            },
+            {
+              "file": ".env.example",
+              "line": 4,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+            },
+            {
+              "file": "config\\spring-beans.xml",
+              "line": 46,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "<value>***REDACTED***"
+            },
+            {
+              "file": "docs\\format-security.md",
+              "line": 13,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 19,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 22,
+              "rule_id": "DS-005",
+              "rule_name": "Stripe Secret Key",
+              "severity": "Critical",
+              "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+            },
+            {
+              "file": "docs\\setup-guide.md",
+              "line": 51,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-001",
+              "rule_name": "AWS Access Key",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+            },
+            {
+              "file": "expected-findings.json",
+              "line": 20,
+              "rule_id": "DS-004",
+              "rule_name": "Private Key Material",
+              "severity": "Critical",
+              "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "skill_id": "scan-iac-security",
+      "fixture": "D:\\Download\\CascadeProjects\\secureaiskills\\test-projects\\skill-iac-fixture",
+      "files_scanned": 12,
+      "formats": [
+        {
+          "format": "md",
+          "file": "scan-iac-security.md",
+          "file_bytes": 5108,
+          "file_lines": 104,
+          "rule_count": 20,
+          "parse_avg_ms": 0.4243,
+          "parse_min_ms": 0.3734,
+          "parse_max_ms": 0.7241,
+          "parse_p95_ms": 0.5666,
+          "scan_ms": 5.15,
+          "files_scanned": 12,
+          "total_findings": 62,
+          "rules_fired": 18,
+          "detection_rate": 90.0,
+          "severity_counts": {
+            "Critical": 38,
+            "High": 24
+          },
+          "quality_scores": {
+            "readability": 9,
+            "machine_parse": 5,
+            "rule_density": 6,
+            "extensibility": 5,
+            "tooling": 9,
+            "colocation": 7,
+            "fragility": 4
+          },
+          "efficiency_score": 8.01,
+          "top_findings": [
+            {
+              "file": "bicep\\main.bicep",
+              "line": 78,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-012: all sources"
+            },
+            {
+              "file": "bicep\\main.bicep",
+              "line": 91,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-013: RDP from internet"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 19,
+              "rule_id": "IAC-S3-001",
+              "rule_name": "Public S3 Bucket",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                    # IAC-CFN-003"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 31,
+              "rule_id": "IAC-S3-001",
+              "rule_name": "Public S3 Bucket",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                         # IAC-CFN-005: anonymous public access"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 42,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-006: all traffic"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 46,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-007: SSH open"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 57,
+              "rule_id": "IAC-RDS-001",
+              "rule_name": "RDS Publicly Accessible",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-008"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 20,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 21,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 22,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            }
+          ]
+        },
+        {
+          "format": "yaml",
+          "file": "scan-iac-security.yaml",
+          "file_bytes": 5783,
+          "file_lines": 194,
+          "rule_count": 20,
+          "parse_avg_ms": 5.6472,
+          "parse_min_ms": 5.2898,
+          "parse_max_ms": 6.6646,
+          "parse_p95_ms": 6.2892,
+          "scan_ms": 4.76,
+          "files_scanned": 12,
+          "total_findings": 62,
+          "rules_fired": 20,
+          "detection_rate": 100.0,
+          "severity_counts": {
+            "Critical": 37,
+            "High": 25
+          },
+          "quality_scores": {
+            "readability": 7,
+            "machine_parse": 9,
+            "rule_density": 8,
+            "extensibility": 8,
+            "tooling": 7,
+            "colocation": 6,
+            "fragility": 6
+          },
+          "efficiency_score": 6.41,
+          "top_findings": [
+            {
+              "file": "bicep\\main.bicep",
+              "line": 78,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-012: all sources"
+            },
+            {
+              "file": "bicep\\main.bicep",
+              "line": 91,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-013: RDP from internet"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 19,
+              "rule_id": "IAC-S3-001",
+              "rule_name": "Public S3 Bucket",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                    # IAC-CFN-003"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 42,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-006: all traffic"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 46,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-007: SSH open"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 57,
+              "rule_id": "IAC-RDS-001",
+              "rule_name": "RDS Publicly Accessible",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-008"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 20,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 21,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 22,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 38,
+              "rule_id": "IAC-K8S-001",
+              "rule_name": "Privileged Container",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                 # IAC-K8S-005: full host privilege"
+            }
+          ]
+        },
+        {
+          "format": "toml",
+          "file": "scan-iac-security.toml",
+          "file_bytes": 5676,
+          "file_lines": 233,
+          "rule_count": 20,
+          "parse_avg_ms": 0.6251,
+          "parse_min_ms": 0.5875,
+          "parse_max_ms": 0.8082,
+          "parse_p95_ms": 0.7782,
+          "scan_ms": 5.1,
+          "files_scanned": 12,
+          "total_findings": 62,
+          "rules_fired": 20,
+          "detection_rate": 100.0,
+          "severity_counts": {
+            "Critical": 37,
+            "High": 25
+          },
+          "quality_scores": {
+            "readability": 8,
+            "machine_parse": 8,
+            "rule_density": 5,
+            "extensibility": 6,
+            "tooling": 6,
+            "colocation": 5,
+            "fragility": 8
+          },
+          "efficiency_score": 8.32,
+          "top_findings": [
+            {
+              "file": "bicep\\main.bicep",
+              "line": 78,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-012: all sources"
+            },
+            {
+              "file": "bicep\\main.bicep",
+              "line": 91,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-013: RDP from internet"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 19,
+              "rule_id": "IAC-S3-001",
+              "rule_name": "Public S3 Bucket",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                    # IAC-CFN-003"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 42,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-006: all traffic"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 46,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-007: SSH open"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 57,
+              "rule_id": "IAC-RDS-001",
+              "rule_name": "RDS Publicly Accessible",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-008"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 20,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 21,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 22,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 38,
+              "rule_id": "IAC-K8S-001",
+              "rule_name": "Privileged Container",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                 # IAC-K8S-005: full host privilege"
+            }
+          ]
+        },
+        {
+          "format": "json",
+          "file": "scan-iac-security.json",
+          "file_bytes": 6466,
+          "file_lines": 149,
+          "rule_count": 20,
+          "parse_avg_ms": 0.054,
+          "parse_min_ms": 0.0453,
+          "parse_max_ms": 0.1275,
+          "parse_p95_ms": 0.098,
+          "scan_ms": 4.72,
+          "files_scanned": 12,
+          "total_findings": 62,
+          "rules_fired": 20,
+          "detection_rate": 100.0,
+          "severity_counts": {
+            "Critical": 37,
+            "High": 25
+          },
+          "quality_scores": {
+            "readability": 5,
+            "machine_parse": 10,
+            "rule_density": 4,
+            "extensibility": 9,
+            "tooling": 10,
+            "colocation": 4,
+            "fragility": 7
+          },
+          "efficiency_score": 8.77,
+          "top_findings": [
+            {
+              "file": "bicep\\main.bicep",
+              "line": 78,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-012: all sources"
+            },
+            {
+              "file": "bicep\\main.bicep",
+              "line": 91,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-013: RDP from internet"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 19,
+              "rule_id": "IAC-S3-001",
+              "rule_name": "Public S3 Bucket",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                    # IAC-CFN-003"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 42,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-006: all traffic"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 46,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-007: SSH open"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 57,
+              "rule_id": "IAC-RDS-001",
+              "rule_name": "RDS Publicly Accessible",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-008"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 20,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 21,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 22,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 38,
+              "rule_id": "IAC-K8S-001",
+              "rule_name": "Privileged Container",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                 # IAC-K8S-005: full host privilege"
+            }
+          ]
+        },
+        {
+          "format": "inline-yaml",
+          "file": "scan-iac-security-inline.yaml",
+          "file_bytes": 5646,
+          "file_lines": 80,
+          "rule_count": 20,
+          "parse_avg_ms": 5.7609,
+          "parse_min_ms": 5.4509,
+          "parse_max_ms": 6.337,
+          "parse_p95_ms": 6.3197,
+          "scan_ms": 5.68,
+          "files_scanned": 12,
+          "total_findings": 62,
+          "rules_fired": 20,
+          "detection_rate": 100.0,
+          "severity_counts": {
+            "Critical": 37,
+            "High": 25
+          },
+          "quality_scores": {
+            "readability": 6,
+            "machine_parse": 9,
+            "rule_density": 9,
+            "extensibility": 7,
+            "tooling": 7,
+            "colocation": 10,
+            "fragility": 6
+          },
+          "efficiency_score": 6.59,
+          "top_findings": [
+            {
+              "file": "bicep\\main.bicep",
+              "line": 78,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-012: all sources"
+            },
+            {
+              "file": "bicep\\main.bicep",
+              "line": 91,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***       // IAC-BICEP-013: RDP from internet"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 19,
+              "rule_id": "IAC-S3-001",
+              "rule_name": "Public S3 Bucket",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                    # IAC-CFN-003"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 42,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-006: all traffic"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 46,
+              "rule_id": "IAC-SG-001",
+              "rule_name": "Open Security Group Inbound",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-007: SSH open"
+            },
+            {
+              "file": "cloudformation\\template.yaml",
+              "line": 57,
+              "rule_id": "IAC-RDS-001",
+              "rule_name": "RDS Publicly Accessible",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                     # IAC-CFN-008"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 20,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 21,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 22,
+              "rule_id": "IAC-K8S-002",
+              "rule_name": "Host Namespace Sharing",
+              "severity": "Critical",
+              "snippet": "***REDACTED***"
+            },
+            {
+              "file": "k8s\\deployment.yaml",
+              "line": 38,
+              "rule_id": "IAC-K8S-001",
+              "rule_name": "Privileged Container",
+              "severity": "Critical",
+              "snippet": "***REDACTED***                 # IAC-K8S-005: full host privilege"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "formats": [
+    {
+      "format": "md",
+      "file": "detect-secrets.md",
+      "file_bytes": 3418,
+      "file_lines": 82,
+      "rule_count": 15,
+      "parse_avg_ms": 0.3379,
+      "parse_min_ms": 0.2934,
+      "parse_max_ms": 1.1923,
+      "parse_p95_ms": 0.4107,
+      "scan_ms": 120.53,
+      "files_scanned": 55,
+      "total_findings": 45,
+      "rules_fired": 7,
+      "detection_rate": 46.7,
+      "severity_counts": {
+        "Critical": 39,
+        "High": 6
+      },
+      "quality_scores": {
+        "readability": 9,
+        "machine_parse": 5,
+        "rule_density": 6,
+        "extensibility": 5,
+        "tooling": 9,
+        "colocation": 7,
+        "fragility": 4
+      },
+      "efficiency_score": 6.54,
+      "top_findings": [
+        {
+          "file": ".env.example",
+          "line": 1,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": ".env.example",
+          "line": 3,
+          "rule_id": "DS-003",
+          "rule_name": "Azure Client Secret",
+          "severity": "Critical",
+          "snippet": "***REDACTED***\""
+        },
+        {
+          "file": ".env.example",
+          "line": 4,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+        },
+        {
+          "file": "config\\spring-beans.xml",
+          "line": 46,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "<value>***REDACTED***"
+        },
+        {
+          "file": "docs\\format-security.md",
+          "line": 13,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 19,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 22,
+          "rule_id": "DS-005",
+          "rule_name": "Stripe Secret Key",
+          "severity": "Critical",
+          "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 51,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "***REDACTED***"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+        }
+      ]
+    },
+    {
+      "format": "yaml",
+      "file": "detect-secrets.yaml",
+      "file_bytes": 4370,
+      "file_lines": 145,
+      "rule_count": 15,
+      "parse_avg_ms": 4.4351,
+      "parse_min_ms": 4.1313,
+      "parse_max_ms": 5.0262,
+      "parse_p95_ms": 4.8352,
+      "scan_ms": 113.87,
+      "files_scanned": 55,
+      "total_findings": 45,
+      "rules_fired": 7,
+      "detection_rate": 46.7,
+      "severity_counts": {
+        "Critical": 39,
+        "High": 6
+      },
+      "quality_scores": {
+        "readability": 7,
+        "machine_parse": 9,
+        "rule_density": 8,
+        "extensibility": 8,
+        "tooling": 7,
+        "colocation": 6,
+        "fragility": 6
+      },
+      "efficiency_score": 4.83,
+      "top_findings": [
+        {
+          "file": ".env.example",
+          "line": 1,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": ".env.example",
+          "line": 3,
+          "rule_id": "DS-003",
+          "rule_name": "Azure Client Secret",
+          "severity": "Critical",
+          "snippet": "***REDACTED***\""
+        },
+        {
+          "file": ".env.example",
+          "line": 4,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+        },
+        {
+          "file": "config\\spring-beans.xml",
+          "line": 46,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "<value>***REDACTED***"
+        },
+        {
+          "file": "docs\\format-security.md",
+          "line": 13,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 19,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 22,
+          "rule_id": "DS-005",
+          "rule_name": "Stripe Secret Key",
+          "severity": "Critical",
+          "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 51,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "***REDACTED***"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+        }
+      ]
+    },
+    {
+      "format": "toml",
+      "file": "detect-secrets.toml",
+      "file_bytes": 4306,
+      "file_lines": 174,
+      "rule_count": 15,
+      "parse_avg_ms": 0.4999,
+      "parse_min_ms": 0.4494,
+      "parse_max_ms": 0.9273,
+      "parse_p95_ms": 0.6251,
+      "scan_ms": 114.48,
+      "files_scanned": 55,
+      "total_findings": 45,
+      "rules_fired": 7,
+      "detection_rate": 46.7,
+      "severity_counts": {
+        "Critical": 39,
+        "High": 6
+      },
+      "quality_scores": {
+        "readability": 8,
+        "machine_parse": 8,
+        "rule_density": 5,
+        "extensibility": 6,
+        "tooling": 6,
+        "colocation": 5,
+        "fragility": 8
+      },
+      "efficiency_score": 6.51,
+      "top_findings": [
+        {
+          "file": ".env.example",
+          "line": 1,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": ".env.example",
+          "line": 3,
+          "rule_id": "DS-003",
+          "rule_name": "Azure Client Secret",
+          "severity": "Critical",
+          "snippet": "***REDACTED***\""
+        },
+        {
+          "file": ".env.example",
+          "line": 4,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+        },
+        {
+          "file": "config\\spring-beans.xml",
+          "line": 46,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "<value>***REDACTED***"
+        },
+        {
+          "file": "docs\\format-security.md",
+          "line": 13,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 19,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 22,
+          "rule_id": "DS-005",
+          "rule_name": "Stripe Secret Key",
+          "severity": "Critical",
+          "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 51,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "***REDACTED***"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+        }
+      ]
+    },
+    {
+      "format": "json",
+      "file": "detect-secrets.json",
+      "file_bytes": 5368,
+      "file_lines": 178,
+      "rule_count": 15,
+      "parse_avg_ms": 0.0552,
+      "parse_min_ms": 0.0411,
+      "parse_max_ms": 0.2063,
+      "parse_p95_ms": 0.1042,
+      "scan_ms": 125.85,
+      "files_scanned": 55,
+      "total_findings": 45,
+      "rules_fired": 7,
+      "detection_rate": 46.7,
+      "severity_counts": {
+        "Critical": 39,
+        "High": 6
+      },
+      "quality_scores": {
+        "readability": 5,
+        "machine_parse": 10,
+        "rule_density": 4,
+        "extensibility": 9,
+        "tooling": 10,
+        "colocation": 4,
+        "fragility": 7
+      },
+      "efficiency_score": 6.91,
+      "top_findings": [
+        {
+          "file": ".env.example",
+          "line": 1,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": ".env.example",
+          "line": 3,
+          "rule_id": "DS-003",
+          "rule_name": "Azure Client Secret",
+          "severity": "Critical",
+          "snippet": "***REDACTED***\""
+        },
+        {
+          "file": ".env.example",
+          "line": 4,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+        },
+        {
+          "file": "config\\spring-beans.xml",
+          "line": 46,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "<value>***REDACTED***"
+        },
+        {
+          "file": "docs\\format-security.md",
+          "line": 13,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 19,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 22,
+          "rule_id": "DS-005",
+          "rule_name": "Stripe Secret Key",
+          "severity": "Critical",
+          "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 51,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "***REDACTED***"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+        }
+      ]
+    },
+    {
+      "format": "inline-yaml",
+      "file": "detect-secrets-inline.yaml",
+      "file_bytes": 4890,
+      "file_lines": 81,
+      "rule_count": 15,
+      "parse_avg_ms": 4.6056,
+      "parse_min_ms": 4.3786,
+      "parse_max_ms": 4.9768,
+      "parse_p95_ms": 4.9235,
+      "scan_ms": 102.3,
+      "files_scanned": 55,
+      "total_findings": 45,
+      "rules_fired": 7,
+      "detection_rate": 46.7,
+      "severity_counts": {
+        "Critical": 39,
+        "High": 6
+      },
+      "quality_scores": {
+        "readability": 6,
+        "machine_parse": 9,
+        "rule_density": 9,
+        "extensibility": 7,
+        "tooling": 7,
+        "colocation": 10,
+        "fragility": 6
+      },
+      "efficiency_score": 4.92,
+      "top_findings": [
+        {
+          "file": ".env.example",
+          "line": 1,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": ".env.example",
+          "line": 3,
+          "rule_id": "DS-003",
+          "rule_name": "Azure Client Secret",
+          "severity": "Critical",
+          "snippet": "***REDACTED***\""
+        },
+        {
+          "file": ".env.example",
+          "line": 4,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "PRIVATE_KEY=\"***REDACTED***\\nFAKEKEYONLYFORTESTS\\n-----END RSA PRIVATE KEY-----\""
+        },
+        {
+          "file": "config\\spring-beans.xml",
+          "line": 46,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "<value>***REDACTED***"
+        },
+        {
+          "file": "docs\\format-security.md",
+          "line": 13,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "***REDACTED*** is included as a synthetic documentation leak."
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 19,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "AWS_ACCESS_KEY_ID=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 22,
+          "rule_id": "DS-005",
+          "rule_name": "Stripe Secret Key",
+          "severity": "Critical",
+          "snippet": "STRIPE_SECRET_KEY=***REDACTED***"
+        },
+        {
+          "file": "docs\\setup-guide.md",
+          "line": 51,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "***REDACTED***"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-001",
+          "rule_name": "AWS Access Key",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"***REDACTED***\", \"-----BEGIN RSA PRIVATE KEY-----\", \"AZURE_CLIENT_SECRET\"]"
+        },
+        {
+          "file": "expected-findings.json",
+          "line": 20,
+          "rule_id": "DS-004",
+          "rule_name": "Private Key Material",
+          "severity": "Critical",
+          "snippet": "\"signals\": [\"AWS_ACCESS_KEY_ID_EXAMPLE\", \"***REDACTED***\", \"AZURE_CLIENT_SECRET\"]"
+        }
+      ]
+    }
+  ],
+  "files_scanned": 55
+}

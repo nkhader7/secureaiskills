@@ -1,0 +1,41 @@
+# scan-toml-security fixture
+# Intentionally vulnerable — do not deploy
+
+[database]
+host     = "prod-db.internal"
+port     = 5432
+name     = "appdb"
+user     = "admin"
+password = "toml_DB_PASS_12345"          # plaintext credential
+ssl_mode = "disable"                     # TLS disabled
+
+[redis]
+host     = "cache.internal"
+port     = 6379
+password = "toml_REDIS_PASS_12345"       # plaintext credential
+tls      = false
+
+[smtp]
+host     = "smtp.example.com"
+port     = 25                            # unencrypted SMTP
+user     = "noreply@example.com"
+password = "toml_SMTP_PASS_12345"        # plaintext credential
+
+[api]
+secret_key     = "toml_API_SECRET_12345"
+api_key        = "toml_STRIPE_KEY_12345"
+webhook_secret = "toml_WEBHOOK_12345"
+verify_ssl     = false
+tls_verify     = false
+
+[server]
+host             = "0.0.0.0"
+debug            = true
+allowed_origins  = ["*"]
+reject_unauthorized = false
+
+[pypi]
+[[tool.poetry.source]]
+name     = "internal"
+url      = "http://packages.example.invalid/simple"  # HTTP package source
+priority = "primary"

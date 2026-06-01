@@ -1,0 +1,194 @@
+name: scan-iac-security
+format: yaml
+description: Scans Terraform, CloudFormation, Bicep, Pulumi, and Kubernetes IaC files for security misconfigurations
+triggers:
+  - /scan-iac-security
+
+orchestration:
+  steps:
+    - collect_files: "*.tf, *.tfvars, *.yaml, *.yml, *.bicep, *.py; skip .terraform/ node_modules/"
+    - match_lines: "regex match each line against all rules"
+    - capture: "file, line, rule_id, severity, masked snippet"
+    - sort: "Critical > High > Medium > Low"
+    - render: "report with per-framework sections"
+
+rules:
+  - id: IAC-SG-001
+    severity: Critical
+    category: Networking
+    name: Open Security Group Inbound
+    patterns:
+      - "cidr_blocks\\s*=\\s*\\[\"0\\.0\\.0\\.0/0\"\\]"
+      - "CidrIp:\\s*\"0\\.0\\.0\\.0/0\""
+      - "sourceAddressPrefix:\\s*['\"]\\*['\"]"
+    remediation: Restrict ingress to known CIDR ranges.
+
+  - id: IAC-SG-002
+    severity: Critical
+    category: Networking
+    name: SSH Open to Internet
+    patterns:
+      - "from_port\\s*=\\s*22"
+      - "FromPort.*22.*CidrIp.*0\\.0\\.0\\.0"
+    remediation: Restrict SSH to bastion host IP.
+
+  - id: IAC-S3-001
+    severity: Critical
+    category: Storage
+    name: Public S3 Bucket
+    patterns:
+      - "acl\\s*=\\s*[\"']public-read"
+      - "AccessControl.*PublicRead"
+      - "\"Principal\":\\s*\"\\*\""
+    remediation: Remove public ACL. Enable S3 Block Public Access.
+
+  - id: IAC-S3-002
+    severity: High
+    category: Storage
+    name: S3 Versioning Disabled
+    patterns:
+      - "status\\s*=\\s*\"Disabled\""
+      - "VersioningConfiguration.*Suspended"
+    remediation: Enable S3 versioning and server-side encryption.
+
+  - id: IAC-RDS-001
+    severity: Critical
+    category: Database
+    name: RDS Publicly Accessible
+    patterns:
+      - "publicly_accessible\\s*=\\s*true"
+      - "PubliclyAccessible:\\s*true"
+    remediation: Set publicly_accessible = false. Place RDS in private subnet.
+
+  - id: IAC-RDS-002
+    severity: High
+    category: Database
+    name: RDS Encryption Disabled
+    patterns:
+      - "storage_encrypted\\s*=\\s*false"
+      - "StorageEncrypted:\\s*false"
+    remediation: Enable storage_encrypted = true.
+
+  - id: IAC-RDS-003
+    severity: High
+    category: Database
+    name: RDS No Deletion Protection or Backups
+    patterns:
+      - "deletion_protection\\s*=\\s*false"
+      - "backup_retention_period\\s*=\\s*0"
+    remediation: Set deletion_protection = true and backup_retention_period >= 7.
+
+  - id: IAC-IAM-001
+    severity: Critical
+    category: IAM
+    name: IAM Wildcard Action
+    patterns:
+      - "Action\\s*=\\s*\"\\*\""
+      - "\"Action\":\\s*\"\\*\""
+    remediation: Use least-privilege IAM policies with specific actions.
+
+  - id: IAC-IAM-002
+    severity: Critical
+    category: IAM
+    name: IAM Wildcard Principal
+    patterns:
+      - "Principal\\s*=\\s*\"\\*\""
+      - "\"Principal\":\\s*\"\\*\""
+    remediation: Never use Principal = "*". Specify exact accounts or services.
+
+  - id: IAC-EBS-001
+    severity: High
+    category: Storage
+    name: EBS Volume Unencrypted
+    patterns:
+      - "encrypted\\s*=\\s*false"
+    remediation: Set encrypted = true. Enable default EBS encryption per region.
+
+  - id: IAC-K8S-001
+    severity: Critical
+    category: Kubernetes
+    name: Privileged Container
+    patterns:
+      - "privileged:\\s*true"
+      - "allowPrivilegeEscalation:\\s*true"
+    remediation: Set privileged and allowPrivilegeEscalation to false.
+
+  - id: IAC-K8S-002
+    severity: Critical
+    category: Kubernetes
+    name: Host Namespace Sharing
+    patterns:
+      - "hostNetwork:\\s*true"
+      - "hostPID:\\s*true"
+      - "hostIPC:\\s*true"
+    remediation: Never share host namespaces.
+
+  - id: IAC-K8S-003
+    severity: High
+    category: Kubernetes
+    name: Running as Root
+    patterns:
+      - "runAsUser:\\s*0"
+      - "runAsNonRoot:\\s*false"
+    remediation: Set runAsNonRoot true and runAsUser >= 1000.
+
+  - id: IAC-K8S-004
+    severity: Critical
+    category: Kubernetes
+    name: Wildcard RBAC Permissions
+    patterns:
+      - "verbs:\\s*\\[\"\\*\"\\]"
+      - "resources:\\s*\\[\"\\*\"\\]"
+      - "apiGroups:\\s*\\[\"\\*\"\\]"
+    remediation: Enumerate specific RBAC verbs and resources.
+
+  - id: IAC-K8S-005
+    severity: Critical
+    category: Kubernetes
+    name: Docker Socket Mounted
+    patterns:
+      - "path:\\s*/var/run/docker\\.sock"
+    remediation: Never mount the Docker socket.
+
+  - id: IAC-K8S-006
+    severity: High
+    category: Kubernetes
+    name: Secrets in ConfigMap
+    patterns:
+      - "(password|api_key|secret|token):\\s*[\"'][^\"']{8,}[\"']"
+    remediation: Move secrets to Kubernetes Secrets or external secrets manager.
+
+  - id: IAC-CFN-001
+    severity: High
+    category: Logging
+    name: CloudTrail Logging Disabled
+    patterns:
+      - "IsLogging:\\s*false"
+      - "EnableLogFileValidation:\\s*false"
+    remediation: Enable CloudTrail logging and log file validation.
+
+  - id: IAC-LAMBDA-001
+    severity: High
+    category: Secrets
+    name: Lambda Plaintext Env Secrets
+    patterns:
+      - "(DB_PASSWORD|API_SECRET|JWT_SECRET|STRIPE_SECRET_KEY)\\s*=\\s*[\"'][^\"']{6,}[\"']"
+    remediation: Use AWS Secrets Manager or SSM Parameter Store.
+
+  - id: IAC-TFVAR-001
+    severity: Critical
+    category: Secrets
+    name: Secrets in tfvars
+    patterns:
+      - "(password|secret|api_key|private_key)\\s*=\\s*[\"'][^\"']{8,}[\"']"
+    remediation: Never commit secrets to tfvars. Use Vault or env vars.
+
+  - id: IAC-BICEP-001
+    severity: High
+    category: Azure
+    name: Azure Storage Public Access
+    patterns:
+      - "allowBlobPublicAccess:\\s*true"
+      - "supportsHttpsTrafficOnly:\\s*false"
+      - "minimumTlsVersion:\\s*'TLS1_0'"
+    remediation: Set allowBlobPublicAccess false and supportsHttpsTrafficOnly true.

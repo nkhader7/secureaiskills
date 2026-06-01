@@ -1,0 +1,220 @@
+﻿{
+    "skills":  [
+                   "scan-yaml-security",
+                   "scan-json-security",
+                   "scan-markdown-security",
+                   "scan-xml-security",
+                   "scan-toml-security"
+               ],
+    "fileTypes":  [
+                      "YAML",
+                      "JSON",
+                      "Markdown",
+                      "XML",
+                      "TOML"
+                  ],
+    "combinations":  25,
+    "expectedCoveredCombinations":  5,
+    "results":  [
+                    {
+                        "skill":  "scan-yaml-security",
+                        "fileType":  "YAML",
+                        "fixtureFile":  "config/formats.yaml",
+                        "expectedSignals":  7,
+                        "matchedSignals":  7,
+                        "status":  "Pass"
+                    },
+                    {
+                        "skill":  "scan-yaml-security",
+                        "fileType":  "JSON",
+                        "fixtureFile":  "config/formats.json",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-yaml-security",
+                        "fileType":  "Markdown",
+                        "fixtureFile":  "docs/format-security.md",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-yaml-security",
+                        "fileType":  "XML",
+                        "fixtureFile":  "config/formats.xml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-yaml-security",
+                        "fileType":  "TOML",
+                        "fixtureFile":  "config/formats.toml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "fileType":  "YAML",
+                        "fixtureFile":  "config/formats.yaml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "fileType":  "JSON",
+                        "fixtureFile":  "config/formats.json",
+                        "expectedSignals":  5,
+                        "matchedSignals":  5,
+                        "status":  "Pass"
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "fileType":  "Markdown",
+                        "fixtureFile":  "docs/format-security.md",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "fileType":  "XML",
+                        "fixtureFile":  "config/formats.xml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-json-security",
+                        "fileType":  "TOML",
+                        "fixtureFile":  "config/formats.toml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "fileType":  "YAML",
+                        "fixtureFile":  "config/formats.yaml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "fileType":  "JSON",
+                        "fixtureFile":  "config/formats.json",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "fileType":  "Markdown",
+                        "fixtureFile":  "docs/format-security.md",
+                        "expectedSignals":  6,
+                        "matchedSignals":  6,
+                        "status":  "Pass"
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "fileType":  "XML",
+                        "fixtureFile":  "config/formats.xml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-markdown-security",
+                        "fileType":  "TOML",
+                        "fixtureFile":  "config/formats.toml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "fileType":  "YAML",
+                        "fixtureFile":  "config/formats.yaml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "fileType":  "JSON",
+                        "fixtureFile":  "config/formats.json",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "fileType":  "Markdown",
+                        "fixtureFile":  "docs/format-security.md",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "fileType":  "XML",
+                        "fixtureFile":  "config/formats.xml",
+                        "expectedSignals":  6,
+                        "matchedSignals":  6,
+                        "status":  "Pass"
+                    },
+                    {
+                        "skill":  "scan-xml-security",
+                        "fileType":  "TOML",
+                        "fixtureFile":  "config/formats.toml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "fileType":  "YAML",
+                        "fixtureFile":  "config/formats.yaml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "fileType":  "JSON",
+                        "fixtureFile":  "config/formats.json",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "fileType":  "Markdown",
+                        "fixtureFile":  "docs/format-security.md",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "fileType":  "XML",
+                        "fixtureFile":  "config/formats.xml",
+                        "expectedSignals":  0,
+                        "matchedSignals":  0,
+                        "status":  "NotApplicable"
+                    },
+                    {
+                        "skill":  "scan-toml-security",
+                        "fileType":  "TOML",
+                        "fixtureFile":  "config/formats.toml",
+                        "expectedSignals":  7,
+                        "matchedSignals":  7,
+                        "status":  "Pass"
+                    }
+                ]
+}

@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    image: skill-fixture:latest
+    privileged: true
+    network_mode: host
+    pid: host
+    volumes:
+      - /:/host:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "0.0.0.0:80:3000"

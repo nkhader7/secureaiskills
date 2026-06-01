@@ -1,0 +1,89 @@
+# scan-iac-security fixture — CloudFormation misconfigurations
+# Intentionally vulnerable — do not deploy
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Vulnerable CloudFormation stack for IaC security testing
+
+Parameters:
+  DBPassword:
+    Type: String
+    Default: "cloudformation_default_password"   # IAC-CFN-001: default plaintext password
+    NoEcho: false                                  # IAC-CFN-002: password echoed in console
+
+Resources:
+  # IAC-CFN-003: S3 bucket with public access enabled
+  PublicBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: cfn-public-data-bucket
+      AccessControl: PublicRead                    # IAC-CFN-003
+      VersioningConfiguration:
+        Status: Suspended                          # IAC-CFN-004: versioning off
+
+  # IAC-CFN-005: S3 bucket policy allowing public GetObject
+  PublicBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref PublicBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: "*"                         # IAC-CFN-005: anonymous public access
+            Action: "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${PublicBucket}/*"
+
+  # IAC-CFN-006: Security group open to world
+  OpenSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Open SG"
+      SecurityGroupIngress:
+        - IpProtocol: "-1"
+          CidrIp: "0.0.0.0/0"                     # IAC-CFN-006: all traffic
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: "0.0.0.0/0"                     # IAC-CFN-007: SSH open
+
+  # IAC-CFN-008: RDS with public access
+  Database:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: cfn-prod-db
+      DBInstanceClass: db.t3.small
+      Engine: mysql
+      MasterUsername: admin
+      MasterUserPassword: !Ref DBPassword
+      PubliclyAccessible: true                     # IAC-CFN-008
+      StorageEncrypted: false                      # IAC-CFN-009
+      BackupRetentionPeriod: 0                     # IAC-CFN-010: no backups
+      DeletionPolicy: Delete                       # IAC-CFN-011: no retain/snapshot
+
+  # IAC-CFN-012: IAM role with admin wildcard
+  AdminRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: CfnAdminRole
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: AdminPolicy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action: "*"                        # IAC-CFN-012: all actions
+                Resource: "*"
+
+  # IAC-CFN-013: CloudTrail disabled
+  NoCloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      TrailName: disabled-trail
+      S3BucketName: !Ref PublicBucket
+      IsLogging: false                             # IAC-CFN-013: logging off
+      EnableLogFileValidation: false               # IAC-CFN-014: no integrity check
+      IncludeGlobalServiceEvents: false            # IAC-CFN-015: misses IAM/STS events

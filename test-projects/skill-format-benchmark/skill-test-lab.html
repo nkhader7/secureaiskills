@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SecureAI Skills Test Lab</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5d6875;
+      --line: #d8e0ea;
+      --soft: #f6f8fb;
+      --blue: #2c63b7;
+      --green: #14785d;
+      --teal: #087989;
+      --amber: #a66300;
+      --red: #b44444;
+      --focus: #111827;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: end;
+      padding: 20px 26px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    main { padding: 18px 26px 34px; }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      min-height: 38px;
+      border: 1px solid var(--focus);
+      border-radius: 6px;
+      background: var(--focus);
+      color: #fff;
+      padding: 0 14px;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: .68;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 8px 10px;
+    }
+
+    textarea {
+      min-height: 104px;
+      resize: vertical;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .tab.active {
+      background: var(--focus);
+      color: #fff;
+      border-color: var(--focus);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, .8fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      min-height: 84px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--soft);
+      padding: 13px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 7px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .skill-grid,
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .card.active {
+      border-color: var(--blue);
+      background: #f3f7ff;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .formats {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .formats label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 36px;
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: #fff;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--soft);
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .progress {
+      height: 6px;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: #dfe6ef;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--blue);
+      transition: width .18s ease;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .chart-title {
+      fill: var(--ink);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .axis,
+    .value {
+      fill: var(--muted);
+      font-size: 12px;
+    }
+
+    .grid-line {
+      stroke: #e7ecf2;
+      stroke-width: 1;
+    }
+
+    .bar-0 { fill: var(--green); }
+    .bar-1 { fill: var(--blue); }
+    .bar-2 { fill: var(--teal); }
+    .bar-3 { fill: var(--amber); }
+    .bar-4 { fill: var(--red); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    td:first-child,
+    th:first-child {
+      white-space: normal;
+    }
+
+    th {
+      background: var(--soft);
+      color: var(--muted);
+    }
+
+    .flow,
+    .findings {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .flow strong,
+    .findings strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .trace {
+      display: grid;
+      gap: 8px;
+    }
+
+    .span-row {
+      display: grid;
+      grid-template-columns: 122px minmax(120px, 1fr) 76px;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .span-name {
+      color: var(--ink);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .span-track {
+      height: 10px;
+      border-radius: 999px;
+      background: #e7edf4;
+      overflow: hidden;
+    }
+
+    .span-track span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--teal);
+    }
+
+    .log {
+      height: 246px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #101820;
+      color: #d8f3e8;
+      padding: 12px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .warning {
+      border-left: 4px solid var(--amber);
+      padding: 8px 0 8px 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .hidden { display: none; }
+
+    @media (max-width: 1120px) {
+      header,
+      .grid,
+      .controls,
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        justify-content: flex-start;
+      }
+
+      header,
+      main {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .panel { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>SecureAI Skills Test Lab</h1>
+      <p>Create test projects per skill, compare skill formats, simulate LLM execution, and observe timing traces.</p>
+    </div>
+    <div class="toolbar">
+      <button id="runButton" type="button">Run Test</button>
+      <button id="downloadButton" type="button" class="secondary">Download Bundle</button>
+      <button id="resetButton" type="button" class="secondary">Reset</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <button class="tab active" type="button" data-tab="lab">Test Lab</button>
+      <button class="tab" type="button" data-tab="llm">LLM Connection</button>
+      <button class="tab" type="button" data-tab="projects">Generated Test Projects</button>
+      <button class="tab" type="button" data-tab="hosting">Host & Download</button>
+    </div>
+
+    <section class="panel tab-panel" id="panel-lab">
+      <div class="controls">
+        <div>
+          <label for="skillSelect">Skill</label>
+          <select id="skillSelect"></select>
+        </div>
+        <div>
+          <label for="scenarioSelect">Scenario</label>
+          <select id="scenarioSelect">
+            <option value="balanced">Balanced Fixture</option>
+            <option value="large">Large Repository</option>
+            <option value="ci">CI Gate</option>
+            <option value="authoring">Authoring Review</option>
+          </select>
+        </div>
+        <div>
+          <label for="runCount">Runs</label>
+          <input id="runCount" type="number" min="1" max="50" value="7">
+        </div>
+        <div>
+          <label>Formats</label>
+          <div class="formats" id="formats"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel tab-panel hidden" id="panel-llm">
+      <div class="controls">
+        <div>
+          <label for="apiUrl">LLM API URL</label>
+          <input id="apiUrl" type="url" placeholder="https://api.example.com/v1/responses">
+        </div>
+        <div>
+          <label for="clientId">Client ID</label>
+          <input id="clientId" type="text" autocomplete="off" placeholder="client id">
+        </div>
+        <div>
+          <label for="clientSecret">Client Secret</label>
+          <input id="clientSecret" type="password" autocomplete="off" placeholder="not stored">
+        </div>
+        <div>
+          <label for="llmMode">LLM Mode</label>
+          <select id="llmMode">
+            <option value="dry">Dry-run simulation</option>
+            <option value="redacted">Redacted connection trace</option>
+          </select>
+        </div>
+      </div>
+      <p class="warning">Credentials stay in this browser page and are never persisted by this static app. The simulation redacts secrets in logs and downloads.</p>
+    </section>
+
+    <section class="panel tab-panel hidden" id="panel-projects">
+      <h2>Generated Test Projects</h2>
+      <div class="project-grid" id="projectGrid"></div>
+    </section>
+
+    <section class="panel tab-panel hidden" id="panel-hosting">
+      <h2>Host & Download</h2>
+      <div class="warning">
+        Host locally from this folder with:
+        <br><code>D:\Download\python\python.exe test-projects\skill-format-benchmark\serve.py</code>
+        <br>or any static server pointed at <code>test-projects/skill-format-benchmark</code>.
+      </div>
+      <textarea id="bundlePreview" readonly></textarea>
+    </section>
+
+    <div class="status">
+      <span id="statusText">Ready to run a skill test.</span>
+      <div class="progress"><span id="progress"></span></div>
+    </div>
+
+    <div class="metrics" id="metrics"></div>
+
+    <div class="grid">
+      <div>
+        <section class="panel">
+          <h2>Skill Catalog</h2>
+          <div class="skill-grid" id="skillGrid"></div>
+        </section>
+
+        <section class="panel">
+          <div id="runtimeChart"></div>
+          <div id="findingChart"></div>
+          <div id="scoreChart"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Results</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Format</th>
+                <th>Total ms</th>
+                <th>Parse ms</th>
+                <th>LLM ms</th>
+                <th>Scan ms</th>
+                <th>Signals</th>
+                <th>Findings</th>
+                <th>Fit</th>
+              </tr>
+            </thead>
+            <tbody id="resultRows"></tbody>
+          </table>
+        </section>
+      </div>
+
+      <aside>
+        <section class="panel">
+          <h2>LLM Flow</h2>
+          <ol class="flow" id="flow"></ol>
+        </section>
+
+        <section class="panel">
+          <h2>Timing Trace</h2>
+          <div class="trace" id="trace"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Finding Preview</h2>
+          <ul class="findings" id="findings"></ul>
+        </section>
+
+        <section class="panel">
+          <h2>Observability Log</h2>
+          <div class="log" id="log"></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const skills = [
+      { id: "detect-secrets", name: "detect-secrets", category: "Secrets", rules: 393, signals: 3, targets: ["src/app.js", ".env.example"], files: ["src/app.js", ".env.example", "README.md"], factor: 1, description: "Hardcoded credentials, private keys, cloud tokens, and API keys." },
+      { id: "scan-yaml-security", name: "scan-yaml-security", category: "YAML", rules: 5, signals: 7, targets: ["config/formats.yaml", "k8s/deployment.yaml"], files: ["config/formats.yaml", "k8s/deployment.yaml"], factor: .34, description: "YAML auth, TLS, CORS, Kubernetes privilege, and unsafe config checks." },
+      { id: "scan-toml-security", name: "scan-toml-security", category: "TOML", rules: 5, signals: 7, targets: ["config/formats.toml"], files: ["config/formats.toml", "README.md"], factor: .28, description: "TOML debug, TLS, secret, public bind, and package index checks." },
+      { id: "scan-api-security", name: "scan-api-security", category: "API", rules: 6, signals: 3, targets: ["api/openapi.yaml", "src/app.js"], files: ["api/openapi.yaml", "src/app.js"], factor: .42, description: "OpenAPI auth gaps, tenant boundaries, and admin object access checks." },
+      { id: "scan-iac-security", name: "scan-iac-security", category: "IaC", rules: 1746, signals: 3, targets: ["infra/main.tf", "infra/rds.tf"], files: ["infra/main.tf", "infra/rds.tf"], factor: 2.2, description: "Terraform and cloud resource misconfiguration checks with a large rule catalog." }
+    ];
+
+    const formats = [
+      { id: "md", label: "Markdown", parse: 214.1, scan: 13.2, fit: 95.6, bytes: 2408 },
+      { id: "yaml", label: "YAML", parse: 210.5, scan: 12.9, fit: 66.4, bytes: 286948 },
+      { id: "toml", label: "TOML", parse: 23.0, scan: 13.1, fit: 61.7, bytes: 256754 },
+      { id: "json", label: "JSON", parse: .83, scan: 12.9, fit: 52.3, bytes: 352947 },
+      { id: "inline-yaml", label: "Inline YAML", parse: 118.4, scan: 12.7, fit: 72.5, bytes: 17452 }
+    ];
+
+    const scenarios = {
+      balanced: { parse: 1, scan: 1, findings: 1, llm: 1 },
+      large: { parse: 1.1, scan: 7.2, findings: 6.8, llm: 1.35 },
+      ci: { parse: .82, scan: 2.1, findings: 2.1, llm: .72 },
+      authoring: { parse: 1, scan: .7, findings: .7, llm: 1.15 }
+    };
+
+    const sampleFindings = {
+      "detect-secrets": [["DS-001", "AWS access key", ".env.example:3"], ["DS-003", "Azure client secret", ".env.example:5"], ["DS-004", "Private key material", "src/app.js:29"]],
+      "scan-yaml-security": [["YAML-001", "auth disabled", "config/formats.yaml:4"], ["YAML-003", "wildcard CORS", "config/formats.yaml:8"], ["YAML-005", "privileged pod", "k8s/deployment.yaml:19"]],
+      "scan-toml-security": [["TOML-001", "public bind", "config/formats.toml:2"], ["TOML-003", "TLS disabled", "config/formats.toml:7"], ["TOML-005", "API key in config", "config/formats.toml:10"]],
+      "scan-api-security": [["SA-001", "missing operation auth", "api/openapi.yaml:14"], ["SA-003", "tenant boundary signal", "api/openapi.yaml:31"], ["SA-004", "admin object access", "api/openapi.yaml:44"]],
+      "scan-iac-security": [["IAC-001", "open ingress", "infra/main.tf:22"], ["IAC-024", "public bucket ACL", "infra/main.tf:41"], ["IAC-117", "RDS encryption disabled", "infra/rds.tf:12"]]
+    };
+
+    const colors = ["#14785d", "#2c63b7", "#087989", "#a66300", "#b44444"];
+    const nf = new Intl.NumberFormat("en-US");
+    let lastRows = [];
+    let runId = 0;
+
+    function currentSkill() {
+      return skills.find(skill => skill.id === document.getElementById("skillSelect").value) || skills[0];
+    }
+
+    function selectedFormats() {
+      return [...document.querySelectorAll("[data-format]:checked")].map(input => input.value);
+    }
+
+    function init() {
+      document.getElementById("skillSelect").innerHTML = skills.map(skill => `<option value="${skill.id}">${skill.name}</option>`).join("");
+      document.getElementById("formats").innerHTML = formats.map(format => `<label><input type="checkbox" data-format value="${format.id}" checked> ${format.label}</label>`).join("");
+      document.querySelectorAll("[data-tab]").forEach(button => button.addEventListener("click", () => showTab(button.dataset.tab)));
+      document.getElementById("runButton").addEventListener("click", runTest);
+      document.getElementById("resetButton").addEventListener("click", reset);
+      document.getElementById("downloadButton").addEventListener("click", downloadBundle);
+      document.querySelectorAll("select,input").forEach(input => input.addEventListener("change", simulate));
+      simulate();
+    }
+
+    function showTab(name) {
+      document.querySelectorAll("[data-tab]").forEach(button => button.classList.toggle("active", button.dataset.tab === name));
+      document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.add("hidden"));
+      document.getElementById(`panel-${name}`).classList.remove("hidden");
+    }
+
+    function simulate() {
+      const skill = currentSkill();
+      const scenario = scenarios[document.getElementById("scenarioSelect").value];
+      const runs = Math.max(1, Math.min(50, Number(document.getElementById("runCount").value) || 1));
+      const chosen = selectedFormats();
+      const llmMode = document.getElementById("llmMode").value;
+      const hasEndpoint = document.getElementById("apiUrl").value.trim().length > 0;
+
+      lastRows = formats.filter(format => chosen.includes(format.id)).map((format, index) => {
+        const ruleScale = .4 + Math.log10(skill.rules + 10) / 2.5;
+        const parseMs = mean(runs, run => jitter(format.parse * scenario.parse * ruleScale, index + run));
+        const scanMs = mean(runs, run => jitter(format.scan * scenario.scan * skill.factor, index + run + 4));
+        const contextMs = 8 + skill.targets.length * 2.5 + skill.rules / 180;
+        const llmMs = (hasEndpoint ? 120 : 28) * scenario.llm + skill.rules / 90;
+        const reportMs = 9 + skill.signals * 1.8;
+        const totalMs = parseMs + scanMs + contextMs + llmMs + reportMs;
+        const findings = Math.max(skill.signals, Math.round(442 * skill.factor * scenario.findings));
+        const fit = Math.max(0, Math.min(100, format.fit - (skill.rules > 1000 ? 8 : 0)));
+        return { ...format, parseMs, scanMs, contextMs, llmMs, reportMs, totalMs, findings, fit, signals: skill.signals, llmMode };
+      });
+
+      render();
+    }
+
+    function mean(count, fn) {
+      let total = 0;
+      for (let i = 0; i < count; i += 1) total += fn(i);
+      return total / count;
+    }
+
+    function jitter(value, seed) {
+      const wave = Math.sin(seed * 12.9898) * 43758.5453;
+      const fraction = wave - Math.floor(wave);
+      return Math.max(0, value * (1 + ((fraction * 2) - 1) * .08));
+    }
+
+    function render() {
+      const skill = currentSkill();
+      const fastest = [...lastRows].sort((a, b) => a.totalMs - b.totalMs)[0];
+      const bestFit = [...lastRows].sort((a, b) => b.fit - a.fit)[0];
+      const findingTotal = lastRows.reduce((sum, row) => sum + row.findings, 0);
+
+      document.getElementById("metrics").innerHTML = [
+        metric("Selected skill", skill.name),
+        metric("Fastest format", fastest ? `${fastest.label} ${fastest.totalMs.toFixed(1)} ms` : "None"),
+        metric("Rule catalog", `${nf.format(skill.rules)} rules`),
+        metric("Findings simulated", nf.format(findingTotal))
+      ].join("");
+
+      renderSkillGrid(skill);
+      renderProjects(skill);
+      renderCharts();
+      renderResults(skill);
+      renderFlow(skill, fastest);
+      renderTrace(fastest);
+      renderFindings(skill);
+      renderLog(skill, fastest);
+      renderBundlePreview(skill);
+    }
+
+    function metric(label, value) {
+      return `<div class="metric"><span>${label}</span><strong>${value}</strong></div>`;
+    }
+
+    function renderSkillGrid(active) {
+      document.getElementById("skillGrid").innerHTML = skills.map(skill => `
+        <div class="card ${skill.id === active.id ? "active" : ""}">
+          <strong>${skill.name}</strong>
+          <span>${skill.category} · ${nf.format(skill.rules)} rules · ${skill.signals} signals<br>${skill.description}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderProjects(active) {
+      document.getElementById("projectGrid").innerHTML = skills.map(skill => `
+        <div class="card ${skill.id === active.id ? "active" : ""}">
+          <strong>${skill.name}-test-project</strong>
+          <span>Targets: ${skill.targets.join(", ")}<br>Files: ${skill.files.join(", ")}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderCharts() {
+      document.getElementById("runtimeChart").innerHTML = barChart([...lastRows].sort((a, b) => a.totalMs - b.totalMs), "totalMs", "Total Runtime", " ms");
+      document.getElementById("findingChart").innerHTML = barChart([...lastRows].sort((a, b) => b.findings - a.findings), "findings", "Findings", "", 0);
+      document.getElementById("scoreChart").innerHTML = barChart([...lastRows].sort((a, b) => b.fit - a.fit), "fit", "Format Fitness", "");
+    }
+
+    function barChart(rows, field, title, suffix, decimals = 1) {
+      const width = 760;
+      const height = 292;
+      const left = 150;
+      const top = 46;
+      const barH = 31;
+      const gap = 17;
+      if (rows.length === 0) {
+        return `<svg viewBox="0 0 ${width} ${height}"><text x="0" y="22" class="chart-title">${title}</text><text x="0" y="82" class="axis">Select at least one format.</text></svg>`;
+      }
+      const max = Math.max(...rows.map(row => row[field]), 1);
+      const bars = rows.map((row, index) => {
+        const y = top + index * (barH + gap);
+        const w = Math.max(2, row[field] / max * (width - left - 110));
+        const value = decimals === 0 ? nf.format(Math.round(row[field])) : row[field].toFixed(decimals);
+        return `<text x="0" y="${y + 20}" class="axis">${row.label}</text><rect x="${left}" y="${y}" width="${w}" height="${barH}" rx="4" class="bar-${index}"></rect><text x="${left + w + 10}" y="${y + 20}" class="value">${value}${suffix}</text>`;
+      }).join("");
+      return `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${title}"><text x="0" y="22" class="chart-title">${title}</text>${bars}</svg>`;
+    }
+
+    function renderResults(skill) {
+      document.getElementById("resultRows").innerHTML = lastRows.map(row => `
+        <tr>
+          <td>${row.label}</td>
+          <td>${row.totalMs.toFixed(2)}</td>
+          <td>${row.parseMs.toFixed(2)}</td>
+          <td>${row.llmMs.toFixed(2)}</td>
+          <td>${row.scanMs.toFixed(2)}</td>
+          <td>${row.signals}/${skill.signals}</td>
+          <td>${nf.format(row.findings)}</td>
+          <td>${row.fit.toFixed(1)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderFlow(skill, fastest) {
+      const format = fastest ? fastest.label : "selected format";
+      document.getElementById("flow").innerHTML = [
+        ["Create test project", `${skill.name}-test-project is materialized with targets: ${skill.targets.join(", ")}.`],
+        ["Load skill variant", `${format} skill definition is parsed into metadata, orchestration, references, and rule context.`],
+        ["Prepare LLM context", `The prompt includes ${nf.format(skill.rules)} rules, target manifest, reporting schema, and redaction policy.`],
+        ["Optional LLM API", `Endpoint/client credentials are validated as configuration and redacted in observability output.`],
+        ["Execute detectors", `Patterns scan the generated project, findings are deduplicated, ranked, and masked.`],
+        ["Emit observability", `Trace spans, timing table, findings, and downloadable bundle metadata are produced.`]
+      ].map(([name, detail]) => `<li><strong>${name}</strong>${detail}</li>`).join("");
+    }
+
+    function renderTrace(row) {
+      const spans = row ? [
+        ["parse.format", row.parseMs],
+        ["load.rules", Math.max(1.4, currentSkill().rules / 150)],
+        ["assemble.context", row.contextMs],
+        ["llm.api", row.llmMs],
+        ["scan.targets", row.scanMs],
+        ["render.report", row.reportMs]
+      ] : [];
+      const max = Math.max(...spans.map(span => span[1]), 1);
+      document.getElementById("trace").innerHTML = spans.map(([name, ms]) => `
+        <div class="span-row">
+          <span class="span-name">${name}</span>
+          <span class="span-track"><span style="width:${Math.max(4, ms / max * 100)}%"></span></span>
+          <span>${ms.toFixed(1)} ms</span>
+        </div>
+      `).join("");
+    }
+
+    function renderFindings(skill) {
+      const findings = sampleFindings[skill.id] || [];
+      document.getElementById("findings").innerHTML = findings.map(([id, name, loc]) => `<li><strong>${id} ${name}</strong>${loc}</li>`).join("");
+    }
+
+    function renderLog(skill, fastest) {
+      const now = new Date().toLocaleTimeString();
+      const apiUrl = document.getElementById("apiUrl").value.trim();
+      const clientId = document.getElementById("clientId").value.trim();
+      const secret = document.getElementById("clientSecret").value;
+      document.getElementById("log").innerHTML = [
+        `[${now}] run=${runId}`,
+        `[${now}] skill=${skill.id} test_project=${skill.id}-test-project`,
+        `[${now}] formats=${lastRows.map(row => row.label).join(", ") || "none"}`,
+        `[${now}] llm_endpoint=${apiUrl || "not configured"} client_id=${clientId ? redact(clientId) : "not configured"} secret=${secret ? "***REDACTED***" : "not configured"}`,
+        `[${now}] fastest=${fastest ? fastest.label : "none"}`,
+        `[${now}] flow=create_project -> parse_skill -> assemble_context -> llm_plan -> scan -> report`
+      ].join("<br>");
+    }
+
+    function renderBundlePreview(skill) {
+      document.getElementById("bundlePreview").value = JSON.stringify(buildBundle(skill), null, 2);
+    }
+
+    function buildBundle(skill) {
+      return {
+        generated_at: new Date().toISOString(),
+        app: "SecureAI Skills Test Lab",
+        llm: {
+          api_url: document.getElementById("apiUrl").value.trim() || null,
+          client_id: document.getElementById("clientId").value.trim() ? redact(document.getElementById("clientId").value.trim()) : null,
+          client_secret: document.getElementById("clientSecret").value ? "***REDACTED***" : null,
+          mode: document.getElementById("llmMode").value
+        },
+        selected_skill: skill,
+        selected_formats: selectedFormats(),
+        generated_test_projects: skills.map(item => ({
+          name: `${item.id}-test-project`,
+          targets: item.targets,
+          files: item.files,
+          expected_signals: item.signals
+        })),
+        latest_results: lastRows
+      };
+    }
+
+    function redact(value) {
+      if (value.length <= 4) return "****";
+      return `${value.slice(0, 2)}***${value.slice(-2)}`;
+    }
+
+    async function runTest() {
+      const button = document.getElementById("runButton");
+      button.disabled = true;
+      runId += 1;
+      setStatus("Creating generated skill test project...", 18);
+      await wait(160);
+      setStatus("Loading skill formats and parsing rule context...", 42);
+      await wait(180);
+      setStatus("Simulating LLM planning and redacted API observability...", 68);
+      await wait(180);
+      setStatus("Scanning targets and rendering trace/results...", 88);
+      await wait(160);
+      simulate();
+      setStatus(`Run ${runId} complete. Results, trace spans, and bundle preview updated.`, 100);
+      button.disabled = false;
+    }
+
+    function setStatus(message, pct) {
+      document.getElementById("statusText").textContent = message;
+      document.getElementById("progress").style.width = `${pct}%`;
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function reset() {
+      document.getElementById("skillSelect").value = "detect-secrets";
+      document.getElementById("scenarioSelect").value = "balanced";
+      document.getElementById("runCount").value = 7;
+      document.getElementById("apiUrl").value = "";
+      document.getElementById("clientId").value = "";
+      document.getElementById("clientSecret").value = "";
+      document.getElementById("llmMode").value = "dry";
+      document.querySelectorAll("[data-format]").forEach(input => input.checked = true);
+      runId = 0;
+      setStatus("Reset complete.", 100);
+      simulate();
+    }
+
+    function downloadBundle() {
+      const bundle = buildBundle(currentSkill());
+      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "secureai-skills-test-lab-bundle.json";
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    init();
+  </script>
+</body>
+</html>

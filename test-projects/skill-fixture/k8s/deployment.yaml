@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skill-fixture
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skill-fixture
+  template:
+    metadata:
+      labels:
+        app: skill-fixture
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: web
+          image: skill-fixture:latest
+          securityContext:
+            privileged: true
+            runAsUser: 0
+            allowPrivilegeEscalation: true
+            capabilities:
+              add: ["NET_ADMIN", "SYS_ADMIN"]
+          volumeMounts:
+            - name: host-root
+              mountPath: /host
+          resources: {}
+      volumes:
+        - name: host-root
+          hostPath:
+            path: /

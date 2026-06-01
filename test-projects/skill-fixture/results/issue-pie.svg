@@ -1,0 +1,53 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="720" height="430" viewBox="0 0 720 430" role="img" aria-labelledby="title desc">
+<title id="title">Skill fixture issues by category</title>
+<desc id="desc">Pie chart showing expected fixture issues detected for each skill category.</desc>
+<rect width="720" height="430" fill="#ffffff"/>
+<text x="24" y="30" font-size="20" font-weight="700" font-family="Arial, sans-serif">Skill Fixture Issues by Category</text>
+<g transform="translate(0, 30)">
+<path d="M160 140 L260.00 140.00 A100 100 0 0 1 113.87 228.72 Z" fill="#2563eb"><title>File Formats: 31</title></path>
+<path d="M160 140 L113.87 228.72 A100 100 0 0 1 83.16 204.00 Z" fill="#16a34a"><title>Design / ASVS: 6</title></path>
+<path d="M160 140 L83.16 204.00 A100 100 0 0 1 64.40 169.33 Z" fill="#dc2626"><title>SBOM / Graph: 6</title></path>
+<path d="M160 140 L64.40 169.33 A100 100 0 0 1 60.05 143.31 Z" fill="#9333ea"><title>Authentication: 4</title></path>
+<path d="M160 140 L60.05 143.31 A100 100 0 0 1 61.36 123.54 Z" fill="#ea580c"><title>Access Control: 3</title></path>
+<path d="M160 140 L61.36 123.54 A100 100 0 0 1 66.54 104.42 Z" fill="#0891b2"><title>API: 3</title></path>
+<path d="M160 140 L66.54 104.42 A100 100 0 0 1 75.39 86.70 Z" fill="#4f46e5"><title>Container: 3</title></path>
+<path d="M160 140 L75.39 86.70 A100 100 0 0 1 87.56 71.06 Z" fill="#65a30d"><title>Cryptography: 3</title></path>
+<path d="M160 140 L87.56 71.06 A100 100 0 0 1 102.57 58.14 Z" fill="#be123c"><title>Exception Handling: 3</title></path>
+<path d="M160 140 L102.57 58.14 A100 100 0 0 1 119.83 48.42 Z" fill="#0f766e"><title>IaC: 3</title></path>
+<path d="M160 140 L119.83 48.42 A100 100 0 0 1 138.67 42.30 Z" fill="#7c3aed"><title>Injection: 3</title></path>
+<path d="M160 140 L138.67 42.30 A100 100 0 0 1 158.35 40.01 Z" fill="#b45309"><title>Kubernetes: 3</title></path>
+<path d="M160 140 L158.35 40.01 A100 100 0 0 1 178.09 41.65 Z" fill="#2563eb"><title>Logging / Monitoring: 3</title></path>
+<path d="M160 140 L178.09 41.65 A100 100 0 0 1 197.12 47.14 Z" fill="#16a34a"><title>SCA / Dependencies: 3</title></path>
+<path d="M160 140 L197.12 47.14 A100 100 0 0 1 214.69 56.28 Z" fill="#dc2626"><title>Secrets: 3</title></path>
+<path d="M160 140 L214.69 56.28 A100 100 0 0 1 230.12 68.71 Z" fill="#9333ea"><title>Security Headers: 3</title></path>
+<path d="M160 140 L230.12 68.71 A100 100 0 0 1 242.80 83.93 Z" fill="#ea580c"><title>SSRF: 3</title></path>
+<path d="M160 140 L242.80 83.93 A100 100 0 0 1 252.23 101.35 Z" fill="#0891b2"><title>Static Analysis: 3</title></path>
+<path d="M160 140 L252.23 101.35 A100 100 0 0 1 258.04 120.29 Z" fill="#4f46e5"><title>Supply Chain: 3</title></path>
+<path d="M160 140 L258.04 120.29 A100 100 0 0 1 260.00 140.00 Z" fill="#65a30d"><title>XSS: 3</title></path>
+<circle cx="160" cy="140" r="45" fill="#ffffff"/>
+<text x="160" y="135" text-anchor="middle" font-size="22" font-weight="700" font-family="Arial, sans-serif">95</text>
+<text x="160" y="156" text-anchor="middle" font-size="12" font-family="Arial, sans-serif">signals</text>
+</g>
+<g>
+<rect x="310" y="12" width="12" height="12" fill="#2563eb"/><text x="330" y="24" font-size="12" font-family="Arial, sans-serif">File Formats (31)</text>
+<rect x="310" y="34" width="12" height="12" fill="#16a34a"/><text x="330" y="46" font-size="12" font-family="Arial, sans-serif">Design / ASVS (6)</text>
+<rect x="310" y="56" width="12" height="12" fill="#dc2626"/><text x="330" y="68" font-size="12" font-family="Arial, sans-serif">SBOM / Graph (6)</text>
+<rect x="310" y="78" width="12" height="12" fill="#9333ea"/><text x="330" y="90" font-size="12" font-family="Arial, sans-serif">Authentication (4)</text>
+<rect x="310" y="100" width="12" height="12" fill="#ea580c"/><text x="330" y="112" font-size="12" font-family="Arial, sans-serif">Access Control (3)</text>
+<rect x="310" y="122" width="12" height="12" fill="#0891b2"/><text x="330" y="134" font-size="12" font-family="Arial, sans-serif">API (3)</text>
+<rect x="310" y="144" width="12" height="12" fill="#4f46e5"/><text x="330" y="156" font-size="12" font-family="Arial, sans-serif">Container (3)</text>
+<rect x="310" y="166" width="12" height="12" fill="#65a30d"/><text x="330" y="178" font-size="12" font-family="Arial, sans-serif">Cryptography (3)</text>
+<rect x="310" y="188" width="12" height="12" fill="#be123c"/><text x="330" y="200" font-size="12" font-family="Arial, sans-serif">Exception Handling (3)</text>
+<rect x="310" y="210" width="12" height="12" fill="#0f766e"/><text x="330" y="222" font-size="12" font-family="Arial, sans-serif">IaC (3)</text>
+<rect x="310" y="232" width="12" height="12" fill="#7c3aed"/><text x="330" y="244" font-size="12" font-family="Arial, sans-serif">Injection (3)</text>
+<rect x="310" y="254" width="12" height="12" fill="#b45309"/><text x="330" y="266" font-size="12" font-family="Arial, sans-serif">Kubernetes (3)</text>
+<rect x="310" y="276" width="12" height="12" fill="#2563eb"/><text x="330" y="288" font-size="12" font-family="Arial, sans-serif">Logging / Monitoring (3)</text>
+<rect x="310" y="298" width="12" height="12" fill="#16a34a"/><text x="330" y="310" font-size="12" font-family="Arial, sans-serif">SCA / Dependencies (3)</text>
+<rect x="310" y="320" width="12" height="12" fill="#dc2626"/><text x="330" y="332" font-size="12" font-family="Arial, sans-serif">Secrets (3)</text>
+<rect x="310" y="342" width="12" height="12" fill="#9333ea"/><text x="330" y="354" font-size="12" font-family="Arial, sans-serif">Security Headers (3)</text>
+<rect x="310" y="364" width="12" height="12" fill="#ea580c"/><text x="330" y="376" font-size="12" font-family="Arial, sans-serif">SSRF (3)</text>
+<rect x="310" y="386" width="12" height="12" fill="#0891b2"/><text x="330" y="398" font-size="12" font-family="Arial, sans-serif">Static Analysis (3)</text>
+<rect x="310" y="408" width="12" height="12" fill="#4f46e5"/><text x="330" y="420" font-size="12" font-family="Arial, sans-serif">Supply Chain (3)</text>
+<rect x="310" y="430" width="12" height="12" fill="#65a30d"/><text x="330" y="442" font-size="12" font-family="Arial, sans-serif">XSS (3)</text>
+</g>
+</svg>

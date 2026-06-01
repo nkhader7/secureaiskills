@@ -1,0 +1,17 @@
+# Security Skill Format Benchmark — Python dependencies
+#
+# Install:  pip install -r requirements.txt
+# Requires: Python 3.11+ (tomllib is bundled with 3.11; tomli is the backport for 3.10)
+
+# YAML parser — used by parse_yaml, parse_inline_yaml, and the MD frontmatter extractor
+pyyaml>=6.0
+
+# Interactive security skill lab
+streamlit>=1.35
+pandas>=2.0
+
+# HTTP client — for OAuth2 token exchange and OpenAI-compatible local LLM calls
+httpx>=0.25.0
+
+# TOML backport — only needed on Python 3.10 and earlier; Python 3.11+ uses the stdlib tomllib
+tomli>=2.0.0; python_version < "3.11"

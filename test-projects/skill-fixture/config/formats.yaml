@@ -1,0 +1,9 @@
+service:
+  auth: false
+  host: "0.0.0.0"
+  allowedOrigins: ["*"]
+  tls: false
+  api_key: "yaml_TEST_SECRET_12345"
+runtime:
+  privileged: true
+  runAsUser: 0

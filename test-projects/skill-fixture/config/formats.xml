@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config [
+  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+]>
+<config debug="true">
+  <security-enabled>false</security-enabled>
+  <auth-method>NONE</auth-method>
+  <transport-guarantee>NONE</transport-guarantee>
+  <password>xml_TEST_SECRET_12345</password>
+</config>

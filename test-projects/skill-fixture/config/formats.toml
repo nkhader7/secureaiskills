@@ -1,0 +1,10 @@
+[server]
+host = "0.0.0.0"
+debug = true
+tls = false
+verify_ssl = false
+api_key = "toml_TEST_SECRET_12345"
+allowed_origins = ["*"]
+
+[tool.poetry.source]
+url = "http://packages.example.invalid/simple"

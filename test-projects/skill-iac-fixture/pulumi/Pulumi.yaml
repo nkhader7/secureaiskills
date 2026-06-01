@@ -1,0 +1,18 @@
+# scan-iac-security fixture — Pulumi project configuration misconfigurations
+# Intentionally vulnerable — do not deploy
+
+name: vulnerable-pulumi-project
+runtime: python
+description: Vulnerable Pulumi project for IaC security testing
+
+config:
+  # IAC-PULUMI-001: secrets stored as plaintext config values
+  aws:region: us-east-1
+  db_password: "pulumi_plaintext_db_password_123"    # IAC-PULUMI-001
+  api_key: "pulumi_api_key_plain_1234567890abcdef"   # IAC-PULUMI-001
+  jwt_secret: "pulumi_jwt_secret_never_commit_this"  # IAC-PULUMI-001
+
+  # IAC-PULUMI-002: allow public access flags
+  allow_public_access: "true"
+  disable_tls: "true"
+  skip_credentials_validation: "true"               # IAC-PULUMI-002
