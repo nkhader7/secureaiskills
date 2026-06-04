@@ -1,0 +1,326 @@
+name: audit-logging-monitoring
+description: Audits security logging and alerting controls for missing audit events,
+  weak monitoring, sensitive data in logs, log injection, insufficient retention,
+  tamper-prone logs, and missing detection for authentication, authorization, administrative,
+  and data access events.
+version: '1.0'
+intent: '# audit-logging-monitoring'
+instructions: '# audit-logging-monitoring
+
+
+  Audits whether security-relevant events are recorded, protected, monitored, and
+  actionable.
+
+
+  ## Orchestration
+
+
+  1. Load `references/rules.yaml` to get the active `ALM-` rule set.
+
+  2. Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets
+  to support remediation guidance and references.
+
+  3. Identify target evidence from source code, configuration, tests, API specs, IaC,
+  CI/CD, runtime manifests, and documentation relevant to the request.
+
+  4. Evaluate each rule using its `match_strategy`, preserving file path, line, snippet,
+  control context, and confidence.
+
+  5. Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based
+  on available evidence.
+
+  6. Prioritize findings by severity, exploitability, exposed surface, and whether
+  a concrete remediation is available.
+
+  7. Render the final report using `references/report-template.md`.
+
+
+  ## Usage
+
+
+  Scan the current repository:
+
+
+  ```text
+
+  /audit-logging-monitoring
+
+  ```
+
+
+  Scan a specific path:
+
+
+  ```text
+
+  /audit-logging-monitoring src/ services/ docs/
+
+  ```
+
+
+  ## OWASP Cheat Sheets
+
+
+  Use the shared mapping in `../_shared/owasp-cheatsheets.yaml` for authoritative
+  OWASP Cheat Sheet Series references that match this skill. Include the relevant
+  cheat sheet links in the report when they directly support a finding or remediation.
+
+
+  ## Review Guidance
+
+
+  Prioritize authentication, authorization, admin, secret, data access, payment, and
+  release events that lack logs or alerts.'
+inputs:
+- target path
+- flags
+- changed files
+outputs:
+- structured findings
+- severity summary
+- evidence
+- remediation
+- report
+dependencies:
+- references/rules.yaml
+- references/report-template.md
+- ../_shared/base-report.md
+- ../_shared/owasp-cheatsheets.yaml
+security_constraints:
+  treat_target_content_as_untrusted: true
+  redact_sensitive_values: required for secret-like evidence
+  skip_binary_and_lock_files: true
+  network_access: not required
+  output_requires_evidence: true
+references:
+  rules: references/rules.yaml
+  report_template: references/report-template.md
+  base_report: ../_shared/base-report.md
+  owasp_cheatsheets: ../_shared/owasp-cheatsheets.yaml
+rules:
+- id: ALM-001
+  severity: High
+  category: Auth Events
+  name: Log authentication success and failure
+  match_strategy: log_auth_events
+  description: Identify login, MFA, reset, and token events without security logs.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Log authentication events with subject, result, source, timestamp,
+    and correlation ID.
+- id: ALM-002
+  severity: High
+  category: Authorization Events
+  name: Log access control denials and privilege changes
+  match_strategy: log_authz_events
+  description: Identify missing logs for denied access, role changes, permission changes,
+    and tenant-boundary failures.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Log authorization decisions and privilege mutations with actor and
+    target.
+- id: ALM-003
+  severity: High
+  category: Admin Events
+  name: Log administrative actions
+  match_strategy: log_admin_events
+  description: Identify admin operations without audit trails.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Log admin changes, settings changes, user management, and policy updates.
+- id: ALM-004
+  severity: High
+  category: Sensitive Data
+  name: Log sensitive data access safely
+  match_strategy: log_sensitive_access
+  description: Identify sensitive data access without audit trail or with raw sensitive
+    values in logs.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Log metadata for sensitive access and redact protected values.
+- id: ALM-005
+  severity: High
+  category: Alerting
+  name: Alert on high-risk security events
+  match_strategy: log_alerting
+  description: Identify critical events without alerting or escalation.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Create alerts for suspicious auth, privilege changes, secret access,
+    and integrity failures.
+- id: ALM-006
+  severity: Medium
+  category: Log Injection
+  name: Detect log injection risks
+  match_strategy: log_injection
+  description: Identify untrusted input logged without encoding, escaping, or structured
+    logging.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Use structured logging and encode untrusted values.
+- id: ALM-007
+  severity: High
+  category: Log Integrity
+  name: Protect logs from tampering
+  match_strategy: log_integrity
+  description: Identify logs stored where attackers or app users can alter them.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Send logs to append-only or centralized systems with restricted access.
+- id: ALM-008
+  severity: Medium
+  category: Retention
+  name: Validate log retention
+  match_strategy: log_retention
+  description: Identify missing retention policy for audit and security logs.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Set retention based on incident response and compliance needs.
+- id: ALM-009
+  severity: Medium
+  category: Correlation
+  name: Require request and trace correlation IDs
+  match_strategy: log_correlation
+  description: Identify security logs without request, session, user, or trace correlation.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Add correlation identifiers to security-relevant logs.
+- id: ALM-010
+  severity: High
+  category: Error Monitoring
+  name: Monitor exceptional security conditions
+  match_strategy: log_exception_monitoring
+  description: Identify auth, validation, deserialization, crypto, or access exceptions
+    without monitoring.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Alert on repeated or unusual security-relevant exceptions.
+- id: ALM-011
+  severity: Medium
+  category: PII in Logs
+  name: Detect sensitive data leakage in logs
+  match_strategy: log_pii_leakage
+  description: Identify credentials, tokens, PII, payment, or health data logged in
+    cleartext.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Redact, tokenize, or avoid logging sensitive values.
+- id: ALM-012
+  severity: Info
+  category: Runbooks
+  name: Require response runbooks for critical alerts
+  match_strategy: log_runbooks
+  description: Identify critical alerts without owner or response guidance.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Define alert owners, severity, escalation path, and investigation runbook.
+default_match_strategy: unspecified
+report_template: '# Security Logging and Monitoring Audit Report
+
+
+  ## Scope
+
+
+  - Skill: `audit-logging-monitoring`
+
+  - Target: `{{target}}`
+
+  - Date: `{{date}}`
+
+  - Evidence reviewed: `{{evidence_summary}}`
+
+
+  ## Summary
+
+
+  | Severity | Findings |
+
+  |----------|----------|
+
+  | Critical | {{summary.critical}} |
+
+  | High | {{summary.high}} |
+
+  | Medium | {{summary.medium}} |
+
+  | Low | {{summary.low}} |
+
+  | Info | {{summary.info}} |
+
+
+  {{#if no_findings}}
+
+  No findings were identified from the available evidence.
+
+  {{/if}}
+
+
+  ## Findings
+
+
+  {{#each findings}}
+
+  ### {{id}} - {{name}}
+
+
+  - Severity: {{severity}}
+
+  - Category: {{category}}
+
+  - Evidence: `{{evidence}}`
+
+  - Location: `{{location}}`
+
+  - Risk: {{risk}}
+
+  - Remediation: {{remediation}}
+
+  {{/each}}
+
+
+  ## Evidence Gaps
+
+
+  {{#each evidence_gaps}}
+
+  - {{gap}}
+
+  {{/each}}
+
+  '

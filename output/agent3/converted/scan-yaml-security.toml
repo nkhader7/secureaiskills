@@ -1,0 +1,59 @@
+name = "scan-yaml-security"
+description = "Scans YAML and YML configuration files for security risks including disabled authentication, wildcard exposure, plaintext secrets, insecure TLS flags, privileged workload settings, and unsafe deserialization hints."
+version = "1.0"
+intent = "# scan-yaml-security"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "YAML-001"
+name = "Authentication Disabled"
+severity = "High"
+category = "Authentication"
+description = "YAML configuration disables authentication or authorization controls."
+patterns = ["(?i)\\b(auth|authentication|authorization):\\s*(false|disabled|none)\\b", "(?i)\\benableAuth:\\s*false\\b"]
+remediation = "Enable authentication and authorization for non-public services."
+
+[[rules]]
+id = "YAML-002"
+name = "Wildcard Network Exposure"
+severity = "High"
+category = "Exposure"
+description = "YAML configuration exposes a listener, origin, or host rule to every network."
+patterns = ["0\\.0\\.0\\.0/0", "(?i)\\b(allowedOrigins|corsOrigins|hosts):\\s*\\[\\s*[\"']?\\*[\"']?\\s*\\]", "(?i)\\bhost:\\s*[\"']?0\\.0\\.0\\.0[\"']?"]
+remediation = "Restrict exposure to trusted CIDRs, origins, and hostnames."
+
+[[rules]]
+id = "YAML-003"
+name = "Plaintext Secret Value"
+severity = "High"
+category = "Secrets"
+description = "YAML configuration contains secret-looking keys with inline plaintext values."
+patterns = ["(?i)\\b(password|passwd|api[_-]?key|secret|token):\\s*[\"']?[A-Za-z0-9_./+=-]{12,}"]
+remediation = "Move secrets to a managed secret store and reference them by name."
+
+[[rules]]
+id = "YAML-004"
+name = "TLS Verification Disabled"
+severity = "Medium"
+category = "Transport Security"
+description = "YAML configuration disables TLS verification or allows insecure transport."
+patterns = ["(?i)\\b(insecureSkipVerify|skipTlsVerify|verify_ssl|sslVerify):\\s*(false|true)\\b", "(?i)\\btls:\\s*(false|disabled)\\b"]
+remediation = "Require TLS and certificate verification for outbound and inbound connections."
+
+[[rules]]
+id = "YAML-005"
+name = "Privileged Runtime Configuration"
+severity = "Medium"
+category = "Runtime Privilege"
+description = "YAML configuration enables privileged execution or root containers."
+patterns = ["(?i)\\bprivileged:\\s*true\\b", "(?i)\\brunAsUser:\\s*0\\b", "(?i)\\bhostNetwork:\\s*true\\b"]
+remediation = "Disable privileged mode and run workloads as a non-root user."

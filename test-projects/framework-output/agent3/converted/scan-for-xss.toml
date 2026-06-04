@@ -1,0 +1,122 @@
+name = "scan-for-xss"
+description = "Scans frontend and backend code for cross-site scripting risks including reflected XSS, stored XSS, DOM XSS, unsafe HTML sinks, unsafe template rendering, missing output encoding, sanitizer misuse, unsafe markdown rendering, and weak Content Security Policy."
+version = "1.0"
+intent = "# scan-for-xss"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "XSS-001"
+name = "Detect user input reaching innerHTML-like sinks"
+severity = "Critical"
+category = "Unsafe HTML Sink"
+description = "Identify untrusted data assigned to innerHTML, outerHTML, insertAdjacentHTML, dangerouslySetInnerHTML, or equivalent sinks."
+match_strategy = "xss_inner_html"
+remediation = "Use safe DOM APIs, framework escaping, or vetted sanitization with strict policies."
+
+[[rules]]
+id = "XSS-002"
+name = "Detect disabled template escaping"
+severity = "High"
+category = "Template Escaping"
+description = "Identify raw/unescaped template output such as triple braces or safe filters on user data."
+match_strategy = "xss_template_escape_disabled"
+remediation = "Use contextual output encoding and avoid marking untrusted data as safe."
+
+[[rules]]
+id = "XSS-003"
+name = "Detect reflected request data in responses"
+severity = "High"
+category = "Reflected XSS"
+description = "Identify request parameters rendered into HTML without output encoding."
+match_strategy = "xss_reflected"
+remediation = "Apply contextual output encoding and validation."
+
+[[rules]]
+id = "XSS-004"
+name = "Detect stored untrusted content rendered unsafely"
+severity = "High"
+category = "Stored XSS"
+description = "Identify database or CMS content rendered into HTML/JS without sanitization or encoding."
+match_strategy = "xss_stored"
+remediation = "Sanitize on write where appropriate and encode on output."
+
+[[rules]]
+id = "XSS-005"
+name = "Detect URL/hash/location data reaching DOM sinks"
+severity = "Critical"
+category = "DOM XSS"
+description = "Identify location, hash, search, postMessage, or storage data reaching DOM sinks."
+match_strategy = "xss_dom"
+remediation = "Validate sources and use safe sinks such as textContent."
+
+[[rules]]
+id = "XSS-006"
+name = "Detect untrusted data in JavaScript contexts"
+severity = "High"
+category = "Script Context"
+description = "Identify interpolation into inline scripts, event handlers, or JavaScript URLs."
+match_strategy = "xss_script_context"
+remediation = "Avoid inline scripts and use JavaScript string encoding or data attributes safely."
+
+[[rules]]
+id = "XSS-007"
+name = "Detect unsafe URL construction"
+severity = "Medium"
+category = "URL Context"
+description = "Identify untrusted values placed in href/src/action without scheme allowlisting."
+match_strategy = "xss_url_context"
+remediation = "Allowlist http/https or expected schemes and encode attributes."
+
+[[rules]]
+id = "XSS-008"
+name = "Detect unsafe sanitizer configuration"
+severity = "High"
+category = "Sanitizer Misuse"
+description = "Identify sanitizers allowing scripts, event handlers, dangerous URLs, or custom HTML unsafely."
+match_strategy = "xss_sanitizer_misuse"
+remediation = "Use maintained sanitizers with restrictive configuration and tests."
+
+[[rules]]
+id = "XSS-009"
+name = "Detect unsafe markdown rendering"
+severity = "Medium"
+category = "Markdown/HTML"
+description = "Identify markdown rendered with raw HTML enabled or unsafe plugins."
+match_strategy = "xss_markdown"
+remediation = "Disable raw HTML or sanitize rendered output."
+
+[[rules]]
+id = "XSS-010"
+name = "Detect missing CSP for XSS mitigation"
+severity = "Medium"
+category = "CSP Gap"
+description = "Identify apps with XSS-exposed surfaces and no meaningful CSP."
+match_strategy = "xss_csp_gap"
+remediation = "Add restrictive CSP without unsafe-inline for scripts where possible."
+
+[[rules]]
+id = "XSS-011"
+name = "Detect unsafe postMessage handling"
+severity = "Medium"
+category = "postMessage"
+description = "Identify message handlers without origin validation or with HTML sinks."
+match_strategy = "xss_postmessage"
+remediation = "Validate origin/schema and avoid dangerous sinks."
+
+[[rules]]
+id = "XSS-012"
+name = "Detect missing XSS regression tests"
+severity = "Medium"
+category = "Tests"
+description = "Identify critical rendering paths without tests for escaping and sanitization."
+match_strategy = "xss_missing_tests"
+remediation = "Add tests for encoded output and blocked malicious payloads."

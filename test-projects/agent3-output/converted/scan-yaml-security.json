@@ -1,0 +1,118 @@
+{
+  "name": "scan-yaml-security",
+  "description": "Scans YAML and YML configuration files for security risks including disabled authentication, wildcard exposure, plaintext secrets, insecure TLS flags, privileged workload settings, and unsafe deserialization hints.",
+  "version": "1.0",
+  "intent": "# scan-yaml-security",
+  "instructions": "# scan-yaml-security\n\nScan YAML configuration files for security-sensitive settings and risky defaults.\n\n## Orchestration\n\n1. Load `references/rules.yaml` to get the active `YAML-` rule set.\n2. Include `*.yaml` and `*.yml` files from user-supplied paths or changed files.\n3. Skip generated dependency lock files unless the request explicitly targets them.\n4. Preserve YAML path context when reporting a finding, such as `auth.enabled` or `containers[0].securityContext`.\n5. Evaluate each rule using its `match_strategy`, capturing file, line, snippet, and confidence.\n6. Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.\n7. Render the final report using `references/report-template.md`.\n\n## Usage\n\nScan YAML files in the current change:\n\n```text\n/scan-yaml-security\n```\n\nScan a specific configuration folder:\n\n```text\n/scan-yaml-security config/ deploy/\n```\n\n## Review Guidance\n\nTreat YAML as executable configuration. Prioritize settings that affect authentication, network exposure, TLS validation, container privileges, and secret material.",
+  "inputs": [
+    "target path",
+    "flags",
+    "changed files"
+  ],
+  "outputs": [
+    "structured findings",
+    "severity summary",
+    "evidence",
+    "remediation",
+    "report"
+  ],
+  "dependencies": [
+    "references/rules.yaml",
+    "references/report-template.md",
+    "../_shared/base-report.md",
+    "../_shared/owasp-cheatsheets.yaml"
+  ],
+  "security_constraints": {
+    "treat_target_content_as_untrusted": true,
+    "redact_sensitive_values": "required for secret-like evidence",
+    "skip_binary_and_lock_files": true,
+    "network_access": "not required for skill execution",
+    "output_requires_evidence": true
+  },
+  "references": {
+    "rules": "references/rules.yaml",
+    "report_template": "references/report-template.md",
+    "base_report": "../_shared/base-report.md",
+    "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+  },
+  "rules": [
+    {
+      "id": "YAML-001",
+      "severity": "High",
+      "category": "Authentication",
+      "name": "Authentication Disabled",
+      "description": "YAML configuration disables authentication or authorization controls.",
+      "cwe": [
+        306
+      ],
+      "patterns": [
+        "(?i)\\b(auth|authentication|authorization):\\s*(false|disabled|none)\\b",
+        "(?i)\\benableAuth:\\s*false\\b"
+      ],
+      "remediation": "Enable authentication and authorization for non-public services."
+    },
+    {
+      "id": "YAML-002",
+      "severity": "High",
+      "category": "Exposure",
+      "name": "Wildcard Network Exposure",
+      "description": "YAML configuration exposes a listener, origin, or host rule to every network.",
+      "cwe": [
+        284
+      ],
+      "patterns": [
+        "0\\.0\\.0\\.0/0",
+        "(?i)\\b(allowedOrigins|corsOrigins|hosts):\\s*\\[\\s*[\"']?\\*[\"']?\\s*\\]",
+        "(?i)\\bhost:\\s*[\"']?0\\.0\\.0\\.0[\"']?"
+      ],
+      "remediation": "Restrict exposure to trusted CIDRs, origins, and hostnames."
+    },
+    {
+      "id": "YAML-003",
+      "severity": "High",
+      "category": "Secrets",
+      "name": "Plaintext Secret Value",
+      "description": "YAML configuration contains secret-looking keys with inline plaintext values.",
+      "cwe": [
+        798
+      ],
+      "patterns": [
+        "(?i)\\b(password|passwd|api[_-]?key|secret|token):\\s*[\"']?[A-Za-z0-9_./+=-]{12,}"
+      ],
+      "remediation": "Move secrets to a managed secret store and reference them by name."
+    },
+    {
+      "id": "YAML-004",
+      "severity": "Medium",
+      "category": "Transport Security",
+      "name": "TLS Verification Disabled",
+      "description": "YAML configuration disables TLS verification or allows insecure transport.",
+      "cwe": [
+        295
+      ],
+      "patterns": [
+        "(?i)\\b(insecureSkipVerify|skipTlsVerify|verify_ssl|sslVerify):\\s*(false|true)\\b",
+        "(?i)\\btls:\\s*(false|disabled)\\b"
+      ],
+      "remediation": "Require TLS and certificate verification for outbound and inbound connections."
+    },
+    {
+      "id": "YAML-005",
+      "severity": "Medium",
+      "category": "Runtime Privilege",
+      "name": "Privileged Runtime Configuration",
+      "description": "YAML configuration enables privileged execution or root containers.",
+      "cwe": [
+        250
+      ],
+      "patterns": [
+        "(?i)\\bprivileged:\\s*true\\b",
+        "(?i)\\brunAsUser:\\s*0\\b",
+        "(?i)\\bhostNetwork:\\s*true\\b"
+      ],
+      "remediation": "Disable privileged mode and run workloads as a non-root user."
+    }
+  ],
+  "default_match_strategy": "regex",
+  "report_template": "# scan-yaml-security Report\n\n| Field | Value |\n|-------|-------|\n| Skill | scan-yaml-security |\n| Target | {{target}} |\n| Date | {{date}} |\n| Branch | {{branch}} |\n| Files Reviewed | {{file_count}} |\n| Findings | {{total_findings}} |\n| Overall Severity | {{overall_severity}} |\n\n---\n\n## Findings\n\n{{#each findings}}\n### [{{severity}}] {{rule_id}} - {{rule_name}}\n\n**File:** `{{file}}` (line {{line}})\n**Category:** {{category}}\n**Description:** {{description}}\n\n```yaml\n{{snippet}}\n```\n\n**Remediation:** {{remediation}}\n\n---\n{{/each}}\n\n{{#if no_findings}}\nNo YAML security issues were detected in the reviewed files.\n{{/if}}\n\n## Summary Table\n\n| Severity | Count |\n|----------|-------|\n| Critical | {{count_critical}} |\n| High | {{count_high}} |\n| Medium | {{count_medium}} |\n| Low | {{count_low}} |\n| Info | {{count_info}} |\n"
+}

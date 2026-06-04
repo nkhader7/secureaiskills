@@ -1,0 +1,104 @@
+name = "scan-exception-handling"
+description = "Scans code and configuration for mishandling of exceptional conditions including verbose error disclosure, fail-open authorization, swallowed security exceptions, unsafe retries, missing rollback, crash loops, inconsistent error responses, and exception paths that bypass validation or logging."
+version = "1.0"
+intent = "# scan-exception-handling"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "EXC-001"
+name = "Detect fail-open security checks"
+severity = "High"
+category = "Fail Open"
+description = "Identify catch blocks or fallback logic that allows access after auth, policy, validation, or crypto errors."
+match_strategy = "exception_fail_open"
+remediation = "Fail closed on security-control errors and return safe denial responses."
+
+[[rules]]
+id = "EXC-002"
+name = "Detect stack traces or internals in responses"
+severity = "Medium"
+category = "Verbose Errors"
+description = "Identify stack traces, SQL errors, framework internals, or secrets exposed to clients."
+match_strategy = "exception_verbose_response"
+remediation = "Return generic client errors and log details server-side."
+
+[[rules]]
+id = "EXC-003"
+name = "Detect swallowed security exceptions"
+severity = "High"
+category = "Swallowed Exceptions"
+description = "Identify empty catch blocks around security-relevant operations."
+match_strategy = "exception_swallowed_security"
+remediation = "Handle, log, and safely deny on security exceptions."
+
+[[rules]]
+id = "EXC-004"
+name = "Detect unsafe retry behavior"
+severity = "Medium"
+category = "Retry Storms"
+description = "Identify unbounded retries, no backoff, or retries around non-idempotent operations."
+match_strategy = "exception_retry_storm"
+remediation = "Use bounded retries, jittered backoff, idempotency keys, and circuit breakers."
+
+[[rules]]
+id = "EXC-005"
+name = "Detect missing rollback on failure"
+severity = "High"
+category = "Transaction Safety"
+description = "Identify partial writes or state transitions without rollback/compensation on errors."
+match_strategy = "exception_missing_rollback"
+remediation = "Use transactions or compensating actions for multi-step operations."
+
+[[rules]]
+id = "EXC-006"
+name = "Detect unsafe parser exception handling"
+severity = "Medium"
+category = "Parser Errors"
+description = "Identify parsing failures that fall back to unsafe defaults or partial trust."
+match_strategy = "exception_parser"
+remediation = "Reject malformed input and avoid permissive fallback parsing."
+
+[[rules]]
+id = "EXC-007"
+name = "Detect dangerous deserialization fallback"
+severity = "High"
+category = "Deserialization Errors"
+description = "Identify deserialization exceptions that trigger unsafe alternate parsing or object construction."
+match_strategy = "exception_deserialization"
+remediation = "Use safe formats and strict schema validation."
+
+[[rules]]
+id = "EXC-008"
+name = "Detect crash dumps or debug artifacts exposure"
+severity = "Medium"
+category = "Crash Disclosure"
+description = "Identify public crash dumps, debug endpoints, or error files."
+match_strategy = "exception_crash_artifacts"
+remediation = "Restrict crash artifacts and remove debug endpoints from production."
+
+[[rules]]
+id = "EXC-009"
+name = "Detect enumeration through inconsistent errors"
+severity = "Medium"
+category = "Inconsistent Errors"
+description = "Identify different error messages for user, token, reset, or object existence checks."
+match_strategy = "exception_enumeration"
+remediation = "Normalize externally visible error responses."
+
+[[rules]]
+id = "EXC-010"
+name = "Detect unlogged critical failures"
+severity = "Medium"
+category = "Missing Error Logs"
+description = "Identify critical exceptional paths without logs or monitoring."
+match_strategy = "exception_missing_logs"
+remediation = "Log security-relevant failures with correlation IDs and safe details."

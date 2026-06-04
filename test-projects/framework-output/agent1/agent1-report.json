@@ -1,0 +1,3288 @@
+{
+  "agent": "agent1",
+  "generated_at": "2026-06-04T00:59:06.246937+00:00",
+  "skills_analyzed": 26,
+  "confidence": 0.96,
+  "executive_summary": "Agent 1 analyzed 26 skills for intent, architecture, lifecycle coverage, and completeness.",
+  "architecture_report": [
+    {
+      "skill": "audit-asvs-compliance",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.446017+00:00",
+      "intent": "Audits an application, API, design, or codebase against OWASP Application Security Verification Standard 5.0 requirements. Use when reviewing ASVS compliance, mapping implementation evidence to ASVS controls, producing an ASVS gap assessment, or checking application security requirements by ASVS level.",
+      "architecture": {
+        "entrypoint": "skills\\audit-asvs-compliance\\SKILL.md",
+        "rules": "skills\\audit-asvs-compliance\\references\\rules.yaml",
+        "report_template": "skills\\audit-asvs-compliance\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 345,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "domain audit",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the ASVS 5.0 requirement catalog, but select only the chapters, levels, or requirement IDs that match the request before detailed evaluation.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify the target evidence:",
+        "Determine the assessment scope:",
+        "For repository-wide audits, pre-filter evidence by ASVS chapter keywords before loading detailed code context so the 345-rule catalog does not crowd out findings evidence.",
+        "Evaluate each applicable rule using `match_strategy: compliance_review`.",
+        "For every non-pass result, capture the ASVS ID, level, chapter, section, status, evidence, gap, impact, and recommended remediation.",
+        "Aggregate results by ASVS chapter, verification level, and status.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 968,
+        "rule_tokens": 124693,
+        "template_tokens": 500
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 368,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for audit-asvs-compliance",
+        "Found 4 body sections",
+        "Loaded 345 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "audit-auth-session-management",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.454883+00:00",
+      "intent": "Audits authentication and session management for password handling, MFA, session cookies, JWT validation, OAuth/OIDC/SAML flows, account recovery, brute force protection, credential stuffing defenses, and authentication failure handling.",
+      "architecture": {
+        "entrypoint": "skills\\audit-auth-session-management\\SKILL.md",
+        "rules": "skills\\audit-auth-session-management\\references\\rules.yaml",
+        "report_template": "skills\\audit-auth-session-management\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 12,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "domain audit",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `ASM-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 530,
+        "rule_tokens": 1490,
+        "template_tokens": 192
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 333,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for audit-auth-session-management",
+        "Found 4 body sections",
+        "Loaded 12 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "audit-crypto-usage",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.460701+00:00",
+      "intent": "Audits code and configuration for cryptographic failures including weak algorithms, insecure random number generation, poor key management, unsafe TLS, missing encryption, weak password hashing, hardcoded keys, and misuse of crypto APIs.",
+      "architecture": {
+        "entrypoint": "skills\\audit-crypto-usage\\SKILL.md",
+        "rules": "skills\\audit-crypto-usage\\references\\rules.yaml",
+        "report_template": "skills\\audit-crypto-usage\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 12,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "domain audit",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `ACU-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 517,
+        "rule_tokens": 1468,
+        "template_tokens": 185
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 330,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for audit-crypto-usage",
+        "Found 4 body sections",
+        "Loaded 12 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "audit-logging-monitoring",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.466280+00:00",
+      "intent": "Audits security logging and alerting controls for missing audit events, weak monitoring, sensitive data in logs, log injection, insufficient retention, tamper-prone logs, and missing detection for authentication, authorization, administrative, and data access events.",
+      "architecture": {
+        "entrypoint": "skills\\audit-logging-monitoring\\SKILL.md",
+        "rules": "skills\\audit-logging-monitoring\\references\\rules.yaml",
+        "report_template": "skills\\audit-logging-monitoring\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 12,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "domain audit",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `ALM-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 533,
+        "rule_tokens": 1400,
+        "template_tokens": 189
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 339,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for audit-logging-monitoring",
+        "Found 4 body sections",
+        "Loaded 12 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "detect-secrets",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.687347+00:00",
+      "intent": "Detects hardcoded secrets, credentials, and sensitive tokens committed to source code",
+      "architecture": {
+        "entrypoint": "skills\\detect-secrets\\SKILL.md",
+        "rules": "skills\\detect-secrets\\references\\rules.yaml",
+        "report_template": "skills\\detect-secrets\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 393,
+        "default_match_strategy": "regex"
+      },
+      "capabilities": [
+        "risk detection",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active rule set and its `default_match_strategy`.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify files to scan \u2014 default to changed files on the current branch (`git diff main...HEAD --name-only`); scan all tracked files when a path argument is provided.",
+        "Skip binary files, lock files (`package-lock.json`, `*.lock`), and files listed in `.gitignore`.",
+        "Select rules before scanning when the target is large:",
+        "For each file, evaluate every line against each rule's `patterns` using `default_match_strategy: regex` unless a rule overrides it.",
+        "For each match, capture the file path, line number, rule ID, and a masked snippet (replace the matched secret value with `***REDACTED***`).",
+        "Aggregate findings by severity (Critical \u2192 High \u2192 Medium \u2192 Low \u2192 Info).",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 599,
+        "rule_tokens": 70167,
+        "template_tokens": 346
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 329,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for detect-secrets",
+        "Found 3 body sections",
+        "Loaded 393 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "detect-supply-chain-risks",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.695914+00:00",
+      "intent": "Detects software supply chain risks across repositories, dependency manifests, package registries, CI/CD workflows, container references, release artifacts, build scripts, and provenance evidence. Use when reviewing dependency confusion, typosquatting, unpinned GitHub Actions, mutable image tags, unsigned artifacts, missing SBOM/provenance, unsafe package install scripts, weak CI permissions, registry trust, or software/data integrity failures.",
+      "architecture": {
+        "entrypoint": "skills\\detect-supply-chain-risks\\SKILL.md",
+        "rules": "skills\\detect-supply-chain-risks\\references\\rules.yaml",
+        "report_template": "skills\\detect-supply-chain-risks\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 20,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "risk detection",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `SCR-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify supply chain evidence:",
+        "Evaluate rules using `match_strategy` from `references/rules.yaml`.",
+        "For each finding, capture:",
+        "Distinguish from SCA:",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 859,
+        "rule_tokens": 2406,
+        "template_tokens": 448
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 301,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for detect-supply-chain-risks",
+        "Found 4 body sections",
+        "Loaded 20 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "generate-dependency-graph",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.700863+00:00",
+      "intent": "Generates dependency graphs for applications, repositories, containers, and SBOMs, including direct and transitive package relationships, dependency paths, parent chains, ownership hints, vulnerable package impact paths, and call graph or reachability evidence when available.",
+      "architecture": {
+        "entrypoint": "skills\\generate-dependency-graph\\SKILL.md",
+        "rules": "skills\\generate-dependency-graph\\references\\rules.yaml",
+        "report_template": "skills\\generate-dependency-graph\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 10,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "artifact generation",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `DG-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 546,
+        "rule_tokens": 1171,
+        "template_tokens": 187
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 341,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for generate-dependency-graph",
+        "Found 4 body sections",
+        "Loaded 10 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "generate-sbom",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.705575+00:00",
+      "intent": "Generates or reviews software bills of materials for applications, repositories, containers, SBOM files, and release artifacts using SPDX or CycloneDX conventions. Use when the user asks for SBOM generation, dependency inventory, component inventory, package URLs, image SBOMs, license inventory, or release artifact component metadata.",
+      "architecture": {
+        "entrypoint": "skills\\generate-sbom\\SKILL.md",
+        "rules": "skills\\generate-sbom\\references\\rules.yaml",
+        "report_template": "skills\\generate-sbom\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 10,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "artifact generation",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `SBOM-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 546,
+        "rule_tokens": 1121,
+        "template_tokens": 181
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 354,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for generate-sbom",
+        "Found 4 body sections",
+        "Loaded 10 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-api-security",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.709292+00:00",
+      "intent": "Scans API implementations, gateway configs, and OpenAPI definitions for common API security risks aligned to OWASP API Security Top 10 2023.",
+      "architecture": {
+        "entrypoint": "skills\\scan-api-security\\SKILL.md",
+        "rules": "skills\\scan-api-security\\references\\rules.yaml",
+        "report_template": "skills\\scan-api-security\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 6,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active API security rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target files:",
+        "Skip binary files, lock files, vendored dependencies, build output directories, and documentation-only files (`*.md`) unless explicitly targeted.",
+        "Evaluate each file against every rule in `references/rules.yaml`.",
+        "Capture file path, line number, rule ID, matched snippet, and any OWASP API metadata in each finding.",
+        "Aggregate findings by severity: Critical, High, Medium, Low, Info.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 563,
+        "rule_tokens": 855,
+        "template_tokens": 304
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 283,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-api-security",
+        "Found 3 body sections",
+        "Loaded 6 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-broken-access-control",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.715194+00:00",
+      "intent": "Scans applications, APIs, services, policies, and tests for broken access control risks such as missing authorization checks, IDOR/BOLA, privilege escalation, tenant isolation failures, unsafe CORS, path traversal, and overbroad object access.",
+      "architecture": {
+        "entrypoint": "skills\\scan-broken-access-control\\SKILL.md",
+        "rules": "skills\\scan-broken-access-control\\references\\rules.yaml",
+        "report_template": "skills\\scan-broken-access-control\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 12,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `BAC-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 533,
+        "rule_tokens": 1526,
+        "template_tokens": 187
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 334,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-broken-access-control",
+        "Found 4 body sections",
+        "Loaded 12 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-container-image",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.876951+00:00",
+      "intent": "Scans Dockerfiles, container image build configuration, Docker daemon/runtime configuration, Docker Compose files, Kubernetes container specs, and Docker host evidence against CIS Docker Benchmark v1.8.0 controls and OWASP Docker Top 10. Use when reviewing Docker or container security hardening, container image risks, Docker daemon settings, container runtime flags, Docker Swarm settings, CIS Docker compliance, or OWASP container security.",
+      "architecture": {
+        "entrypoint": "skills\\scan-container-image\\SKILL.md",
+        "rules": "skills\\scan-container-image\\references\\rules.yaml",
+        "report_template": "skills\\scan-container-image\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 128,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active rule set \u2014 118 CIS Docker Benchmark v1.8.0 controls and 10 OWASP Docker Top 10 controls (DTOP-D01 through DTOP-D10).",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence:",
+        "Determine benchmark scope:",
+        "Evaluate each rule using its `match_strategy`:",
+        "Capture recommendation ID, profile, section, assessment status, evidence, gap, impact, audit procedure, and remediation.",
+        "Aggregate findings by severity, profile, section, and status.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 1039,
+        "rule_tokens": 81113,
+        "template_tokens": 462
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 360,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-container-image",
+        "Found 4 body sections",
+        "Loaded 128 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-exception-handling",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.883833+00:00",
+      "intent": "Scans code and configuration for mishandling of exceptional conditions including verbose error disclosure, fail-open authorization, swallowed security exceptions, unsafe retries, missing rollback, crash loops, inconsistent error responses, and exception paths that bypass validation or logging.",
+      "architecture": {
+        "entrypoint": "skills\\scan-exception-handling\\SKILL.md",
+        "rules": "skills\\scan-exception-handling\\references\\rules.yaml",
+        "report_template": "skills\\scan-exception-handling\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 10,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `EXC-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 547,
+        "rule_tokens": 1219,
+        "template_tokens": 185
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 346,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-exception-handling",
+        "Found 4 body sections",
+        "Loaded 10 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-for-injection",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.889029+00:00",
+      "intent": "Scans source code for injection vulnerabilities mapped to OWASP 2025 Injection coverage, including SQL, command, code, NoSQL, LDAP, XXE/XML, and expression language injection.",
+      "architecture": {
+        "entrypoint": "skills\\scan-for-injection\\SKILL.md",
+        "rules": "skills\\scan-for-injection\\references\\rules.yaml",
+        "report_template": "skills\\scan-for-injection\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 7,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify changed files on the current branch with `git diff main...HEAD --name-only`.",
+        "For each changed file, evaluate every line or local code block against each rule's `patterns`.",
+        "Include OWASP 2025, CWE, and CAPEC metadata in any finding when present.",
+        "Aggregate findings by severity: Critical, High, Medium, Low, Info.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 464,
+        "rule_tokens": 1410,
+        "template_tokens": 266
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 266,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-for-injection",
+        "Found 3 body sections",
+        "Loaded 7 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-for-ssrf",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.895972+00:00",
+      "intent": "Detects Server-Side Request Forgery (SSRF) vulnerabilities including user-controlled HTTP sinks, cloud metadata endpoint access, internal network probing, and unsafe redirect patterns. Use when reviewing code that makes outbound HTTP requests, fetches remote URLs, or accepts hostnames from user input.",
+      "architecture": {
+        "entrypoint": "skills\\scan-for-ssrf\\SKILL.md",
+        "rules": "skills\\scan-for-ssrf\\references\\rules.yaml",
+        "report_template": "skills\\scan-for-ssrf\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 8,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active SSRF ruleset.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify the target:",
+        "Skip: binary files, lock files, `node_modules/`, `.terraform/`, generated code, and files in `.gitignore`.",
+        "For each in-scope file, apply every rule from `references/rules.yaml`:",
+        "For each match record: file path, line number, rule ID, severity, code snippet, and remediation.",
+        "Aggregate findings by severity: Critical \u2192 High \u2192 Medium \u2192 Low \u2192 Info.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 594,
+        "rule_tokens": 2845,
+        "template_tokens": 334
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 316,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-for-ssrf",
+        "Found 3 body sections",
+        "Loaded 8 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-for-xss",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:00.901626+00:00",
+      "intent": "Scans frontend and backend code for cross-site scripting risks including reflected XSS, stored XSS, DOM XSS, unsafe HTML sinks, unsafe template rendering, missing output encoding, sanitizer misuse, unsafe markdown rendering, and weak Content Security Policy.",
+      "architecture": {
+        "entrypoint": "skills\\scan-for-xss\\SKILL.md",
+        "rules": "skills\\scan-for-xss\\references\\rules.yaml",
+        "report_template": "skills\\scan-for-xss\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 12,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `XSS-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 502,
+        "rule_tokens": 1421,
+        "template_tokens": 183
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 334,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-for-xss",
+        "Found 4 body sections",
+        "Loaded 12 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-iac-security",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.174548+00:00",
+      "intent": "Scans infrastructure-as-code changes for security misconfigurations in Terraform, CloudFormation, ARM/Bicep, Pulumi config, and related IaC files.",
+      "architecture": {
+        "entrypoint": "skills\\scan-iac-security\\SKILL.md",
+        "rules": "skills\\scan-iac-security\\references\\rules.yaml",
+        "report_template": "skills\\scan-iac-security\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 1746,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active IaC rule set, then select rules by detected framework, provider, resource type, and file extension before detailed evaluation.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target files:",
+        "Skip binary files, generated files, lock files, vendored modules, `.terraform/`, `node_modules/`, and build output directories.",
+        "Pre-filter the 1,746-rule catalog for efficiency:",
+        "Evaluate each file against the selected rules from `references/rules.yaml`.",
+        "Capture file path, line number, rule ID, matched snippet, and surrounding resource context when possible.",
+        "Aggregate findings by severity: Critical, High, Medium, Low, Info.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 913,
+        "rule_tokens": 168866,
+        "template_tokens": 296
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 313,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-iac-security",
+        "Found 4 body sections",
+        "Loaded 1746 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-json-security",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.180000+00:00",
+      "intent": "Scans JSON configuration, package metadata, policy files, and API fragments for security risks including disabled auth, permissive CORS, plaintext credentials, insecure TLS flags, dependency scripts, and debug exposure.",
+      "architecture": {
+        "entrypoint": "skills\\scan-json-security\\SKILL.md",
+        "rules": "skills\\scan-json-security\\references\\rules.yaml",
+        "report_template": "skills\\scan-json-security\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance"
+        ],
+        "rule_count": 5,
+        "default_match_strategy": "regex"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `JSON-` rule set.",
+        "Include `*.json` files from user-supplied paths or changed files.",
+        "Skip large lock files unless dependency or supply-chain review is explicitly requested.",
+        "Preserve object-path context when possible, such as `security.enabled` or `scripts.postinstall`.",
+        "Evaluate each rule using its `match_strategy`, capturing file, line, snippet, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable`.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 411,
+        "rule_tokens": 506,
+        "template_tokens": 206
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 271,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-json-security",
+        "Found 3 body sections",
+        "Loaded 5 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-kubernetes-manifests",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.297275+00:00",
+      "intent": "Scans Kubernetes manifests, Helm charts, kubeadm/static pod files, kubelet configuration, RBAC, namespaces, network policies, admission controls, and cluster evidence against Kubernetes security benchmark controls. Use when reviewing Kubernetes YAML, cluster hardening, CIS Kubernetes benchmark evidence, pod security, control plane settings, worker node settings, RBAC, service accounts, network policy, or secrets management.",
+      "architecture": {
+        "entrypoint": "skills\\scan-kubernetes-manifests\\SKILL.md",
+        "rules": "skills\\scan-kubernetes-manifests\\references\\rules.yaml",
+        "report_template": "skills\\scan-kubernetes-manifests\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 131,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active Kubernetes benchmark control set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence:",
+        "Determine scope:",
+        "Evaluate each rule using `match_strategy: cis_kubernetes_review`.",
+        "Capture recommendation ID, profile, section, assessment status, evidence, gap, impact, audit procedure, and remediation.",
+        "Aggregate findings by severity, profile, section, and status.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 889,
+        "rule_tokens": 49094,
+        "template_tokens": 484
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 338,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-kubernetes-manifests",
+        "Found 4 body sections",
+        "Loaded 131 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-markdown-security",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.300882+00:00",
+      "intent": "Scans Markdown documentation, runbooks, READMEs, and design notes for security risks including leaked credentials, unsafe operational commands, disabled security controls, insecure examples, and missing threat-model evidence.",
+      "architecture": {
+        "entrypoint": "skills\\scan-markdown-security\\SKILL.md",
+        "rules": "skills\\scan-markdown-security\\references\\rules.yaml",
+        "report_template": "skills\\scan-markdown-security\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance"
+        ],
+        "rule_count": 5,
+        "default_match_strategy": "regex"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `MD-` rule set.",
+        "Include `*.md` and `*.markdown` files from user-supplied paths or changed files.",
+        "Review fenced code blocks, inline commands, configuration snippets, and prose.",
+        "Evaluate each rule using its `match_strategy`, capturing file, line, snippet, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable`.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 406,
+        "rule_tokens": 566,
+        "template_tokens": 210
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 249,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-markdown-security",
+        "Found 3 body sections",
+        "Loaded 5 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-sca-dependencies",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.316308+00:00",
+      "intent": "Detects vulnerable third-party packages and evaluates OWASP OSS Top 10 risks across application dependency manifests, lockfiles, SBOMs, container images, OS package inventories, and build artifacts. Use when the user asks to find vulnerable packages, vulnerable dependencies, CVEs, package versions, severity, fixed versions, SCA findings, image vulnerabilities, dependency vulnerability reports, unmaintained packages, license risk, name confusion attacks, or supply chain integrity gaps.",
+      "architecture": {
+        "entrypoint": "skills\\scan-sca-dependencies\\SKILL.md",
+        "rules": "skills\\scan-sca-dependencies\\references\\rules.yaml",
+        "report_template": "skills\\scan-sca-dependencies\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 28,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active rule set \u2014 18 `SCA-` CVE controls and 10 `OSS-RISK-` controls from the OWASP Top 10 OSS Risks framework (v0.1, February 2024).",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify dependency evidence:",
+        "Prefer structured scanner or SBOM output over ad hoc parsing.",
+        "If live scanning is possible and permitted, use an appropriate scanner for the target:",
+        "Ensure vulnerability databases are current when running tools. If a tool cannot update because of network limits, state that the report may be stale.",
+        "Normalize results into a single finding model:",
+        "Classify dependency relationship:",
+        "Deduplicate by package, version, advisory ID, and source. Preserve separate findings when the same vulnerable package appears in multiple images or applications.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 1402,
+        "rule_tokens": 6583,
+        "template_tokens": 621
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 390,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-sca-dependencies",
+        "Found 4 body sections",
+        "Loaded 28 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-security-headers",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.321833+00:00",
+      "intent": "Scans web applications, APIs, reverse proxies, CDN configuration, and middleware for missing or unsafe HTTP security headers, cookie flags, CORS policy, CSP, HSTS, clickjacking protections, MIME sniffing protections, referrer policy, and browser-facing misconfiguration.",
+      "architecture": {
+        "entrypoint": "skills\\scan-security-headers\\SKILL.md",
+        "rules": "skills\\scan-security-headers\\references\\rules.yaml",
+        "report_template": "skills\\scan-security-headers\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "OWASP Cheat Sheets",
+          "Review Guidance"
+        ],
+        "rule_count": 12,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `SHD-` rule set.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.",
+        "Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 525,
+        "rule_tokens": 1396,
+        "template_tokens": 184
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 339,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-security-headers",
+        "Found 4 body sections",
+        "Loaded 12 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-static-analysis",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.350231+00:00",
+      "intent": "Runs or plans static analysis using CodeQL, Semgrep, and SARIF processing. Use when scanning a workspace for vulnerabilities, selecting CodeQL or Semgrep rulesets, generating a SAST scan plan, processing SARIF results, or combining static-analysis findings from multiple tools.",
+      "architecture": {
+        "entrypoint": "skills\\scan-static-analysis\\SKILL.md",
+        "rules": "skills\\scan-static-analysis\\references\\rules.yaml",
+        "report_template": "skills\\scan-static-analysis\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 30,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active static-analysis ruleset catalog.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Identify the target:",
+        "Classify the request:",
+        "Detect languages, frameworks, infrastructure files, and existing scanner outputs.",
+        "Select rules from `references/rules.yaml`:",
+        "Present the scan plan before running tools:",
+        "Run approved scans or parse approved SARIF files.",
+        "Normalize, aggregate, deduplicate, and prioritize findings.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 801,
+        "rule_tokens": 7427,
+        "template_tokens": 433
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 275,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-static-analysis",
+        "Found 4 body sections",
+        "Loaded 30 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-toml-security",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.353117+00:00",
+      "intent": "Scans TOML configuration files including pyproject, Cargo, service, and application configs for plaintext credentials, disabled TLS, debug mode, wildcard exposure, and unsafe dependency source settings.",
+      "architecture": {
+        "entrypoint": "skills\\scan-toml-security\\SKILL.md",
+        "rules": "skills\\scan-toml-security\\references\\rules.yaml",
+        "report_template": "skills\\scan-toml-security\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance"
+        ],
+        "rule_count": 5,
+        "default_match_strategy": "regex"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `TOML-` rule set.",
+        "Include `*.toml` files from user-supplied paths or changed files.",
+        "Preserve table context when possible, such as `[server]` or `[tool.poetry.source]`.",
+        "Evaluate each rule using its `match_strategy`, capturing file, line, snippet, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable`.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "development",
+        "supply_chain"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 382,
+        "rule_tokens": 480,
+        "template_tokens": 206
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 240,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-toml-security",
+        "Found 3 body sections",
+        "Loaded 5 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-xml-security",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.355889+00:00",
+      "intent": "Scans XML files including application configs, manifests, SAML metadata, SOAP definitions, and parser settings for XXE, insecure parser flags, plaintext credentials, weak transport, and disabled security constraints.",
+      "architecture": {
+        "entrypoint": "skills\\scan-xml-security\\SKILL.md",
+        "rules": "skills\\scan-xml-security\\references\\rules.yaml",
+        "report_template": "skills\\scan-xml-security\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance"
+        ],
+        "rule_count": 5,
+        "default_match_strategy": "regex"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `XML-` rule set.",
+        "Include `*.xml`, `*.xsd`, `*.wsdl`, and XML-like config files from user-supplied paths or changed files.",
+        "Preserve element and attribute context when possible, such as `web-app/security-constraint`.",
+        "Evaluate each rule using its `match_strategy`, capturing file, line, snippet, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable`.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 384,
+        "rule_tokens": 503,
+        "template_tokens": 205
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 255,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-xml-security",
+        "Found 3 body sections",
+        "Loaded 5 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "scan-yaml-security",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.358697+00:00",
+      "intent": "Scans YAML and YML configuration files for security risks including disabled authentication, wildcard exposure, plaintext secrets, insecure TLS flags, privileged workload settings, and unsafe deserialization hints.",
+      "architecture": {
+        "entrypoint": "skills\\scan-yaml-security\\SKILL.md",
+        "rules": "skills\\scan-yaml-security\\references\\rules.yaml",
+        "report_template": "skills\\scan-yaml-security\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance"
+        ],
+        "rule_count": 5,
+        "default_match_strategy": "regex"
+      },
+      "capabilities": [
+        "target scanning",
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active `YAML-` rule set.",
+        "Include `*.yaml` and `*.yml` files from user-supplied paths or changed files.",
+        "Skip generated dependency lock files unless the request explicitly targets them.",
+        "Preserve YAML path context when reporting a finding, such as `auth.enabled` or `containers[0].securityContext`.",
+        "Evaluate each rule using its `match_strategy`, capturing file, line, snippet, and confidence.",
+        "Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.",
+        "Render the final report using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 421,
+        "rule_tokens": 544,
+        "template_tokens": 206
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 282,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for scan-yaml-security",
+        "Found 3 body sections",
+        "Loaded 5 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    },
+    {
+      "skill": "threat-model-system",
+      "agent": "agent1",
+      "generated_at": "2026-06-04T00:58:01.368279+00:00",
+      "intent": "Builds a lightweight system threat model from product, architecture, API, data-flow, and infrastructure context. Use during design review or when a feature changes trust boundaries, authentication, authorization, sensitive data handling, external integrations, or deployment architecture.",
+      "architecture": {
+        "entrypoint": "skills\\threat-model-system\\SKILL.md",
+        "rules": "skills\\threat-model-system\\references\\rules.yaml",
+        "report_template": "skills\\threat-model-system\\references\\report-template.md",
+        "sections": [
+          "Orchestration",
+          "Usage",
+          "Review Guidance",
+          "OWASP Cheat Sheets"
+        ],
+        "rule_count": 12,
+        "default_match_strategy": "unspecified"
+      },
+      "capabilities": [
+        "rule-driven analysis",
+        "report rendering"
+      ],
+      "inputs": [
+        "target path",
+        "changed files",
+        "flags",
+        "rule catalog",
+        "report template"
+      ],
+      "outputs": [
+        "findings",
+        "severity summary",
+        "evidence",
+        "remediation",
+        "markdown or JSON report"
+      ],
+      "dependencies": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "execution_flow": [
+        "Load `references/rules.yaml` to get the active threat-modeling criteria.",
+        "Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.",
+        "Gather available system context from user input and repository artifacts:",
+        "Identify core model elements:",
+        "Evaluate the system against every rule in `references/rules.yaml`.",
+        "For each finding, capture the affected component, rule ID, threat scenario, evidence, impact, likelihood, and recommended mitigation.",
+        "Aggregate findings by severity: Critical, High, Medium, Low, Info.",
+        "Render the final threat model using `references/report-template.md`."
+      ],
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "functional_completeness": {
+        "checks": {
+          "has_name": true,
+          "has_description": true,
+          "has_triggers": true,
+          "has_orchestration": true,
+          "has_usage": true,
+          "has_rules": true,
+          "has_report_template": true,
+          "references_rules": true,
+          "references_report_template": true,
+          "has_execution_steps": true
+        },
+        "score": 100.0,
+        "passed": 10,
+        "total": 10
+      },
+      "context_profile": {
+        "skill_tokens": 803,
+        "rule_tokens": 3100,
+        "template_tokens": 405
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 321,
+        "completion_tokens": 37,
+        "latency_ms": 0.0,
+        "response": {
+          "valid": true,
+          "analysis_mode": "deterministic-offline",
+          "expected_json_contract": [
+            "confidence",
+            "evidence",
+            "recommendations"
+          ],
+          "confidence": 0.78
+        },
+        "evidence": [
+          "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+        ]
+      },
+      "confidence": 0.96,
+      "evidence": [
+        "Parsed frontmatter for threat-model-system",
+        "Found 4 body sections",
+        "Loaded 12 rules",
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ],
+      "recommendations": [
+        "Maintain the current structured skill contract and keep references versioned."
+      ]
+    }
+  ],
+  "coverage_report": [
+    {
+      "skill": "audit-asvs-compliance",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "audit-auth-session-management",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "audit-crypto-usage",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "audit-logging-monitoring",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "detect-secrets",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "detect-supply-chain-risks",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "generate-dependency-graph",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "generate-sbom",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-api-security",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-broken-access-control",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-container-image",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-exception-handling",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-for-injection",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-for-ssrf",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-for-xss",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-iac-security",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-json-security",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-kubernetes-manifests",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-markdown-security",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-sca-dependencies",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-security-headers",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-static-analysis",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-toml-security",
+      "lifecycle_coverage": [
+        "development",
+        "supply_chain"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-xml-security",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "scan-yaml-security",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain"
+      ],
+      "score": 100.0
+    },
+    {
+      "skill": "threat-model-system",
+      "lifecycle_coverage": [
+        "design",
+        "development",
+        "supply_chain",
+        "operations",
+        "compliance"
+      ],
+      "score": 100.0
+    }
+  ],
+  "evidence": [
+    "Parsed frontmatter for audit-asvs-compliance",
+    "Found 4 body sections",
+    "Loaded 345 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for audit-auth-session-management",
+    "Found 4 body sections",
+    "Loaded 12 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for audit-crypto-usage",
+    "Found 4 body sections",
+    "Loaded 12 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for audit-logging-monitoring",
+    "Found 4 body sections",
+    "Loaded 12 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for detect-secrets",
+    "Found 3 body sections",
+    "Loaded 393 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for detect-supply-chain-risks",
+    "Found 4 body sections",
+    "Loaded 20 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for generate-dependency-graph",
+    "Found 4 body sections",
+    "Loaded 10 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for generate-sbom",
+    "Found 4 body sections",
+    "Loaded 10 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-api-security",
+    "Found 3 body sections",
+    "Loaded 6 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-broken-access-control",
+    "Found 4 body sections",
+    "Loaded 12 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-container-image",
+    "Found 4 body sections",
+    "Loaded 128 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-exception-handling",
+    "Found 4 body sections",
+    "Loaded 10 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-for-injection",
+    "Found 3 body sections",
+    "Loaded 7 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-for-ssrf",
+    "Found 3 body sections",
+    "Loaded 8 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-for-xss",
+    "Found 4 body sections",
+    "Loaded 12 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-iac-security",
+    "Found 4 body sections",
+    "Loaded 1746 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-json-security",
+    "Found 3 body sections",
+    "Loaded 5 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-kubernetes-manifests",
+    "Found 4 body sections",
+    "Loaded 131 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-markdown-security",
+    "Found 3 body sections",
+    "Loaded 5 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-sca-dependencies",
+    "Found 4 body sections",
+    "Loaded 28 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-security-headers",
+    "Found 4 body sections",
+    "Loaded 12 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-static-analysis",
+    "Found 4 body sections",
+    "Loaded 30 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-toml-security",
+    "Found 3 body sections",
+    "Loaded 5 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-xml-security",
+    "Found 3 body sections",
+    "Loaded 5 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for scan-yaml-security",
+    "Found 3 body sections",
+    "Loaded 5 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing.",
+    "Parsed frontmatter for threat-model-system",
+    "Found 4 body sections",
+    "Loaded 12 rules",
+    "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+  ],
+  "recommendations": [
+    "Maintain the current structured skill contract and keep references versioned."
+  ]
+}

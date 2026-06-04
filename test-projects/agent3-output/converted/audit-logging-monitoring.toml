@@ -1,0 +1,122 @@
+name = "audit-logging-monitoring"
+description = "Audits security logging and alerting controls for missing audit events, weak monitoring, sensitive data in logs, log injection, insufficient retention, tamper-prone logs, and missing detection for authentication, authorization, administrative, and data access events."
+version = "1.0"
+intent = "# audit-logging-monitoring"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "ALM-001"
+name = "Log authentication success and failure"
+severity = "High"
+category = "Auth Events"
+description = "Identify login, MFA, reset, and token events without security logs."
+match_strategy = "log_auth_events"
+remediation = "Log authentication events with subject, result, source, timestamp, and correlation ID."
+
+[[rules]]
+id = "ALM-002"
+name = "Log access control denials and privilege changes"
+severity = "High"
+category = "Authorization Events"
+description = "Identify missing logs for denied access, role changes, permission changes, and tenant-boundary failures."
+match_strategy = "log_authz_events"
+remediation = "Log authorization decisions and privilege mutations with actor and target."
+
+[[rules]]
+id = "ALM-003"
+name = "Log administrative actions"
+severity = "High"
+category = "Admin Events"
+description = "Identify admin operations without audit trails."
+match_strategy = "log_admin_events"
+remediation = "Log admin changes, settings changes, user management, and policy updates."
+
+[[rules]]
+id = "ALM-004"
+name = "Log sensitive data access safely"
+severity = "High"
+category = "Sensitive Data"
+description = "Identify sensitive data access without audit trail or with raw sensitive values in logs."
+match_strategy = "log_sensitive_access"
+remediation = "Log metadata for sensitive access and redact protected values."
+
+[[rules]]
+id = "ALM-005"
+name = "Alert on high-risk security events"
+severity = "High"
+category = "Alerting"
+description = "Identify critical events without alerting or escalation."
+match_strategy = "log_alerting"
+remediation = "Create alerts for suspicious auth, privilege changes, secret access, and integrity failures."
+
+[[rules]]
+id = "ALM-006"
+name = "Detect log injection risks"
+severity = "Medium"
+category = "Log Injection"
+description = "Identify untrusted input logged without encoding, escaping, or structured logging."
+match_strategy = "log_injection"
+remediation = "Use structured logging and encode untrusted values."
+
+[[rules]]
+id = "ALM-007"
+name = "Protect logs from tampering"
+severity = "High"
+category = "Log Integrity"
+description = "Identify logs stored where attackers or app users can alter them."
+match_strategy = "log_integrity"
+remediation = "Send logs to append-only or centralized systems with restricted access."
+
+[[rules]]
+id = "ALM-008"
+name = "Validate log retention"
+severity = "Medium"
+category = "Retention"
+description = "Identify missing retention policy for audit and security logs."
+match_strategy = "log_retention"
+remediation = "Set retention based on incident response and compliance needs."
+
+[[rules]]
+id = "ALM-009"
+name = "Require request and trace correlation IDs"
+severity = "Medium"
+category = "Correlation"
+description = "Identify security logs without request, session, user, or trace correlation."
+match_strategy = "log_correlation"
+remediation = "Add correlation identifiers to security-relevant logs."
+
+[[rules]]
+id = "ALM-010"
+name = "Monitor exceptional security conditions"
+severity = "High"
+category = "Error Monitoring"
+description = "Identify auth, validation, deserialization, crypto, or access exceptions without monitoring."
+match_strategy = "log_exception_monitoring"
+remediation = "Alert on repeated or unusual security-relevant exceptions."
+
+[[rules]]
+id = "ALM-011"
+name = "Detect sensitive data leakage in logs"
+severity = "Medium"
+category = "PII in Logs"
+description = "Identify credentials, tokens, PII, payment, or health data logged in cleartext."
+match_strategy = "log_pii_leakage"
+remediation = "Redact, tokenize, or avoid logging sensitive values."
+
+[[rules]]
+id = "ALM-012"
+name = "Require response runbooks for critical alerts"
+severity = "Info"
+category = "Runbooks"
+description = "Identify critical alerts without owner or response guidance."
+match_strategy = "log_runbooks"
+remediation = "Define alert owners, severity, escalation path, and investigation runbook."

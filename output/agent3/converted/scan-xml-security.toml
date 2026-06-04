@@ -1,0 +1,59 @@
+name = "scan-xml-security"
+description = "Scans XML files including application configs, manifests, SAML metadata, SOAP definitions, and parser settings for XXE, insecure parser flags, plaintext credentials, weak transport, and disabled security constraints."
+version = "1.0"
+intent = "# scan-xml-security"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "XML-001"
+name = "External Entity Declaration"
+severity = "High"
+category = "XML Parser"
+description = "XML document declares an external entity that can enable XXE."
+patterns = ["<!ENTITY\\s+[^>]+SYSTEM\\s+[\"'][^\"']+[\"']", "<!DOCTYPE\\s+[^>]+\\["]
+remediation = "Disable external entity resolution and remove external entity declarations."
+
+[[rules]]
+id = "XML-002"
+name = "Plaintext Secret Element"
+severity = "High"
+category = "Secrets"
+description = "XML contains secret-looking elements or attributes with inline values."
+patterns = ["<(password|secret|token|apiKey|clientSecret)>[^<]{12,}</", "(password|secret|token|apiKey|clientSecret)=[\"'][^\"']{12,}[\"']"]
+remediation = "Store secrets in a secret manager and reference them outside the XML document."
+
+[[rules]]
+id = "XML-003"
+name = "Secure Transport Disabled"
+severity = "Medium"
+category = "Transport Security"
+description = "XML security constraints do not require confidential transport."
+patterns = ["<transport-guarantee>\\s*NONE\\s*</transport-guarantee>", "<ssl-enabled>\\s*false\\s*</ssl-enabled>"]
+remediation = "Require confidential transport and TLS for protected resources."
+
+[[rules]]
+id = "XML-004"
+name = "Security Constraint Disabled"
+severity = "Medium"
+category = "Authentication"
+description = "XML configuration disables or weakens authentication constraints."
+patterns = ["<auth-method>\\s*NONE\\s*</auth-method>", "<security-enabled>\\s*false\\s*</security-enabled>"]
+remediation = "Enforce authentication methods for protected routes and services."
+
+[[rules]]
+id = "XML-005"
+name = "Debug Mode Enabled"
+severity = "Low"
+category = "Information Exposure"
+description = "XML configuration enables debug mode."
+patterns = ["<debug>\\s*true\\s*</debug>", "debug=[\"']true[\"']"]
+remediation = "Disable debug mode in shared or production configuration."

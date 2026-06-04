@@ -1,0 +1,59 @@
+name = "scan-toml-security"
+description = "Scans TOML configuration files including pyproject, Cargo, service, and application configs for plaintext credentials, disabled TLS, debug mode, wildcard exposure, and unsafe dependency source settings."
+version = "1.0"
+intent = "# scan-toml-security"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "TOML-001"
+name = "Plaintext Credential"
+severity = "High"
+category = "Secrets"
+description = "TOML contains secret-looking keys with inline plaintext values."
+patterns = ["(?i)^\\s*(password|api_key|apikey|secret|token|client_secret)\\s*=\\s*[\"'][A-Za-z0-9_./+=-]{12,}[\"']"]
+remediation = "Store secrets in a secret manager and reference them indirectly."
+
+[[rules]]
+id = "TOML-002"
+name = "TLS Verification Disabled"
+severity = "Medium"
+category = "Transport Security"
+description = "TOML disables TLS or certificate verification."
+patterns = ["(?i)^\\s*(verify_ssl|ssl_verify|tls_verify|reject_unauthorized)\\s*=\\s*false", "(?i)^\\s*tls\\s*=\\s*false"]
+remediation = "Enable TLS verification and reject invalid certificates."
+
+[[rules]]
+id = "TOML-003"
+name = "Wildcard Listener"
+severity = "Medium"
+category = "Exposure"
+description = "TOML binds services to every interface or permits every origin."
+patterns = ["^\\s*(host|bind|listen)\\s*=\\s*[\"']0\\.0\\.0\\.0[\"']", "^\\s*(allowed_origins|cors_origins)\\s*=\\s*\\[\\s*[\"']\\*[\"']\\s*\\]"]
+remediation = "Bind to trusted interfaces and restrict allowed origins."
+
+[[rules]]
+id = "TOML-004"
+name = "Debug Mode Enabled"
+severity = "Low"
+category = "Information Exposure"
+description = "TOML enables debug behavior."
+patterns = ["(?i)^\\s*debug\\s*=\\s*true", "(?i)^\\s*log_level\\s*=\\s*[\"']debug[\"']"]
+remediation = "Disable debug mode outside local development."
+
+[[rules]]
+id = "TOML-005"
+name = "Insecure Package Source"
+severity = "Medium"
+category = "Supply Chain"
+description = "TOML references a plaintext package index or dependency source."
+patterns = ["^\\s*(url|registry|index)\\s*=\\s*[\"']http://"]
+remediation = "Use HTTPS package sources and verify source ownership."

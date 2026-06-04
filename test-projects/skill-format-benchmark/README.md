@@ -2,7 +2,7 @@
 
 Benchmarks five security skill definition formats — **Markdown, YAML, TOML, JSON, and Inline-YAML** — across two skills (`detect-secrets` and `scan-iac-security`) and their purpose-built test fixtures.
 
-Produces a live Chart.js dashboard at `http://localhost:8765` and an interactive simulator at `http://localhost:8765/simulator.html`.
+Produces a live Chart.js dashboard at `http://localhost:8080` and an interactive simulator at `http://localhost:8080/simulator.html`.
 
 ---
 
@@ -38,8 +38,8 @@ python benchmark.py
 python serve.py
 ```
 
-The dashboard opens at **http://localhost:8765**
-The simulator opens at **http://localhost:8765/simulator.html**
+The dashboard opens at **http://localhost:8080**
+The simulator opens at **http://localhost:8080/simulator.html**
 
 Press `Ctrl+C` to stop the server.
 
@@ -89,7 +89,7 @@ Use the static HTML dashboard for sharing results and the Streamlit app for hand
 ```
 skill-format-benchmark/
   benchmark.py              # benchmark runner — produces results/benchmark-results.json
-  serve.py                  # HTTP server — serves app/ and results/ on port 8765
+  serve.py                  # HTTP server — serves app/ and results/ on port 8080
   simulator.html            # browser-side skill format simulator
   app/
     index.html              # Chart.js benchmark dashboard

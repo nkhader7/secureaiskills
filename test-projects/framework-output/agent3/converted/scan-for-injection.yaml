@@ -1,0 +1,253 @@
+name: scan-for-injection
+description: Scans source code for injection vulnerabilities mapped to OWASP 2025
+  Injection coverage, including SQL, command, code, NoSQL, LDAP, XXE/XML, and expression
+  language injection.
+version: '1.0'
+intent: '# scan-for-injection'
+instructions: '# scan-for-injection
+
+
+  Scans source code for injection vulnerabilities: SQL injection, command injection,
+  code injection, NoSQL injection, LDAP injection, XXE/XML injection, and expression
+  language injection.
+
+
+  For hardcoded secrets and credentials, use `detect-secrets` instead.
+
+
+  ## Orchestration
+
+
+  1. Load `references/rules.yaml` to get the active rule set.
+
+  2. Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets
+  to support remediation guidance and references.
+
+  3. Identify changed files on the current branch with `git diff main...HEAD --name-only`.
+
+  4. For each changed file, evaluate every line or local code block against each rule''s
+  `patterns`.
+
+  5. Include OWASP 2025, CWE, and CAPEC metadata in any finding when present.
+
+  6. Aggregate findings by severity: Critical, High, Medium, Low, Info.
+
+  7. Render the final report using `references/report-template.md`.
+
+
+  ## Usage
+
+
+  Scan changed files on the current branch:
+
+
+  ```text
+
+  /scan-for-injection
+
+  ```
+
+
+  Scan a specific path:
+
+
+  ```text
+
+  /scan-for-injection src/api/
+
+  ```
+
+
+  ## OWASP Cheat Sheets
+
+
+  Use the shared mapping in `../_shared/owasp-cheatsheets.yaml` for authoritative
+  OWASP Cheat Sheet Series references that match this skill. Include the relevant
+  cheat sheet links in the report when they directly support a finding or remediation.'
+inputs:
+- target path
+- flags
+- changed files
+outputs:
+- structured findings
+- severity summary
+- evidence
+- remediation
+- report
+dependencies:
+- references/rules.yaml
+- references/report-template.md
+- ../_shared/base-report.md
+- ../_shared/owasp-cheatsheets.yaml
+security_constraints:
+  treat_target_content_as_untrusted: true
+  redact_sensitive_values: required for secret-like evidence
+  skip_binary_and_lock_files: true
+  network_access: not required for skill execution
+  output_requires_evidence: true
+references:
+  rules: references/rules.yaml
+  report_template: references/report-template.md
+  base_report: ../_shared/base-report.md
+  owasp_cheatsheets: ../_shared/owasp-cheatsheets.yaml
+rules:
+- id: SI-001
+  severity: Critical
+  category: Injection
+  name: SQL Injection
+  description: User-controlled input appears to be concatenated or interpolated into
+    SQL statements.
+  owasp_2025_category: A05:2025 - Injection
+  cwe:
+  - 89
+  capec:
+  - 66
+  match_strategy: regex
+  patterns:
+  - f["']\s*(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE).*\{.*\}
+  - (SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE).*['"]\s*\+\s*
+  - (query|execute|raw|exec)\s*\([^\n]*(\+|format\(|%\s*\(|\$\{)
+  - Statement\.execute(Query|Update)?\s*\([^\n]*\+
+  - createQuery\s*\([^\n]*\+
+  remediation: Use parameterized queries, prepared statements, or an ORM query builder
+    that separates data from query structure.
+- id: SI-002
+  severity: Critical
+  category: Injection
+  name: Command Injection
+  description: User-controlled input appears to be passed into an operating system
+    command or shell execution sink.
+  owasp_2025_category: A05:2025 - Injection
+  cwe:
+  - 77
+  - 78
+  capec:
+  - 88
+  match_strategy: regex
+  patterns:
+  - (system|popen|exec|spawn|execFile|shell_exec|passthru|ProcessBuilder|Runtime\.getRuntime\(\)\.exec)\s*\([^\n]*(\+|\$\{|format\(|%\s*\()
+  - subprocess\.(run|call|Popen|check_output)\s*\([^\n]*shell\s*=\s*True
+  - child_process\.(exec|spawn|execFile)\s*\([^\n]*(req\.|request\.|params|query|body)
+  - os\.system\s*\([^\n]*(input|request|params|query|body)
+  remediation: Avoid shell execution with user input. Use safe APIs, argument arrays,
+    strict allowlists, and disable shell interpretation.
+- id: SI-003
+  severity: Critical
+  category: Injection
+  name: Code Injection
+  description: User-controlled input appears to be evaluated as code or dynamically
+    compiled.
+  owasp_2025_category: A05:2025 - Injection
+  cwe:
+  - 94
+  capec:
+  - 242
+  match_strategy: regex
+  patterns:
+  - \beval\s*\([^\n]*(request|req\.|params|query|body|input|user)
+  - \bexec\s*\([^\n]*(request|req\.|params|query|body|input|user)
+  - new Function\s*\([^\n]*(request|req\.|params|query|body|input|user)
+  - compile\s*\([^\n]*(request|req\.|params|query|body|input|user)
+  - vm\.runIn(NewContext|ThisContext|Context)\s*\(
+  remediation: Do not evaluate user-controlled data as code. Replace dynamic evaluation
+    with explicit parsing, allowlisted operations, or safe interpreters.
+- id: SI-004
+  severity: High
+  category: Injection
+  name: NoSQL Injection
+  description: User-controlled input appears to influence NoSQL query operators, filters,
+    or raw query objects.
+  owasp_2025_category: A05:2025 - Injection
+  cwe:
+  - 943
+  capec:
+  - 649
+  match_strategy: regex
+  patterns:
+  - (find|findOne|updateOne|updateMany|deleteOne|deleteMany)\s*\([^\n]*(req\.body|req\.query|request\.|params)
+  - '\$where\s*:'
+  - \$regex\s*:\s*(req\.|request\.|params|query|body)
+  - \$ne\s*:\s*(req\.|request\.|params|query|body)
+  - JSON\.parse\s*\([^\n]*(req\.body|req\.query|request\.)
+  remediation: Build NoSQL queries from explicit allowlisted fields and operators.
+    Reject operator injection keys such as `$where`, `$ne`, and `$regex` unless explicitly
+    intended.
+- id: SI-005
+  severity: High
+  category: Injection
+  name: LDAP Injection
+  description: User-controlled input appears to be concatenated into LDAP filters
+    or distinguished names.
+  owasp_2025_category: A05:2025 - Injection
+  cwe:
+  - 90
+  capec:
+  - 136
+  match_strategy: regex
+  patterns:
+  - ldap[^\n]*(search|filter)[^\n]*(\+|format\(|\$\{|%\s*\()
+  - \(uid=\s*['"]?\s*\+
+  - \(cn=\s*['"]?\s*\+
+  - DirContext\.search\s*\([^\n]*\+
+  - LdapQueryBuilder[^\n]*(where|filter)[^\n]*(request|req\.|params|query|body)
+  remediation: Escape LDAP filter metacharacters and construct filters with safe LDAP
+    APIs or strict allowlists.
+- id: SI-006
+  severity: High
+  category: Injection
+  name: XXE / XML Injection
+  description: XML parsing appears to allow external entities, DTDs, or unsafe XML
+    resolver behavior.
+  owasp_2025_category: A05:2025 - Injection
+  cwe:
+  - 611
+  capec:
+  - 197
+  match_strategy: regex
+  patterns:
+  - DocumentBuilderFactory\.newInstance\(\)
+  - SAXParserFactory\.newInstance\(\)
+  - XMLInputFactory\.newInstance\(\)
+  - resolve_entities\s*=\s*True
+  - load_dtd\s*=\s*True
+  - no_network\s*=\s*False
+  - LIBXML_NOENT
+  - XmlReaderSettings[^\n]*DtdProcessing\s*=\s*DtdProcessing\.Parse
+  remediation: Disable DTDs and external entity resolution. Use hardened XML parser
+    settings and reject untrusted XML features.
+- id: SI-007
+  severity: High
+  category: Injection
+  name: Expression / EL Injection
+  description: User-controlled input appears to be evaluated by an expression language,
+    template engine, or dynamic expression parser.
+  owasp_2025_category: A05:2025 - Injection
+  cwe:
+  - 917
+  capec: []
+  match_strategy: regex
+  patterns:
+  - ExpressionParser[^\n]*parseExpression\s*\([^\n]*(request|req\.|params|query|body|input)
+  - SpelExpressionParser[^\n]*parseExpression\s*\(
+  - createExpression\s*\([^\n]*(request|req\.|params|query|body|input)
+  - evaluate\s*\([^\n]*(request|req\.|params|query|body|input)
+  - \$\{[^\n}]*(request|req\.|params|query|body|input)[^\n}]*\}
+  - '#\{[^\n}]*(request|req\.|params|query|body|input)[^\n}]*\}'
+  remediation: Do not evaluate user-controlled strings as expressions or templates.
+    Use static templates, allowlisted variables, and sandboxed expression evaluation
+    when unavoidable.
+default_match_strategy: unspecified
+report_template: "# scan-for-injection Report\n\n| Field | Value |\n|-------|-------|\n\
+  | Skill | scan-for-injection |\n| Target | {{target}} |\n| Date | {{date}} |\n|\
+  \ Branch | {{branch}} |\n| Files Reviewed | {{file_count}} |\n| Findings | {{total_findings}}\
+  \ |\n| Overall Severity | {{overall_severity}} |\n\n---\n\n## Findings\n\n{{#each\
+  \ findings}}\n### [{{severity}}] {{rule_id}} \u2014 {{rule_name}}\n\n**File:** `{{file}}`\
+  \ (line {{line}})\n**Category:** {{category}}\n**Description:** {{description}}\n\
+  \n```text\n{{snippet}}\n```\n\n**Remediation:** {{remediation}}\n\n---\n{{/each}}\n\
+  \n{{#if no_findings}}\nNo injection vulnerabilities were detected in the scanned\
+  \ files.\n{{/if}}\n\n## Summary Table\n\n| Severity | Count |\n|----------|-------|\n\
+  | Critical | {{count_critical}} |\n| High     | {{count_high}} |\n| Medium   | {{count_medium}}\
+  \ |\n| Low      | {{count_low}} |\n| Info     | {{count_info}} |\n\n## Next Steps\n\
+  \n- Address all **Critical** and **High** findings before merging.\n- Review **Medium**\
+  \ findings and apply fixes or document accepted risk.\n- **Low** and **Info** items\
+  \ are advisory \u2014 fix at your discretion.\n"

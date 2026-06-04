@@ -1,0 +1,700 @@
+name: scan-sca-dependencies
+description: Detects vulnerable third-party packages and evaluates OWASP OSS Top 10
+  risks across application dependency manifests, lockfiles, SBOMs, container images,
+  OS package inventories, and build artifacts. Use when the user asks to find vulnerable
+  packages, vulnerable dependencies, CVEs, package versions, severity, fixed versions,
+  SCA findings, image vulnerabilities, dependency vulnerability reports, unmaintained
+  packages, license risk, name confusion attacks, or supply chain integrity gaps.
+version: '1.0'
+intent: '# scan-sca-dependencies'
+instructions: "# scan-sca-dependencies\n\nFinds vulnerable third-party packages and\
+  \ reports package name, installed version, ecosystem, direct or transitive dependency\
+  \ type, dependency path, CVE, severity, affected range, fixed version, exploit signal,\
+  \ evidence, and remediation.\n\n## Orchestration\n\n1. Load `references/rules.yaml`\
+  \ to get the active rule set \u2014 18 `SCA-` CVE controls and 10 `OSS-RISK-` controls\
+  \ from the OWASP Top 10 OSS Risks framework (v0.1, February 2024).\n2. Load `../_shared/owasp-cheatsheets.yaml`\
+  \ and use the mapped OWASP cheat sheets to support remediation guidance and references.\n\
+  3. Identify dependency evidence:\n   - Application manifests and lockfiles: `package-lock.json`,\
+  \ `yarn.lock`, `pnpm-lock.yaml`, `package.json`, `requirements.txt`, `Pipfile.lock`,\
+  \ `poetry.lock`, `pyproject.toml`, `go.mod`, `go.sum`, `pom.xml`, `build.gradle`,\
+  \ `gradle.lockfile`, `Gemfile.lock`, `composer.lock`, `Cargo.lock`, `.csproj`, `packages.lock.json`,\
+  \ and similar files.\n   - Container evidence: image scan output, Dockerfiles, SBOMs,\
+  \ OS package inventories, `apk`, `dpkg`, `rpm`, `microdnf`, `yum`, and `apt` package\
+  \ lists.\n   - SBOMs: CycloneDX, SPDX, Syft JSON, Trivy JSON, Grype JSON, OSV scanner\
+  \ JSON, Snyk JSON, GitHub Dependabot alerts, SARIF, and dependency submission output.\n\
+  4. Prefer structured scanner or SBOM output over ad hoc parsing.\n5. If live scanning\
+  \ is possible and permitted, use an appropriate scanner for the target:\n   - OSV\
+  \ Scanner for application lockfiles.\n   - Trivy or Grype for container images,\
+  \ filesystems, and SBOMs.\n   - npm audit, pip-audit, bundler-audit, govulncheck,\
+  \ cargo-audit, osv-scanner, or ecosystem-native tooling when that is the local project\
+  \ convention.\n6. Ensure vulnerability databases are current when running tools.\
+  \ If a tool cannot update because of network limits, state that the report may be\
+  \ stale.\n7. Normalize results into a single finding model:\n   - `package_name`\n\
+  \   - `package_version`\n   - `package_type` or ecosystem\n   - `dependency_type`\
+  \ as direct, transitive, OS package, image base package, vendored, or unknown\n\
+  \   - `dependency_path` or parent chain when available\n   - `source` such as lockfile\
+  \ path, image digest, layer, SBOM component, or package manager\n   - `cve` or advisory\
+  \ ID\n   - `severity`\n   - `cvss_score` when available\n   - `affected_range`\n\
+  \   - `fixed_version`\n   - `exploit_available` or known exploited signal when available\n\
+  \   - `remediation`\n8. Classify dependency relationship:\n   - Direct when the\
+  \ package is declared by the application manifest or top-level image/package list.\n\
+  \   - Transitive when the package is introduced by another dependency and appears\
+  \ only through lockfile, graph, SBOM dependency relationship, or scanner path data.\n\
+  \   - OS package or image base package when the vulnerable package comes from the\
+  \ container filesystem or base layer rather than the application package manager.\n\
+  \   - Unknown when the evidence does not include enough graph data; recommend generating\
+  \ a dependency graph or SBOM.\n9. Deduplicate by package, version, advisory ID,\
+  \ and source. Preserve separate findings when the same vulnerable package appears\
+  \ in multiple images or applications.\n10. Render the final report using `references/report-template.md`.\n\
+  \n## Usage\n\nScan the current repository:\n\n```text\n/scan-sca-dependencies\n\
+  ```\n\nScan a container image:\n\n```text\n/scan-sca-dependencies image:registry.example.com/app:1.2.3\n\
+  ```\n\nScan an SBOM:\n\n```text\n/scan-sca-dependencies sbom.cdx.json\n```\n\n##\
+  \ OWASP Cheat Sheets\n\nUse the shared mapping in `../_shared/owasp-cheatsheets.yaml`\
+  \ for authoritative OWASP Cheat Sheet Series references that match this skill. Include\
+  \ the relevant cheat sheet links in the report when they directly support a finding\
+  \ or remediation.\n\n## Review Guidance\n\n**CVE findings (SCA- rules):** Prioritize\
+  \ exploitable `Critical` and `High` findings, direct dependencies, transitive dependencies\
+  \ with a short parent path, runtime container packages, and known exploited CVEs.\
+  \ Treat findings without fixed versions as risk-acceptance or compensating-control\
+  \ candidates.\n\n**OWASP OSS Top 10 findings (OSS-RISK- rules):** OSS-RISK-1 overlaps\
+  \ with SCA CVE controls \u2014 report once, not twice. OSS-RISK-2 (compromised package)\
+  \ and OSS-RISK-9 (unapproved change) are Critical supply chain risks that require\
+  \ provenance evidence, not just CVE scans. OSS-RISK-4 (unmaintained) and OSS-RISK-8\
+  \ (immature) are `design_review` controls \u2014 flag them when no maintenance activity\
+  \ or project maturity evidence is present. OSS-RISK-7 (license) requires legal review\
+  \ for copyleft findings before shipping."
+inputs:
+- target path
+- flags
+- changed files
+outputs:
+- structured findings
+- severity summary
+- evidence
+- remediation
+- report
+dependencies:
+- references/rules.yaml
+- references/report-template.md
+- ../_shared/base-report.md
+- ../_shared/owasp-cheatsheets.yaml
+security_constraints:
+  treat_target_content_as_untrusted: true
+  redact_sensitive_values: required for secret-like evidence
+  skip_binary_and_lock_files: true
+  network_access: not required
+  output_requires_evidence: true
+references:
+  rules: references/rules.yaml
+  report_template: references/report-template.md
+  base_report: ../_shared/base-report.md
+  owasp_cheatsheets: ../_shared/owasp-cheatsheets.yaml
+rules:
+- id: SCA-001
+  severity: Critical
+  category: Vulnerable Package Inventory
+  name: Normalize all vulnerable package findings with package version, CVE, and severity
+  match_strategy: sca_vulnerability_normalization
+  description: Every vulnerable package finding must include the package name, installed
+    version, advisory identifier or CVE, severity, affected source, and remediation
+    guidance.
+  evidence_examples:
+  - Lockfile vulnerability scan output
+  - Container image scanner output
+  - SBOM vulnerability scan output
+  required_fields:
+  - package_name
+  - package_version
+  - cve
+  - severity
+  - source
+  - remediation
+  remediation: Re-run the scan with structured output or enrich findings from advisory
+    data until package, version, CVE, severity, and source are present.
+- id: SCA-002
+  severity: Critical
+  category: Critical Vulnerability
+  name: Flag critical vulnerabilities in third-party packages
+  match_strategy: sca_severity_threshold
+  description: Detect dependencies or OS packages with Critical severity vulnerabilities.
+  severity_threshold: Critical
+  remediation: Upgrade to the fixed version, replace the package, remove the vulnerable
+    component, or document an urgent compensating control when no fix exists.
+- id: SCA-003
+  severity: High
+  category: High Vulnerability
+  name: Flag high severity vulnerabilities in third-party packages
+  match_strategy: sca_severity_threshold
+  description: Detect dependencies or OS packages with High severity vulnerabilities.
+  severity_threshold: High
+  remediation: Upgrade to the fixed version, replace the package, remove the vulnerable
+    component, or document a time-bound risk decision.
+- id: SCA-004
+  severity: Critical
+  category: Known Exploited Vulnerability
+  name: Prioritize known exploited vulnerabilities
+  match_strategy: sca_known_exploited
+  description: Identify package findings that are present in known exploited vulnerability
+    sources or scanner exploit signals.
+  evidence_examples:
+  - KEV flag
+  - exploit_available flag
+  - EPSS or exploit maturity metadata
+  remediation: Treat known exploited vulnerabilities as urgent, even when the base
+    CVSS severity is lower than Critical.
+- id: SCA-005
+  severity: High
+  category: Fix Available
+  name: Report fixed versions for vulnerable packages
+  match_strategy: sca_fixed_version
+  description: Findings should include fixed package versions or fixed image/base-layer
+    versions when available.
+  required_fields:
+  - fixed_version
+  remediation: Upgrade direct dependencies, regenerate lockfiles, rebuild container
+    images, or update base images to versions that contain fixes.
+- id: SCA-006
+  severity: High
+  category: Runtime Container Package
+  name: Detect vulnerable OS packages in container images
+  match_strategy: sca_container_os_packages
+  description: Scan container image operating system package inventories, including
+    packages installed by apk, dpkg, rpm, yum, dnf, microdnf, or apt.
+  evidence_examples:
+  - Trivy image JSON
+  - Grype image JSON
+  - Syft SBOM plus vulnerability scan
+  - OS package inventory extracted from an image
+  remediation: Update the base image, rebuild the image, remove unused packages, or
+    switch to a maintained minimal base image.
+- id: SCA-007
+  severity: High
+  category: Application Dependency
+  name: Detect vulnerable application dependencies
+  match_strategy: sca_application_dependencies
+  description: Scan direct and transitive application dependencies from lockfiles
+    and dependency manifests.
+  evidence_examples:
+  - package-lock.json
+  - yarn.lock
+  - pnpm-lock.yaml
+  - poetry.lock
+  - requirements.txt
+  - go.mod and go.sum
+  - pom.xml
+  - build.gradle
+  - Gemfile.lock
+  - composer.lock
+  - Cargo.lock
+  - packages.lock.json
+  remediation: Upgrade the vulnerable dependency, update transitive dependency constraints,
+    regenerate lockfiles, or replace the package.
+- id: SCA-008
+  severity: High
+  category: SBOM Vulnerability
+  name: Detect vulnerabilities from SBOM inputs
+  match_strategy: sca_sbom_vulnerability
+  description: Accept CycloneDX, SPDX, Syft, and scanner-generated SBOMs as first-class
+    vulnerability scan input.
+  evidence_examples:
+  - CycloneDX JSON
+  - SPDX JSON
+  - Syft JSON
+  - Container image SBOM
+  remediation: Scan the SBOM against a current vulnerability database and preserve
+    component package URLs, versions, and source references.
+- id: SCA-009
+  severity: Medium
+  category: Development Dependency
+  name: Separate runtime and development dependency vulnerability risk
+  match_strategy: sca_dependency_scope
+  description: Classify vulnerable packages by runtime, development, test, build,
+    or unknown scope when the ecosystem provides scope metadata.
+  remediation: Prioritize runtime and build-chain vulnerabilities while keeping development
+    dependency findings visible for policy decisions.
+- id: SCA-010
+  severity: Medium
+  category: Reachability
+  name: Preserve reachability or usage evidence when available
+  match_strategy: sca_reachability
+  description: Include whether the vulnerable package, symbol, function, or vulnerable
+    path is reachable when scanner output provides that signal.
+  remediation: Use reachability to prioritize remediation, but do not suppress vulnerable
+    packages solely because reachability is unknown.
+- id: SCA-011
+  severity: High
+  category: Base Image Vulnerability
+  name: Identify vulnerable base images and inherited packages
+  match_strategy: sca_base_image
+  description: Attribute container vulnerabilities to base image layers when layer
+    or image metadata is available.
+  remediation: Upgrade the base image tag or digest, pin to a fixed digest, and rebuild
+    downstream images.
+- id: SCA-012
+  severity: Medium
+  category: Duplicate Finding Handling
+  name: Deduplicate repeated package CVE findings without hiding affected assets
+  match_strategy: sca_deduplicate
+  description: Deduplicate identical package/version/CVE findings while preserving
+    every affected application, image, path, layer, or SBOM source.
+  remediation: Group identical advisories and list all affected assets under the grouped
+    finding.
+- id: SCA-013
+  severity: Medium
+  category: No Fix Available
+  name: Report vulnerable packages with no fixed version separately
+  match_strategy: sca_no_fix
+  description: Track findings where no fixed package version is available or the scanner
+    reports fixed version as unknown.
+  remediation: Consider compensating controls, package replacement, feature removal,
+    vendor escalation, or documented risk acceptance.
+- id: SCA-014
+  severity: High
+  category: Vulnerability Database Freshness
+  name: Use current vulnerability databases
+  match_strategy: sca_database_freshness
+  description: Scanner output should indicate that vulnerability databases were updated
+    recently or should disclose when database update was blocked.
+  remediation: Update scanner vulnerability databases before final reporting, or clearly
+    mark report freshness limitations.
+- id: SCA-015
+  severity: Medium
+  category: Machine Readable Output
+  name: Prefer structured scanner output for vulnerability reporting
+  match_strategy: sca_structured_output
+  description: Prefer JSON, SARIF, CycloneDX, SPDX, or other structured output so
+    package, version, CVE, severity, and fixed-version fields can be reliably extracted.
+  remediation: Re-run scanners with structured output flags and archive the raw scan
+    artifact with the report.
+- id: SCA-016
+  severity: High
+  category: Dependency Relationship
+  name: Classify vulnerable packages as direct, transitive, OS package, or unknown
+  match_strategy: sca_dependency_relationship
+  description: Every vulnerable package finding should identify whether the package
+    is a direct application dependency, transitive dependency, container OS package,
+    base image package, vendored package, or unknown.
+  required_fields:
+  - dependency_type
+  allowed_values:
+  - direct
+  - transitive
+  - os-package
+  - base-image-package
+  - vendored
+  - unknown
+  remediation: Use manifest declarations, lockfile graph data, SBOM dependency relationships,
+    package manager metadata, or scanner dependency path output to classify the package
+    relationship.
+- id: SCA-017
+  severity: Medium
+  category: Dependency Path
+  name: Report the parent dependency path for transitive vulnerabilities
+  match_strategy: sca_dependency_path
+  description: Transitive dependency findings should include the shortest known parent
+    chain that introduces the vulnerable package.
+  required_fields:
+  - dependency_path
+  evidence_examples:
+  - npm dependency path
+  - Maven dependency tree
+  - Gradle dependency insight
+  - Go module graph
+  - SBOM dependsOn relationship
+  - Scanner dependency path output
+  remediation: Upgrade the nearest direct parent, add an ecosystem-supported dependency
+    override or resolution, or replace the parent package if no patched transitive
+    version can be selected safely.
+- id: SCA-018
+  severity: High
+  category: Transitive Remediation
+  name: Identify remediation owner for transitive vulnerable dependencies
+  match_strategy: sca_transitive_remediation_owner
+  description: Transitive dependency findings should identify the direct parent package
+    or build source that must change to remove or upgrade the vulnerable package.
+  required_fields:
+  - remediation_owner
+  remediation: Prefer upgrading the direct parent package. If that is not possible,
+    use package-manager override mechanisms such as npm overrides, Yarn resolutions,
+    Maven dependencyManagement, Gradle constraints, Go replace or exclude directives,
+    Cargo patch, or equivalent controls with compatibility testing.
+- id: OSS-RISK-1
+  severity: Critical
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-1: Known Vulnerabilities in component versions'
+  match_strategy: sca_vulnerability_normalization
+  description: A component version may contain vulnerable code accidentally introduced
+    by its developers. Vulnerability details are publicly disclosed through CVE, GitHub
+    Security Advisories, or other channels. Exploits and patches may or may not be
+    available. SCA-002 and SCA-003 cover Critical and High CVE thresholds; this rule
+    maps the OWASP OSS risk framing to the same check and adds EPSS score and CISA
+    KEV catalog prioritization context.
+  owasp_oss_top10: OSS-RISK-1
+  evidence_examples:
+  - CVE with CVSS score 9.8 in direct dependency
+  - Log4Shell (CVE-2021-44228) in transitive dependency
+  - Package listed in CISA KEV catalog
+  - High EPSS score indicating active exploitation probability
+  remediation: Monitor direct and transitive dependencies continuously using OSV Scanner,
+    Trivy, Grype, or ecosystem-native tools (npm audit, pip-audit, govulncheck). Prioritize
+    remediation using CVSS base score, EPSS exploitation probability, and CISA KEV
+    catalog presence. Use DAST and SAST to determine whether vulnerable code paths
+    are reachable. Upgrade to a patched version or apply a virtual patch (WAF rule,
+    compensating control) when no fix is available.
+- id: OSS-RISK-2
+  severity: Critical
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-2: Compromise of Legitimate Package via maintainer account or repo
+    hijack'
+  match_strategy: design_review
+  description: Attackers may compromise resources that are part of an existing legitimate
+    project or its distribution infrastructure by hijacking the accounts of legitimate
+    project maintainers or exploiting vulnerabilities in package repositories. Examples
+    include the event-stream npm attack (2018) and the SolarWinds build pipeline compromise
+    (2020). No CVE is generated until after the compromise is discovered, making purely
+    CVE-based scanning insufficient.
+  owasp_oss_top10: OSS-RISK-2
+  evidence_examples:
+  - Package not retrieved from a secured internal proxy or registry mirror
+  - No SLSA provenance attestation or build provenance verification in CI
+  - Package installed directly from the public registry without integrity check
+  - postinstall/install scripts present in npm dependency (arbitrary code at install
+    time)
+  - Dependency with recent unexpected ownership change or new maintainer
+  - No code review or diff review of dependency updates before merge
+  remediation: Retrieve components from a secured internal repository (Artifactory,
+    GitHub Packages, Azure Artifacts) that proxies and caches public registries. Verify
+    SLSA provenance attestations and Sigstore/Cosign signatures before installing
+    packages. Review code changes in dependency updates via automated diff tools (Socket,
+    Phylum, Snyk) or manual review for high-value dependencies. Disable postinstall
+    scripts where possible (npm install --ignore-scripts). Monitor dependency supply
+    chain for unexpected maintainer changes or anomalous release patterns.
+- id: OSS-RISK-3
+  severity: High
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-3: Name Confusion Attacks via typosquatting, brand-jacking, or combo-squatting'
+  match_strategy: design_review
+  description: 'Attackers create components whose names resemble legitimate open-source
+    or system components (typo-squatting), suggest trustworthy authors (brand-jacking),
+    or play with common naming patterns across languages or ecosystems (combo-squatting).
+    Example: colourama (PyPI, 2018) redirected Bitcoin wallet addresses. This risk
+    is highest when adding new dependencies or when automated tools install packages
+    without name verification.'
+  owasp_oss_top10: OSS-RISK-3
+  evidence_examples:
+  - New dependency whose name differs by one character from a well-known package
+  - Package with very low download count and very recent publish date
+  - Package name matches a system library or built-in module name
+  - Dependency from an unfamiliar namespace that mimics a trusted publisher
+  - Package installed from a different ecosystem than expected (PyPI vs npm)
+  remediation: Verify the exact spelling and publisher of every new dependency on
+    the official registry (npmjs.com, pypi.org, pkg.go.dev) before adding it. Cross-reference
+    download counts, source repository link, publish date, and maintainer identity.
+    Use automated supply chain analysis tools (Socket, Phylum, Snyk) that flag name-confusion
+    signals. Configure private registry allowlists to block packages not explicitly
+    approved. Require code review for all dependency additions in pull requests.
+- id: OSS-RISK-4
+  severity: High
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-4: Unmaintained Software with no active development or security
+    patches'
+  match_strategy: design_review
+  description: A component or component version may no longer be actively developed,
+    meaning patches for functional and security bugs may not be provided in a timely
+    fashion or at all. Examples include core-js (npm, 2020), Gorilla Web Toolkit (Go,
+    2022), and minimist (npm, 2022). 91% of codebases contain components with no development
+    activity in 2+ years. Unmaintained packages accumulate unpatched CVEs indefinitely.
+  owasp_oss_top10: OSS-RISK-4
+  evidence_examples:
+  - Package repository archived or explicitly marked as unmaintained
+  - Last commit more than 2 years ago with open security issues
+  - No response to open CVE-related issues or pull requests
+  - Package explicitly deprecated on the registry (npm deprecation notice)
+  - No LTS version or documented support timeline
+  - Zero external contributor activity in recent releases
+  remediation: Monitor commit activity, issue response rates, and release cadence
+    for all dependencies. Check for archived repository status or explicit deprecation
+    notices on the registry. Track EOL and LTS support timelines for critical dependencies.
+    Replace unmaintained packages with actively maintained alternatives. Use OpenSSF
+    Scorecard and deps.dev to assess dependency health signals. Flag packages with
+    no commit activity in 2+ years for replacement in the next development cycle.
+- id: OSS-RISK-5
+  severity: High
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-5: Outdated Software using old versions despite newer releases existing'
+  match_strategy: design_review
+  description: A project may use an old, outdated version of a component even though
+    newer versions exist. Outdated versions may lack security fixes, receive no further
+    patches, or be incompatible with emergency updates. 89% of codebases contain OSS
+    more than 4 years out of date. Outdated versions also complicate emergency patching
+    when a critical CVE is published in a later release series.
+  owasp_oss_top10: OSS-RISK-5
+  evidence_examples:
+  - Major version pinned to v1.x while v3.x is current and contains security fixes
+  - Dependency declared as ~1.2.3 preventing minor-version security updates
+  - No automated pull requests from Dependabot or Renovate for version updates
+  - Package version not updated in 1+ years despite active upstream release history
+  - Spring Boot 2.x or Django 3.x pinned after EOL of that release branch
+  remediation: Make dependency updates a recurring backlog item and schedule regular
+    update sprints. Enable Dependabot or Renovate to submit automated version-update
+    pull requests. Configure update policies per ecosystem (weekly for patch, monthly
+    for minor, quarterly for major). Use change impact analysis tools to assess update
+    risk. Track EOL dates for all major frameworks and libraries; begin migration
+    before support ends.
+- id: OSS-RISK-6
+  severity: High
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-6: Untracked Dependencies not visible to SCA tools or package managers'
+  match_strategy: design_review
+  description: Project developers may not be aware of a dependency at all because
+    it is not included in an upstream component's SBOM, because SCA tools are not
+    run or do not detect it, or because the dependency is not managed through a package
+    manager (vendored code, copy-paste, curl | bash installs, build tool plugins).
+    95% of vulnerabilities exist in transitive dependencies, many of which are not
+    surfaced by manifest-only scanning.
+  owasp_oss_top10: OSS-RISK-6
+  evidence_examples:
+  - Vendored third-party code in vendor/ or third_party/ directory without attribution
+  - RUN curl ... | bash or wget + sh patterns in Dockerfile installing untracked software
+  - Build tool or IDE plugin not tracked in any manifest or lockfile
+  - Dependency installed via shell script outside the package manager
+  - "Upstream SBOM incomplete \u2014 transitive packages missing from component list"
+  - No SCA tool configured to detect non-manifest dependencies
+  remediation: 'Run SCA tools that detect both manifest-declared and non-manifest
+    dependencies: Syft (filesystem scan), Trivy (filesystem, image), or Grype against
+    a full filesystem image rather than just lockfiles. Audit vendor/ and third_party/
+    directories and ensure all vendored code is attributed and tracked in the SBOM.
+    Replace curl | bash patterns in Dockerfiles with package manager installs of pinned
+    versions. Generate a complete CycloneDX or SPDX SBOM from CI and diff it against
+    the previous build to detect unannounced dependency additions.'
+- id: OSS-RISK-7
+  severity: Medium
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-7: License Risk from incompatible, missing, or unmet license requirements'
+  match_strategy: design_review
+  description: A component or project may have no license at all, a license incompatible
+    with the intended use (e.g., GPL in a proprietary product), or license requirements
+    that cannot be met (attribution, source disclosure, export control). Unlicensed
+    code defaults to all-rights-reserved in most jurisdictions. License violations
+    carry legal and financial risk and can force product withdrawal or source disclosure
+    obligations.
+  owasp_oss_top10: OSS-RISK-7
+  evidence_examples:
+  - Dependency with AGPL-3.0 license used in a proprietary SaaS product
+  - Package with no LICENSE file and no SPDX identifier
+  - GPL-2.0 dependency linked into a closed-source binary
+  - Multiple conflicting licenses within the same package
+  - Dependency subject to US export control regulations (EAR)
+  - "No license compliance scan in CI \u2014 license list not reviewed for new additions"
+  remediation: Define an approved license allowlist for the project (e.g., MIT, Apache-2.0,
+    BSD-2/3-Clause, ISC). Use license scanning tools (FOSSA, licensee, scancode-toolkit,
+    trivy --scanners license) in CI to block unapproved licenses. Use SPDX identifiers
+    in SBOM components. For GPL dependencies, consult legal counsel before shipping.
+    Replace copyleft-licensed components with permissively-licensed alternatives where
+    the use case does not permit copyleft obligations.
+- id: OSS-RISK-8
+  severity: Medium
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-8: Immature Software lacking development best-practices'
+  match_strategy: design_review
+  description: 'An open source project may not apply development best-practices: no
+    standard versioning scheme, no regression test suite, no review guidelines, or
+    inadequate documentation. As a result, a component may not work reliably or securely.
+    Immature projects are more likely to introduce breaking changes without notice,
+    lack security response processes, and have no CVE reporting history (masking known
+    issues).'
+  owasp_oss_top10: OSS-RISK-8
+  evidence_examples:
+  - Package uses non-standard versioning (0.0.x for years, no stable release)
+  - No CI/CD pipeline or automated test suite visible in repository
+  - No SECURITY.md or responsible disclosure process defined
+  - No code review guidelines or contribution policy documented
+  - OpenSSF Scorecard score below 4 for a critical dependency
+  - No OpenSSF Best Practices Badge or equivalent maturity signal
+  remediation: 'Evaluate project maturity before adopting a dependency: check for
+    a CI pipeline, test coverage, a SECURITY.md, a stable semantic versioning scheme,
+    and an active maintainer community. Use OpenSSF Scorecard (api.securityscorecards.dev)
+    and deps.dev health signals as automated maturity proxies. Prefer dependencies
+    with corporate backing, multiple maintainers, or foundation governance (ASF, CNCF,
+    Linux Foundation) for critical components. Apply higher scrutiny (internal fork
+    or replacement) to immature packages in security-sensitive code paths.'
+- id: OSS-RISK-9
+  severity: High
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-9: Unapproved Change via mutable references, tampering, or insecure
+    transfer'
+  match_strategy: design_review
+  description: A component may change without developers being able to notice, review,
+    or approve such changes because the download link points to an unversioned resource
+    (branch, HEAD), because a versioned resource has been modified or tampered with
+    after release, or due to an insecure data transfer (HTTP without TLS). Examples
+    include the Codecov bash uploader compromise (2021) and CVE-2021-26291 (Apache
+    Maven HTTP repository).
+  owasp_oss_top10: OSS-RISK-9
+  evidence_examples:
+  - npm dependency resolved from a git branch reference rather than a tagged version
+  - Pip install from http:// URL without integrity hash
+  - curl http:// | bash in build scripts (no TLS, no digest check)
+  - GitHub Actions workflow using @main or @master instead of a commit SHA
+  - Maven repository configured with http:// (not https://) in pom.xml or settings.xml
+  - Missing integrity hash in package-lock.json dependency entry
+  - go.mod replace directive pointing to a branch reference
+  remediation: 'Pin all dependencies to immutable versioned references: exact version
+    tags, SHA256 commit hashes, or content-addressed digests. Verify integrity hashes
+    at install time (pip --require-hashes, npm lockfile integrity field, cargo verify).
+    Enforce HTTPS for all package registry and CDN connections; reject HTTP mirrors.
+    Pin GitHub Actions to full commit SHAs. Use go mod verify and cargo verify-project
+    to detect tampering in Go and Rust dependencies. Generate and store SBOM attestations
+    for each build to detect unannounced content changes across builds.'
+- id: OSS-RISK-10
+  severity: Low
+  category: OWASP OSS Top 10
+  name: 'OSS-RISK-10: Under/over-sized Dependency adding disproportionate supply chain
+    risk'
+  match_strategy: design_review
+  description: "A component may provide very little functionality (npm micro-packages\
+    \ like left-pad \u2014 11 lines of code) adding outsized supply chain risk for\
+    \ minimal value; or it may provide far more functionality than is used (Apache\
+    \ Log4j \u2014 remote JNDI lookup enabled by default), exposing unused attack\
+    \ surface. Both patterns increase the blast radius of a single compromised or\
+    \ vulnerable package relative to its practical benefit."
+  owasp_oss_top10: OSS-RISK-10
+  evidence_examples:
+  - Dependency is a single-function utility (is-odd, left-pad, is-array)
+  - Large framework dependency where only one utility function is used
+  - Log4j or similar package with dangerous features enabled by default
+  - Package with 50+ transitive dependencies that provides one helper function
+  - Micro-package with a single maintainer and no alternative implementations
+  remediation: Evaluate whether micro-package functionality can be implemented directly
+    in the project (11 lines of code does not justify a supply chain dependency).
+    For large dependencies where only a fraction of functionality is used, assess
+    whether a smaller alternative exists (e.g., pino instead of log4j-like frameworks,
+    date-fns instead of moment.js). Use capability analysis tools (Capslock for Go,
+    Application Inspector) to identify security-sensitive APIs that are pulled in
+    but not used. Disable unused features in configurable frameworks rather than relying
+    on defaults.
+  source:
+    standard: OWASP Top 10 OSS Risks
+    url: https://owasp.org/www-project-open-source-software-top-10/
+default_match_strategy: unspecified
+report_template: '# Vulnerable Package Report
+
+
+  ## Scope
+
+
+  - Skill: `scan-sca-dependencies`
+
+  - Target: `{{target}}`
+
+  - Date: `{{date}}`
+
+  - Evidence reviewed: `{{evidence_summary}}`
+
+  - Scanner/source: `{{scanner_summary}}`
+
+  - Vulnerability database updated: `{{database_updated_at}}`
+
+  - Generated: `{{generated_at}}`
+
+
+  ## Summary
+
+
+  | Severity | Findings | Packages | Fix Available | Known Exploited | Unknown Fix
+  |
+
+  |----------|----------|----------|---------------|-----------------|-------------|
+
+  | Critical | {{summary.critical.findings}} | {{summary.critical.packages}} | {{summary.critical.fix_available}}
+  | {{summary.critical.known_exploited}} | {{summary.critical.unknown_fix}} |
+
+  | High | {{summary.high.findings}} | {{summary.high.packages}} | {{summary.high.fix_available}}
+  | {{summary.high.known_exploited}} | {{summary.high.unknown_fix}} |
+
+  | Medium | {{summary.medium.findings}} | {{summary.medium.packages}} | {{summary.medium.fix_available}}
+  | {{summary.medium.known_exploited}} | {{summary.medium.unknown_fix}} |
+
+  | Low | {{summary.low.findings}} | {{summary.low.packages}} | {{summary.low.fix_available}}
+  | {{summary.low.known_exploited}} | {{summary.low.unknown_fix}} |
+
+  | Unknown | {{summary.unknown.findings}} | {{summary.unknown.packages}} | {{summary.unknown.fix_available}}
+  | {{summary.unknown.known_exploited}} | {{summary.unknown.unknown_fix}} |
+
+
+  ## Findings
+
+
+  {{#each findings}}
+
+  ### {{severity}} - {{package_name}} {{package_version}} - {{cve}}
+
+
+  - Package: `{{package_name}}`
+
+  - Version: `{{package_version}}`
+
+  - Ecosystem: `{{package_type}}`
+
+  - Dependency Type: `{{dependency_type}}`
+
+  - Dependency Path: `{{dependency_path}}`
+
+  - Source: `{{source}}`
+
+  - Advisory: `{{cve}}`
+
+  - Severity: `{{severity}}`
+
+  - CVSS: `{{cvss_score}}`
+
+  - Affected Range: `{{affected_range}}`
+
+  - Fixed Version: `{{fixed_version}}`
+
+  - Exploit Signal: `{{exploit_available}}`
+
+  - Reachability: `{{reachability}}`
+
+  - Evidence: `{{evidence}}`
+
+  - Remediation: `{{remediation}}`
+
+  {{/each}}
+
+
+  ## No-Fix Findings
+
+
+  {{#each no_fix_findings}}
+
+  - `{{package_name}}` `{{package_version}}` - `{{cve}}` - {{severity}} - {{recommended_action}}
+
+  {{/each}}
+
+
+  ## Evidence Gaps
+
+
+  {{#each evidence_gaps}}
+
+  - {{gap}}
+
+  {{/each}}
+
+
+  {{#if no_findings}}
+
+  No vulnerable packages were detected in the scanned dependency evidence.
+
+  {{/if}}
+
+
+  ## Notes
+
+
+  Scanner results depend on vulnerability database freshness, package manager metadata
+  quality, and whether the input includes development dependencies, transitive dependencies,
+  image OS packages, and runtime-only packages.
+
+  '

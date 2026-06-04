@@ -1,0 +1,59 @@
+name = "scan-json-security"
+description = "Scans JSON configuration, package metadata, policy files, and API fragments for security risks including disabled auth, permissive CORS, plaintext credentials, insecure TLS flags, dependency scripts, and debug exposure."
+version = "1.0"
+intent = "# scan-json-security"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "JSON-001"
+name = "Authentication Disabled"
+severity = "High"
+category = "Authentication"
+description = "JSON configuration disables authentication, authorization, or token validation."
+patterns = ["\"(auth|authentication|authorization|validateToken)\"\\s*:\\s*(false|null)", "\"authMode\"\\s*:\\s*\"(none|disabled|anonymous)\""]
+remediation = "Require authentication and token validation for protected resources."
+
+[[rules]]
+id = "JSON-002"
+name = "Permissive CORS Origins"
+severity = "Medium"
+category = "Exposure"
+description = "JSON configuration allows every origin or host."
+patterns = ["\"(cors|allowedOrigins|origins)\"\\s*:\\s*\\[\\s*\"\\*\"", "\"Access-Control-Allow-Origin\"\\s*:\\s*\"\\*\""]
+remediation = "Restrict origins to trusted domains."
+
+[[rules]]
+id = "JSON-003"
+name = "Plaintext Credential"
+severity = "High"
+category = "Secrets"
+description = "JSON contains secret-looking keys with inline plaintext values."
+patterns = ["\"(password|apiKey|api_key|secret|token|clientSecret)\"\\s*:\\s*\"[A-Za-z0-9_./+=-]{12,}\""]
+remediation = "Store credentials in a secret manager and reference them indirectly."
+
+[[rules]]
+id = "JSON-004"
+name = "TLS Verification Disabled"
+severity = "Medium"
+category = "Transport Security"
+description = "JSON disables TLS or certificate verification."
+patterns = ["\"(rejectUnauthorized|verifySSL|sslVerify|tlsVerify)\"\\s*:\\s*false", "\"tls\"\\s*:\\s*false"]
+remediation = "Enable TLS verification and reject invalid certificates."
+
+[[rules]]
+id = "JSON-005"
+name = "Risky Lifecycle Script"
+severity = "Medium"
+category = "Supply Chain"
+description = "JSON package metadata executes network-loaded code during install."
+patterns = ["\"(preinstall|install|postinstall)\"\\s*:\\s*\"[^\"]*(curl|wget|Invoke-WebRequest|bash|sh)[^\"]*\""]
+remediation = "Remove install-time network execution or pin and verify the fetched artifact."

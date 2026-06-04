@@ -1,0 +1,897 @@
+[
+  {
+    "skill": "audit-asvs-compliance",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "xss",
+          "ssrf",
+          "access",
+          "auth",
+          "crypto",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "asvs",
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "privacy"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "audit-auth-session-management",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "audit-crypto-usage",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "token",
+          "redact"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "audit-logging-monitoring",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "redact"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "detect-secrets",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "container",
+          "kubernetes"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "redact",
+          "privacy"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "detect-supply-chain-risks",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "kubernetes",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "generate-dependency-graph",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "generate-sbom",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-api-security",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-broken-access-control",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-container-image",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "sbom",
+          "container",
+          "kubernetes",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-exception-handling",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-for-injection",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-for-ssrf",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "ssrf",
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-for-xss",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "xss",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-iac-security",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth",
+          "crypto",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "sbom",
+          "container",
+          "kubernetes",
+          "iac",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-json-security",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-kubernetes-manifests",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "container",
+          "kubernetes"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-markdown-security",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-sca-dependencies",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-security-headers",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "xss",
+          "auth",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-static-analysis",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "xss",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "container",
+          "kubernetes",
+          "iac",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-toml-security",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-xml-security",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "scan-yaml-security",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "container"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "token"
+        ]
+      }
+    },
+    "gate": "pass"
+  },
+  {
+    "skill": "threat-model-system",
+    "mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "iac",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "privacy"
+        ]
+      }
+    },
+    "gate": "pass"
+  }
+]

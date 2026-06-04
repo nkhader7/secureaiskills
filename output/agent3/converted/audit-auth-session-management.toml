@@ -1,0 +1,122 @@
+name = "audit-auth-session-management"
+description = "Audits authentication and session management for password handling, MFA, session cookies, JWT validation, OAuth/OIDC/SAML flows, account recovery, brute force protection, credential stuffing defenses, and authentication failure handling."
+version = "1.0"
+intent = "# audit-auth-session-management"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "ASM-001"
+name = "Detect weak password storage"
+severity = "Critical"
+category = "Credential Verification"
+description = "Identify plaintext, reversible, unsalted, or fast-hash password storage."
+match_strategy = "auth_password_storage"
+remediation = "Use Argon2id, bcrypt, scrypt, or PBKDF2 with strong parameters and per-user salts."
+
+[[rules]]
+id = "ASM-002"
+name = "Detect missing MFA for sensitive actions"
+severity = "High"
+category = "MFA"
+description = "Identify admin, payment, account recovery, and high-risk actions without MFA or step-up auth."
+match_strategy = "auth_mfa_sensitive"
+remediation = "Require MFA or step-up authentication for privileged and sensitive operations."
+
+[[rules]]
+id = "ASM-003"
+name = "Detect insecure session cookie flags"
+severity = "High"
+category = "Session Cookies"
+description = "Identify missing Secure, HttpOnly, SameSite, or overly broad Domain/Path attributes."
+match_strategy = "auth_cookie_flags"
+remediation = "Set Secure, HttpOnly, appropriate SameSite, narrow Domain/Path, and short session lifetimes."
+
+[[rules]]
+id = "ASM-004"
+name = "Detect unsafe JWT validation"
+severity = "Critical"
+category = "JWT"
+description = "Identify disabled signature verification, alg confusion, missing issuer/audience/expiry checks."
+match_strategy = "auth_jwt_validation"
+remediation = "Verify signature, algorithm, issuer, audience, expiry, not-before, and key rotation."
+
+[[rules]]
+id = "ASM-005"
+name = "Detect unsafe redirect URI handling"
+severity = "High"
+category = "OAuth/OIDC"
+description = "Identify wildcard or user-controlled redirect URIs and weak state/nonce handling."
+match_strategy = "auth_oauth_redirect"
+remediation = "Require exact redirect URI matching and validate state and nonce."
+
+[[rules]]
+id = "ASM-006"
+name = "Detect missing login throttling"
+severity = "High"
+category = "Brute Force"
+description = "Identify login endpoints without rate limits, lockout, bot defenses, or anomaly detection."
+match_strategy = "auth_bruteforce"
+remediation = "Add adaptive throttling, monitoring, and safe account lockout or challenge flows."
+
+[[rules]]
+id = "ASM-007"
+name = "Detect missing breached-password defenses"
+severity = "Medium"
+category = "Credential Stuffing"
+description = "Identify lack of breached password checks or impossible-travel/anomaly monitoring."
+match_strategy = "auth_credential_stuffing"
+remediation = "Check new passwords against breach corpuses and monitor credential stuffing patterns."
+
+[[rules]]
+id = "ASM-008"
+name = "Detect weak password reset flows"
+severity = "High"
+category = "Account Recovery"
+description = "Identify reset tokens without expiry, replay protection, randomness, or account takeover safeguards."
+match_strategy = "auth_recovery"
+remediation = "Use high-entropy single-use reset tokens, short expiry, and notification of recovery events."
+
+[[rules]]
+id = "ASM-009"
+name = "Detect missing session rotation after login or privilege change"
+severity = "Medium"
+category = "Session Rotation"
+description = "Identify sessions not regenerated after authentication or privilege elevation."
+match_strategy = "auth_session_rotation"
+remediation = "Rotate session IDs after login, MFA, password change, and role elevation."
+
+[[rules]]
+id = "ASM-010"
+name = "Detect incomplete logout and revocation"
+severity = "Medium"
+category = "Logout"
+description = "Identify logout flows that do not invalidate server-side sessions or refresh tokens."
+match_strategy = "auth_logout_revocation"
+remediation = "Invalidate sessions and refresh tokens server-side and clear client cookies."
+
+[[rules]]
+id = "ASM-011"
+name = "Detect unsafe SAML assertions"
+severity = "High"
+category = "SAML"
+description = "Identify missing signature validation, audience checks, replay protection, or weak XML parser config."
+match_strategy = "auth_saml_validation"
+remediation = "Validate signatures, issuer, audience, time windows, and disable unsafe XML processing."
+
+[[rules]]
+id = "ASM-012"
+name = "Detect authentication enumeration"
+severity = "Medium"
+category = "Error Messages"
+description = "Identify login, reset, or registration responses that reveal account existence."
+match_strategy = "auth_enumeration"
+remediation = "Return consistent responses and log detailed reasons server-side."

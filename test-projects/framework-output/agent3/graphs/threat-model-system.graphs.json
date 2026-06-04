@@ -1,0 +1,281 @@
+{
+  "skill_execution_graph": {
+    "graph": "skill_execution_graph",
+    "nodes": [
+      {
+        "id": "load_skill",
+        "label": "load_skill"
+      },
+      {
+        "id": "load_rules",
+        "label": "load_rules"
+      },
+      {
+        "id": "assemble_context",
+        "label": "assemble_context"
+      },
+      {
+        "id": "llm_validate",
+        "label": "llm_validate"
+      },
+      {
+        "id": "scan_targets",
+        "label": "scan_targets"
+      },
+      {
+        "id": "render_report",
+        "label": "render_report"
+      }
+    ],
+    "edges": [
+      {
+        "source": "load_skill",
+        "target": "load_rules"
+      },
+      {
+        "source": "load_rules",
+        "target": "assemble_context"
+      },
+      {
+        "source": "assemble_context",
+        "target": "llm_validate"
+      },
+      {
+        "source": "llm_validate",
+        "target": "scan_targets"
+      },
+      {
+        "source": "scan_targets",
+        "target": "render_report"
+      }
+    ]
+  },
+  "agent_workflow_graph": {
+    "graph": "agent_workflow_graph",
+    "nodes": [
+      {
+        "id": "convert",
+        "label": "convert"
+      },
+      {
+        "id": "test",
+        "label": "test"
+      },
+      {
+        "id": "benchmark",
+        "label": "benchmark"
+      },
+      {
+        "id": "visualize",
+        "label": "visualize"
+      },
+      {
+        "id": "report",
+        "label": "report"
+      },
+      {
+        "id": "ci_cd",
+        "label": "ci_cd"
+      }
+    ],
+    "edges": [
+      {
+        "source": "convert",
+        "target": "test"
+      },
+      {
+        "source": "convert",
+        "target": "benchmark"
+      },
+      {
+        "source": "convert",
+        "target": "visualize"
+      },
+      {
+        "source": "convert",
+        "target": "report"
+      },
+      {
+        "source": "convert",
+        "target": "ci_cd"
+      }
+    ]
+  },
+  "dependency_graph": {
+    "graph": "dependency_graph",
+    "nodes": [
+      {
+        "id": "threat-model-system",
+        "type": "skill"
+      },
+      {
+        "id": "references/rules.yaml",
+        "type": "reference"
+      },
+      {
+        "id": "references/report-template.md",
+        "type": "reference"
+      },
+      {
+        "id": "../_shared/base-report.md",
+        "type": "reference"
+      },
+      {
+        "id": "../_shared/owasp-cheatsheets.yaml",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "source": "threat-model-system",
+        "target": "references/rules.yaml"
+      },
+      {
+        "source": "threat-model-system",
+        "target": "references/report-template.md"
+      },
+      {
+        "source": "threat-model-system",
+        "target": "../_shared/base-report.md"
+      },
+      {
+        "source": "threat-model-system",
+        "target": "../_shared/owasp-cheatsheets.yaml"
+      }
+    ]
+  },
+  "tool_usage_graph": {
+    "graph": "tool_usage_graph",
+    "nodes": [
+      {
+        "id": "local_llm_client"
+      },
+      {
+        "id": "yaml_parser"
+      },
+      {
+        "id": "json_parser"
+      },
+      {
+        "id": "artifact_writer"
+      },
+      {
+        "id": "ci_runner"
+      }
+    ],
+    "edges": [
+      {
+        "source": "ci_runner",
+        "target": "local_llm_client"
+      },
+      {
+        "source": "ci_runner",
+        "target": "artifact_writer"
+      }
+    ]
+  },
+  "security_coverage_graph": {
+    "graph": "security_coverage_graph",
+    "nodes": [
+      {
+        "id": "treat_target_content_as_untrusted",
+        "covered": true
+      },
+      {
+        "id": "redact_sensitive_values",
+        "covered": true
+      },
+      {
+        "id": "skip_binary_and_lock_files",
+        "covered": true
+      },
+      {
+        "id": "network_access",
+        "covered": true
+      },
+      {
+        "id": "output_requires_evidence",
+        "covered": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "threat-model-system",
+        "target": "treat_target_content_as_untrusted"
+      },
+      {
+        "source": "threat-model-system",
+        "target": "redact_sensitive_values"
+      },
+      {
+        "source": "threat-model-system",
+        "target": "skip_binary_and_lock_files"
+      },
+      {
+        "source": "threat-model-system",
+        "target": "network_access"
+      },
+      {
+        "source": "threat-model-system",
+        "target": "output_requires_evidence"
+      }
+    ]
+  },
+  "benchmark_comparison_graph": {
+    "graph": "benchmark_comparison_graph",
+    "nodes": [
+      {
+        "id": "json",
+        "score": 8.88
+      },
+      {
+        "id": "markdown",
+        "score": 8.76
+      },
+      {
+        "id": "toml",
+        "score": 8.75
+      },
+      {
+        "id": "python",
+        "score": 8.53
+      },
+      {
+        "id": "yaml",
+        "score": 6.43
+      }
+    ],
+    "edges": []
+  },
+  "file_relationship_graph": {
+    "graph": "file_relationship_graph",
+    "nodes": [
+      {
+        "id": "SKILL.md"
+      },
+      {
+        "id": "rules.yaml"
+      },
+      {
+        "id": "report-template.md"
+      },
+      {
+        "id": "agent3-report.json"
+      }
+    ],
+    "edges": [
+      {
+        "source": "SKILL.md",
+        "target": "rules.yaml"
+      },
+      {
+        "source": "SKILL.md",
+        "target": "report-template.md"
+      },
+      {
+        "source": "rules.yaml",
+        "target": "agent3-report.json"
+      }
+    ]
+  }
+}

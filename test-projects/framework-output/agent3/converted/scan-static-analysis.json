@@ -1,0 +1,1188 @@
+{
+  "name": "scan-static-analysis",
+  "description": "Runs or plans static analysis using CodeQL, Semgrep, and SARIF processing. Use when scanning a workspace for vulnerabilities, selecting CodeQL or Semgrep rulesets, generating a SAST scan plan, processing SARIF results, or combining static-analysis findings from multiple tools.",
+  "version": "1.0",
+  "intent": "# scan-static-analysis",
+  "instructions": "# scan-static-analysis\n\nPlans and runs static-analysis workflows using CodeQL, Semgrep, and SARIF result processing.\n\n## Orchestration\n\n1. Load `references/rules.yaml` to get the active static-analysis ruleset catalog.\n2. Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.\n3. Identify the target:\n   - Default to the current workspace.\n   - Use a user-provided file, directory, repository checkout, CodeQL database, or SARIF file when supplied.\n4. Classify the request:\n   - Use CodeQL for deep interprocedural data-flow and taint analysis.\n   - Use Semgrep for fast pattern-based and taint-mode scanning.\n   - Use SARIF processing when results already exist.\n5. Detect languages, frameworks, infrastructure files, and existing scanner outputs.\n6. Select rules from `references/rules.yaml`:\n   - Include baseline security rules.\n   - Add language and framework-specific rulesets.\n   - Add infrastructure rulesets when IaC, containers, CI/CD, or policy files are present.\n   - Include required third-party rulesets when language coverage matches.\n   - Choose CodeQL threat-model inputs that match the application boundary.\n7. Present the scan plan before running tools:\n   - Target path.\n   - Tooling selected.\n   - Mode: `important-only` or `run-all`.\n   - Rulesets and third-party sources.\n   - Output directory.\n8. Run approved scans or parse approved SARIF files.\n9. Normalize, aggregate, deduplicate, and prioritize findings.\n10. Render the final report using `references/report-template.md`.\n\n## Usage\n\nPlan a static-analysis scan for the current workspace:\n\n```text\n/scan-static-analysis\n```\n\nRun a Semgrep-focused scan:\n\n```text\n/scan-static-analysis --tool semgrep --mode important-only\n```\n\nRun a CodeQL-focused scan:\n\n```text\n/scan-static-analysis --tool codeql --mode run-all\n```\n\nParse existing SARIF:\n\n```text\n/scan-static-analysis --sarif static_analysis/results/results.sarif\n```\n\n## Review Guidance\n\nPrefer `important-only` for pull requests and CI-style blocking checks. Prefer `run-all` for manual audits, variant hunting, and research. Treat zero findings as inconclusive until tool installation, database quality, selected rulesets, and SARIF validity have been checked.\n\n## OWASP Cheat Sheets\n\nUse the shared mapping in `../_shared/owasp-cheatsheets.yaml` for authoritative OWASP Cheat Sheet Series references that match this skill. Include the relevant cheat sheet links in the report when they directly support a finding or remediation.",
+  "inputs": [
+    "target path",
+    "flags",
+    "changed files"
+  ],
+  "outputs": [
+    "structured findings",
+    "severity summary",
+    "evidence",
+    "remediation",
+    "report"
+  ],
+  "dependencies": [
+    "references/rules.yaml",
+    "references/report-template.md",
+    "../_shared/base-report.md",
+    "../_shared/owasp-cheatsheets.yaml"
+  ],
+  "security_constraints": {
+    "treat_target_content_as_untrusted": true,
+    "redact_sensitive_values": "required for secret-like evidence",
+    "skip_binary_and_lock_files": true,
+    "network_access": "not required for skill execution",
+    "output_requires_evidence": true
+  },
+  "references": {
+    "rules": "references/rules.yaml",
+    "report_template": "references/report-template.md",
+    "base_report": "../_shared/base-report.md",
+    "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+  },
+  "rules": [
+    {
+      "id": "SAS-001",
+      "severity": "High",
+      "category": "Tool Selection",
+      "tool": "CodeQL",
+      "name": "Use CodeQL For Deep Dataflow Analysis",
+      "description": "Select CodeQL when the target requires interprocedural data-flow, taint tracking, framework modeling, or variant-quality vulnerability discovery.",
+      "match_strategy": "workflow_rule",
+      "applies_when": [
+        "The user asks for CodeQL.",
+        "The codebase needs deep source-to-sink analysis.",
+        "Semgrep OSS cross-file limits would miss important flows.",
+        "A CodeQL database exists or can be built."
+      ],
+      "requirements": [
+        "Verify the CodeQL CLI is installed.",
+        "Build or select a valid CodeQL database.",
+        "Assess database quality before trusting results.",
+        "Use explicit suite files instead of passing pack names directly."
+      ],
+      "remediation": "Build or select a high-quality CodeQL database, create project-specific data extensions when needed, and analyze with explicit suite references.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-002",
+      "severity": "High",
+      "category": "Tool Selection",
+      "tool": "Semgrep",
+      "name": "Use Semgrep For Fast Pattern-Based Scanning",
+      "description": "Select Semgrep for fast static analysis, language/framework ruleset coverage, taint-mode checks, and PR-friendly security scans.",
+      "match_strategy": "workflow_rule",
+      "applies_when": [
+        "The user asks for Semgrep.",
+        "Fast feedback is preferred.",
+        "The target has supported source files or infrastructure files.",
+        "A first-pass scan is needed before deeper analysis."
+      ],
+      "requirements": [
+        "Verify Semgrep is installed.",
+        "Use metrics-off mode for every scan.",
+        "Detect Semgrep Pro availability before selecting engine behavior.",
+        "Present the ruleset plan before scanning."
+      ],
+      "remediation": "Run Semgrep with approved rulesets, metrics disabled, and language/framework-specific coverage.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-003",
+      "severity": "Medium",
+      "category": "Result Processing",
+      "tool": "SARIF",
+      "name": "Parse Existing SARIF Instead Of Re-Scanning",
+      "description": "Use SARIF processing when scan results already exist and the task is to interpret, aggregate, deduplicate, filter, or convert findings.",
+      "match_strategy": "workflow_rule",
+      "applies_when": [
+        "The user provides a SARIF file.",
+        "The request mentions parsing, reading, aggregating, deduplicating, or filtering scan results.",
+        "Multiple static-analysis outputs need to be combined."
+      ],
+      "requirements": [
+        "Validate SARIF structure.",
+        "Normalize paths.",
+        "Preserve tool metadata.",
+        "Use fingerprints or stable fallback keys for deduplication."
+      ],
+      "remediation": "Process SARIF defensively, normalize paths, deduplicate findings, and preserve raw results for traceability.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/sarif-parsing/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-004",
+      "severity": "High",
+      "category": "Scan Hygiene",
+      "tool": "Semgrep",
+      "name": "Disable Semgrep Metrics",
+      "description": "Semgrep sends telemetry by default; static-analysis scans must disable metrics to avoid leaking audit metadata.",
+      "match_strategy": "command_requirement",
+      "command_flag": "--metrics=off",
+      "applies_when": [
+        "Running any Semgrep command."
+      ],
+      "finding_when": [
+        "A Semgrep command lacks --metrics=off.",
+        "The plan uses automatic registry behavior without telemetry controls."
+      ],
+      "remediation": "Add --metrics=off to every Semgrep command.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-005",
+      "severity": "Medium",
+      "category": "Scan Mode",
+      "tool": "Semgrep",
+      "name": "Important-Only Semgrep Mode",
+      "description": "Focus Semgrep output on medium-or-higher security vulnerabilities with medium-or-higher confidence and impact.",
+      "match_strategy": "ruleset_filter",
+      "applies_when": [
+        "The user requests important-only mode.",
+        "The scan is intended for CI, pull requests, or high-signal triage."
+      ],
+      "cli_flags": [
+        "--severity MEDIUM",
+        "--severity HIGH",
+        "--severity CRITICAL"
+      ],
+      "post_filter": {
+        "category": [
+          "security"
+        ],
+        "confidence": [
+          "MEDIUM",
+          "HIGH"
+        ],
+        "impact": [
+          "MEDIUM",
+          "HIGH"
+        ],
+        "keep_unannotated_third_party_rules": true
+      },
+      "remediation": "Apply severity pre-filtering and metadata post-filtering while preserving raw unfiltered results.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/scan-modes.md"
+      }
+    },
+    {
+      "id": "SAS-006",
+      "severity": "Low",
+      "category": "Scan Mode",
+      "tool": "Semgrep",
+      "name": "Run-All Semgrep Mode",
+      "description": "Run all selected Semgrep rulesets and preserve all severity levels for manual audit, research, and variant hunting.",
+      "match_strategy": "ruleset_filter",
+      "applies_when": [
+        "The user requests run-all mode.",
+        "The scan is a manual audit or broad vulnerability search."
+      ],
+      "requirements": [
+        "Do not severity-filter results before triage.",
+        "Preserve raw JSON and SARIF files."
+      ],
+      "remediation": "Run the full approved ruleset plan and report all findings with severity and category summaries.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/scan-modes.md"
+      }
+    },
+    {
+      "id": "SAS-007",
+      "severity": "High",
+      "category": "CodeQL Suite",
+      "tool": "CodeQL",
+      "name": "Official CodeQL Security Extended",
+      "description": "Baseline official CodeQL security suite for low-false-positive security audits.",
+      "match_strategy": "ruleset",
+      "ruleset": "security-extended",
+      "suite_template": "codeql/<lang>-queries:codeql-suites/<lang>-security-extended.qls",
+      "languages": [
+        "cpp",
+        "csharp",
+        "go",
+        "java",
+        "javascript",
+        "python",
+        "ruby",
+        "swift"
+      ],
+      "use_case": "Default CodeQL security audit baseline.",
+      "remediation": "Include security-extended unless there is a documented reason to exclude it.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/ruleset-catalog.md"
+      }
+    },
+    {
+      "id": "SAS-008",
+      "severity": "Medium",
+      "category": "CodeQL Suite",
+      "tool": "CodeQL",
+      "name": "Official CodeQL Security And Quality",
+      "description": "Comprehensive official CodeQL suite that includes stable security and code-quality queries but excludes experimental query paths.",
+      "match_strategy": "ruleset",
+      "ruleset": "security-and-quality",
+      "suite_template": "codeql/<lang>-queries:codeql-suites/<lang>-security-and-quality.qls",
+      "languages": [
+        "cpp",
+        "csharp",
+        "go",
+        "java",
+        "javascript",
+        "python",
+        "ruby",
+        "swift"
+      ],
+      "use_case": "Broad stable CodeQL review.",
+      "remediation": "Combine with security-experimental for maximum run-all coverage.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/ruleset-catalog.md"
+      }
+    },
+    {
+      "id": "SAS-009",
+      "severity": "Medium",
+      "category": "CodeQL Suite",
+      "tool": "CodeQL",
+      "name": "Official CodeQL Security Experimental",
+      "description": "Official CodeQL suite that includes stable security and experimental security queries while excluding code-quality queries.",
+      "match_strategy": "ruleset",
+      "ruleset": "security-experimental",
+      "suite_template": "codeql/<lang>-queries:codeql-suites/<lang>-security-experimental.qls",
+      "languages": [
+        "cpp",
+        "csharp",
+        "go",
+        "java",
+        "javascript",
+        "python",
+        "ruby",
+        "swift"
+      ],
+      "use_case": "Research, vulnerability hunting, and run-all security coverage.",
+      "remediation": "Use in run-all mode when higher false-positive volume is acceptable.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/ruleset-catalog.md"
+      }
+    },
+    {
+      "id": "SAS-010",
+      "severity": "Medium",
+      "category": "CodeQL Pack",
+      "tool": "CodeQL",
+      "name": "Trail Of Bits CodeQL Packs",
+      "description": "Add Trail of Bits CodeQL packs for C/C++, Go, and Java when those languages are present.",
+      "match_strategy": "ruleset",
+      "packs": [
+        {
+          "pack": "trailofbits/cpp-queries",
+          "language": "cpp",
+          "focus": "Memory safety and integer overflows."
+        },
+        {
+          "pack": "trailofbits/go-queries",
+          "language": "go",
+          "focus": "Concurrency and error handling."
+        },
+        {
+          "pack": "trailofbits/java-queries",
+          "language": "java",
+          "focus": "Security and code quality."
+        }
+      ],
+      "requirements": [
+        "Download matching packs before analysis.",
+        "Log installed packs in the scan output directory."
+      ],
+      "remediation": "Install and include matching Trail of Bits CodeQL packs for supported languages.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/ruleset-catalog.md"
+      }
+    },
+    {
+      "id": "SAS-011",
+      "severity": "Medium",
+      "category": "CodeQL Pack",
+      "tool": "CodeQL",
+      "name": "CodeQL Community Packs",
+      "description": "Add GitHub Security Lab community packs when matching languages are present.",
+      "match_strategy": "ruleset",
+      "packs": [
+        {
+          "pack": "GitHubSecurityLab/CodeQL-Community-Packs-JavaScript",
+          "language": "javascript"
+        },
+        {
+          "pack": "GitHubSecurityLab/CodeQL-Community-Packs-Python",
+          "language": "python"
+        },
+        {
+          "pack": "GitHubSecurityLab/CodeQL-Community-Packs-Go",
+          "language": "go"
+        },
+        {
+          "pack": "GitHubSecurityLab/CodeQL-Community-Packs-Java",
+          "language": "java"
+        },
+        {
+          "pack": "GitHubSecurityLab/CodeQL-Community-Packs-CPP",
+          "language": "cpp"
+        },
+        {
+          "pack": "GitHubSecurityLab/CodeQL-Community-Packs-CSharp",
+          "language": "csharp"
+        },
+        {
+          "pack": "GitHubSecurityLab/CodeQL-Community-Packs-Ruby",
+          "language": "ruby"
+        }
+      ],
+      "requirements": [
+        "Download matching packs before analysis.",
+        "Include or explicitly exclude each applicable community pack with justification."
+      ],
+      "remediation": "Include matching community packs to broaden query coverage beyond official suites.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/ruleset-catalog.md"
+      }
+    },
+    {
+      "id": "SAS-012",
+      "severity": "High",
+      "category": "CodeQL Quality",
+      "tool": "CodeQL",
+      "name": "Validate CodeQL Database Quality",
+      "description": "A database that builds is not automatically useful; extraction quality must be checked before trusting results.",
+      "match_strategy": "quality_gate",
+      "applies_when": [
+        "Running CodeQL database analysis."
+      ],
+      "requirements": [
+        "Discover databases by codeql-database.yml marker.",
+        "Check language metadata.",
+        "Check extracted file counts and baseline lines of code.",
+        "Review extractor errors.",
+        "Investigate zero findings."
+      ],
+      "finding_when": [
+        "Baseline lines of code are zero.",
+        "Expected source files are missing from extraction.",
+        "Extractor errors exceed acceptable thresholds.",
+        "Results are empty without quality investigation."
+      ],
+      "remediation": "Rebuild or repair the CodeQL database before reporting results.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-013",
+      "severity": "High",
+      "category": "CodeQL Modeling",
+      "tool": "CodeQL",
+      "name": "Create CodeQL Data Extensions",
+      "description": "Project-specific source, sink, and summary models are needed for custom wrappers around requests, database calls, shell execution, and framework APIs.",
+      "match_strategy": "workflow_rule",
+      "applies_when": [
+        "Running CodeQL on applications with custom API wrappers.",
+        "Standard framework models do not cover project-specific flows."
+      ],
+      "requirements": [
+        "Enumerate candidate sources and sinks.",
+        "Generate or review extension YAML.",
+        "Store extensions in the output directory.",
+        "Run analysis with extensions enabled."
+      ],
+      "remediation": "Create and include data extensions or document why they are not applicable.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/workflows/create-data-extensions.md"
+      }
+    },
+    {
+      "id": "SAS-014",
+      "severity": "Medium",
+      "category": "CodeQL Threat Model",
+      "tool": "CodeQL",
+      "name": "Remote Threat Model",
+      "description": "Track HTTP requests and network input; this is the default CodeQL threat model for web services and APIs.",
+      "match_strategy": "threat_model",
+      "codeql_flag": "default",
+      "sources_included": [
+        "HTTP requests",
+        "Network input"
+      ],
+      "false_positive_impact": "Low",
+      "enable_when": [
+        "Always for web services and APIs."
+      ],
+      "remediation": "Leave remote/default enabled unless there is a rare documented reason to disable it.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/threat-models.md"
+      }
+    },
+    {
+      "id": "SAS-015",
+      "severity": "Medium",
+      "category": "CodeQL Threat Model",
+      "tool": "CodeQL",
+      "name": "Local Threat Model",
+      "description": "Track command-line arguments and local files as untrusted sources for CLI tools, batch processors, and desktop apps.",
+      "match_strategy": "threat_model",
+      "codeql_flag": "--threat-model local",
+      "sources_included": [
+        "Command-line arguments",
+        "Local files"
+      ],
+      "false_positive_impact": "Medium",
+      "enable_when": [
+        "Local users can provide malicious input.",
+        "The application processes user-controlled files."
+      ],
+      "remediation": "Enable local threat model when local inputs cross trust boundaries.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/threat-models.md"
+      }
+    },
+    {
+      "id": "SAS-016",
+      "severity": "Medium",
+      "category": "CodeQL Threat Model",
+      "tool": "CodeQL",
+      "name": "Environment Threat Model",
+      "description": "Track environment variables as tainted sources for apps where runtime environment values may be untrusted.",
+      "match_strategy": "threat_model",
+      "codeql_flag": "--threat-model environment",
+      "sources_included": [
+        "Environment variables"
+      ],
+      "false_positive_impact": "Medium",
+      "enable_when": [
+        "Containers or orchestrators inject runtime environment data from untrusted or semi-trusted sources."
+      ],
+      "remediation": "Enable environment threat model when environment values are runtime-controlled across a trust boundary.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/threat-models.md"
+      }
+    },
+    {
+      "id": "SAS-017",
+      "severity": "Low",
+      "category": "CodeQL Threat Model",
+      "tool": "CodeQL",
+      "name": "Database Threat Model",
+      "description": "Track database query results as tainted sources for stored and second-order vulnerability scenarios.",
+      "match_strategy": "threat_model",
+      "codeql_flag": "--threat-model database",
+      "sources_included": [
+        "Database query results"
+      ],
+      "false_positive_impact": "High",
+      "enable_when": [
+        "Auditing stored XSS or second-order injection.",
+        "Other database writers are untrusted."
+      ],
+      "remediation": "Enable database threat model only when the system trust boundary makes stored data untrusted.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/threat-models.md"
+      }
+    },
+    {
+      "id": "SAS-018",
+      "severity": "Medium",
+      "category": "CodeQL Threat Model",
+      "tool": "CodeQL",
+      "name": "File Threat Model",
+      "description": "Track file contents for upload processors, log parsers, and config readers that accept user-controlled files.",
+      "match_strategy": "threat_model",
+      "codeql_flag": "--threat-model file",
+      "sources_included": [
+        "File contents"
+      ],
+      "false_positive_impact": "Medium",
+      "enable_when": [
+        "File contents are user-controlled or cross a trust boundary."
+      ],
+      "remediation": "Enable file threat model when file contents should be treated as attacker-controlled input.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/codeql/references/threat-models.md"
+      }
+    },
+    {
+      "id": "SAS-019",
+      "severity": "High",
+      "category": "Semgrep Baseline",
+      "tool": "Semgrep",
+      "name": "Semgrep Security Baseline",
+      "description": "Always include Semgrep security-audit and secrets rulesets for baseline vulnerability and credential coverage.",
+      "match_strategy": "ruleset",
+      "rulesets": [
+        "p/security-audit",
+        "p/secrets"
+      ],
+      "applies_when": [
+        "Running any Semgrep security scan."
+      ],
+      "remediation": "Include both baseline rulesets unless explicitly excluded with documented rationale.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-020",
+      "severity": "Medium",
+      "category": "Semgrep Security Ruleset",
+      "tool": "Semgrep",
+      "name": "Semgrep Security-Focused Rulesets",
+      "description": "Add focused Semgrep security rulesets when their domains match the target.",
+      "match_strategy": "ruleset_catalog",
+      "rulesets": [
+        {
+          "ruleset": "p/owasp-top-ten",
+          "use_case": "Web application security."
+        },
+        {
+          "ruleset": "p/cwe-top-25",
+          "use_case": "General dangerous software weaknesses."
+        },
+        {
+          "ruleset": "p/sql-injection",
+          "use_case": "Database security."
+        },
+        {
+          "ruleset": "p/insecure-transport",
+          "use_case": "Network transport security."
+        },
+        {
+          "ruleset": "p/gitleaks",
+          "use_case": "Hard-coded credential detection."
+        },
+        {
+          "ruleset": "p/findsecbugs",
+          "use_case": "Java security."
+        },
+        {
+          "ruleset": "p/phpcs-security-audit",
+          "use_case": "PHP security."
+        }
+      ],
+      "remediation": "Select focused rulesets based on detected application domains and languages.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-021",
+      "severity": "Low",
+      "category": "Semgrep CI Ruleset",
+      "tool": "Semgrep",
+      "name": "Semgrep CI And General Rulesets",
+      "description": "Use CI-safe and general Semgrep rulesets when low false positives or quick first-pass coverage is needed.",
+      "match_strategy": "ruleset_catalog",
+      "rulesets": [
+        {
+          "ruleset": "p/default",
+          "use_case": "First-time users and balanced coverage."
+        },
+        {
+          "ruleset": "p/ci",
+          "use_case": "High-confidence security and logic bugs for CI."
+        },
+        {
+          "ruleset": "p/r2c-ci",
+          "use_case": "Low false positives for CI/CD blocking."
+        },
+        {
+          "ruleset": "p/r2c",
+          "use_case": "Curated general scanning."
+        },
+        {
+          "ruleset": "p/auto",
+          "use_case": "Quick language and framework auto-selection."
+        },
+        {
+          "ruleset": "p/comment",
+          "use_case": "Comment-related review rules."
+        },
+        {
+          "ruleset": "p/gitlab",
+          "use_case": "GitLab-maintained security rules."
+        }
+      ],
+      "remediation": "Prefer explicit rulesets over auto-selection when audit reproducibility matters.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-022",
+      "severity": "Medium",
+      "category": "Semgrep Language Ruleset",
+      "tool": "Semgrep",
+      "name": "Semgrep GA Language Rulesets",
+      "description": "Add production-ready Semgrep language rulesets based on detected file extensions and frameworks.",
+      "match_strategy": "language_ruleset",
+      "languages": [
+        {
+          "detection": ".py",
+          "primary_ruleset": "p/python",
+          "framework_rulesets": [
+            "p/django",
+            "p/flask",
+            "p/fastapi"
+          ]
+        },
+        {
+          "detection": ".js,.jsx",
+          "primary_ruleset": "p/javascript",
+          "framework_rulesets": [
+            "p/react",
+            "p/nodejs",
+            "p/express",
+            "p/nextjs",
+            "p/angular"
+          ]
+        },
+        {
+          "detection": ".ts,.tsx",
+          "primary_ruleset": "p/typescript",
+          "framework_rulesets": [
+            "p/react",
+            "p/nodejs",
+            "p/express",
+            "p/nextjs",
+            "p/angular"
+          ]
+        },
+        {
+          "detection": ".go",
+          "primary_ruleset": "p/golang",
+          "framework_rulesets": [
+            "p/go"
+          ]
+        },
+        {
+          "detection": ".java",
+          "primary_ruleset": "p/java",
+          "framework_rulesets": [
+            "p/spring",
+            "p/findsecbugs"
+          ]
+        },
+        {
+          "detection": ".kt",
+          "primary_ruleset": "p/kotlin",
+          "framework_rulesets": [
+            "p/spring"
+          ]
+        },
+        {
+          "detection": ".rb",
+          "primary_ruleset": "p/ruby",
+          "framework_rulesets": [
+            "p/rails"
+          ]
+        },
+        {
+          "detection": ".php",
+          "primary_ruleset": "p/php",
+          "framework_rulesets": [
+            "p/symfony",
+            "p/laravel",
+            "p/phpcs-security-audit"
+          ]
+        },
+        {
+          "detection": ".c,.cpp,.h",
+          "primary_ruleset": "p/c"
+        },
+        {
+          "detection": ".rs",
+          "primary_ruleset": "p/rust"
+        },
+        {
+          "detection": ".cs",
+          "primary_ruleset": "p/csharp"
+        },
+        {
+          "detection": ".scala",
+          "primary_ruleset": "p/scala"
+        },
+        {
+          "detection": ".swift",
+          "primary_ruleset": "p/swift"
+        }
+      ],
+      "remediation": "Include each detected primary language ruleset and matching framework rulesets.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-023",
+      "severity": "Low",
+      "category": "Semgrep Language Ruleset",
+      "tool": "Semgrep",
+      "name": "Semgrep Beta And Experimental Language Rulesets",
+      "description": "Add Semgrep beta or experimental language coverage when matching files are present, and note expected limitations.",
+      "match_strategy": "language_ruleset",
+      "languages": [
+        {
+          "detection": ".ex,.exs",
+          "primary_ruleset": "p/elixir",
+          "notes": "Pro recommended for best coverage."
+        },
+        {
+          "detection": ".cls,.trigger",
+          "primary_ruleset": "p/apex",
+          "notes": "Salesforce; Pro recommended."
+        },
+        {
+          "detection": ".sol",
+          "primary_ruleset": "third-party Decurity smart-contract rules"
+        },
+        {
+          "detection": "Dockerfile",
+          "primary_ruleset": "p/dockerfile"
+        },
+        {
+          "detection": ".yaml,.yml",
+          "primary_ruleset": "p/yaml"
+        },
+        {
+          "detection": ".json",
+          "primary_ruleset": "r/json.aws"
+        },
+        {
+          "detection": "Bash scripts",
+          "primary_ruleset": "community support"
+        },
+        {
+          "detection": "Cairo,Circom",
+          "primary_ruleset": "experimental smart-contract support"
+        }
+      ],
+      "remediation": "Add beta or experimental coverage with explicit notes about false positives and missing coverage.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-024",
+      "severity": "Medium",
+      "category": "Semgrep Framework Ruleset",
+      "tool": "Semgrep",
+      "name": "Semgrep Framework Detection",
+      "description": "Detect common frameworks and add matching Semgrep framework rulesets.",
+      "match_strategy": "framework_detection",
+      "frameworks": [
+        {
+          "framework": "Django",
+          "signals": [
+            "settings.py",
+            "urls.py",
+            "django in requirements"
+          ],
+          "ruleset": "p/django"
+        },
+        {
+          "framework": "Flask",
+          "signals": [
+            "flask in requirements",
+            "@app.route"
+          ],
+          "ruleset": "p/flask"
+        },
+        {
+          "framework": "FastAPI",
+          "signals": [
+            "fastapi in requirements",
+            "@app.get",
+            "@app.post"
+          ],
+          "ruleset": "p/fastapi"
+        },
+        {
+          "framework": "React",
+          "signals": [
+            "react dependency",
+            ".jsx files",
+            ".tsx files"
+          ],
+          "ruleset": "p/react"
+        },
+        {
+          "framework": "Next.js",
+          "signals": [
+            "next.config.js",
+            "pages directory",
+            "app directory"
+          ],
+          "ruleset": "p/nextjs"
+        },
+        {
+          "framework": "Angular",
+          "signals": [
+            "angular.json",
+            "@angular dependencies"
+          ],
+          "ruleset": "p/angular"
+        },
+        {
+          "framework": "Express",
+          "signals": [
+            "express dependency",
+            "app.use patterns"
+          ],
+          "ruleset": "p/express"
+        },
+        {
+          "framework": "NestJS",
+          "signals": [
+            "@nestjs dependencies",
+            "@Controller decorators"
+          ],
+          "ruleset": "p/nodejs"
+        },
+        {
+          "framework": "Spring",
+          "signals": [
+            "pom.xml with spring",
+            "@SpringBootApplication"
+          ],
+          "ruleset": "p/spring"
+        },
+        {
+          "framework": "Rails",
+          "signals": [
+            "Gemfile with rails",
+            "config/routes.rb"
+          ],
+          "ruleset": "p/rails"
+        },
+        {
+          "framework": "Laravel",
+          "signals": [
+            "composer.json with laravel",
+            "artisan"
+          ],
+          "ruleset": "p/laravel"
+        },
+        {
+          "framework": "Symfony",
+          "signals": [
+            "composer.json with symfony",
+            "config/packages directory"
+          ],
+          "ruleset": "p/symfony"
+        }
+      ],
+      "remediation": "Add framework-specific rulesets when framework signals are present.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-025",
+      "severity": "Medium",
+      "category": "Semgrep Infrastructure Ruleset",
+      "tool": "Semgrep",
+      "name": "Semgrep Infrastructure Rulesets",
+      "description": "Add infrastructure and CI/CD Semgrep rulesets when matching files are present.",
+      "match_strategy": "infrastructure_ruleset",
+      "rulesets": [
+        {
+          "detection": "Dockerfile",
+          "ruleset": "p/dockerfile",
+          "description": "Container security and best practices."
+        },
+        {
+          "detection": ".tf,.hcl",
+          "ruleset": "p/terraform",
+          "description": "IaC misconfigurations, CIS benchmarks, and cloud provider security."
+        },
+        {
+          "detection": "Kubernetes manifests",
+          "ruleset": "p/kubernetes",
+          "description": "Kubernetes security and RBAC issues."
+        },
+        {
+          "detection": "CloudFormation",
+          "ruleset": "p/cloudformation",
+          "description": "AWS infrastructure security."
+        },
+        {
+          "detection": "GitHub Actions",
+          "ruleset": "p/github-actions",
+          "description": "CI/CD security and secrets exposure."
+        },
+        {
+          "detection": ".yaml,.yml",
+          "ruleset": "p/yaml",
+          "description": "Generic YAML patterns."
+        },
+        {
+          "detection": "AWS IAM JSON",
+          "ruleset": "r/json.aws",
+          "description": "IAM policy misconfiguration rules."
+        }
+      ],
+      "remediation": "Include matching infrastructure rulesets for IaC, containers, CI/CD, and policy files.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-026",
+      "severity": "High",
+      "category": "Semgrep Third-Party Ruleset",
+      "tool": "Semgrep",
+      "name": "Required Third-Party Semgrep Rulesets",
+      "description": "Include third-party Semgrep rule sources when language coverage matches; they are required because they catch vulnerabilities absent from official registry packs.",
+      "match_strategy": "third_party_ruleset",
+      "third_party_sources": [
+        {
+          "languages": [
+            "Python",
+            "Go",
+            "Ruby",
+            "JavaScript",
+            "TypeScript",
+            "Terraform",
+            "HCL"
+          ],
+          "source_name": "Trail of Bits",
+          "source": "https://github.com/trailofbits/semgrep-rules",
+          "reason": "Security audit patterns from real engagements."
+        },
+        {
+          "languages": [
+            "C",
+            "C++"
+          ],
+          "source_name": 3562,
+          "source": "https://github.com/0xdea/semgrep-rules",
+          "reason": "Memory safety and low-level vulnerabilities."
+        },
+        {
+          "languages": [
+            "Solidity",
+            "Cairo",
+            "Rust"
+          ],
+          "source_name": "Decurity",
+          "source": "https://github.com/Decurity/semgrep-smart-contracts",
+          "reason": "Smart contract and DeFi vulnerability patterns."
+        },
+        {
+          "languages": [
+            "Go"
+          ],
+          "source_name": "dgryski",
+          "source": "https://github.com/dgryski/semgrep-go",
+          "reason": "Additional Go-specific patterns."
+        },
+        {
+          "languages": [
+            "Android Java",
+            "Kotlin"
+          ],
+          "source_name": "MindedSecurity",
+          "source": "https://github.com/mindedsecurity/semgrep-rules-android-security",
+          "reason": "OWASP MASTG-derived mobile security rules."
+        },
+        {
+          "languages": [
+            "Java",
+            "Go",
+            "JavaScript",
+            "TypeScript",
+            "CSharp",
+            "Python",
+            "PHP"
+          ],
+          "source_name": "elttam",
+          "source": "https://github.com/elttam/semgrep-rules",
+          "reason": "Security consulting patterns."
+        },
+        {
+          "languages": [
+            "Dockerfile",
+            "PHP",
+            "Go",
+            "Java"
+          ],
+          "source_name": "kondukto",
+          "source": "https://github.com/kondukto-io/semgrep-rules",
+          "reason": "Container and web application security."
+        },
+        {
+          "languages": [
+            "PHP",
+            "Kotlin",
+            "Java"
+          ],
+          "source_name": "dotta",
+          "source": "https://github.com/federicodotta/semgrep-rules",
+          "reason": "Pentest-derived web and mobile app rules."
+        },
+        {
+          "languages": [
+            "Terraform",
+            "HCL"
+          ],
+          "source_name": "HashiCorp",
+          "source": "https://github.com/hashicorp-forge/semgrep-rules",
+          "reason": "HashiCorp infrastructure patterns."
+        },
+        {
+          "languages": [
+            "Swift",
+            "Java",
+            "Cobol"
+          ],
+          "source_name": "akabe1",
+          "source": "https://github.com/akabe1/akabe1-semgrep-rules",
+          "reason": "iOS and legacy system patterns."
+        },
+        {
+          "languages": [
+            "Java"
+          ],
+          "source_name": "Atlassian Labs",
+          "source": "https://github.com/atlassian-labs/atlassian-sast-ruleset",
+          "reason": "Atlassian-maintained Java rules."
+        },
+        {
+          "languages": [
+            "Python",
+            "JavaScript",
+            "TypeScript",
+            "Java",
+            "Ruby",
+            "Go",
+            "PHP"
+          ],
+          "source_name": "Apiiro",
+          "source": "https://github.com/apiiro/malicious-code-ruleset",
+          "reason": "Malicious code and supply-chain detection."
+        }
+      ],
+      "remediation": "Include matching third-party rule sources or explicitly document why they were excluded.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/semgrep/references/rulesets.md"
+      }
+    },
+    {
+      "id": "SAS-027",
+      "severity": "Medium",
+      "category": "SARIF Processing",
+      "tool": "SARIF",
+      "name": "Validate SARIF Structure",
+      "description": "Validate SARIF 2.1.0 structure before processing findings.",
+      "match_strategy": "result_processing",
+      "requirements": [
+        "Confirm version is 2.1.0.",
+        "Confirm runs array exists.",
+        "Confirm tool driver metadata exists.",
+        "Confirm results arrays are handled defensively."
+      ],
+      "remediation": "Reject or repair malformed SARIF before aggregation, filtering, or reporting.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/sarif-parsing/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-028",
+      "severity": "Medium",
+      "category": "SARIF Processing",
+      "tool": "SARIF",
+      "name": "Normalize SARIF Paths",
+      "description": "Normalize SARIF artifact URIs so findings can be compared across tools and environments.",
+      "match_strategy": "result_processing",
+      "requirements": [
+        "Remove file URI prefixes.",
+        "URL-decode paths.",
+        "Resolve relative paths against the target base path when needed.",
+        "Normalize path separators."
+      ],
+      "remediation": "Normalize paths before deduplication, baseline comparison, and reporting.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/sarif-parsing/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-029",
+      "severity": "Medium",
+      "category": "SARIF Processing",
+      "tool": "SARIF",
+      "name": "Deduplicate SARIF Findings",
+      "description": "Deduplicate SARIF results using stable fingerprints when available, with fallback keys based on rule, location, and snippet context.",
+      "match_strategy": "result_processing",
+      "requirements": [
+        "Prefer partialFingerprints or fingerprints.",
+        "Fall back to rule ID plus normalized location.",
+        "Preserve original runs and tool metadata when aggregating."
+      ],
+      "remediation": "Use stable fingerprints to identify duplicate findings across tools and repeated scans.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/skills/sarif-parsing/SKILL.md"
+      }
+    },
+    {
+      "id": "SAS-030",
+      "severity": "Medium",
+      "category": "Scan Quality",
+      "tool": "Static Analysis",
+      "name": "Investigate Zero Findings",
+      "description": "Zero findings can indicate poor database quality, missing models, wrong rulesets, broken tool installation, or invalid SARIF rather than clean code.",
+      "match_strategy": "quality_gate",
+      "applies_when": [
+        "Any selected scanner returns zero findings."
+      ],
+      "requirements": [
+        "Verify target path and file counts.",
+        "Verify tool installation.",
+        "Verify rulesets loaded.",
+        "Verify CodeQL database quality when CodeQL was used.",
+        "Verify SARIF contains results when parsing existing output."
+      ],
+      "remediation": "Report zero findings only after validating scan coverage and tool quality.",
+      "source": {
+        "project": "trailofbits/skills",
+        "path": "plugins/static-analysis/README.md"
+      }
+    }
+  ],
+  "default_match_strategy": "unspecified",
+  "report_template": "# scan-static-analysis Report\n\n| Field | Value |\n|-------|-------|\n| Skill | scan-static-analysis |\n| Target | {{target}} |\n| Date | {{date}} |\n| Branch | {{branch}} |\n| Tools | {{tools}} |\n| Mode | {{mode}} |\n| Rulesets | {{rulesets}} |\n| Files Reviewed | {{file_count}} |\n| Total Findings | {{total_findings}} |\n| Overall Severity | {{overall_severity}} |\n\n---\n\n## Scan Plan\n\n**Target:** {{target}}\n\n**Output Directory:** {{output_directory}}\n\n**Tooling:** {{tools}}\n\n**Selected Rules:** {{selected_rules}}\n\n**Excluded Rules:** {{excluded_rules}}\n\n**Reasoning:** {{selection_reasoning}}\n\n## Findings\n\n{{#each findings}}\n### [{{severity}}] {{rule_id}} - {{rule_name}}\n\n**Tool:** {{tool}}\n**File:** `{{file}}` (line {{line}})\n**Category:** {{category}}\n**Message:** {{message}}\n**Confidence:** {{confidence}}\n**Impact:** {{impact}}\n\n```text\n{{snippet}}\n```\n\n**Remediation:** {{remediation}}\n\n---\n{{/each}}\n\n{{#if no_findings}}\nNo static-analysis findings were reported by the selected tools and rulesets.\n{{/if}}\n\n## Summary Table\n\n| Severity | Count |\n|----------|-------|\n| Critical | {{count_critical}} |\n| High     | {{count_high}} |\n| Medium   | {{count_medium}} |\n| Low      | {{count_low}} |\n| Info     | {{count_info}} |\n\n## Tool Quality Checks\n\n- CodeQL database quality: {{codeql_database_quality}}\n- Semgrep engine mode: {{semgrep_engine_mode}}\n- SARIF validation: {{sarif_validation}}\n- Zero-finding review: {{zero_finding_review}}\n\n## Next Steps\n\n- Address **Critical** and **High** findings before merging.\n- Review **Medium** findings and document accepted risk.\n- Re-run with `run-all` mode for manual audit coverage when time permits.\n- Preserve raw SARIF output for baselining, deduplication, and regression checks.\n"
+}

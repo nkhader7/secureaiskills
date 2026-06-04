@@ -1,0 +1,464 @@
+name = "scan-container-image"
+description = "Scans Dockerfiles, container image build configuration, Docker daemon/runtime configuration, Docker Compose files, Kubernetes container specs, and Docker host evidence against CIS Docker Benchmark v1.8.0 controls and OWASP Docker Top 10. Use when reviewing Docker or container security hardening, container image risks, Docker daemon settings, container runtime flags, Docker Swarm settings, CIS Docker compliance, or OWASP container security."
+version = "1.0"
+intent = "# scan-container-image"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "CIS-DOCKER-1-1-1"
+name = "Ensure a separate partition for containers has been created"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "All Docker containers and their data and metadata is stored under `/var/lib/docker` directory. By default, `/var/lib/docker` should be mounted under either the `/` or `/var` partitions dependent on how the Linux operating system in use is configured."
+match_strategy = "cis_docker_review"
+remediation = "For new installations, you should create a separate partition for the `/var/lib/docker` mount point. For systems which have already been installed, you should use the Logical Volume Manager (LVM) within Linux to create a new partition."
+
+[[rules]]
+id = "CIS-DOCKER-1-1-2"
+name = "Ensure only trusted users are allowed to control Docker daemon"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "The Docker daemon currently requires access to the Docker socket which is, by default, owned by the user `root` and the group `docker`."
+match_strategy = "cis_docker_review"
+remediation = "You should remove any untrusted users from the `docker` group. Additionally, you should not create a mapping of sensitive directories from the host to container volumes."
+
+[[rules]]
+id = "CIS-DOCKER-1-1-3"
+name = "Ensure auditing is configured for the Docker daemon"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "Audit all Docker daemon activities."
+match_strategy = "cis_docker_review"
+remediation = "You should add rules for the Docker daemon.\n\nFor example:\n\nAdd the line below to the `/etc/audit/rules.d/audit.rules` file:\n```\n-w /usr/bin/dockerd -k docker\n```\n\nThen, restart the audit daemon using the following command\n\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-4"
+name = "Ensure auditing is configured for Docker files and directories - /run/containerd"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "Audit `/run/containerd`."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/run/containerd` directory.\n\nFor example,\n\nAdd the line as below to the `/etc/audit/rules.d/audit.rules` file:\n```\n-a exit,always -F path=/run/containerd -F perm=war -k docker\n```\n\nThen, restart the audit daemon using the following command\n\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-5"
+name = "Ensure auditing is configured for Docker files and directories - /var/lib/docker"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "Audit `/var/lib/docker` or data-root."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/var/lib/docker` directory.\nAdding exclusions for /var/lib/docker/overlay2 & /var/lib/docker/volumes reduces the audit messages to a more manageable level.\n\nFor example,\n\nAdd the line as below to the `/etc/audit/rules.d/audit.rules` file:\n```\n-a exit,always -F path=/var/lib/docker -F perm=war -k docker\n-a exit,never -F dir=/var/lib/docker/volumes\n-a exit,never -F dir=/var/lib/docker/overlay2\n```\nor for systems with namespace-remapping enabled\n```\n-a exit,always -F path=/var/lib/docker -F perm=war -k docker\n-a exit,never -F dir=/var/lib/docker/165536.165536/volumes\n-a exit,never -F dir=/var/lib/docker/165536.165536/overlay2\n```\n\nThen, restart the audit daemon using the following command\n\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-6"
+name = "Ensure auditing is configured for Docker files and directories - /etc/docker"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "Audit `/etc/docker`."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/etc/docker` directory.\n\nFor example:\n\nAdd the line below to the `/etc/audit/rules.d/audit.rules` file:\n```\n-w /etc/docker -k docker\n```\nThen restart the audit daemon. For example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-7"
+name = "Ensure auditing is configured for Docker files and directories - docker.service"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit the `docker.service` if applicable."
+match_strategy = "cis_docker_review"
+remediation = "If the file exists, a rule for it should be added.\n\nFor example:\n\nAdd the line as below in `/etc/audit/rules.d/audit.rules` file:\n```\n-w /usr/lib/systemd/system/docker.service -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-8"
+name = "Ensure auditing is configured for Docker files and directories - containerd.sock"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `containerd.sock`, if applicable."
+match_strategy = "cis_docker_review"
+remediation = "If the file exists, you should add a rule for it.\n\nFor example:\n\nAdd the line below to the `/etc/audit/rules.d/audit.rules` file:\n```\n-w /run/containerd/containerd.sock -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-9"
+name = "Ensure auditing is configured for Docker files and directories - docker.sock"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `docker.sock`, if applicable."
+match_strategy = "cis_docker_review"
+remediation = "If the file exists, you should add a rule for it.\n\nFor example:\n\nAdd the line below to the `/etc/audit/rules.d/audit.rules` file:\n```\n-w /var/run/docker.sock -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-10"
+name = "Ensure auditing is configured for Docker files and directories - /etc/default/docker"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/etc/default/docker`, if applicable."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/etc/default/docker` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /etc/default/docker -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-11"
+name = "Ensure auditing is configured for Docker files and directories - /etc/docker/daemon.json"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/etc/docker/daemon.json`, if applicable."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/etc/docker/daemon.json` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /etc/docker/daemon.json -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-12"
+name = "Ensure auditing is configured for Docker files and directories - /etc/containerd/config.toml"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/etc/containerd/config.toml` if applicable"
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for `/etc/containerd/config.toml` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /etc/containerd/config.toml -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-13"
+name = "Ensure auditing is configured for Docker files and directories - /etc/sysconfig/docker"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/etc/sysconfig/docker` if applicable"
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for `/etc/sysconfig/docker` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /etc/sysconfig/docker -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-14"
+name = "Ensure auditing is configured for Docker files and directories - /usr/bin/containerd"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/usr/bin/containerd` if applicable."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/usr/bin/containerd` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /usr/bin/containerd -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-15"
+name = "Ensure auditing is configured for Docker files and directories - /usr/bin/containerd-shim"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/usr/bin/containerd-shim` if applicable."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/usr/bin/containerd-shim` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/rules.d/audit.rules` file:\n```\n-w /usr/bin/containerd-shim -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-16"
+name = "Ensure auditing is configured for Docker files and directories - /usr/bin/containerd-shim-runc-v1"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/usr/bin/containerd-shim-runc-v1` if applicable."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/usr/bin/containerd-shim-runc-v1` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /usr/bin/containerd-shim-runc-v1 -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-17"
+name = "Ensure auditing is configured for Docker files and directories - /usr/bin/containerd-shim-runc-v2"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/usr/bin/containerd-shim-runc-v2` if applicable."
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for the `/usr/bin/containerd-shim-runc-v2` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /usr/bin/containerd-shim-runc-v2 -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-1-18"
+name = "Ensure auditing is configured for Docker files and directories - /usr/bin/runc"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Audit `/usr/bin/runc` if applicable"
+match_strategy = "cis_docker_review"
+remediation = "You should add a rule for `/usr/bin/runc` file.\n\nFor example:\n\nAdd the line below to the `/etc/audit/audit.rules` file:\n```\n-w /usr/bin/runc -k docker\n```\nThen restart the audit daemon.\n\nFor example:\n```\nsystemctl restart auditd\n```"
+
+[[rules]]
+id = "CIS-DOCKER-1-2-1"
+name = "Ensure the container host has been Hardened"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "A container host is able to run one or more containers. It is of utmost importance to harden the host to mitigate host security misconfiguration."
+match_strategy = "cis_docker_review"
+remediation = "You may consider various CIS Security Benchmarks for your container host. If you have other security guidelines or regulatory requirements to adhere to, please follow them as suitable in your environment."
+
+[[rules]]
+id = "CIS-DOCKER-1-2-2"
+name = "Ensure that the version of Docker is up to date"
+severity = "Low"
+category = "CIS Docker Benchmark"
+description = "Frequent releases for Docker are issued which address security vulnerabilities, resolve product bugs and bring in new functionality. You should keep a tab on these product updates and upgrade as frequently as possible in line with the general IT security policy of your organization."
+match_strategy = "cis_docker_review"
+remediation = "You should monitor versions of Docker releases and make sure your software is updated as required."
+
+[[rules]]
+id = "CIS-DOCKER-2-1"
+name = "Run the Docker daemon as a non-root user, if possible"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Rootless mode executes the Docker daemon and containers inside a user namespace, with both the daemon and the container are running without root privileges."
+match_strategy = "cis_docker_review"
+remediation = "Follow the current Docker documentation on how to install the Docker daemon as a non-root user."
+
+[[rules]]
+id = "CIS-DOCKER-2-2"
+name = "Ensure network traffic is restricted between containers on the default bridge"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "By default, all network traffic is allowed between containers on the same host on the default network bridge. If not desired, restrict all inter-container communication. Link specific containers together that require communication. Alternatively, you can create custom network and only join containers that need to communicate to that custom network."
+match_strategy = "cis_docker_review"
+remediation = "Edit the Docker daemon configuration file to ensure that icc is disabled. It should include the following setting\n\n```\n\"icc\": false\n```\n\nAlernatively, run the docker daemon directly and pass `--icc=false` as an argument.\n\nFor Example,\n```\ndockerd --icc=false\n```\n\nAlternatively, you can follow the Docker documentation and create a custom network and only join containers that need to communicate to that custom network. The `--icc` parameter only applies to the default docker bridge, if custom networks are used then the approach of segmenting networks should be adopted instead.\n\nIn order for this control to be fully effective, all containers connected to the `docker0` bridge should drop the `NET_RAW` capability, otherwise a compromised container could use raw ethernet packets to communicate with other containers despite this restriction."
+
+[[rules]]
+id = "CIS-DOCKER-2-3"
+name = "Ensure the logging level is set to 'info'"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "Set Docker daemon log level to `info`."
+match_strategy = "cis_docker_review"
+remediation = "Ensure that the Docker daemon configuration file has the following configuration included\n\n```\n\"log-level\": \"info\"\n```\n\nAlternatively, run the Docker daemon as below:\n```\ndockerd --log-level=\"info\"\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-4"
+name = "Ensure Docker is allowed to make changes to iptables"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "The iptables firewall is used to set up, maintain, and inspect the tables of IP packet filter rules within the Linux kernel. The Docker daemon should be allowed to make changes to the `iptables` ruleset."
+match_strategy = "cis_docker_review"
+remediation = "Do not run the Docker daemon with `--iptables=false` parameter. For example, do not start the Docker daemon as below:\n```\ndockerd --iptables=false\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-5"
+name = "Ensure insecure registries are not used"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "Docker considers a private registry either secure or insecure. By default, registries are considered secure."
+match_strategy = "cis_docker_review"
+remediation = "You should ensure that no insecure registries are in use."
+
+[[rules]]
+id = "CIS-DOCKER-2-6"
+name = "Ensure aufs storage driver is not used"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "Do not use `aufs` as the storage driver for your Docker instance."
+match_strategy = "cis_docker_review"
+remediation = "Do not explicitly use `aufs` as storage driver.\n\nFor example, do not start Docker daemon as below:\n```\ndockerd --storage-driver aufs\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-7"
+name = "Ensure devicemapper storage driver is not used"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "Do not use `devicemapper` as the storage driver for your Docker instance."
+match_strategy = "cis_docker_review"
+remediation = "Do not explicitly use `devicemapper` as storage driver.\n\nFor example, do not start Docker daemon as below:\n```\ndockerd --storage-driver devicemapper\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-8"
+name = "Ensure TLS authentication for Docker daemon is configured"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "It is possible to make the Docker daemon available remotely over a TCP port. If this is required, you should ensure that TLS authentication is configured in order to restrict access to the Docker daemon via IP address and port."
+match_strategy = "cis_docker_review"
+remediation = "Follow the steps mentioned in the Docker documentation or other references."
+
+[[rules]]
+id = "CIS-DOCKER-2-9"
+name = "Ensure the default ulimit is configured appropriately"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "Set the default ulimit options as appropriate in your environment."
+match_strategy = "cis_docker_review"
+remediation = "Run Docker in daemon mode and pass `--default-ulimit` as argument with respective ulimits as appropriate in your environment and in line with your security policy.\n\nFor Example,\n```\ndockerd --default-ulimit nproc=1024:2048 --default-ulimit nofile=100:200\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-10"
+name = "Enable user namespace support"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "You should enable user namespace support in Docker daemon to utilize container user to host user re-mapping. This recommendation is beneficial where the containers you are using do not have an explicit container user defined in the container image. If the container images that you are using have a pre-defined non-root user, this recommendation may be skipped as this feature is still in its infancy, and might result in unpredictable issues or difficulty in configuration."
+match_strategy = "cis_docker_review"
+remediation = "Please consult the Docker documentation for various ways in which this can be configured depending upon your requirements. Your steps might also vary based on platform - For example, on Red Hat, sub-UIDs and sub-GIDs mapping creation do not work automatically. You might have to create your own mapping.\n\nThe high-level steps are as below:\n\n**Step 1:** Ensure that the files `/etc/subuid` and `/etc/subgid` exist.\n```\ntouch /etc/subuid /etc/subgid\n```\n**Step 2:** Start the docker daemon with `--userns-remap` flag\n```\ndockerd --userns-remap=default\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-11"
+name = "Ensure the default cgroup usage has been confirmed"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "The `--cgroup-parent` option allows you to set the default cgroup parent to use for all containers. If there is no specific usage requirement for this, the setting should be left at its default."
+match_strategy = "cis_docker_review"
+remediation = "The default setting is in line with good security practice and can be left in situ. If you wish to specifically set a non-default cgroup, pass the `--cgroup-parent` parameter to the Docker daemon when starting it.\n\nFor example,\n```\ndockerd --cgroup-parent=/foobar\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-12"
+name = "Ensure base device size is not changed until needed"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Under certain circumstances, you might need containers larger than 10G. Where this applies you should carefully choose the base device size."
+match_strategy = "cis_docker_review"
+remediation = "Do not set `--storage-opt dm.basesize` until needed."
+
+[[rules]]
+id = "CIS-DOCKER-2-13"
+name = "Ensure that authorization for Docker client commands is enabled"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "You should use native Docker authorization plugins or a third party authorization mechanism with the Docker daemon to manage access to Docker client commands."
+match_strategy = "cis_docker_review"
+remediation = "**Step 1**: Install/Create an authorization plugin.\n\n**Step 2**: Configure the authorization policy as desired.\n\n**Step 3**: Start the docker daemon as below:\n```\ndockerd --authorization-plugin=<PLUGIN_ID>\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-14"
+name = "Ensure centralized and remote logging is configured"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "Docker supports various logging mechanisms. A preferable method for storing logs is one that supports centralized and remote management."
+match_strategy = "cis_docker_review"
+remediation = "**Step 1**: Set up the desired log driver following its documentation.\n\n**Step 2**: Start the docker daemon using that logging driver.\n\nFor example:\n```\ndockerd --log-driver=syslog --log-opt syslog-address=tcp://192.xxx.xxx.xxx\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-15"
+name = "Ensure containers are restricted from acquiring new privileges"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "By default you should restrict containers from acquiring additional privileges via suid or sgid."
+match_strategy = "cis_docker_review"
+remediation = "You should run the Docker daemon as below:\n```\ndockerd --no-new-privileges\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-16"
+name = "Ensure live restore is enabled"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "The `--live-restore` option enables full support of daemon-less containers within Docker. It ensures that Docker does not stop containers on shutdown or restore and that it properly reconnects to the container when restarted."
+match_strategy = "cis_docker_review"
+remediation = "Run Docker in daemon mode and pass `--live-restore` to it as an argument.\n\nFor Example,\n```\ndockerd --live-restore\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-17"
+name = "Ensure Userland Proxy is Disabled"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "The Docker daemon starts a userland proxy service for port forwarding whenever a port is exposed. Where hairpin NAT is available, this service is generally superfluous to requirements and can be disabled."
+match_strategy = "cis_docker_review"
+remediation = "You should run the Docker daemon as below:\n```\ndockerd --userland-proxy=false\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-18"
+name = "Ensure that a daemon-wide custom seccomp profile is applied if appropriate"
+severity = "High"
+category = "CIS Docker Benchmark"
+description = "You can choose to apply a custom seccomp profile at a daemon-wide level if needed with this overriding Docker's default seccomp profile."
+match_strategy = "cis_docker_review"
+remediation = "By default, Docker's default seccomp profile is applied. If this is adequate for your environment, no action is necessary. Alternatively, if you choose to apply your own seccomp profile, use the `--seccomp-profile` flag at daemon start or put it in the daemon runtime parameters file.\n\n```\ndockerd --seccomp-profile </path/to/seccomp/profile>\n```"
+
+[[rules]]
+id = "CIS-DOCKER-2-19"
+name = "Ensure that experimental features are not implemented in production"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "Experimental features should not be enabled in production."
+match_strategy = "cis_docker_review"
+remediation = "You should not pass `--experimental` as a runtime parameter to the Docker daemon on production systems."
+
+[[rules]]
+id = "CIS-DOCKER-3-1"
+name = "Ensure that the docker.service file ownership is set to root:root"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the `docker.service` file ownership and group ownership are correctly set to `root`."
+match_strategy = "cis_docker_review"
+remediation = "**Step 1**: Find out the file location:\n```\nsystemctl show -p FragmentPath docker.service\n```\n\n**Step 2**: If the file does not exist, this recommendation is not applicable. If the file does exist, you should execute the command below, including the correct file path, in order to set the ownership and group ownership for the file to `root`.\n\nFor example,\n```\nchown root:root /usr/lib/systemd/system/docker.service\n```"
+
+[[rules]]
+id = "CIS-DOCKER-3-2"
+name = "Ensure that docker.service file permissions are appropriately set"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the `docker.service` file permissions are either set to `644` or to a more restrictive value."
+match_strategy = "cis_docker_review"
+remediation = "**Step 1**: Find out the file location:\n```\nsystemctl show -p FragmentPath docker.service\n```\n\n**Step 2**: If the file does not exist, this recommendation is not applicable. If the file exists, execute the command below including the correct file path to set the file permissions to `644`.\n\nFor example,\n```\nchmod 644 /usr/lib/systemd/system/docker.service\n```"
+
+[[rules]]
+id = "CIS-DOCKER-3-3"
+name = "Ensure that docker.socket file ownership is set to root:root"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the `docker.socket` file ownership and group ownership are correctly set to `root`."
+match_strategy = "cis_docker_review"
+remediation = "**Step 1**: Find out the file location:\n```\nsystemctl show -p FragmentPath docker.socket\n```\n\n**Step 2**: If the file does not exist, this recommendation is not applicable. If the file exists, execute the command below, including the correct file path to set the ownership and group ownership for the file to `root`.\n\nFor example,\n```\nchown root:root /usr/lib/systemd/system/docker.socket\n```"
+
+[[rules]]
+id = "CIS-DOCKER-3-4"
+name = "Ensure that docker.socket file permissions are set to 644 or more restrictive"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the file permissions on the `docker.socket` file are correctly set to `644` or more restrictively."
+match_strategy = "cis_docker_review"
+remediation = "**Step 1**: Find out the file location:\n```\nsystemctl show -p FragmentPath docker.socket\n```\n\n**Step 2**: If the file does not exist, this recommendation is not applicable. If the file does exist, you should execute the command below, including the correct file path to set the file permissions to `644`.\n\nFor example,\n```\nchmod 644 /usr/lib/systemd/system/docker.socket\n```"
+
+[[rules]]
+id = "CIS-DOCKER-3-5"
+name = "Ensure that the /etc/docker directory ownership is set to root:root"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the `/etc/docker` directory ownership and group ownership is correctly set to `root`."
+match_strategy = "cis_docker_review"
+remediation = "To resolve this issue you should run the following command:\n\n```\nchown root:root /etc/docker\n```\nThis sets the ownership and group ownership for the directory to `root`."
+
+[[rules]]
+id = "CIS-DOCKER-3-6"
+name = "Ensure that /etc/docker directory permissions are set to 755 or more restrictively"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the `/etc/docker` directory permissions are correctly set to `755` or more restrictively."
+match_strategy = "cis_docker_review"
+remediation = "You should run the following command:\n```\nchmod 755 /etc/docker\n```\nThis sets the permissions for the directory to `755`."
+
+[[rules]]
+id = "CIS-DOCKER-3-7"
+name = "Ensure that registry certificate file ownership is set to root:root"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that all the registry certificate files (usually found under `/etc/docker/certs.d/<registry-name>` directory) are individually owned and group owned by `root`."
+match_strategy = "cis_docker_review"
+remediation = "The following command could be executed:\n```\nchown root:root /etc/docker/certs.d/<registry-name>/*\n```\nThis would set the individual ownership and group ownership for the registry certificate files to `root`."
+
+[[rules]]
+id = "CIS-DOCKER-3-8"
+name = "Ensure that registry certificate file permissions are set to 444 or more restrictively"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that all the registry certificate files (usually found under `/etc/docker/certs.d/<registry-name>` directory) have permissions of `444` or are set more restrictively.\n\nNote that, by default, this directory might not exist if no registry certificate files are in place."
+match_strategy = "cis_docker_review"
+remediation = "You should execute the following command:\n```\nfind /etc/docker/certs.d/ -type f -exec chmod 0444 {} \\;\n```\nThis would set the permissions for the registry certificate files to `444`."
+
+[[rules]]
+id = "CIS-DOCKER-3-9"
+name = "Ensure that TLS CA certificate file ownership is set to root:root"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the TLS CA certificate file (the file that is passed along with the `--tlscacert` parameter) is individually owned and group owned by `root`."
+match_strategy = "cis_docker_review"
+remediation = "You should execute the following command:\n\n```\nchown root:root <path to TLS CA certificate file>\n```\nThis sets the individual ownership and group ownership for the TLS CA certificate file to `root`."
+
+[[rules]]
+id = "CIS-DOCKER-3-10"
+name = "Ensure that TLS CA certificate file permissions are set to 444 or more restrictively"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the TLS CA certificate file (the file that is passed along with the `--tlscacert` parameter) has permissions of `444` or is set more restrictively."
+match_strategy = "cis_docker_review"
+remediation = "You should execute the following command:\n\n```\nchmod 444 <path to TLS CA certificate file>\n```\nThis sets the file permissions on the TLS CA file to `444`."
+
+[[rules]]
+id = "CIS-DOCKER-3-11"
+name = "Ensure that Docker server certificate file ownership is set to root:root"
+severity = "Medium"
+category = "CIS Docker Benchmark"
+description = "You should verify that the Docker server certificate file (the file that is passed along with the `--tlscert` parameter) is individual owned and group owned by `root`."
+match_strategy = "cis_docker_review"
+remediation = "You should run the following command:\n```\nchown root:root <path to Docker server certificate file>\n```\nThis sets the individual ownership and the group ownership for the Docker server certificate file to `root`."

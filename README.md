@@ -2,7 +2,7 @@
 
 Security-focused skills for development teams building products, services, and applications.
 
-The main intent of this repository is to provide reusable skills that can be invoked during the design and development phases to detect security risks early. The first set of skills should focus on detection, review, and evidence generation. Later, the repository can expand into remediation guidance, policy enforcement, secure design patterns, and workflow automation.
+This repository supports a 3-agent AI Skill Analysis and Governance Framework. The current app and API surfaces are designed to help users understand a skill, secure and govern it, and validate or benchmark it before deployment. The first set of skills focuses on detection, review, evidence generation, and operational readiness; later, the repository can expand into remediation guidance, policy enforcement, secure design patterns, and workflow automation.
 
 ## Naming Convention
 

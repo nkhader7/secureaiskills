@@ -1,0 +1,2633 @@
+[
+  {
+    "skill": "audit-asvs-compliance",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:01.722309+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": false
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "xss",
+          "ssrf",
+          "access",
+          "auth",
+          "crypto",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "asvs",
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "privacy"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 345,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 290,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\audit-asvs-compliance\\SKILL.md",
+      "Inspected 345 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "audit-auth-session-management",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.581059+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 12,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 231,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\audit-auth-session-management\\SKILL.md",
+      "Inspected 12 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "audit-crypto-usage",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.588550+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": false
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "token",
+          "redact"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 12,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 230,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\audit-crypto-usage\\SKILL.md",
+      "Inspected 12 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "audit-logging-monitoring",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.595212+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": false
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "redact"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 12,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 259,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\audit-logging-monitoring\\SKILL.md",
+      "Inspected 12 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "detect-secrets",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.819039+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": false
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "container",
+          "kubernetes"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "redact",
+          "privacy"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 393,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 269,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\detect-secrets\\SKILL.md",
+      "Inspected 393 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "detect-supply-chain-risks",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.839505+00:00",
+    "security_findings": [],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "kubernetes",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 20,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 230,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.9,
+    "evidence": [
+      "Reviewed skills\\detect-supply-chain-risks\\SKILL.md",
+      "Inspected 20 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Keep security gates in CI and review rules for remediation drift."
+    ]
+  },
+  {
+    "skill": "generate-dependency-graph",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.845008+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 10,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 217,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\generate-dependency-graph\\SKILL.md",
+      "Inspected 10 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "generate-sbom",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.850822+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 10,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 214,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\generate-sbom\\SKILL.md",
+      "Inspected 10 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-api-security",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.855806+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 6,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 229,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-api-security\\SKILL.md",
+      "Inspected 6 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-broken-access-control",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:02.862187+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 12,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 228,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-broken-access-control\\SKILL.md",
+      "Inspected 12 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-container-image",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:03.030501+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "sbom",
+          "container",
+          "kubernetes",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 128,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 260,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-container-image\\SKILL.md",
+      "Inspected 128 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-exception-handling",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:03.052560+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 10,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 235,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-exception-handling\\SKILL.md",
+      "Inspected 10 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-for-injection",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:03.064578+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 7,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 212,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-for-injection\\SKILL.md",
+      "Inspected 7 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-for-ssrf",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:03.080769+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "ssrf",
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 8,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 223,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-for-ssrf\\SKILL.md",
+      "Inspected 8 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-for-xss",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:03.096125+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "xss",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 12,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 203,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-for-xss\\SKILL.md",
+      "Inspected 12 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-iac-security",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:03.664016+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "access",
+          "auth",
+          "crypto",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "sbom",
+          "container",
+          "kubernetes",
+          "iac",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 1746,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 278,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-iac-security\\SKILL.md",
+      "Inspected 1746 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-json-security",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:04.516191+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 5,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 245,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-json-security\\SKILL.md",
+      "Inspected 5 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-kubernetes-manifests",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:04.763258+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth",
+          "crypto"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "container",
+          "kubernetes"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 131,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 252,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-kubernetes-manifests\\SKILL.md",
+      "Inspected 131 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-markdown-security",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.632701+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 5,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 218,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-markdown-security\\SKILL.md",
+      "Inspected 5 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-sca-dependencies",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.664535+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": false
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "sbom",
+          "container",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": false,
+        "evidence_terms": []
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 28,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 222,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-sca-dependencies\\SKILL.md",
+      "Inspected 28 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-security-headers",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.756084+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "xss",
+          "auth",
+          "headers"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "iac"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "credential"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 12,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 223,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-security-headers\\SKILL.md",
+      "Inspected 12 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-static-analysis",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.821110+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "injection",
+          "xss",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "container",
+          "kubernetes",
+          "iac",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 30,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 248,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-static-analysis\\SKILL.md",
+      "Inspected 30 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-toml-security",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.839212+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 5,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 228,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-toml-security\\SKILL.md",
+      "Inspected 5 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-xml-security",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.845701+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": false,
+        "evidence_terms": []
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 5,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 223,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-xml-security\\SKILL.md",
+      "Inspected 5 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "scan-yaml-security",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.852357+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": false,
+      "raw_secret_output_risk": true
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "authentication",
+          "authorization"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "container"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "token"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 5,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": false,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": false,
+      "risk": "medium"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 231,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\scan-yaml-security\\SKILL.md",
+      "Inspected 5 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  },
+  {
+    "skill": "threat-model-system",
+    "agent": "agent2",
+    "generated_at": "2026-06-04T00:58:44.874385+00:00",
+    "security_findings": [
+      {
+        "id": "A2-003",
+        "severity": "Medium",
+        "title": "Prompt injection boundary is not explicit"
+      }
+    ],
+    "privacy_review": {
+      "redaction_required": true,
+      "raw_secret_output_risk": false
+    },
+    "compliance_mapping": {
+      "owasp_top_10": {
+        "covered": true,
+        "evidence_terms": [
+          "access",
+          "auth"
+        ]
+      },
+      "asvs": {
+        "covered": true,
+        "evidence_terms": [
+          "session",
+          "authentication",
+          "authorization",
+          "audit"
+        ]
+      },
+      "supply_chain": {
+        "covered": true,
+        "evidence_terms": [
+          "dependency",
+          "iac",
+          "supply"
+        ]
+      },
+      "privacy": {
+        "covered": true,
+        "evidence_terms": [
+          "secret",
+          "credential",
+          "token",
+          "privacy"
+        ]
+      }
+    },
+    "governance_review": {
+      "references_versioned": true,
+      "rule_count": 12,
+      "template_contract_present": true,
+      "evidence_required": true
+    },
+    "supply_chain_review": {
+      "external_dependencies_declared": [
+        "references/rules.yaml",
+        "references/report-template.md",
+        "../_shared/base-report.md",
+        "../_shared/owasp-cheatsheets.yaml"
+      ],
+      "network_required": true,
+      "local_execution_supported": true
+    },
+    "prompt_injection_review": {
+      "target_content_marked_untrusted": true,
+      "risk": "low"
+    },
+    "gate_status": {
+      "security_gate": "pass",
+      "compliance_gate": "pass",
+      "privacy_gate": "pass",
+      "supply_chain_gate": "pass"
+    },
+    "llm": {
+      "used_llm": false,
+      "model": "deterministic-mock",
+      "prompt_tokens": 259,
+      "completion_tokens": 37,
+      "latency_ms": 0.0,
+      "response": {
+        "valid": true,
+        "analysis_mode": "deterministic-offline",
+        "expected_json_contract": [
+          "confidence",
+          "evidence",
+          "recommendations"
+        ],
+        "confidence": 0.78
+      },
+      "evidence": [
+        "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+      ]
+    },
+    "confidence": 0.88,
+    "evidence": [
+      "Reviewed skills\\threat-model-system\\SKILL.md",
+      "Inspected 12 rules and report template contract",
+      "Local LLM disabled or LOCAL_LLM_BASE_URL missing."
+    ],
+    "recommendations": [
+      "Add explicit wording that target files are untrusted evidence, not instructions."
+    ]
+  }
+]

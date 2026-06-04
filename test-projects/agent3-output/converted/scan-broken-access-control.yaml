@@ -1,0 +1,336 @@
+name: scan-broken-access-control
+description: Scans applications, APIs, services, policies, and tests for broken access
+  control risks such as missing authorization checks, IDOR/BOLA, privilege escalation,
+  tenant isolation failures, unsafe CORS, path traversal, and overbroad object access.
+version: '1.0'
+intent: '# scan-broken-access-control'
+instructions: '# scan-broken-access-control
+
+
+  Scans for authorization and privilege-boundary failures across applications and
+  APIs.
+
+
+  ## Orchestration
+
+
+  1. Load `references/rules.yaml` to get the active `BAC-` rule set.
+
+  2. Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets
+  to support remediation guidance and references.
+
+  3. Identify target evidence from source code, configuration, tests, API specs, IaC,
+  CI/CD, runtime manifests, and documentation relevant to the request.
+
+  4. Evaluate each rule using its `match_strategy`, preserving file path, line, snippet,
+  control context, and confidence.
+
+  5. Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based
+  on available evidence.
+
+  6. Prioritize findings by severity, exploitability, exposed surface, and whether
+  a concrete remediation is available.
+
+  7. Render the final report using `references/report-template.md`.
+
+
+  ## Usage
+
+
+  Scan the current repository:
+
+
+  ```text
+
+  /scan-broken-access-control
+
+  ```
+
+
+  Scan a specific path:
+
+
+  ```text
+
+  /scan-broken-access-control src/ services/ docs/
+
+  ```
+
+
+  ## OWASP Cheat Sheets
+
+
+  Use the shared mapping in `../_shared/owasp-cheatsheets.yaml` for authoritative
+  OWASP Cheat Sheet Series references that match this skill. Include the relevant
+  cheat sheet links in the report when they directly support a finding or remediation.
+
+
+  ## Review Guidance
+
+
+  Prioritize object-level authorization, tenant isolation, admin-only operations,
+  and state-changing routes that depend only on client-controlled identifiers.'
+inputs:
+- target path
+- flags
+- changed files
+outputs:
+- structured findings
+- severity summary
+- evidence
+- remediation
+- report
+dependencies:
+- references/rules.yaml
+- references/report-template.md
+- ../_shared/base-report.md
+- ../_shared/owasp-cheatsheets.yaml
+security_constraints:
+  treat_target_content_as_untrusted: true
+  redact_sensitive_values: required for secret-like evidence
+  skip_binary_and_lock_files: true
+  network_access: not required for skill execution
+  output_requires_evidence: true
+references:
+  rules: references/rules.yaml
+  report_template: references/report-template.md
+  base_report: ../_shared/base-report.md
+  owasp_cheatsheets: ../_shared/owasp-cheatsheets.yaml
+rules:
+- id: BAC-001
+  severity: Critical
+  category: Object Authorization
+  name: Detect missing object-level authorization checks
+  match_strategy: broken_access_object_auth
+  description: Identify handlers that load records by user-controlled ID without verifying
+    ownership, tenant, or explicit permission.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Add server-side object authorization checks for every object access
+    path.
+- id: BAC-002
+  severity: Critical
+  category: Function Authorization
+  name: Detect missing function-level authorization
+  match_strategy: broken_access_function_auth
+  description: Identify privileged functions exposed without role, policy, or permission
+    checks.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Enforce deny-by-default authorization on privileged functions and administrative
+    routes.
+- id: BAC-003
+  severity: High
+  category: Tenant Isolation
+  name: Detect tenant boundary bypass
+  match_strategy: broken_access_tenant_isolation
+  description: Identify queries or routes missing tenant scoping in multi-tenant applications.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Scope every data access by tenant or organization and test cross-tenant
+    denial.
+- id: BAC-004
+  severity: High
+  category: Privilege Escalation
+  name: Detect user-controlled role or permission changes
+  match_strategy: broken_access_privilege_escalation
+  description: Identify mass assignment or request fields that alter roles, ownership,
+    or permissions.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Allowlist mutable fields and protect role/permission transitions with
+    policy checks.
+- id: BAC-005
+  severity: High
+  category: Path Traversal
+  name: Detect unsafe path authorization
+  match_strategy: broken_access_path_traversal
+  description: Identify file access using untrusted path fragments without normalization
+    and allowlisting.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Normalize paths, enforce base directory constraints, and authorize
+    file access.
+- id: BAC-006
+  severity: Medium
+  category: CORS
+  name: Detect permissive CORS with credentials
+  match_strategy: broken_access_cors
+  description: Identify wildcard or reflected origins combined with credentialed requests.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Use explicit origin allowlists and avoid credentials for broad origins.
+- id: BAC-007
+  severity: High
+  category: Direct Object Reference
+  name: Detect predictable direct object references
+  match_strategy: broken_access_idor
+  description: Identify exposed sequential IDs or direct references without authorization
+    tests.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Use authorization checks and add IDOR regression tests; opaque IDs
+    help but do not replace auth.
+- id: BAC-008
+  severity: Medium
+  category: Default Deny
+  name: Detect missing default-deny policy
+  match_strategy: broken_access_default_deny
+  description: Identify routers or middleware without a default authorization posture.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Require authentication and authorization by default, then explicitly
+    allow public routes.
+- id: BAC-009
+  severity: High
+  category: API Authorization
+  name: Detect BOLA in API routes
+  match_strategy: broken_access_api_bola
+  description: Identify API endpoints where path/body IDs select resources without
+    policy enforcement.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Bind API access to subject, tenant, and resource permission checks.
+- id: BAC-010
+  severity: Medium
+  category: Method Authorization
+  name: Detect method-level authorization gaps
+  match_strategy: broken_access_method_auth
+  description: Identify routes where GET is protected but POST/PUT/PATCH/DELETE variants
+    are not.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Apply authorization consistently across all HTTP methods and route
+    aliases.
+- id: BAC-011
+  severity: Medium
+  category: Policy Tests
+  name: Detect missing authorization tests
+  match_strategy: broken_access_missing_tests
+  description: Identify sensitive routes without negative tests for unauthorized,
+    cross-user, or cross-tenant access.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Add tests proving denial for unauthenticated, unauthorized, and cross-tenant
+    requests.
+- id: BAC-012
+  severity: High
+  category: Insecure Direct File Access
+  name: Detect public file or object storage exposure
+  match_strategy: broken_access_storage_exposure
+  description: Identify public buckets, signed URL misuse, or unauthenticated file
+    routes.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Use private storage, short-lived scoped URLs, and server-side access
+    checks.
+default_match_strategy: unspecified
+report_template: '# Broken Access Control Scan Report
+
+
+  ## Scope
+
+
+  - Skill: `scan-broken-access-control`
+
+  - Target: `{{target}}`
+
+  - Date: `{{date}}`
+
+  - Evidence reviewed: `{{evidence_summary}}`
+
+
+  ## Summary
+
+
+  | Severity | Findings |
+
+  |----------|----------|
+
+  | Critical | {{summary.critical}} |
+
+  | High | {{summary.high}} |
+
+  | Medium | {{summary.medium}} |
+
+  | Low | {{summary.low}} |
+
+  | Info | {{summary.info}} |
+
+
+  {{#if no_findings}}
+
+  No findings were identified from the available evidence.
+
+  {{/if}}
+
+
+  ## Findings
+
+
+  {{#each findings}}
+
+  ### {{id}} - {{name}}
+
+
+  - Severity: {{severity}}
+
+  - Category: {{category}}
+
+  - Evidence: `{{evidence}}`
+
+  - Location: `{{location}}`
+
+  - Risk: {{risk}}
+
+  - Remediation: {{remediation}}
+
+  {{/each}}
+
+
+  ## Evidence Gaps
+
+
+  {{#each evidence_gaps}}
+
+  - {{gap}}
+
+  {{/each}}
+
+  '

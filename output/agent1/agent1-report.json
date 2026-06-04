@@ -1,0 +1,3582 @@
+{
+  "agent": "agent1",
+  "generated_at": "2026-06-04T01:45:18.529008+00:00",
+  "schema_version": "1.0",
+  "skills_analyzed": 26,
+  "confidence": 0.84,
+  "skill_results": [
+    {
+      "skill": "audit-asvs-compliance",
+      "generated_at": "2026-06-04T01:45:06.140703+00:00",
+      "confidence": 0.95,
+      "discovery": {
+        "name": "audit-asvs-compliance",
+        "category": "Compliance Validation",
+        "type": "audit",
+        "framework": "LLM-native",
+        "purpose": "Audits an application, API, design, or codebase against OWASP Application Security Verification Standard 5.0 requirements. Use when reviewing ASVS compliance, mapping implementation evidence to ASVS controls, producing an ASVS gap assessment, or checking application security requirements by ASVS level.",
+        "triggers": [
+          "/audit-asvs-compliance",
+          "audit.*asvs",
+          "asvs.*audit",
+          "asvs.*compliance",
+          "application.*security.*verification"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 345,
+        "match_strategies": [
+          "compliance_review"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 183,
+          "Medium": 70,
+          "Critical": 92
+        },
+        "rules_bytes": 536384,
+        "rules_truncated_at_60kb": true
+      },
+      "functional": {
+        "problem_solved": "Audits an application, API, design, or codebase against OWASP Application Security Verification Standard 5.0 requirements. Use when reviewing ASVS compliance, mapping implementation evidence to ASVS controls, producing an ASVS gap assessment, or checking application security requirements by ASVS level.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1770,
+        "completion_tokens": 232,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\audit-asvs-compliance\\SKILL.md",
+        "Read skills\\audit-asvs-compliance\\references\\rules.yaml (345 rules)"
+      ],
+      "execution_ms": 340.13
+    },
+    {
+      "skill": "audit-auth-session-management",
+      "generated_at": "2026-06-04T01:45:06.147076+00:00",
+      "confidence": 0.82,
+      "discovery": {
+        "name": "audit-auth-session-management",
+        "category": "Compliance Validation",
+        "type": "audit",
+        "framework": "LLM-native",
+        "purpose": "Audits authentication and session management for password handling, MFA, session cookies, JWT validation, OAuth/OIDC/SAML flows, account recovery, brute force protection, credential stuffing defenses, and authentication failure handling.",
+        "triggers": [
+          "/audit-auth-session-management",
+          "audit.*auth",
+          "session.*management",
+          "jwt.*security",
+          "oauth.*security",
+          "mfa"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 12,
+        "match_strategies": [
+          "auth_bruteforce",
+          "auth_cookie_flags",
+          "auth_credential_stuffing",
+          "auth_enumeration",
+          "auth_jwt_validation",
+          "auth_logout_revocation",
+          "auth_mfa_sensitive",
+          "auth_oauth_redirect",
+          "auth_password_storage",
+          "auth_recovery",
+          "auth_saml_validation",
+          "auth_session_rotation"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 2,
+          "High": 6,
+          "Medium": 4
+        },
+        "rules_bytes": 6357,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Audits authentication and session management for password handling, MFA, session cookies, JWT validation, OAuth/OIDC/SAML flows, account recovery, brute force protection, credential stuffing defenses, and authentication failure handling.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 884,
+        "completion_tokens": 215,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\audit-auth-session-management\\SKILL.md",
+        "Read skills\\audit-auth-session-management\\references\\rules.yaml (12 rules)"
+      ],
+      "execution_ms": 5.77
+    },
+    {
+      "skill": "audit-crypto-usage",
+      "generated_at": "2026-06-04T01:45:06.153428+00:00",
+      "confidence": 0.82,
+      "discovery": {
+        "name": "audit-crypto-usage",
+        "category": "Compliance Validation",
+        "type": "audit",
+        "framework": "LLM-native",
+        "purpose": "Audits code and configuration for cryptographic failures including weak algorithms, insecure random number generation, poor key management, unsafe TLS, missing encryption, weak password hashing, hardcoded keys, and misuse of crypto APIs.",
+        "triggers": [
+          "/audit-crypto-usage",
+          "audit.*crypto",
+          "cryptographic.*failure",
+          "weak.*cipher",
+          "key.*management",
+          "password.*hash"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 12,
+        "match_strategies": [
+          "crypto_cert_lifecycle",
+          "crypto_custom",
+          "crypto_hardcoded_key",
+          "crypto_insecure_random",
+          "crypto_jwt_signing",
+          "crypto_key_rotation",
+          "crypto_log_exposure",
+          "crypto_nonce_reuse",
+          "crypto_password_hash",
+          "crypto_storage",
+          "crypto_tls_verify_disabled",
+          "crypto_weak_algorithm"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 3,
+          "High": 5,
+          "Medium": 4
+        },
+        "rules_bytes": 6268,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Audits code and configuration for cryptographic failures including weak algorithms, insecure random number generation, poor key management, unsafe TLS, missing encryption, weak password hashing, hardcoded keys, and misuse of crypto APIs.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 889,
+        "completion_tokens": 215,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\audit-crypto-usage\\SKILL.md",
+        "Read skills\\audit-crypto-usage\\references\\rules.yaml (12 rules)"
+      ],
+      "execution_ms": 6.26
+    },
+    {
+      "skill": "audit-logging-monitoring",
+      "generated_at": "2026-06-04T01:45:06.159545+00:00",
+      "confidence": 0.82,
+      "discovery": {
+        "name": "audit-logging-monitoring",
+        "category": "Compliance Validation",
+        "type": "audit",
+        "framework": "LLM-native",
+        "purpose": "Audits security logging and alerting controls for missing audit events, weak monitoring, sensitive data in logs, log injection, insufficient retention, tamper-prone logs, and missing detection for authentication, authorization, administrative, and data access events.",
+        "triggers": [
+          "/audit-logging-monitoring",
+          "audit.*logging",
+          "security.*logging",
+          "alerting.*failure",
+          "monitoring.*gap",
+          "audit.*trail"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 12,
+        "match_strategies": [
+          "log_admin_events",
+          "log_alerting",
+          "log_auth_events",
+          "log_authz_events",
+          "log_correlation",
+          "log_exception_monitoring",
+          "log_injection",
+          "log_integrity",
+          "log_pii_leakage",
+          "log_retention",
+          "log_runbooks",
+          "log_sensitive_access"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 7,
+          "Medium": 4,
+          "Info": 1
+        },
+        "rules_bytes": 5997,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Audits security logging and alerting controls for missing audit events, weak monitoring, sensitive data in logs, log injection, insufficient retention, tamper-prone logs, and missing detection for authentication, authorization, administrative, and data access events.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 871,
+        "completion_tokens": 223,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\audit-logging-monitoring\\SKILL.md",
+        "Read skills\\audit-logging-monitoring\\references\\rules.yaml (12 rules)"
+      ],
+      "execution_ms": 5.87
+    },
+    {
+      "skill": "detect-secrets",
+      "generated_at": "2026-06-04T01:45:06.388613+00:00",
+      "confidence": 0.95,
+      "discovery": {
+        "name": "detect-secrets",
+        "category": "Secrets Detection",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Detects hardcoded secrets, credentials, and sensitive tokens committed to source code",
+        "triggers": [
+          "/detect-secrets",
+          "detect.*secret",
+          "secret.*detect",
+          "find.*credential",
+          "scan.*token"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 393,
+        "match_strategies": [],
+        "default_match_strategy": "regex",
+        "severity_distribution": {
+          "Critical": 42,
+          "High": 124,
+          "Medium": 207,
+          "Low": 16,
+          "Info": 4
+        },
+        "rules_bytes": 285708,
+        "rules_truncated_at_60kb": true
+      },
+      "functional": {
+        "problem_solved": "Detects hardcoded secrets, credentials, and sensitive tokens committed to source code",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1114,
+        "completion_tokens": 177,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\detect-secrets\\SKILL.md",
+        "Read skills\\detect-secrets\\references\\rules.yaml (393 rules)"
+      ],
+      "execution_ms": 228.98
+    },
+    {
+      "skill": "detect-supply-chain-risks",
+      "generated_at": "2026-06-04T01:45:06.396044+00:00",
+      "confidence": 0.9,
+      "discovery": {
+        "name": "detect-supply-chain-risks",
+        "category": "SCA",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Detects software supply chain risks across repositories, dependency manifests, package registries, CI/CD workflows, container references, release artifacts, build scripts, and provenance evidence. Use when reviewing dependency confusion, typosquatting, unpinned GitHub Actions, mutable image tags, unsigned artifacts, missing SBOM/provenance, unsafe package install scripts, weak CI permissions, registry trust, or software/data integrity failures.",
+        "triggers": [
+          "/detect-supply-chain-risks",
+          "detect.*supply.*chain",
+          "scan.*supply.*chain",
+          "dependency.*confusion",
+          "typosquatting",
+          "unpinned.*action",
+          "artifact.*provenance",
+          "software.*integrity"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 20,
+        "match_strategies": [
+          "supply_chain_build_isolation",
+          "supply_chain_ci_injection",
+          "supply_chain_ci_permissions",
+          "supply_chain_dependency_bot_governance",
+          "supply_chain_dependency_confusion",
+          "supply_chain_install_scripts",
+          "supply_chain_maintainer_identity",
+          "supply_chain_missing_integrity_hash",
+          "supply_chain_missing_lockfile",
+          "supply_chain_missing_provenance",
+          "supply_chain_missing_sbom",
+          "supply_chain_mutable_container_image",
+          "supply_chain_registry_trust",
+          "supply_chain_reproducible_builds",
+          "supply_chain_secret_exposure",
+          "supply_chain_typosquatting",
+          "supply_chain_unpinned_github_actions",
+          "supply_chain_unprotected_release_refs",
+          "supply_chain_unsigned_artifacts",
+          "supply_chain_unverified_download"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 3,
+          "High": 13,
+          "Medium": 4
+        },
+        "rules_bytes": 9850,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Detects software supply chain risks across repositories, dependency manifests, package registries, CI/CD workflows, container references, release artifacts, build scripts, and provenance evidence. Use when reviewing dependency confusion, typosquatting, unpinned GitHub Actions, mutable image tags, unsigned artifacts, missing SBOM/provenance, unsafe package install scripts, weak CI permissions, registry trust, or software/data integrity failures.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1137,
+        "completion_tokens": 268,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\detect-supply-chain-risks\\SKILL.md",
+        "Read skills\\detect-supply-chain-risks\\references\\rules.yaml (20 rules)"
+      ],
+      "execution_ms": 7.03
+    },
+    {
+      "skill": "generate-dependency-graph",
+      "generated_at": "2026-06-04T01:45:06.400744+00:00",
+      "confidence": 0.8,
+      "discovery": {
+        "name": "generate-dependency-graph",
+        "category": "SBOM",
+        "type": "generation",
+        "framework": "LLM-native",
+        "purpose": "Generates dependency graphs for applications, repositories, containers, and SBOMs, including direct and transitive package relationships, dependency paths, parent chains, ownership hints, vulnerable package impact paths, and call graph or reachability evidence when available.",
+        "triggers": [
+          "/generate-dependency-graph",
+          "dependency.*graph",
+          "transitive.*dependency",
+          "dependency.*path",
+          "call.*graph",
+          "reachability.*analysis"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 10,
+        "match_strategies": [
+          "depgraph_container_layers",
+          "depgraph_direct",
+          "depgraph_export",
+          "depgraph_freshness",
+          "depgraph_multiple_paths",
+          "depgraph_ownership",
+          "depgraph_reachability",
+          "depgraph_shortest_path",
+          "depgraph_transitive",
+          "depgraph_vuln_impact"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 3,
+          "Medium": 6,
+          "Info": 1
+        },
+        "rules_bytes": 5013,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Generates dependency graphs for applications, repositories, containers, and SBOMs, including direct and transitive package relationships, dependency paths, parent chains, ownership hints, vulnerable package impact paths, and call graph or reachability evidence when available.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 862,
+        "completion_tokens": 225,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\generate-dependency-graph\\SKILL.md",
+        "Read skills\\generate-dependency-graph\\references\\rules.yaml (10 rules)"
+      ],
+      "execution_ms": 4.59
+    },
+    {
+      "skill": "generate-sbom",
+      "generated_at": "2026-06-04T01:45:06.405730+00:00",
+      "confidence": 0.8,
+      "discovery": {
+        "name": "generate-sbom",
+        "category": "SBOM",
+        "type": "generation",
+        "framework": "LLM-native",
+        "purpose": "Generates or reviews software bills of materials for applications, repositories, containers, SBOM files, and release artifacts using SPDX or CycloneDX conventions. Use when the user asks for SBOM generation, dependency inventory, component inventory, package URLs, image SBOMs, license inventory, or release artifact component metadata.",
+        "triggers": [
+          "/generate-sbom",
+          "generate.*sbom",
+          "software.*bill.*materials",
+          "cyclonedx",
+          "spdx",
+          "dependency.*inventory"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 10,
+        "match_strategies": [
+          "sbom_component_identity",
+          "sbom_container",
+          "sbom_format",
+          "sbom_freshness",
+          "sbom_hashes",
+          "sbom_license",
+          "sbom_relationships",
+          "sbom_release",
+          "sbom_validation",
+          "sbom_vex"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 4,
+          "Medium": 5,
+          "Info": 1
+        },
+        "rules_bytes": 4815,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Generates or reviews software bills of materials for applications, repositories, containers, SBOM files, and release artifacts using SPDX or CycloneDX conventions. Use when the user asks for SBOM generation, dependency inventory, component inventory, package URLs, image SBOMs, license inventory, or release artifact component metadata.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 879,
+        "completion_tokens": 240,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\generate-sbom\\SKILL.md",
+        "Read skills\\generate-sbom\\references\\rules.yaml (10 rules)"
+      ],
+      "execution_ms": 4.91
+    },
+    {
+      "skill": "scan-api-security",
+      "generated_at": "2026-06-04T01:45:06.409421+00:00",
+      "confidence": 0.76,
+      "discovery": {
+        "name": "scan-api-security",
+        "category": "API Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans API implementations, gateway configs, and OpenAPI definitions for common API security risks aligned to OWASP API Security Top 10 2023.",
+        "triggers": [
+          "/scan-api-security",
+          "scan.*api.*security",
+          "api.*security.*scan",
+          "review.*api.*security",
+          "check.*api.*auth"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 6,
+        "match_strategies": [
+          "regex"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 2,
+          "Medium": 3,
+          "Low": 1
+        },
+        "rules_bytes": 3588,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans API implementations, gateway configs, and OpenAPI definitions for common API security risks aligned to OWASP API Security Top 10 2023.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1011,
+        "completion_tokens": 191,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-api-security\\SKILL.md",
+        "Read skills\\scan-api-security\\references\\rules.yaml (6 rules)"
+      ],
+      "execution_ms": 3.6
+    },
+    {
+      "skill": "scan-broken-access-control",
+      "generated_at": "2026-06-04T01:45:06.414875+00:00",
+      "confidence": 0.82,
+      "discovery": {
+        "name": "scan-broken-access-control",
+        "category": "SAST",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans applications, APIs, services, policies, and tests for broken access control risks such as missing authorization checks, IDOR/BOLA, privilege escalation, tenant isolation failures, unsafe CORS, path traversal, and overbroad object access.",
+        "triggers": [
+          "/scan-broken-access-control",
+          "scan.*broken.*access",
+          "access.*control",
+          "idor",
+          "bola",
+          "authorization.*bypass"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 12,
+        "match_strategies": [
+          "broken_access_api_bola",
+          "broken_access_cors",
+          "broken_access_default_deny",
+          "broken_access_function_auth",
+          "broken_access_idor",
+          "broken_access_method_auth",
+          "broken_access_missing_tests",
+          "broken_access_object_auth",
+          "broken_access_path_traversal",
+          "broken_access_privilege_escalation",
+          "broken_access_storage_exposure",
+          "broken_access_tenant_isolation"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 2,
+          "High": 6,
+          "Medium": 4
+        },
+        "rules_bytes": 6503,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans applications, APIs, services, policies, and tests for broken access control risks such as missing authorization checks, IDOR/BOLA, privilege escalation, tenant isolation failures, unsafe CORS, path traversal, and overbroad object access.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 907,
+        "completion_tokens": 217,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-broken-access-control\\SKILL.md",
+        "Read skills\\scan-broken-access-control\\references\\rules.yaml (12 rules)"
+      ],
+      "execution_ms": 5.38
+    },
+    {
+      "skill": "scan-container-image",
+      "generated_at": "2026-06-04T01:45:06.575217+00:00",
+      "confidence": 0.95,
+      "discovery": {
+        "name": "scan-container-image",
+        "category": "Container Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans Dockerfiles, container image build configuration, Docker daemon/runtime configuration, Docker Compose files, Kubernetes container specs, and Docker host evidence against CIS Docker Benchmark v1.8.0 controls and OWASP Docker Top 10. Use when reviewing Docker or container security hardening, container image risks, Docker daemon settings, container runtime flags, Docker Swarm settings, CIS Docker compliance, or OWASP container security.",
+        "triggers": [
+          "/scan-container-image",
+          "scan.*container.*image",
+          "docker.*benchmark",
+          "cis.*docker",
+          "docker.*security",
+          "container.*runtime.*security",
+          "owasp.*docker",
+          "docker.*top.10"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 128,
+        "match_strategies": [
+          "cis_docker_review",
+          "design_review"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Low": 28,
+          "High": 46,
+          "Medium": 52,
+          "Critical": 2
+        },
+        "rules_bytes": 345143,
+        "rules_truncated_at_60kb": true
+      },
+      "functional": {
+        "problem_solved": "Scans Dockerfiles, container image build configuration, Docker daemon/runtime configuration, Docker Compose files, Kubernetes container specs, and Docker host evidence against CIS Docker Benchmark v1.8.0 controls and OWASP Docker Top 10. Use when reviewing Docker or container security hardening, container image risks, Docker daemon settings, container runtime flags, Docker Swarm settings, CIS Docker compliance, or OWASP container security.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 2449,
+        "completion_tokens": 267,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-container-image\\SKILL.md",
+        "Read skills\\scan-container-image\\references\\rules.yaml (128 rules)"
+      ],
+      "execution_ms": 160.27
+    },
+    {
+      "skill": "scan-exception-handling",
+      "generated_at": "2026-06-04T01:45:06.580145+00:00",
+      "confidence": 0.8,
+      "discovery": {
+        "name": "scan-exception-handling",
+        "category": "SAST",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans code and configuration for mishandling of exceptional conditions including verbose error disclosure, fail-open authorization, swallowed security exceptions, unsafe retries, missing rollback, crash loops, inconsistent error responses, and exception paths that bypass validation or logging.",
+        "triggers": [
+          "/scan-exception-handling",
+          "exception.*handling",
+          "error.*handling",
+          "mishandling.*exception",
+          "fail.*open",
+          "verbose.*error"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 10,
+        "match_strategies": [
+          "exception_crash_artifacts",
+          "exception_deserialization",
+          "exception_enumeration",
+          "exception_fail_open",
+          "exception_missing_logs",
+          "exception_missing_rollback",
+          "exception_parser",
+          "exception_retry_storm",
+          "exception_swallowed_security",
+          "exception_verbose_response"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 4,
+          "Medium": 6
+        },
+        "rules_bytes": 5206,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans code and configuration for mishandling of exceptional conditions including verbose error disclosure, fail-open authorization, swallowed security exceptions, unsafe retries, missing rollback, crash loops, inconsistent error responses, and exception paths that bypass validation or logging.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 889,
+        "completion_tokens": 229,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-exception-handling\\SKILL.md",
+        "Read skills\\scan-exception-handling\\references\\rules.yaml (10 rules)"
+      ],
+      "execution_ms": 4.74
+    },
+    {
+      "skill": "scan-for-injection",
+      "generated_at": "2026-06-04T01:45:06.585152+00:00",
+      "confidence": 0.77,
+      "discovery": {
+        "name": "scan-for-injection",
+        "category": "SAST",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans source code for injection vulnerabilities mapped to OWASP 2025 Injection coverage, including SQL, command, code, NoSQL, LDAP, XXE/XML, and expression language injection.",
+        "triggers": [
+          "/scan-for-injection",
+          "scan.*injection",
+          "detect.*injection",
+          "check.*sql.*injection",
+          "check.*command.*injection"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 7,
+        "match_strategies": [
+          "regex"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 3,
+          "High": 4
+        },
+        "rules_bytes": 5951,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans source code for injection vulnerabilities mapped to OWASP 2025 Injection coverage, including SQL, command, code, NoSQL, LDAP, XXE/XML, and expression language injection.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1059,
+        "completion_tokens": 200,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-for-injection\\SKILL.md",
+        "Read skills\\scan-for-injection\\references\\rules.yaml (7 rules)"
+      ],
+      "execution_ms": 4.93
+    },
+    {
+      "skill": "scan-for-ssrf",
+      "generated_at": "2026-06-04T01:45:06.592725+00:00",
+      "confidence": 0.78,
+      "discovery": {
+        "name": "scan-for-ssrf",
+        "category": "SAST",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Detects Server-Side Request Forgery (SSRF) vulnerabilities including user-controlled HTTP sinks, cloud metadata endpoint access, internal network probing, and unsafe redirect patterns. Use when reviewing code that makes outbound HTTP requests, fetches remote URLs, or accepts hostnames from user input.",
+        "triggers": [
+          "/scan-for-ssrf",
+          "ssrf",
+          "server.side request forgery",
+          "user.*controlled.*url",
+          "cloud.*metadata.*fetch"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 8,
+        "match_strategies": [
+          "regex",
+          "resource_context"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 2,
+          "High": 4,
+          "Medium": 2
+        },
+        "rules_bytes": 12295,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Detects Server-Side Request Forgery (SSRF) vulnerabilities including user-controlled HTTP sinks, cloud metadata endpoint access, internal network probing, and unsafe redirect patterns. Use when reviewing code that makes outbound HTTP requests, fetches remote URLs, or accepts hostnames from user input.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1704,
+        "completion_tokens": 231,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-for-ssrf\\SKILL.md",
+        "Read skills\\scan-for-ssrf\\references\\rules.yaml (8 rules)"
+      ],
+      "execution_ms": 7.49
+    },
+    {
+      "skill": "scan-for-xss",
+      "generated_at": "2026-06-04T01:45:06.598160+00:00",
+      "confidence": 0.82,
+      "discovery": {
+        "name": "scan-for-xss",
+        "category": "SAST",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans frontend and backend code for cross-site scripting risks including reflected XSS, stored XSS, DOM XSS, unsafe HTML sinks, unsafe template rendering, missing output encoding, sanitizer misuse, unsafe markdown rendering, and weak Content Security Policy.",
+        "triggers": [
+          "/scan-for-xss",
+          "scan.*xss",
+          "cross.*site.*scripting",
+          "dom.*xss",
+          "unsafe.*innerHTML"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 12,
+        "match_strategies": [
+          "xss_csp_gap",
+          "xss_dom",
+          "xss_inner_html",
+          "xss_markdown",
+          "xss_missing_tests",
+          "xss_postmessage",
+          "xss_reflected",
+          "xss_sanitizer_misuse",
+          "xss_script_context",
+          "xss_stored",
+          "xss_template_escape_disabled",
+          "xss_url_context"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 2,
+          "High": 5,
+          "Medium": 5
+        },
+        "rules_bytes": 6083,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans frontend and backend code for cross-site scripting risks including reflected XSS, stored XSS, DOM XSS, unsafe HTML sinks, unsafe template rendering, missing output encoding, sanitizer misuse, unsafe markdown rendering, and weak Content Security Policy.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 865,
+        "completion_tokens": 220,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-for-xss\\SKILL.md",
+        "Read skills\\scan-for-xss\\references\\rules.yaml (12 rules)"
+      ],
+      "execution_ms": 5.35
+    },
+    {
+      "skill": "scan-iac-security",
+      "generated_at": "2026-06-04T01:45:06.872862+00:00",
+      "confidence": 0.95,
+      "discovery": {
+        "name": "scan-iac-security",
+        "category": "IaC Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans infrastructure-as-code changes for security misconfigurations in Terraform, CloudFormation, ARM/Bicep, Pulumi config, and related IaC files.",
+        "triggers": [
+          "/scan-iac-security",
+          "scan.*iac",
+          "iac.*security",
+          "check.*terraform",
+          "scan.*infrastructure"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 1746,
+        "match_strategies": [
+          "checkov_graph_check",
+          "regex",
+          "resource_context",
+          "synthesized_checkov_python"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 3,
+          "High": 4,
+          "Medium": 1738,
+          "Low": 1
+        },
+        "rules_bytes": 2174438,
+        "rules_truncated_at_60kb": true
+      },
+      "functional": {
+        "problem_solved": "Scans infrastructure-as-code changes for security misconfigurations in Terraform, CloudFormation, ARM/Bicep, Pulumi config, and related IaC files.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1100,
+        "completion_tokens": 192,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-iac-security\\SKILL.md",
+        "Read skills\\scan-iac-security\\references\\rules.yaml (1746 rules)"
+      ],
+      "execution_ms": 274.62
+    },
+    {
+      "skill": "scan-json-security",
+      "generated_at": "2026-06-04T01:45:06.876209+00:00",
+      "confidence": 0.75,
+      "discovery": {
+        "name": "scan-json-security",
+        "category": "Config Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans JSON configuration, package metadata, policy files, and API fragments for security risks including disabled auth, permissive CORS, plaintext credentials, insecure TLS flags, dependency scripts, and debug exposure.",
+        "triggers": [
+          "/scan-json-security",
+          "scan.*json.*security",
+          "review.*json.*config",
+          "check.*json.*secrets",
+          "audit.*package.*json"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 5,
+        "match_strategies": [],
+        "default_match_strategy": "regex",
+        "severity_distribution": {
+          "High": 2,
+          "Medium": 3
+        },
+        "rules_bytes": 2111,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans JSON configuration, package metadata, policy files, and API fragments for security risks including disabled auth, permissive CORS, plaintext credentials, insecure TLS flags, dependency scripts, and debug exposure.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 702,
+        "completion_tokens": 211,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-json-security\\SKILL.md",
+        "Read skills\\scan-json-security\\references\\rules.yaml (5 rules)"
+      ],
+      "execution_ms": 3.09
+    },
+    {
+      "skill": "scan-kubernetes-manifests",
+      "generated_at": "2026-06-04T01:45:06.997079+00:00",
+      "confidence": 0.95,
+      "discovery": {
+        "name": "scan-kubernetes-manifests",
+        "category": "Kubernetes Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans Kubernetes manifests, Helm charts, kubeadm/static pod files, kubelet configuration, RBAC, namespaces, network policies, admission controls, and cluster evidence against Kubernetes security benchmark controls. Use when reviewing Kubernetes YAML, cluster hardening, CIS Kubernetes benchmark evidence, pod security, control plane settings, worker node settings, RBAC, service accounts, network policy, or secrets management.",
+        "triggers": [
+          "/scan-kubernetes-manifests",
+          "scan.*kubernetes",
+          "scan.*k8s",
+          "kubernetes.*benchmark",
+          "cis.*kubernetes",
+          "k8s.*security"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 131,
+        "match_strategies": [
+          "cis_kubernetes_review"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Low": 37,
+          "High": 58,
+          "Medium": 36
+        },
+        "rules_bytes": 207894,
+        "rules_truncated_at_60kb": true
+      },
+      "functional": {
+        "problem_solved": "Scans Kubernetes manifests, Helm charts, kubeadm/static pod files, kubelet configuration, RBAC, namespaces, network policies, admission controls, and cluster evidence against Kubernetes security benchmark controls. Use when reviewing Kubernetes YAML, cluster hardening, CIS Kubernetes benchmark evidence, pod security, control plane settings, worker node settings, RBAC, service accounts, network policy, or secrets management.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1886,
+        "completion_tokens": 263,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-kubernetes-manifests\\SKILL.md",
+        "Read skills\\scan-kubernetes-manifests\\references\\rules.yaml (131 rules)"
+      ],
+      "execution_ms": 120.78
+    },
+    {
+      "skill": "scan-markdown-security",
+      "generated_at": "2026-06-04T01:45:07.000082+00:00",
+      "confidence": 0.75,
+      "discovery": {
+        "name": "scan-markdown-security",
+        "category": "Config Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans Markdown documentation, runbooks, READMEs, and design notes for security risks including leaked credentials, unsafe operational commands, disabled security controls, insecure examples, and missing threat-model evidence.",
+        "triggers": [
+          "/scan-markdown-security",
+          "scan.*markdown.*security",
+          "scan.*md.*security",
+          "review.*runbook.*security",
+          "check.*readme.*secrets"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 5,
+        "match_strategies": [],
+        "default_match_strategy": "regex",
+        "severity_distribution": {
+          "High": 1,
+          "Medium": 3,
+          "Low": 1
+        },
+        "rules_bytes": 2392,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans Markdown documentation, runbooks, READMEs, and design notes for security risks including leaked credentials, unsafe operational commands, disabled security controls, insecure examples, and missing threat-model evidence.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 716,
+        "completion_tokens": 212,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-markdown-security\\SKILL.md",
+        "Read skills\\scan-markdown-security\\references\\rules.yaml (5 rules)"
+      ],
+      "execution_ms": 2.82
+    },
+    {
+      "skill": "scan-sca-dependencies",
+      "generated_at": "2026-06-04T01:45:07.014765+00:00",
+      "confidence": 0.95,
+      "discovery": {
+        "name": "scan-sca-dependencies",
+        "category": "SCA",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Detects vulnerable third-party packages and evaluates OWASP OSS Top 10 risks across application dependency manifests, lockfiles, SBOMs, container images, OS package inventories, and build artifacts. Use when the user asks to find vulnerable packages, vulnerable dependencies, CVEs, package versions, severity, fixed versions, SCA findings, image vulnerabilities, dependency vulnerability reports, unmaintained packages, license risk, name confusion attacks, or supply chain integrity gaps.",
+        "triggers": [
+          "/scan-sca-dependencies",
+          "scan.*dependencies",
+          "scan.*vulnerable.*packages",
+          "detect.*vulnerable.*packages",
+          "dependency.*cve",
+          "container.*cve",
+          "image.*vulnerabilit",
+          "sca.*scan",
+          "owasp.*oss",
+          "oss.*risk",
+          "unmaintained.*package",
+          "license.*risk"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 28,
+        "match_strategies": [
+          "design_review",
+          "sca_application_dependencies",
+          "sca_base_image",
+          "sca_container_os_packages",
+          "sca_database_freshness",
+          "sca_deduplicate",
+          "sca_dependency_path",
+          "sca_dependency_relationship",
+          "sca_dependency_scope",
+          "sca_fixed_version",
+          "sca_known_exploited",
+          "sca_no_fix",
+          "sca_reachability",
+          "sca_sbom_vulnerability",
+          "sca_severity_threshold",
+          "sca_structured_output",
+          "sca_transitive_remediation_owner",
+          "sca_vulnerability_normalization"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "Critical": 5,
+          "High": 14,
+          "Medium": 8,
+          "Low": 1
+        },
+        "rules_bytes": 28365,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Detects vulnerable third-party packages and evaluates OWASP OSS Top 10 risks across application dependency manifests, lockfiles, SBOMs, container images, OS package inventories, and build artifacts. Use when the user asks to find vulnerable packages, vulnerable dependencies, CVEs, package versions, severity, fixed versions, SCA findings, image vulnerabilities, dependency vulnerability reports, unmaintained packages, license risk, name confusion attacks, or supply chain integrity gaps.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1141,
+        "completion_tokens": 278,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-sca-dependencies\\SKILL.md",
+        "Read skills\\scan-sca-dependencies\\references\\rules.yaml (28 rules)"
+      ],
+      "execution_ms": 14.61
+    },
+    {
+      "skill": "scan-security-headers",
+      "generated_at": "2026-06-04T01:45:07.020077+00:00",
+      "confidence": 0.82,
+      "discovery": {
+        "name": "scan-security-headers",
+        "category": "SAST",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans web applications, APIs, reverse proxies, CDN configuration, and middleware for missing or unsafe HTTP security headers, cookie flags, CORS policy, CSP, HSTS, clickjacking protections, MIME sniffing protections, referrer policy, and browser-facing misconfiguration.",
+        "triggers": [
+          "/scan-security-headers",
+          "security.*headers",
+          "http.*headers",
+          "csp",
+          "hsts",
+          "cors.*header",
+          "cookie.*flags"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 12,
+        "match_strategies": [
+          "header_cache_sensitive",
+          "header_cookie_flags",
+          "header_cors",
+          "header_cross_origin_isolation",
+          "header_csp",
+          "header_frame",
+          "header_hsts",
+          "header_nosniff",
+          "header_permissions_policy",
+          "header_referrer",
+          "header_server_disclosure",
+          "header_xss_protection"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 5,
+          "Medium": 6,
+          "Low": 1
+        },
+        "rules_bytes": 5983,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans web applications, APIs, reverse proxies, CDN configuration, and middleware for missing or unsafe HTTP security headers, cookie flags, CORS policy, CSP, HSTS, clickjacking protections, MIME sniffing protections, referrer policy, and browser-facing misconfiguration.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 856,
+        "completion_tokens": 223,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-security-headers\\SKILL.md",
+        "Read skills\\scan-security-headers\\references\\rules.yaml (12 rules)"
+      ],
+      "execution_ms": 5.23
+    },
+    {
+      "skill": "scan-static-analysis",
+      "generated_at": "2026-06-04T01:45:07.048663+00:00",
+      "confidence": 0.95,
+      "discovery": {
+        "name": "scan-static-analysis",
+        "category": "SAST",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Runs or plans static analysis using CodeQL, Semgrep, and SARIF processing. Use when scanning a workspace for vulnerabilities, selecting CodeQL or Semgrep rulesets, generating a SAST scan plan, processing SARIF results, or combining static-analysis findings from multiple tools.",
+        "triggers": [
+          "/scan-static-analysis",
+          "static.*analysis",
+          "run.*sast",
+          "codeql.*scan",
+          "semgrep.*scan",
+          "parse.*sarif",
+          "process.*sarif"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 30,
+        "match_strategies": [
+          "command_requirement",
+          "framework_detection",
+          "infrastructure_ruleset",
+          "language_ruleset",
+          "quality_gate",
+          "result_processing",
+          "ruleset",
+          "ruleset_catalog",
+          "ruleset_filter",
+          "third_party_ruleset",
+          "threat_model",
+          "workflow_rule"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 8,
+          "Medium": 18,
+          "Low": 4
+        },
+        "rules_bytes": 32266,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Runs or plans static analysis using CodeQL, Semgrep, and SARIF processing. Use when scanning a workspace for vulnerabilities, selecting CodeQL or Semgrep rulesets, generating a SAST scan plan, processing SARIF results, or combining static-analysis findings from multiple tools.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1391,
+        "completion_tokens": 225,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-static-analysis\\SKILL.md",
+        "Read skills\\scan-static-analysis\\references\\rules.yaml (30 rules)"
+      ],
+      "execution_ms": 28.51
+    },
+    {
+      "skill": "scan-toml-security",
+      "generated_at": "2026-06-04T01:45:07.051415+00:00",
+      "confidence": 0.75,
+      "discovery": {
+        "name": "scan-toml-security",
+        "category": "Config Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans TOML configuration files including pyproject, Cargo, service, and application configs for plaintext credentials, disabled TLS, debug mode, wildcard exposure, and unsafe dependency source settings.",
+        "triggers": [
+          "/scan-toml-security",
+          "scan.*toml.*security",
+          "review.*toml.*config",
+          "check.*pyproject.*security",
+          "audit.*cargo.*config"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 5,
+        "match_strategies": [],
+        "default_match_strategy": "regex",
+        "severity_distribution": {
+          "High": 1,
+          "Medium": 3,
+          "Low": 1
+        },
+        "rules_bytes": 1996,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans TOML configuration files including pyproject, Cargo, service, and application configs for plaintext credentials, disabled TLS, debug mode, wildcard exposure, and unsafe dependency source settings.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 671,
+        "completion_tokens": 206,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-toml-security\\SKILL.md",
+        "Read skills\\scan-toml-security\\references\\rules.yaml (5 rules)"
+      ],
+      "execution_ms": 2.63
+    },
+    {
+      "skill": "scan-xml-security",
+      "generated_at": "2026-06-04T01:45:07.054305+00:00",
+      "confidence": 0.75,
+      "discovery": {
+        "name": "scan-xml-security",
+        "category": "Config Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans XML files including application configs, manifests, SAML metadata, SOAP definitions, and parser settings for XXE, insecure parser flags, plaintext credentials, weak transport, and disabled security constraints.",
+        "triggers": [
+          "/scan-xml-security",
+          "scan.*xml.*security",
+          "review.*xml.*config",
+          "check.*xxe",
+          "audit.*saml.*xml"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 5,
+        "match_strategies": [],
+        "default_match_strategy": "regex",
+        "severity_distribution": {
+          "High": 2,
+          "Medium": 2,
+          "Low": 1
+        },
+        "rules_bytes": 2121,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans XML files including application configs, manifests, SAML metadata, SOAP definitions, and parser settings for XXE, insecure parser flags, plaintext credentials, weak transport, and disabled security constraints.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 686,
+        "completion_tokens": 210,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-xml-security\\SKILL.md",
+        "Read skills\\scan-xml-security\\references\\rules.yaml (5 rules)"
+      ],
+      "execution_ms": 2.82
+    },
+    {
+      "skill": "scan-yaml-security",
+      "generated_at": "2026-06-04T01:45:07.057670+00:00",
+      "confidence": 0.75,
+      "discovery": {
+        "name": "scan-yaml-security",
+        "category": "Config Security",
+        "type": "detection",
+        "framework": "LLM-native",
+        "purpose": "Scans YAML and YML configuration files for security risks including disabled authentication, wildcard exposure, plaintext secrets, insecure TLS flags, privileged workload settings, and unsafe deserialization hints.",
+        "triggers": [
+          "/scan-yaml-security",
+          "scan.*yaml.*security",
+          "scan.*yml.*security",
+          "review.*yaml.*config",
+          "check.*yaml.*secrets"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 5,
+        "match_strategies": [],
+        "default_match_strategy": "regex",
+        "severity_distribution": {
+          "High": 3,
+          "Medium": 2
+        },
+        "rules_bytes": 2270,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Scans YAML and YML configuration files for security risks including disabled authentication, wildcard exposure, plaintext secrets, insecure TLS flags, privileged workload settings, and unsafe deserialization hints.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 726,
+        "completion_tokens": 209,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\scan-yaml-security\\SKILL.md",
+        "Read skills\\scan-yaml-security\\references\\rules.yaml (5 rules)"
+      ],
+      "execution_ms": 3.28
+    },
+    {
+      "skill": "threat-model-system",
+      "generated_at": "2026-06-04T01:45:07.067450+00:00",
+      "confidence": 0.82,
+      "discovery": {
+        "name": "threat-model-system",
+        "category": "Threat Modeling",
+        "type": "analysis",
+        "framework": "LLM-native",
+        "purpose": "Builds a lightweight system threat model from product, architecture, API, data-flow, and infrastructure context. Use during design review or when a feature changes trust boundaries, authentication, authorization, sensitive data handling, external integrations, or deployment architecture.",
+        "triggers": [
+          "/threat-model-system",
+          "threat.*model",
+          "model.*threat",
+          "security.*design.*review",
+          "review.*architecture.*risk"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {
+          "rules": "references/rules.yaml",
+          "report_template": "references/report-template.md",
+          "base_report": "../_shared/base-report.md",
+          "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+        },
+        "dependencies": [
+          "references/rules.yaml",
+          "references/report-template.md",
+          "../_shared/base-report.md",
+          "../_shared/owasp-cheatsheets.yaml"
+        ],
+        "rule_count": 12,
+        "match_strategies": [
+          "design_review"
+        ],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {
+          "High": 5,
+          "Critical": 2,
+          "Medium": 4,
+          "Low": 1
+        },
+        "rules_bytes": 13261,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Builds a lightweight system threat model from product, architecture, API, data-flow, and infrastructure context. Use during design review or when a feature changes trust boundaries, authentication, authorization, sensitive data handling, external integrations, or deployment architecture.",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [],
+        "warnings": [],
+        "valid": true,
+        "issue_count": 0,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 1391,
+        "completion_tokens": 228,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read skills\\threat-model-system\\SKILL.md",
+        "Read skills\\threat-model-system\\references\\rules.yaml (12 rules)"
+      ],
+      "execution_ms": 9.7
+    }
+  ],
+  "coverage_report": [
+    {
+      "skill": "audit-asvs-compliance",
+      "category": "Compliance Validation",
+      "type": "audit",
+      "rules": 345,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "audit-auth-session-management",
+      "category": "Compliance Validation",
+      "type": "audit",
+      "rules": 12,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "audit-crypto-usage",
+      "category": "Compliance Validation",
+      "type": "audit",
+      "rules": 12,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "audit-logging-monitoring",
+      "category": "Compliance Validation",
+      "type": "audit",
+      "rules": 12,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "detect-secrets",
+      "category": "Secrets Detection",
+      "type": "detection",
+      "rules": 393,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "detect-supply-chain-risks",
+      "category": "SCA",
+      "type": "detection",
+      "rules": 20,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "generate-dependency-graph",
+      "category": "SBOM",
+      "type": "generation",
+      "rules": 10,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "generate-sbom",
+      "category": "SBOM",
+      "type": "generation",
+      "rules": 10,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-api-security",
+      "category": "API Security",
+      "type": "detection",
+      "rules": 6,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-broken-access-control",
+      "category": "SAST",
+      "type": "detection",
+      "rules": 12,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-container-image",
+      "category": "Container Security",
+      "type": "detection",
+      "rules": 128,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-exception-handling",
+      "category": "SAST",
+      "type": "detection",
+      "rules": 10,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-for-injection",
+      "category": "SAST",
+      "type": "detection",
+      "rules": 7,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-for-ssrf",
+      "category": "SAST",
+      "type": "detection",
+      "rules": 8,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-for-xss",
+      "category": "SAST",
+      "type": "detection",
+      "rules": 12,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-iac-security",
+      "category": "IaC Security",
+      "type": "detection",
+      "rules": 1746,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-json-security",
+      "category": "Config Security",
+      "type": "detection",
+      "rules": 5,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-kubernetes-manifests",
+      "category": "Kubernetes Security",
+      "type": "detection",
+      "rules": 131,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-markdown-security",
+      "category": "Config Security",
+      "type": "detection",
+      "rules": 5,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-sca-dependencies",
+      "category": "SCA",
+      "type": "detection",
+      "rules": 28,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-security-headers",
+      "category": "SAST",
+      "type": "detection",
+      "rules": 12,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-static-analysis",
+      "category": "SAST",
+      "type": "detection",
+      "rules": 30,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-toml-security",
+      "category": "Config Security",
+      "type": "detection",
+      "rules": 5,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-xml-security",
+      "category": "Config Security",
+      "type": "detection",
+      "rules": 5,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "scan-yaml-security",
+      "category": "Config Security",
+      "type": "detection",
+      "rules": 5,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    },
+    {
+      "skill": "threat-model-system",
+      "category": "Threat Modeling",
+      "type": "analysis",
+      "rules": 12,
+      "valid": true,
+      "issues": 0,
+      "warnings": 0
+    }
+  ],
+  "dependency_map": {
+    "audit-asvs-compliance": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "audit-auth-session-management": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "audit-crypto-usage": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "audit-logging-monitoring": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "detect-secrets": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "detect-supply-chain-risks": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "generate-dependency-graph": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "generate-sbom": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-api-security": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-broken-access-control": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-container-image": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-exception-handling": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-for-injection": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-for-ssrf": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-for-xss": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-iac-security": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-json-security": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-kubernetes-manifests": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-markdown-security": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-sca-dependencies": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-security-headers": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-static-analysis": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-toml-security": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-xml-security": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "scan-yaml-security": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ],
+    "threat-model-system": [
+      "references/rules.yaml",
+      "references/report-template.md",
+      "../_shared/base-report.md",
+      "../_shared/owasp-cheatsheets.yaml"
+    ]
+  },
+  "execution_flow": [
+    "User invokes skill",
+    "SKILL.md loaded (frontmatter + orchestration body)",
+    "rules.yaml loaded (capped at 60 KB)",
+    "Target files identified (git diff or user path)",
+    "LLM evaluates each file \u00d7 rule using match_strategy",
+    "Findings aggregated by severity",
+    "report-template.md populated with findings",
+    "Markdown report streamed to user"
+  ],
+  "coverage_map": {
+    "covered_domains": [
+      "API Security",
+      "Compliance Validation",
+      "Config Security",
+      "Container Security",
+      "IaC Security",
+      "Kubernetes Security",
+      "SAST",
+      "SBOM",
+      "SCA",
+      "Secrets Detection",
+      "Threat Modeling"
+    ],
+    "missing_domains": [
+      "DAST",
+      "LLM Security",
+      "Prompt Injection Testing",
+      "Runtime Validation",
+      "Exploit Validation",
+      "CI/CD Enforcement"
+    ],
+    "coverage_score": 0.68
+  },
+  "gap_analysis": {
+    "validation_issues": [],
+    "uncovered_domains": [
+      "DAST",
+      "LLM Security",
+      "Prompt Injection Testing",
+      "Runtime Validation",
+      "Exploit Validation",
+      "CI/CD Enforcement"
+    ],
+    "skills_with_issues": [],
+    "total_issues": 0
+  },
+  "recommendations": [
+    "Add scan-llm-security skill to cover LLM/AI model security domain.",
+    "Add scan-prompt-injection skill to cover prompt injection testing.",
+    "Add enforce-security-gate skill to support CI/CD enforcement.",
+    "Consider splitting scan-iac-security (1,746 rules) to avoid 60 KB truncation.",
+    "Add HOST/PORT env var support to the API server for containerized deployments."
+  ],
+  "downloadable_json": "output/agent1/agent1-report.json"
+}

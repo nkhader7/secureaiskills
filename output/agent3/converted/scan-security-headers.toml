@@ -1,0 +1,122 @@
+name = "scan-security-headers"
+description = "Scans web applications, APIs, reverse proxies, CDN configuration, and middleware for missing or unsafe HTTP security headers, cookie flags, CORS policy, CSP, HSTS, clickjacking protections, MIME sniffing protections, referrer policy, and browser-facing misconfiguration."
+version = "1.0"
+intent = "# scan-security-headers"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "SHD-001"
+name = "Require Strict-Transport-Security"
+severity = "High"
+category = "HSTS"
+description = "Identify missing or weak HSTS on HTTPS applications."
+match_strategy = "header_hsts"
+remediation = "Set Strict-Transport-Security with adequate max-age, includeSubDomains where safe, and preload when appropriate."
+
+[[rules]]
+id = "SHD-002"
+name = "Require a restrictive Content-Security-Policy"
+severity = "High"
+category = "CSP"
+description = "Identify missing or overly permissive CSP such as unsafe-inline or wildcard script sources."
+match_strategy = "header_csp"
+remediation = "Deploy a restrictive CSP and remove unsafe script/style allowances where possible."
+
+[[rules]]
+id = "SHD-003"
+name = "Prevent framing"
+severity = "High"
+category = "Clickjacking"
+description = "Identify missing X-Frame-Options or frame-ancestors for sensitive pages."
+match_strategy = "header_frame"
+remediation = "Use CSP frame-ancestors and/or X-Frame-Options DENY/SAMEORIGIN."
+
+[[rules]]
+id = "SHD-004"
+name = "Disable content sniffing"
+severity = "Medium"
+category = "MIME Sniffing"
+description = "Identify missing X-Content-Type-Options on browser content."
+match_strategy = "header_nosniff"
+remediation = "Set X-Content-Type-Options: nosniff."
+
+[[rules]]
+id = "SHD-005"
+name = "Limit referrer leakage"
+severity = "Medium"
+category = "Referrer Policy"
+description = "Identify missing or permissive Referrer-Policy."
+match_strategy = "header_referrer"
+remediation = "Set strict-origin-when-cross-origin or stricter based on app needs."
+
+[[rules]]
+id = "SHD-006"
+name = "Require secure cookie attributes"
+severity = "High"
+category = "Cookies"
+description = "Identify session or sensitive cookies missing Secure, HttpOnly, SameSite, or appropriate scope."
+match_strategy = "header_cookie_flags"
+remediation = "Set Secure, HttpOnly, SameSite, and narrow Domain/Path attributes."
+
+[[rules]]
+id = "SHD-007"
+name = "Detect permissive CORS"
+severity = "High"
+category = "CORS"
+description = "Identify wildcard/reflected origins, broad methods, or credentials with permissive origins."
+match_strategy = "header_cors"
+remediation = "Use explicit origin allowlists and avoid credentialed broad CORS."
+
+[[rules]]
+id = "SHD-008"
+name = "Restrict browser features"
+severity = "Medium"
+category = "Permissions Policy"
+description = "Identify missing Permissions-Policy on sensitive apps."
+match_strategy = "header_permissions_policy"
+remediation = "Disable unneeded browser capabilities such as camera, microphone, geolocation, and payment."
+
+[[rules]]
+id = "SHD-009"
+name = "Prevent sensitive response caching"
+severity = "Medium"
+category = "Cache Control"
+description = "Identify sensitive authenticated responses without no-store/private caching directives."
+match_strategy = "header_cache_sensitive"
+remediation = "Set Cache-Control: no-store for sensitive responses."
+
+[[rules]]
+id = "SHD-010"
+name = "Avoid relying on X-XSS-Protection"
+severity = "Low"
+category = "Legacy XSS Header"
+description = "Identify reliance on deprecated X-XSS-Protection as primary XSS defense."
+match_strategy = "header_xss_protection"
+remediation = "Use CSP and output encoding; set X-XSS-Protection to 0 if needed to avoid browser quirks."
+
+[[rules]]
+id = "SHD-011"
+name = "Review cross-origin isolation headers"
+severity = "Medium"
+category = "COOP/COEP/CORP"
+description = "Identify missing cross-origin isolation where SharedArrayBuffer or sensitive embedding protections are needed."
+match_strategy = "header_cross_origin_isolation"
+remediation = "Set COOP, COEP, and CORP according to application compatibility."
+
+[[rules]]
+id = "SHD-012"
+name = "Reduce server and framework disclosure"
+severity = "Medium"
+category = "Server Disclosure"
+description = "Identify verbose Server, X-Powered-By, or framework headers."
+match_strategy = "header_server_disclosure"
+remediation = "Remove or minimize technology disclosure headers."

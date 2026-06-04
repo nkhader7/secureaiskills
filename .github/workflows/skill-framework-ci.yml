@@ -1,0 +1,26 @@
+name: Skill Framework CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  analyze-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run unit tests
+        run: pytest -q
+      - name: Run 3-agent skill analysis
+        run: python ci.py --minimum-security-score 70 --minimum-compliance-score 70 --minimum-validation-score 70 --minimum-benchmark-score 50
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: secureai-skill-analysis-reports
+          path: output/

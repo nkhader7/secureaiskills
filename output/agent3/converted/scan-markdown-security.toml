@@ -1,0 +1,59 @@
+name = "scan-markdown-security"
+description = "Scans Markdown documentation, runbooks, READMEs, and design notes for security risks including leaked credentials, unsafe operational commands, disabled security controls, insecure examples, and missing threat-model evidence."
+version = "1.0"
+intent = "# scan-markdown-security"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "MD-001"
+name = "Credential in Documentation"
+severity = "High"
+category = "Secrets"
+description = "Markdown includes secret-looking values or private key material."
+patterns = ["AKIA[0-9A-Z]{16}", "-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----", "(?i)\\b(password|api[_-]?key|secret|token)\\s*[:=]\\s*[A-Za-z0-9_./+=-]{12,}"]
+remediation = "Remove secrets from documentation and rotate exposed credentials."
+
+[[rules]]
+id = "MD-002"
+name = "TLS Verification Disabled in Example"
+severity = "Medium"
+category = "Transport Security"
+description = "Markdown includes copy-paste commands that disable TLS verification."
+patterns = ["\\bcurl\\b[^\\r\\n]*\\s-k\\b", "\\bwget\\b[^\\r\\n]*--no-check-certificate", "(?i)NODE_TLS_REJECT_UNAUTHORIZED=0"]
+remediation = "Update examples to verify certificates and explain safe local-development alternatives."
+
+[[rules]]
+id = "MD-003"
+name = "Pipe to Shell Installer"
+severity = "Medium"
+category = "Supply Chain"
+description = "Markdown instructs users to pipe remote code directly into a shell."
+patterns = ["(curl|wget)[^\\r\\n]+\\|\\s*(bash|sh|pwsh|powershell)"]
+remediation = "Download, verify, and execute pinned artifacts instead of piping remote code to a shell."
+
+[[rules]]
+id = "MD-004"
+name = "Missing Threat Model Evidence"
+severity = "Medium"
+category = "Insecure Design"
+description = "Markdown explicitly states that threat modeling, abuse cases, or data classification are missing."
+patterns = ["(?i)threat boundaries are TBD", "(?i)no abuse cases", "(?i)no documented data classification", "(?i)threat model.*todo"]
+remediation = "Complete threat modeling and document trust boundaries, abuse cases, and data classification."
+
+[[rules]]
+id = "MD-005"
+name = "Insecure Demo Credential"
+severity = "Low"
+category = "Security Misconfiguration"
+description = "Markdown includes default or demo credentials that could be reused."
+patterns = ["(?i)(username|user):\\s*admin", "(?i)(password|pass):\\s*(admin|password|changeme|letmein)"]
+remediation = "Remove default credentials or clearly scope them to disposable local-only fixtures."

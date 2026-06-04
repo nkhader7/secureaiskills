@@ -1,0 +1,122 @@
+name = "scan-broken-access-control"
+description = "Scans applications, APIs, services, policies, and tests for broken access control risks such as missing authorization checks, IDOR/BOLA, privilege escalation, tenant isolation failures, unsafe CORS, path traversal, and overbroad object access."
+version = "1.0"
+intent = "# scan-broken-access-control"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "BAC-001"
+name = "Detect missing object-level authorization checks"
+severity = "Critical"
+category = "Object Authorization"
+description = "Identify handlers that load records by user-controlled ID without verifying ownership, tenant, or explicit permission."
+match_strategy = "broken_access_object_auth"
+remediation = "Add server-side object authorization checks for every object access path."
+
+[[rules]]
+id = "BAC-002"
+name = "Detect missing function-level authorization"
+severity = "Critical"
+category = "Function Authorization"
+description = "Identify privileged functions exposed without role, policy, or permission checks."
+match_strategy = "broken_access_function_auth"
+remediation = "Enforce deny-by-default authorization on privileged functions and administrative routes."
+
+[[rules]]
+id = "BAC-003"
+name = "Detect tenant boundary bypass"
+severity = "High"
+category = "Tenant Isolation"
+description = "Identify queries or routes missing tenant scoping in multi-tenant applications."
+match_strategy = "broken_access_tenant_isolation"
+remediation = "Scope every data access by tenant or organization and test cross-tenant denial."
+
+[[rules]]
+id = "BAC-004"
+name = "Detect user-controlled role or permission changes"
+severity = "High"
+category = "Privilege Escalation"
+description = "Identify mass assignment or request fields that alter roles, ownership, or permissions."
+match_strategy = "broken_access_privilege_escalation"
+remediation = "Allowlist mutable fields and protect role/permission transitions with policy checks."
+
+[[rules]]
+id = "BAC-005"
+name = "Detect unsafe path authorization"
+severity = "High"
+category = "Path Traversal"
+description = "Identify file access using untrusted path fragments without normalization and allowlisting."
+match_strategy = "broken_access_path_traversal"
+remediation = "Normalize paths, enforce base directory constraints, and authorize file access."
+
+[[rules]]
+id = "BAC-006"
+name = "Detect permissive CORS with credentials"
+severity = "Medium"
+category = "CORS"
+description = "Identify wildcard or reflected origins combined with credentialed requests."
+match_strategy = "broken_access_cors"
+remediation = "Use explicit origin allowlists and avoid credentials for broad origins."
+
+[[rules]]
+id = "BAC-007"
+name = "Detect predictable direct object references"
+severity = "High"
+category = "Direct Object Reference"
+description = "Identify exposed sequential IDs or direct references without authorization tests."
+match_strategy = "broken_access_idor"
+remediation = "Use authorization checks and add IDOR regression tests; opaque IDs help but do not replace auth."
+
+[[rules]]
+id = "BAC-008"
+name = "Detect missing default-deny policy"
+severity = "Medium"
+category = "Default Deny"
+description = "Identify routers or middleware without a default authorization posture."
+match_strategy = "broken_access_default_deny"
+remediation = "Require authentication and authorization by default, then explicitly allow public routes."
+
+[[rules]]
+id = "BAC-009"
+name = "Detect BOLA in API routes"
+severity = "High"
+category = "API Authorization"
+description = "Identify API endpoints where path/body IDs select resources without policy enforcement."
+match_strategy = "broken_access_api_bola"
+remediation = "Bind API access to subject, tenant, and resource permission checks."
+
+[[rules]]
+id = "BAC-010"
+name = "Detect method-level authorization gaps"
+severity = "Medium"
+category = "Method Authorization"
+description = "Identify routes where GET is protected but POST/PUT/PATCH/DELETE variants are not."
+match_strategy = "broken_access_method_auth"
+remediation = "Apply authorization consistently across all HTTP methods and route aliases."
+
+[[rules]]
+id = "BAC-011"
+name = "Detect missing authorization tests"
+severity = "Medium"
+category = "Policy Tests"
+description = "Identify sensitive routes without negative tests for unauthorized, cross-user, or cross-tenant access."
+match_strategy = "broken_access_missing_tests"
+remediation = "Add tests proving denial for unauthenticated, unauthorized, and cross-tenant requests."
+
+[[rules]]
+id = "BAC-012"
+name = "Detect public file or object storage exposure"
+severity = "High"
+category = "Insecure Direct File Access"
+description = "Identify public buckets, signed URL misuse, or unauthenticated file routes."
+match_strategy = "broken_access_storage_exposure"
+remediation = "Use private storage, short-lived scoped URLs, and server-side access checks."

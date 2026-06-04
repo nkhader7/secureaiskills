@@ -1,0 +1,104 @@
+name = "generate-dependency-graph"
+description = "Generates dependency graphs for applications, repositories, containers, and SBOMs, including direct and transitive package relationships, dependency paths, parent chains, ownership hints, vulnerable package impact paths, and call graph or reachability evidence when available."
+version = "1.0"
+intent = "# generate-dependency-graph"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "DG-001"
+name = "Identify direct dependency roots"
+severity = "High"
+category = "Direct Dependencies"
+description = "Identify dependencies declared directly in manifests."
+match_strategy = "depgraph_direct"
+remediation = "Parse manifests and mark top-level direct dependencies."
+
+[[rules]]
+id = "DG-002"
+name = "Identify transitive dependency paths"
+severity = "High"
+category = "Transitive Dependencies"
+description = "Identify packages introduced through other packages."
+match_strategy = "depgraph_transitive"
+remediation = "Parse lockfiles, SBOM relationships, or package manager graph output."
+
+[[rules]]
+id = "DG-003"
+name = "Report shortest parent path to a package"
+severity = "Medium"
+category = "Shortest Path"
+description = "Identify the shortest known chain from root project to target package."
+match_strategy = "depgraph_shortest_path"
+remediation = "Compute and report direct parent chains for impact analysis."
+
+[[rules]]
+id = "DG-004"
+name = "Preserve multiple introduction paths"
+severity = "Medium"
+category = "Multiple Paths"
+description = "Identify packages introduced by more than one parent."
+match_strategy = "depgraph_multiple_paths"
+remediation = "Group duplicate components and list all relevant parent paths."
+
+[[rules]]
+id = "DG-005"
+name = "Map vulnerable packages to affected roots"
+severity = "High"
+category = "Vulnerable Impact"
+description = "Identify which services/images/manifests depend on vulnerable packages."
+match_strategy = "depgraph_vuln_impact"
+remediation = "Map CVE findings from SCA to dependency graph nodes and roots."
+
+[[rules]]
+id = "DG-006"
+name = "Attach ownership or service metadata"
+severity = "Medium"
+category = "Ownership"
+description = "Identify graph nodes without owning service/team context where available."
+match_strategy = "depgraph_ownership"
+remediation = "Use CODEOWNERS, service catalogs, repo paths, or manifests for ownership hints."
+
+[[rules]]
+id = "DG-007"
+name = "Map image packages to layers and base image"
+severity = "Medium"
+category = "Container Layers"
+description = "Identify whether image packages come from base image or app layer."
+match_strategy = "depgraph_container_layers"
+remediation = "Use SBOM/image metadata to map packages to layers and base image lineage."
+
+[[rules]]
+id = "DG-008"
+name = "Preserve reachability or call graph signals"
+severity = "Medium"
+category = "Reachability"
+description = "Identify callable paths or imported symbols when tooling provides reachability."
+match_strategy = "depgraph_reachability"
+remediation = "Include call graph or import evidence without treating unknown reachability as safe."
+
+[[rules]]
+id = "DG-009"
+name = "Export machine-readable graph output"
+severity = "Medium"
+category = "Export"
+description = "Identify graph output that cannot be reused by other tools."
+match_strategy = "depgraph_export"
+remediation = "Emit JSON plus optional DOT/Mermaid summaries."
+
+[[rules]]
+id = "DG-010"
+name = "Record source files and generation time"
+severity = "Info"
+category = "Graph Freshness"
+description = "Identify graphs missing source evidence or timestamp."
+match_strategy = "depgraph_freshness"
+remediation = "Include source lockfiles/SBOMs, image digests, and generation time."

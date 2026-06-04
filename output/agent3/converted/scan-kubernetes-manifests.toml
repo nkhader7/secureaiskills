@@ -1,0 +1,464 @@
+name = "scan-kubernetes-manifests"
+description = "Scans Kubernetes manifests, Helm charts, kubeadm/static pod files, kubelet configuration, RBAC, namespaces, network policies, admission controls, and cluster evidence against Kubernetes security benchmark controls. Use when reviewing Kubernetes YAML, cluster hardening, CIS Kubernetes benchmark evidence, pod security, control plane settings, worker node settings, RBAC, service accounts, network policy, or secrets management."
+version = "1.0"
+intent = "# scan-kubernetes-manifests"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "CIS-K8S-1-1-1"
+name = "Ensure that the API server pod specification file permissions are set to 600 or more restrictive"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the API server pod specification file permissions are set to 600 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.1; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-2"
+name = "Ensure that the API server pod specification file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the API server pod specification file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.2; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-3"
+name = "Ensure that the controller manager pod specification file permissions are set to 600 or more restrictive"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the controller manager pod specification file permissions are set to 600 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.3; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-4"
+name = "Ensure that the controller manager pod specification file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the controller manager pod specification file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.4; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-5"
+name = "Ensure that the scheduler pod specification file permissions are set to 600 or more restrictive"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the scheduler pod specification file permissions are set to 600 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.5; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-6"
+name = "Ensure that the scheduler pod specification file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the scheduler pod specification file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.6; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-7"
+name = "Ensure that the etcd pod specification file permissions are set to 600 or more restrictive"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the etcd pod specification file permissions are set to 600 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.7; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-8"
+name = "Ensure that the etcd pod specification file ownership is set to root:root"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the etcd pod specification file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.8; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-9"
+name = "Ensure that the Container Network Interface file permissions are set to 600 or more restrictive"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the Container Network Interface file permissions are set to 600 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.9; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-10"
+name = "Ensure that the Container Network Interface file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the Container Network Interface file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.10; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-11"
+name = "Ensure that the etcd data directory permissions are set to 700 or more restrictive"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the etcd data directory permissions are set to 700 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.11; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-12"
+name = "Ensure that the etcd data directory ownership is set to etcd:etcd"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the etcd data directory ownership is set to etcd:etcd."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.12; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-13"
+name = "Ensure that the default administrative credential file permissions are set to 600"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the default administrative credential file permissions are set to 600."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.13; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-14"
+name = "Ensure that the default administrative credential file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the default administrative credential file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.14; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-15"
+name = "Ensure that the scheduler.conf file permissions are set to 600 or more restrictive"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the scheduler.conf file permissions are set to 600 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.15; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-16"
+name = "Ensure that the scheduler.conf file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the scheduler.conf file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.16; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-17"
+name = "Ensure that the controller-manager.conf file permissions are set to 600 or more restrictive"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the controller-manager.conf file permissions are set to 600 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.17; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-18"
+name = "Ensure that the controller-manager.conf file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the controller-manager.conf file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.18; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-19"
+name = "Ensure that the Kubernetes PKI directory and file ownership is set to root:root"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the Kubernetes PKI directory and file ownership is set to root:root."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.19; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-20"
+name = "Ensure that the Kubernetes PKI certificate file permissions are set to 644 or more restrictive"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the Kubernetes PKI certificate file permissions are set to 644 or more restrictive."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.20; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-1-21"
+name = "Ensure that the Kubernetes PKI key file permissions are set to 600"
+severity = "Low"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the Kubernetes PKI key file permissions are set to 600."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.1.21; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-1"
+name = "Ensure that the --anonymous-auth argument is set to false"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --anonymous-auth argument is set to false."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.1; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-2"
+name = "Ensure that the --token-auth-file parameter is not set"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --token-auth-file parameter is not set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.2; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-3"
+name = "Ensure that the DenyServiceExternalIPs is set"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the DenyServiceExternalIPs is set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.3; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-4"
+name = "Ensure that the --kubelet-client-certificate and --kubelet-client-key arguments are set as appropriate"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --kubelet-client-certificate and --kubelet-client-key arguments are set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.4; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-5"
+name = "Ensure that the --kubelet-certificate-authority argument is set as appropriate"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --kubelet-certificate-authority argument is set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.5; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-6"
+name = "Ensure that the --authorization-mode argument is not set to AlwaysAllow"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --authorization-mode argument is not set to AlwaysAllow."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.6; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-7"
+name = "Ensure that the --authorization-mode argument includes Node"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --authorization-mode argument includes Node."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.7; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-8"
+name = "Ensure that the --authorization-mode argument includes RBAC"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --authorization-mode argument includes RBAC."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.8; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-9"
+name = "Ensure that the admission control plugin EventRateLimit is set"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the admission control plugin EventRateLimit is set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.9; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-10"
+name = "Ensure that the admission control plugin AlwaysAdmit is not set"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the admission control plugin AlwaysAdmit is not set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.10; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-11"
+name = "Ensure that the admission control plugin AlwaysPullImages is set"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the admission control plugin AlwaysPullImages is set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.11; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-12"
+name = "Ensure that the admission control plugin ServiceAccount is set"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the admission control plugin ServiceAccount is set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.12; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-13"
+name = "Ensure that the admission control plugin NamespaceLifecycle is set"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the admission control plugin NamespaceLifecycle is set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.13; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-14"
+name = "Ensure that the admission control plugin NodeRestriction is set"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the admission control plugin NodeRestriction is set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.14; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-15"
+name = "Ensure that the --profiling argument is set to false"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --profiling argument is set to false."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.15; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-16"
+name = "Ensure that the --audit-log-path argument is set"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --audit-log-path argument is set."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.16; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-17"
+name = "Ensure that the --audit-log-maxage argument is set to 30 or as appropriate"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --audit-log-maxage argument is set to 30 or as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.17; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-18"
+name = "Ensure that the --audit-log-maxbackup argument is set to 10 or as appropriate"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --audit-log-maxbackup argument is set to 10 or as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.18; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-19"
+name = "Ensure that the --audit-log-maxsize argument is set to 100 or as appropriate"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --audit-log-maxsize argument is set to 100 or as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.19; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-20"
+name = "Ensure that the --request-timeout argument is set as appropriate"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --request-timeout argument is set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.20; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-21"
+name = "Ensure that the --service-account-lookup argument is set to true"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --service-account-lookup argument is set to true."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.21; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-22"
+name = "Ensure that the --service-account-key-file argument is set as appropriate"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --service-account-key-file argument is set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.22; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-23"
+name = "Ensure that the --etcd-certfile and --etcd-keyfile arguments are set as appropriate"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --etcd-certfile and --etcd-keyfile arguments are set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.23; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-24"
+name = "Ensure that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.24; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-25"
+name = "Ensure that the --client-ca-file argument is set as appropriate"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --client-ca-file argument is set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.25; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-26"
+name = "Ensure that the --etcd-cafile argument is set as appropriate"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --etcd-cafile argument is set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.26; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-27"
+name = "Ensure that the --encryption-provider-config argument is set as appropriate"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the --encryption-provider-config argument is set as appropriate."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.27; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-28"
+name = "Ensure that encryption providers are appropriately configured"
+severity = "High"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that encryption providers are appropriately configured."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.28; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."
+
+[[rules]]
+id = "CIS-K8S-1-2-29"
+name = "Ensure that the API Server only makes use of Strong Cryptographic Ciphers"
+severity = "Medium"
+category = "CIS Kubernetes Benchmark"
+description = "Verify the Kubernetes environment satisfies this benchmark control: Ensure that the API Server only makes use of Strong Cryptographic Ciphers."
+match_strategy = "cis_kubernetes_review"
+remediation = "Apply the CIS Kubernetes Benchmark recommendation for 1.2.29; update manifests, component flags, RBAC objects, admission policies, or node configuration as needed."

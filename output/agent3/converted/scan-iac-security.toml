@@ -1,0 +1,476 @@
+name = "scan-iac-security"
+description = "Scans infrastructure-as-code changes for security misconfigurations in Terraform, CloudFormation, ARM/Bicep, Pulumi config, and related IaC files."
+version = "1.0"
+intent = "# scan-iac-security"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "IAC-001"
+name = "Public SSH Access"
+severity = "Critical"
+category = "Network Exposure"
+description = "Security group or firewall rule allows SSH from the public internet."
+patterns = ["cidr_blocks\\\\s*=\\\\s*\\\\[\\\\s*\\\"0\\\\.0\\\\.0\\\\.0/0\\\"\\\\s*\\\\]", "ipv6_cidr_blocks\\\\s*=\\\\s*\\\\[\\\\s*\\\"::/0\\\"\\\\s*\\\\]", "from_port\\\\s*=\\\\s*22", "to_port\\\\s*=\\\\s*22", "CidrIp:\\\\s*0\\\\.0\\\\.0\\\\.0/0", "SourceAddressPrefix:\\\\s*['\\\"]?\\\\*['\\\"]?", "destinationPortRange:\\\\s*['\\\"]?22['\\\"]?"]
+match_strategy = "resource_context"
+remediation = "Restrict SSH to trusted administrative networks or remove direct SSH access in favor of a bastion, SSM, VPN, or just-in-time access."
+
+[[rules]]
+id = "IAC-002"
+name = "Public RDP Access"
+severity = "Critical"
+category = "Network Exposure"
+description = "Security group or firewall rule allows RDP from the public internet."
+patterns = ["from_port\\\\s*=\\\\s*3389", "to_port\\\\s*=\\\\s*3389", "CidrIp:\\\\s*0\\\\.0\\\\.0\\\\.0/0", "destinationPortRange:\\\\s*['\\\"]?3389['\\\"]?"]
+match_strategy = "resource_context"
+remediation = "Restrict RDP to trusted networks or replace direct RDP with secure remote access patterns."
+
+[[rules]]
+id = "IAC-003"
+name = "Wildcard Administrative Permission"
+severity = "Critical"
+category = "IAM"
+description = "IAM policy grants wildcard actions or resources that may allow privilege escalation or broad administrative access."
+patterns = ["Action\\\\s*[:=]\\\\s*['\\\"]\\\\*['\\\"]", "actions\\\\s*=\\\\s*\\\\[\\\\s*['\\\"]\\\\*['\\\"]\\\\s*\\\\]", "Resource\\\\s*[:=]\\\\s*['\\\"]\\\\*['\\\"]", "resources\\\\s*=\\\\s*\\\\[\\\\s*['\\\"]\\\\*['\\\"]\\\\s*\\\\]", "Effect\\\\s*:\\\\s*Allow"]
+match_strategy = "resource_context"
+remediation = "Replace wildcard permissions with least-privilege actions and resource ARNs scoped to the required service and environment."
+
+[[rules]]
+id = "IAC-004"
+name = "Public Object Storage Access"
+severity = "High"
+category = "Storage"
+description = "Object storage bucket or container is configured for public access."
+patterns = ["acl\\\\s*=\\\\s*['\\\"]public-read['\\\"]", "acl\\\\s*=\\\\s*['\\\"]public-read-write['\\\"]", "block_public_acls\\\\s*=\\\\s*false", "block_public_policy\\\\s*=\\\\s*false", "ignore_public_acls\\\\s*=\\\\s*false", "restrict_public_buckets\\\\s*=\\\\s*false", "PublicAccess\\\\s*:\\\\s*true", "allowBlobPublicAccess\\\\s*:\\\\s*true"]
+match_strategy = "regex"
+remediation = "Disable public access by default and use explicit, reviewed exceptions for public assets."
+
+[[rules]]
+id = "IAC-005"
+name = "Storage Encryption Disabled"
+severity = "High"
+category = "Encryption"
+description = "Storage resource is configured without encryption at rest."
+patterns = ["server_side_encryption_configuration\\\\s*=\\\\s*\\\\[\\\\s*\\\\]", "encrypted\\\\s*=\\\\s*false", "enable_server_side_encryption\\\\s*=\\\\s*false", "BucketEncryption\\\\s*:\\\\s*null", "encryption\\\\s*:\\\\s*['\\\"]?disabled['\\\"]?"]
+match_strategy = "regex"
+remediation = "Enable encryption at rest using provider-managed keys at minimum, and use customer-managed keys for sensitive workloads."
+
+[[rules]]
+id = "IAC-006"
+name = "Public Database Exposure"
+severity = "High"
+category = "Database"
+description = "Database or cache service is publicly accessible."
+patterns = ["publicly_accessible\\\\s*=\\\\s*true", "PubliclyAccessible\\\\s*:\\\\s*true", "public_network_access_enabled\\\\s*=\\\\s*true", "publicNetworkAccess\\\\s*:\\\\s*['\\\"]?Enabled['\\\"]?", "authorized_networks\\\\s*\\\\{", "value\\\\s*=\\\\s*['\\\"]0\\\\.0\\\\.0\\\\.0/0['\\\"]"]
+match_strategy = "resource_context"
+remediation = "Place databases in private networks, disable public access, and restrict connectivity to application subnets or trusted private endpoints."
+
+[[rules]]
+id = "IAC-007"
+name = "Secret Value in IaC"
+severity = "High"
+category = "Secrets"
+description = "IaC file contains an inline password, token, key, or client secret."
+patterns = ["(password|passwd|pwd)\\\\s*[:=]\\\\s*['\\\"][^'\\\"]{8,}['\\\"]", "(api_key|apikey|access_token|auth_token|client_secret)\\\\s*[:=]\\\\s*['\\\"][^'\\\"]{16,}['\\\"]", "secureString\\\\s*=\\\\s*['\\\"][^'\\\"]{8,}['\\\"]", "admin_password\\\\s*=\\\\s*['\\\"][^'\\\"]{8,}['\\\"]"]
+match_strategy = "regex"
+remediation = "Move secrets to a secrets manager or CI/CD secret store. Use references, variables, or secret resource data sources rather than inline values."
+
+[[rules]]
+id = "IAC-008"
+name = "Audit Logging Disabled"
+severity = "Medium"
+category = "Logging"
+description = "Cloud audit, access, or flow logging appears disabled."
+patterns = ["enable_logging\\\\s*=\\\\s*false", "logging\\\\s*=\\\\s*false", "log_retention_days\\\\s*=\\\\s*0", "cloudtrail.*enable_logging\\\\s*=\\\\s*false", "flow_logs_enabled\\\\s*=\\\\s*false", "LoggingConfiguration\\\\s*:\\\\s*\\\\{\\\\s*\\\\}"]
+match_strategy = "regex"
+remediation = "Enable audit and access logging for security-relevant resources and route logs to a protected, retained destination."
+
+[[rules]]
+id = "IAC-009"
+name = "Broad Ingress CIDR"
+severity = "Medium"
+category = "Network Exposure"
+description = "Ingress rule allows traffic from the public internet."
+patterns = ["cidr_blocks\\\\s*=\\\\s*\\\\[\\\\s*\\\"0\\\\.0\\\\.0\\\\.0/0\\\"\\\\s*\\\\]", "ipv6_cidr_blocks\\\\s*=\\\\s*\\\\[\\\\s*\\\"::/0\\\"\\\\s*\\\\]", "CidrIp:\\\\s*0\\\\.0\\\\.0\\\\.0/0", "SourceAddressPrefix:\\\\s*['\\\"]?\\\\*['\\\"]?", "source_address_prefix\\\\s*=\\\\s*['\\\"]\\\\*['\\\"]"]
+match_strategy = "regex"
+remediation = "Restrict ingress to required source ranges and pair broad exposure with documented business justification and compensating controls."
+
+[[rules]]
+id = "IAC-010"
+name = "Insecure TLS Policy"
+severity = "Medium"
+category = "TLS"
+description = "Load balancer, listener, or service is configured to allow outdated TLS protocols or weak SSL policies."
+patterns = ["ssl_policy\\\\s*=\\\\s*['\\\"].*TLS-1-0.*['\\\"]", "ssl_policy\\\\s*=\\\\s*['\\\"].*TLS-1-1.*['\\\"]", "MinimumProtocolVersion\\\\s*:\\\\s*TLSv1", "min_tls_version\\\\s*=\\\\s*['\\\"]1\\\\.0['\\\"]", "min_tls_version\\\\s*=\\\\s*['\\\"]1\\\\.1['\\\"]"]
+match_strategy = "regex"
+remediation = "Require TLS 1.2 or newer and use provider-recommended modern security policies."
+
+[[rules]]
+id = "IAC-011"
+name = "Deletion Protection Disabled"
+severity = "Medium"
+category = "Backup and Recovery"
+description = "Production-like persistent resources may be deployed without deletion protection or final snapshots."
+patterns = ["deletion_protection\\\\s*=\\\\s*false", "DeletionProtection\\\\s*:\\\\s*false", "skip_final_snapshot\\\\s*=\\\\s*true", "SkipFinalSnapshot\\\\s*:\\\\s*true", "backup_retention_period\\\\s*=\\\\s*0"]
+match_strategy = "regex"
+remediation = "Enable deletion protection, backups, and final snapshots for production stateful services."
+
+[[rules]]
+id = "IAC-012"
+name = "Missing Required Tags"
+severity = "Low"
+category = "Governance"
+description = "IaC resource appears to lack ownership, environment, or data classification tags."
+patterns = ["tags\\\\s*=\\\\s*\\\\{\\\\s*\\\\}", "Tags\\\\s*:\\\\s*\\\\[\\\\s*\\\\]", "owner\\\\s*=\\\\s*['\\\"]\\\\s*['\\\"]", "environment\\\\s*=\\\\s*['\\\"]\\\\s*['\\\"]", "data_classification\\\\s*=\\\\s*['\\\"]\\\\s*['\\\"]"]
+match_strategy = "regex"
+remediation = "Add consistent ownership, environment, cost center, and data classification tags so security controls and alert routing can target the right team."
+
+[[rules]]
+id = "CHECKOV-CKV2-ANSIBLE-3"
+name = "Ensure block is handling task errors properly"
+severity = "Medium"
+category = "Backup and Recovery"
+description = "Ensure block is handling task errors properly"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-ANSIBLE-4"
+name = "Ensure that packages with untrusted or missing GPG signatures are not used by dnf"
+severity = "Medium"
+category = "General Security"
+description = "Ensure that packages with untrusted or missing GPG signatures are not used by dnf"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-ANSIBLE-5"
+name = "Ensure that SSL validation isn"
+severity = "Medium"
+category = "General Security"
+description = "Ensure that SSL validation isn"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-ANSIBLE-6"
+name = "Ensure that certificate validation isn"
+severity = "Medium"
+category = "General Security"
+description = "Ensure that certificate validation isn"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-ANSIBLE-2"
+name = "Ensure that HTTPS url is used with get_url"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure that HTTPS url is used with get_url"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-2"
+name = "Ensure plain-text management HTTP is not enabled for an Interface Management Profile"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure plain-text management HTTP is not enabled for an Interface Management Profile"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-3"
+name = "Ensure plain-text management Telnet is not enabled for an Interface Management Profile"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure plain-text management Telnet is not enabled for an Interface Management Profile"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-12"
+name = "Ensure IPsec profiles do not specify use of insecure authentication algorithms"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure IPsec profiles do not specify use of insecure authentication algorithms"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-13"
+name = "Ensure IPsec profiles do not specify use of insecure protocols"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure IPsec profiles do not specify use of insecure protocols"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-8"
+name = "Ensure description is populated within security policies"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure description is populated within security policies"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-9"
+name = "Ensure a Log Forwarding Profile is selected for each security policy rule"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure a Log Forwarding Profile is selected for each security policy rule"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-10"
+name = "Ensure logging at session end is enabled within security policies"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure logging at session end is enabled within security policies"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-16"
+name = "Ensure logging at session start is disabled within security policies except for troubleshooting and long lived GRE tunnels"
+severity = "Medium"
+category = "Logging"
+description = "Ensure logging at session start is disabled within security policies except for troubleshooting and long lived GRE tunnels"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-5"
+name = "Ensure security rules do not have"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure security rules do not have"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-4"
+name = "Ensure DSRI is not enabled within security policies"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure DSRI is not enabled within security policies"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-6"
+name = "Ensure security rules do not have"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure security rules do not have"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-7"
+name = "Ensure security rules do not have"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure security rules do not have"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-17"
+name = "Ensure security rules do not have"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure security rules do not have"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-14"
+name = "Ensure a Zone Protection Profile is defined within Security Zones"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure a Zone Protection Profile is defined within Security Zones"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-PAN-15"
+name = "Ensure an Include ACL is defined for a Zone when User-ID is enabled"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure an Include ACL is defined for a Zone when User-ID is enabled"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-ANSIBLE-1"
+name = "Ensure that HTTPS url is used with uri"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure that HTTPS url is used with uri"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AZURE-49"
+name = "Ensure that Azure Machine learning workspace is not configured with overly permissive network access"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure that Azure Machine learning workspace is not configured with overly permissive network access"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AZURE-23"
+name = "Ensure Azure spring cloud is configured with Virtual network (Vnet)"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure Azure spring cloud is configured with Virtual network (Vnet)"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AZURE-54"
+name = "Ensure log monitoring is enabled for Synapse SQL Pool"
+severity = "Medium"
+category = "Logging"
+description = "Ensure log monitoring is enabled for Synapse SQL Pool"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AZURE-51"
+name = "Ensure Synapse SQL Pool has a security alert policy"
+severity = "Medium"
+category = "General Security"
+description = "Ensure Synapse SQL Pool has a security alert policy"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AZURE-52"
+name = "Ensure Synapse SQL Pool has vulnerability assessment attached"
+severity = "Medium"
+category = "General Security"
+description = "Ensure Synapse SQL Pool has vulnerability assessment attached"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AZURE-53"
+name = "Ensure Azure Synapse Workspace has extended audit logs"
+severity = "Medium"
+category = "Logging"
+description = "Ensure Azure Synapse Workspace has extended audit logs"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-AZURE-23"
+name = "Ensure that"
+severity = "Medium"
+category = "Logging"
+description = "Ensure that"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-AZURE-24"
+name = "Ensure that"
+severity = "Medium"
+category = "Logging"
+description = "Ensure that"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV-AZURE-25"
+name = "Azure SQL Server threat detection alerts are enabled for all threat types"
+severity = "Medium"
+category = "Logging"
+description = "Azure SQL Server threat detection alerts are enabled for all threat types"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AWS-71"
+name = "Ensure AWS ACM Certificate domain name does not include wildcards"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure AWS ACM Certificate domain name does not include wildcards"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AWS-33"
+name = "Ensure AppSync is protected by WAF"
+severity = "Medium"
+category = "Application Security"
+description = "Ensure AppSync is protected by WAF"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AWS-72"
+name = "Ensure AWS CloudFront origin protocol policy enforces HTTPS-only"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure AWS CloudFront origin protocol policy enforces HTTPS-only"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AWS-75"
+name = "Ensure no open CORS policy"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure no open CORS policy"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AWS-69"
+name = "Ensure AWS RDS database instance configured with encryption in transit"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure AWS RDS database instance configured with encryption in transit"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-AWS-68"
+name = "Ensure SageMaker notebook instance IAM policy is not overly permissive"
+severity = "Medium"
+category = "Network Security"
+description = "Ensure SageMaker notebook instance IAM policy is not overly permissive"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-DOCKER-14"
+name = "Ensure that certificate validation isn"
+severity = "Medium"
+category = "Application Security"
+description = "Ensure that certificate validation isn"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."
+
+[[rules]]
+id = "CHECKOV-CKV2-DOCKER-6"
+name = "Ensure that certificate validation isn"
+severity = "Medium"
+category = "Application Security"
+description = "Ensure that certificate validation isn"
+match_strategy = "checkov_graph_check"
+remediation = "Update the IaC resource so it satisfies the policy requirement."

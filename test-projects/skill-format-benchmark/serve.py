@@ -1,7 +1,7 @@
 """
 Serve the benchmark web app.
 Runs benchmark.py if results/benchmark-results.json is missing or stale,
-then starts a local HTTP server on port 8765.
+then starts a local HTTP server on port 8080.
 """
 
 import http.server
@@ -13,7 +13,7 @@ from pathlib import Path
 BENCH_DIR = Path(__file__).parent
 RESULTS_FILE = BENCH_DIR / "results" / "benchmark-results.json"
 APP_DIR = BENCH_DIR / "app"
-PORT = 8765
+PORT = 8080
 
 
 def maybe_run_benchmark():

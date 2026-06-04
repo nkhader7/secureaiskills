@@ -1,0 +1,192 @@
+{
+  "name": "generate-dependency-graph",
+  "description": "Generates dependency graphs for applications, repositories, containers, and SBOMs, including direct and transitive package relationships, dependency paths, parent chains, ownership hints, vulnerable package impact paths, and call graph or reachability evidence when available.",
+  "version": "1.0",
+  "intent": "# generate-dependency-graph",
+  "instructions": "# generate-dependency-graph\n\nGenerates direct/transitive dependency maps and impact paths for packages, images, and SBOMs.\n\n## Orchestration\n\n1. Load `references/rules.yaml` to get the active `DG-` rule set.\n2. Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets to support remediation guidance and references.\n3. Identify target evidence from source code, configuration, tests, API specs, IaC, CI/CD, runtime manifests, and documentation relevant to the request.\n4. Evaluate each rule using its `match_strategy`, preserving file path, line, snippet, control context, and confidence.\n5. Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based on available evidence.\n6. Prioritize findings by severity, exploitability, exposed surface, and whether a concrete remediation is available.\n7. Render the final report using `references/report-template.md`.\n\n## Usage\n\nScan the current repository:\n\n```text\n/generate-dependency-graph\n```\n\nScan a specific path:\n\n```text\n/generate-dependency-graph src/ services/ docs/\n```\n\n## OWASP Cheat Sheets\n\nUse the shared mapping in `../_shared/owasp-cheatsheets.yaml` for authoritative OWASP Cheat Sheet Series references that match this skill. Include the relevant cheat sheet links in the report when they directly support a finding or remediation.\n\n## Review Guidance\n\nUse this when the user needs graph visualization, parent paths, impact tracing, ownership mapping, or reachability analysis beyond SCA CVE reporting.",
+  "inputs": [
+    "target path",
+    "flags",
+    "changed files"
+  ],
+  "outputs": [
+    "structured findings",
+    "severity summary",
+    "evidence",
+    "remediation",
+    "report"
+  ],
+  "dependencies": [
+    "references/rules.yaml",
+    "references/report-template.md",
+    "../_shared/base-report.md",
+    "../_shared/owasp-cheatsheets.yaml"
+  ],
+  "security_constraints": {
+    "treat_target_content_as_untrusted": true,
+    "redact_sensitive_values": "required for secret-like evidence",
+    "skip_binary_and_lock_files": true,
+    "network_access": "not required for skill execution",
+    "output_requires_evidence": true
+  },
+  "references": {
+    "rules": "references/rules.yaml",
+    "report_template": "references/report-template.md",
+    "base_report": "../_shared/base-report.md",
+    "owasp_cheatsheets": "../_shared/owasp-cheatsheets.yaml"
+  },
+  "rules": [
+    {
+      "id": "DG-001",
+      "severity": "High",
+      "category": "Direct Dependencies",
+      "name": "Identify direct dependency roots",
+      "match_strategy": "depgraph_direct",
+      "description": "Identify dependencies declared directly in manifests.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Parse manifests and mark top-level direct dependencies."
+    },
+    {
+      "id": "DG-002",
+      "severity": "High",
+      "category": "Transitive Dependencies",
+      "name": "Identify transitive dependency paths",
+      "match_strategy": "depgraph_transitive",
+      "description": "Identify packages introduced through other packages.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Parse lockfiles, SBOM relationships, or package manager graph output."
+    },
+    {
+      "id": "DG-003",
+      "severity": "Medium",
+      "category": "Shortest Path",
+      "name": "Report shortest parent path to a package",
+      "match_strategy": "depgraph_shortest_path",
+      "description": "Identify the shortest known chain from root project to target package.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Compute and report direct parent chains for impact analysis."
+    },
+    {
+      "id": "DG-004",
+      "severity": "Medium",
+      "category": "Multiple Paths",
+      "name": "Preserve multiple introduction paths",
+      "match_strategy": "depgraph_multiple_paths",
+      "description": "Identify packages introduced by more than one parent.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Group duplicate components and list all relevant parent paths."
+    },
+    {
+      "id": "DG-005",
+      "severity": "High",
+      "category": "Vulnerable Impact",
+      "name": "Map vulnerable packages to affected roots",
+      "match_strategy": "depgraph_vuln_impact",
+      "description": "Identify which services/images/manifests depend on vulnerable packages.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Map CVE findings from SCA to dependency graph nodes and roots."
+    },
+    {
+      "id": "DG-006",
+      "severity": "Medium",
+      "category": "Ownership",
+      "name": "Attach ownership or service metadata",
+      "match_strategy": "depgraph_ownership",
+      "description": "Identify graph nodes without owning service/team context where available.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Use CODEOWNERS, service catalogs, repo paths, or manifests for ownership hints."
+    },
+    {
+      "id": "DG-007",
+      "severity": "Medium",
+      "category": "Container Layers",
+      "name": "Map image packages to layers and base image",
+      "match_strategy": "depgraph_container_layers",
+      "description": "Identify whether image packages come from base image or app layer.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Use SBOM/image metadata to map packages to layers and base image lineage."
+    },
+    {
+      "id": "DG-008",
+      "severity": "Medium",
+      "category": "Reachability",
+      "name": "Preserve reachability or call graph signals",
+      "match_strategy": "depgraph_reachability",
+      "description": "Identify callable paths or imported symbols when tooling provides reachability.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Include call graph or import evidence without treating unknown reachability as safe."
+    },
+    {
+      "id": "DG-009",
+      "severity": "Medium",
+      "category": "Export",
+      "name": "Export machine-readable graph output",
+      "match_strategy": "depgraph_export",
+      "description": "Identify graph output that cannot be reused by other tools.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Emit JSON plus optional DOT/Mermaid summaries."
+    },
+    {
+      "id": "DG-010",
+      "severity": "Info",
+      "category": "Graph Freshness",
+      "name": "Record source files and generation time",
+      "match_strategy": "depgraph_freshness",
+      "description": "Identify graphs missing source evidence or timestamp.",
+      "evidence_examples": [
+        "Source code",
+        "API routes/controllers",
+        "Tests or security assertions",
+        "Configuration files"
+      ],
+      "remediation": "Include source lockfiles/SBOMs, image digests, and generation time."
+    }
+  ],
+  "default_match_strategy": "unspecified",
+  "report_template": "# Dependency Graph Generation Report\n\n## Scope\n\n- Skill: `generate-dependency-graph`\n- Target: `{{target}}`\n- Date: `{{date}}`\n- Evidence reviewed: `{{evidence_summary}}`\n\n## Summary\n\n| Severity | Findings |\n|----------|----------|\n| Critical | {{summary.critical}} |\n| High | {{summary.high}} |\n| Medium | {{summary.medium}} |\n| Low | {{summary.low}} |\n| Info | {{summary.info}} |\n\n{{#if no_findings}}\nNo findings were identified from the available evidence.\n{{/if}}\n\n## Findings\n\n{{#each findings}}\n### {{id}} - {{name}}\n\n- Severity: {{severity}}\n- Category: {{category}}\n- Evidence: `{{evidence}}`\n- Location: `{{location}}`\n- Risk: {{risk}}\n- Remediation: {{remediation}}\n{{/each}}\n\n## Evidence Gaps\n\n{{#each evidence_gaps}}\n- {{gap}}\n{{/each}}\n"
+}

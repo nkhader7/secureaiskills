@@ -175,7 +175,7 @@ owasp_project_curation:
   include_when:
     - "The project provides AppSec requirements, verification criteria, testing procedures, or secure coding guidance."
     - "The project maps cleanly to an existing skill's evidence model, rule IDs, or remediation language."
-    - "The project supports AI, LLM, agentic, MCP, API, supply chain, CI/CD, cloud, container, IaC, Kubernetes, browser, or web application security."
+    - "The project supports AI, LLM, agentic, API, supply chain, CI/CD, cloud, container, IaC, Kubernetes, browser, or web application security."
   exclude_by_default:
     - "Training-only, awareness-only, game, card, or intentionally vulnerable application projects."
     - "Highly specialized domains such as drone, maritime, XR, Wi-Fi, OT, blockchain, mobile, IoT, embedded, payment, or desktop unless the reviewed target uses that domain."
@@ -366,12 +366,10 @@ candidate_appsec_skill_sources:
     suggested_skills:
       - "scan-llm-app-security"
       - "audit-agentic-workflows"
-      - "scan-mcp-security"
       - "audit-ai-observability"
     urls:
       - "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
       - "https://owasp.org/www-project-agentic-skills-top-10/"
-      - "https://owasp.org/www-project-mcp-top-10/"
       - "https://owasp.org/www-project-agent-observability-standard/"
       - "https://owasp.org/www-project-ai-testing-guide/"
       - "https://owasp.org/www-project-artificial-intelligence-security-verification-standard-aisvs-docs/"

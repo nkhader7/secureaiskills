@@ -1,0 +1,271 @@
+[
+  {
+    "skill": "audit-asvs-compliance",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "audit-auth-session-management",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "audit-crypto-usage",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "audit-logging-monitoring",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "detect-secrets",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "detect-supply-chain-risks",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "generate-dependency-graph",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "generate-sbom",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-api-security",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-broken-access-control",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-container-image",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-exception-handling",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-for-injection",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-for-ssrf",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-for-xss",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-iac-security",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-json-security",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-kubernetes-manifests",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-markdown-security",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-sca-dependencies",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-security-headers",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-static-analysis",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-toml-security",
+    "lifecycle_coverage": [
+      "development",
+      "supply_chain"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-xml-security",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "scan-yaml-security",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain"
+    ],
+    "score": 100.0
+  },
+  {
+    "skill": "threat-model-system",
+    "lifecycle_coverage": [
+      "design",
+      "development",
+      "supply_chain",
+      "operations",
+      "compliance"
+    ],
+    "score": 100.0
+  }
+]

@@ -1,0 +1,284 @@
+name = "scan-static-analysis"
+description = "Runs or plans static analysis using CodeQL, Semgrep, and SARIF processing. Use when scanning a workspace for vulnerabilities, selecting CodeQL or Semgrep rulesets, generating a SAST scan plan, processing SARIF results, or combining static-analysis findings from multiple tools."
+version = "1.0"
+intent = "# scan-static-analysis"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "SAS-001"
+name = "Use CodeQL For Deep Dataflow Analysis"
+severity = "High"
+category = "Tool Selection"
+description = "Select CodeQL when the target requires interprocedural data-flow, taint tracking, framework modeling, or variant-quality vulnerability discovery."
+match_strategy = "workflow_rule"
+remediation = "Build or select a high-quality CodeQL database, create project-specific data extensions when needed, and analyze with explicit suite references."
+
+[[rules]]
+id = "SAS-002"
+name = "Use Semgrep For Fast Pattern-Based Scanning"
+severity = "High"
+category = "Tool Selection"
+description = "Select Semgrep for fast static analysis, language/framework ruleset coverage, taint-mode checks, and PR-friendly security scans."
+match_strategy = "workflow_rule"
+remediation = "Run Semgrep with approved rulesets, metrics disabled, and language/framework-specific coverage."
+
+[[rules]]
+id = "SAS-003"
+name = "Parse Existing SARIF Instead Of Re-Scanning"
+severity = "Medium"
+category = "Result Processing"
+description = "Use SARIF processing when scan results already exist and the task is to interpret, aggregate, deduplicate, filter, or convert findings."
+match_strategy = "workflow_rule"
+remediation = "Process SARIF defensively, normalize paths, deduplicate findings, and preserve raw results for traceability."
+
+[[rules]]
+id = "SAS-004"
+name = "Disable Semgrep Metrics"
+severity = "High"
+category = "Scan Hygiene"
+description = "Semgrep sends telemetry by default; static-analysis scans must disable metrics to avoid leaking audit metadata."
+match_strategy = "command_requirement"
+remediation = "Add --metrics=off to every Semgrep command."
+
+[[rules]]
+id = "SAS-005"
+name = "Important-Only Semgrep Mode"
+severity = "Medium"
+category = "Scan Mode"
+description = "Focus Semgrep output on medium-or-higher security vulnerabilities with medium-or-higher confidence and impact."
+match_strategy = "ruleset_filter"
+remediation = "Apply severity pre-filtering and metadata post-filtering while preserving raw unfiltered results."
+
+[[rules]]
+id = "SAS-006"
+name = "Run-All Semgrep Mode"
+severity = "Low"
+category = "Scan Mode"
+description = "Run all selected Semgrep rulesets and preserve all severity levels for manual audit, research, and variant hunting."
+match_strategy = "ruleset_filter"
+remediation = "Run the full approved ruleset plan and report all findings with severity and category summaries."
+
+[[rules]]
+id = "SAS-007"
+name = "Official CodeQL Security Extended"
+severity = "High"
+category = "CodeQL Suite"
+description = "Baseline official CodeQL security suite for low-false-positive security audits."
+match_strategy = "ruleset"
+remediation = "Include security-extended unless there is a documented reason to exclude it."
+
+[[rules]]
+id = "SAS-008"
+name = "Official CodeQL Security And Quality"
+severity = "Medium"
+category = "CodeQL Suite"
+description = "Comprehensive official CodeQL suite that includes stable security and code-quality queries but excludes experimental query paths."
+match_strategy = "ruleset"
+remediation = "Combine with security-experimental for maximum run-all coverage."
+
+[[rules]]
+id = "SAS-009"
+name = "Official CodeQL Security Experimental"
+severity = "Medium"
+category = "CodeQL Suite"
+description = "Official CodeQL suite that includes stable security and experimental security queries while excluding code-quality queries."
+match_strategy = "ruleset"
+remediation = "Use in run-all mode when higher false-positive volume is acceptable."
+
+[[rules]]
+id = "SAS-010"
+name = "Trail Of Bits CodeQL Packs"
+severity = "Medium"
+category = "CodeQL Pack"
+description = "Add Trail of Bits CodeQL packs for C/C++, Go, and Java when those languages are present."
+match_strategy = "ruleset"
+remediation = "Install and include matching Trail of Bits CodeQL packs for supported languages."
+
+[[rules]]
+id = "SAS-011"
+name = "CodeQL Community Packs"
+severity = "Medium"
+category = "CodeQL Pack"
+description = "Add GitHub Security Lab community packs when matching languages are present."
+match_strategy = "ruleset"
+remediation = "Include matching community packs to broaden query coverage beyond official suites."
+
+[[rules]]
+id = "SAS-012"
+name = "Validate CodeQL Database Quality"
+severity = "High"
+category = "CodeQL Quality"
+description = "A database that builds is not automatically useful; extraction quality must be checked before trusting results."
+match_strategy = "quality_gate"
+remediation = "Rebuild or repair the CodeQL database before reporting results."
+
+[[rules]]
+id = "SAS-013"
+name = "Create CodeQL Data Extensions"
+severity = "High"
+category = "CodeQL Modeling"
+description = "Project-specific source, sink, and summary models are needed for custom wrappers around requests, database calls, shell execution, and framework APIs."
+match_strategy = "workflow_rule"
+remediation = "Create and include data extensions or document why they are not applicable."
+
+[[rules]]
+id = "SAS-014"
+name = "Remote Threat Model"
+severity = "Medium"
+category = "CodeQL Threat Model"
+description = "Track HTTP requests and network input; this is the default CodeQL threat model for web services and APIs."
+match_strategy = "threat_model"
+remediation = "Leave remote/default enabled unless there is a rare documented reason to disable it."
+
+[[rules]]
+id = "SAS-015"
+name = "Local Threat Model"
+severity = "Medium"
+category = "CodeQL Threat Model"
+description = "Track command-line arguments and local files as untrusted sources for CLI tools, batch processors, and desktop apps."
+match_strategy = "threat_model"
+remediation = "Enable local threat model when local inputs cross trust boundaries."
+
+[[rules]]
+id = "SAS-016"
+name = "Environment Threat Model"
+severity = "Medium"
+category = "CodeQL Threat Model"
+description = "Track environment variables as tainted sources for apps where runtime environment values may be untrusted."
+match_strategy = "threat_model"
+remediation = "Enable environment threat model when environment values are runtime-controlled across a trust boundary."
+
+[[rules]]
+id = "SAS-017"
+name = "Database Threat Model"
+severity = "Low"
+category = "CodeQL Threat Model"
+description = "Track database query results as tainted sources for stored and second-order vulnerability scenarios."
+match_strategy = "threat_model"
+remediation = "Enable database threat model only when the system trust boundary makes stored data untrusted."
+
+[[rules]]
+id = "SAS-018"
+name = "File Threat Model"
+severity = "Medium"
+category = "CodeQL Threat Model"
+description = "Track file contents for upload processors, log parsers, and config readers that accept user-controlled files."
+match_strategy = "threat_model"
+remediation = "Enable file threat model when file contents should be treated as attacker-controlled input."
+
+[[rules]]
+id = "SAS-019"
+name = "Semgrep Security Baseline"
+severity = "High"
+category = "Semgrep Baseline"
+description = "Always include Semgrep security-audit and secrets rulesets for baseline vulnerability and credential coverage."
+match_strategy = "ruleset"
+remediation = "Include both baseline rulesets unless explicitly excluded with documented rationale."
+
+[[rules]]
+id = "SAS-020"
+name = "Semgrep Security-Focused Rulesets"
+severity = "Medium"
+category = "Semgrep Security Ruleset"
+description = "Add focused Semgrep security rulesets when their domains match the target."
+match_strategy = "ruleset_catalog"
+remediation = "Select focused rulesets based on detected application domains and languages."
+
+[[rules]]
+id = "SAS-021"
+name = "Semgrep CI And General Rulesets"
+severity = "Low"
+category = "Semgrep CI Ruleset"
+description = "Use CI-safe and general Semgrep rulesets when low false positives or quick first-pass coverage is needed."
+match_strategy = "ruleset_catalog"
+remediation = "Prefer explicit rulesets over auto-selection when audit reproducibility matters."
+
+[[rules]]
+id = "SAS-022"
+name = "Semgrep GA Language Rulesets"
+severity = "Medium"
+category = "Semgrep Language Ruleset"
+description = "Add production-ready Semgrep language rulesets based on detected file extensions and frameworks."
+match_strategy = "language_ruleset"
+remediation = "Include each detected primary language ruleset and matching framework rulesets."
+
+[[rules]]
+id = "SAS-023"
+name = "Semgrep Beta And Experimental Language Rulesets"
+severity = "Low"
+category = "Semgrep Language Ruleset"
+description = "Add Semgrep beta or experimental language coverage when matching files are present, and note expected limitations."
+match_strategy = "language_ruleset"
+remediation = "Add beta or experimental coverage with explicit notes about false positives and missing coverage."
+
+[[rules]]
+id = "SAS-024"
+name = "Semgrep Framework Detection"
+severity = "Medium"
+category = "Semgrep Framework Ruleset"
+description = "Detect common frameworks and add matching Semgrep framework rulesets."
+match_strategy = "framework_detection"
+remediation = "Add framework-specific rulesets when framework signals are present."
+
+[[rules]]
+id = "SAS-025"
+name = "Semgrep Infrastructure Rulesets"
+severity = "Medium"
+category = "Semgrep Infrastructure Ruleset"
+description = "Add infrastructure and CI/CD Semgrep rulesets when matching files are present."
+match_strategy = "infrastructure_ruleset"
+remediation = "Include matching infrastructure rulesets for IaC, containers, CI/CD, and policy files."
+
+[[rules]]
+id = "SAS-026"
+name = "Required Third-Party Semgrep Rulesets"
+severity = "High"
+category = "Semgrep Third-Party Ruleset"
+description = "Include third-party Semgrep rule sources when language coverage matches; they are required because they catch vulnerabilities absent from official registry packs."
+match_strategy = "third_party_ruleset"
+remediation = "Include matching third-party rule sources or explicitly document why they were excluded."
+
+[[rules]]
+id = "SAS-027"
+name = "Validate SARIF Structure"
+severity = "Medium"
+category = "SARIF Processing"
+description = "Validate SARIF 2.1.0 structure before processing findings."
+match_strategy = "result_processing"
+remediation = "Reject or repair malformed SARIF before aggregation, filtering, or reporting."
+
+[[rules]]
+id = "SAS-028"
+name = "Normalize SARIF Paths"
+severity = "Medium"
+category = "SARIF Processing"
+description = "Normalize SARIF artifact URIs so findings can be compared across tools and environments."
+match_strategy = "result_processing"
+remediation = "Normalize paths before deduplication, baseline comparison, and reporting."
+
+[[rules]]
+id = "SAS-029"
+name = "Deduplicate SARIF Findings"
+severity = "Medium"
+category = "SARIF Processing"
+description = "Deduplicate SARIF results using stable fingerprints when available, with fallback keys based on rule, location, and snippet context."
+match_strategy = "result_processing"
+remediation = "Use stable fingerprints to identify duplicate findings across tools and repeated scans."
+
+[[rules]]
+id = "SAS-030"
+name = "Investigate Zero Findings"
+severity = "Medium"
+category = "Scan Quality"
+description = "Zero findings can indicate poor database quality, missing models, wrong rulesets, broken tool installation, or invalid SARIF rather than clean code."
+match_strategy = "quality_gate"
+remediation = "Report zero findings only after validating scan coverage and tool quality."

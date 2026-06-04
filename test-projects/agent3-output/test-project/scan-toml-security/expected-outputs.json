@@ -1,0 +1,69 @@
+[
+  {
+    "findings": [
+      {
+        "rule_id": "TOML-001",
+        "severity": "High"
+      }
+    ],
+    "confidence": 0.8,
+    "evidence": [
+      "Rule evidence should produce a finding."
+    ]
+  },
+  {
+    "findings": [],
+    "confidence": 0.8,
+    "evidence": [
+      "Safe content should produce no finding."
+    ]
+  },
+  {
+    "findings": [
+      {
+        "rule_id": "TOML-001",
+        "severity": "Medium"
+      }
+    ],
+    "confidence": 0.8,
+    "evidence": [
+      "Large or ambiguous target should include assumptions."
+    ]
+  },
+  {
+    "findings": [
+      {
+        "rule_id": "TOML-001",
+        "severity": "Info"
+      }
+    ],
+    "confidence": 0.8,
+    "evidence": [
+      "Mock LLM response must match output contract."
+    ]
+  },
+  {
+    "findings": [
+      {
+        "rule_id": "TOML-001",
+        "severity": "High"
+      }
+    ],
+    "confidence": 0.8,
+    "evidence": [
+      "Missing evidence should fail validation."
+    ]
+  },
+  {
+    "findings": [
+      {
+        "rule_id": "TOML-001",
+        "severity": "High"
+      }
+    ],
+    "confidence": 0.8,
+    "evidence": [
+      "Known risky pattern remains detected."
+    ]
+  }
+]

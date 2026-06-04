@@ -1,0 +1,122 @@
+name = "threat-model-system"
+description = "Builds a lightweight system threat model from product, architecture, API, data-flow, and infrastructure context. Use during design review or when a feature changes trust boundaries, authentication, authorization, sensitive data handling, external integrations, or deployment architecture."
+version = "1.0"
+intent = "# threat-model-system"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "TMS-001"
+name = "Missing System Boundary"
+severity = "High"
+category = "Scope"
+description = "The reviewed design does not clearly define what components, users, environments, or responsibilities are in scope."
+match_strategy = "design_review"
+remediation = "Define the system boundary, ownership, deployment environments, and out-of-scope dependencies before approving the design."
+
+[[rules]]
+id = "TMS-002"
+name = "Unclear Trust Boundary"
+severity = "High"
+category = "Trust Boundary"
+description = "Data or requests cross between users, services, networks, tenants, or execution contexts without a documented trust boundary."
+match_strategy = "design_review"
+remediation = "Document each trust boundary and require explicit controls such as authentication, authorization, validation, isolation, and monitoring at the crossing."
+
+[[rules]]
+id = "TMS-003"
+name = "Weak Or Missing Authentication"
+severity = "Critical"
+category = "Authentication"
+description = "A user, service, job, webhook, or administrative path can access protected behavior without strong authentication."
+match_strategy = "design_review"
+remediation = "Require strong authentication for users, services, automation, and webhooks. Prefer managed identity, short-lived tokens, signed requests, MFA for admin access, and credential rotation."
+
+[[rules]]
+id = "TMS-004"
+name = "Missing Object Or Action Authorization"
+severity = "Critical"
+category = "Authorization"
+description = "The design does not prove that users or services are authorized for each requested object, tenant, action, or privileged operation."
+match_strategy = "design_review"
+remediation = "Define server-side authorization for every sensitive object and action. Enforce least privilege, tenant isolation, deny-by-default behavior, and separate privileged workflows."
+
+[[rules]]
+id = "TMS-005"
+name = "Sensitive Data Flow Not Classified"
+severity = "High"
+category = "Data Protection"
+description = "Sensitive data is collected, transmitted, processed, stored, or shared without classification and handling requirements."
+match_strategy = "design_review"
+remediation = "Classify sensitive data and define encryption, access control, retention, deletion, masking, logging, and third-party handling requirements."
+
+[[rules]]
+id = "TMS-006"
+name = "Untrusted Input Without Validation"
+severity = "High"
+category = "Input Handling"
+description = "User, service, file, webhook, message queue, AI output, or third-party input reaches business logic without explicit validation or parsing rules."
+match_strategy = "design_review"
+remediation = "Define strict schemas, size limits, allowlists, canonicalization, safe parsers, and output-to-action validation for every untrusted input path."
+
+[[rules]]
+id = "TMS-007"
+name = "Secret Lifecycle Not Defined"
+severity = "High"
+category = "Secrets"
+description = "API keys, tokens, certificates, signing keys, encryption keys, or service credentials are used without a lifecycle plan."
+match_strategy = "design_review"
+remediation = "Store secrets in a managed secrets service, restrict access, rotate regularly, prefer short-lived credentials or managed identity, and prevent exposure in logs, builds, and client code."
+
+[[rules]]
+id = "TMS-008"
+name = "Abuse Cases Not Considered"
+severity = "Medium"
+category = "Abuse Case"
+description = "The design describes intended use but does not consider misuse, fraud, denial of service, escalation, automation, or business-logic abuse."
+match_strategy = "design_review"
+remediation = "Add abuse cases, enforce state transitions server-side, apply rate limits and quotas, detect automation and replay, and monitor suspicious behavior."
+
+[[rules]]
+id = "TMS-009"
+name = "Resilience And Failure Mode Gaps"
+severity = "Medium"
+category = "Availability"
+description = "The system lacks clear handling for dependency failures, retries, timeouts, backpressure, degraded mode, or data recovery."
+match_strategy = "design_review"
+remediation = "Define failure behavior, bounded retries, idempotency keys, timeouts, circuit breakers, backpressure, backup and restore controls, and operational runbooks."
+
+[[rules]]
+id = "TMS-010"
+name = "Security Logging And Detection Missing"
+severity = "Medium"
+category = "Observability"
+description = "The design does not specify audit events, security logs, alerts, or investigation evidence for sensitive actions."
+match_strategy = "design_review"
+remediation = "Define security-relevant audit events, protect logs, avoid sensitive log content, establish alerts, and ensure investigation evidence is retained."
+
+[[rules]]
+id = "TMS-011"
+name = "External Dependency Risk Unreviewed"
+severity = "Medium"
+category = "Supply Chain"
+description = "Third-party services, libraries, packages, models, APIs, plugins, or vendors are introduced without security review."
+match_strategy = "design_review"
+remediation = "Review external dependencies for data access, privileges, operational risk, update process, retention terms, and fallback behavior before use."
+
+[[rules]]
+id = "TMS-012"
+name = "Security Assumptions Not Tracked"
+severity = "Low"
+category = "Decision Tracking"
+description = "Important security assumptions, accepted risks, and follow-up actions are not recorded with owners and due dates."
+match_strategy = "design_review"
+remediation = "Record assumptions, unknowns, accepted risks, owners, due dates, and revisit triggers in the threat model or issue tracker."

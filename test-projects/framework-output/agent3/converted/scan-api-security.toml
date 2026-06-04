@@ -1,0 +1,74 @@
+name = "scan-api-security"
+description = "Scans API implementations, gateway configs, and OpenAPI definitions for common API security risks aligned to OWASP API Security Top 10 2023."
+version = "1.0"
+intent = "# scan-api-security"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "SA-001"
+name = "Anonymous API Access"
+severity = "High"
+category = "Authentication/Authorization"
+description = "API endpoint or gateway configuration explicitly allows anonymous access."
+patterns = ["\\b(AllowAnonymous|AllowAny|@PermitAll|@Public|permitAll\\(\\)|skip_before_action\\s*:authenticate|skip_before_action\\s*:authorize)\\b", "authorizationType\\s*[:=]\\s*[\"']?NONE[\"']?", "x-auth-type\\s*[:=]\\s*[\"']?None[\"']?"]
+match_strategy = "regex"
+remediation = "Require authentication and explicit authorization checks for all non-public API routes."
+
+[[rules]]
+id = "SA-002"
+name = "Wildcard CORS Policy"
+severity = "High"
+category = "Security Misconfiguration"
+description = "CORS configuration allows all origins to access API responses."
+patterns = ["Access-Control-Allow-Origin\\s*[:=]\\s*\\*", "cors\\s*\\([\\s\\S]*?origin\\s*:\\s*[\"']\\*[\"']", "allowedOrigins\\s*[:=]\\s*\\[?\\s*[\"']\\*[\"']\\s*\\]?"]
+match_strategy = "regex"
+remediation = "Restrict CORS origins to trusted domains and avoid wildcard access."
+
+[[rules]]
+id = "SA-003"
+name = "API Tokens in Query String"
+severity = "Medium"
+category = "Authentication"
+description = "API credentials appear to be passed via query string parameters."
+patterns = ["['\"]https?://[^\\s\"']+\\?(?:[^\\s\"']*&)?(api_key|apikey|access_token|auth_token|token)=", "\\b(api_key|apikey|access_token|auth_token|token)\\s*[:=]\\s*req\\.query"]
+match_strategy = "regex"
+remediation = "Send credentials in Authorization headers or signed tokens instead of query strings."
+
+[[rules]]
+id = "SA-004"
+name = "OpenAPI Security Disabled"
+severity = "Medium"
+category = "Authentication/Authorization"
+description = "API specification explicitly disables security requirements for operations."
+patterns = ["security\\s*:\\s*\\[\\s*\\]", "security\\s*:\\s*null", "x-amazon-apigateway-api-key-required\\s*:\\s*false"]
+match_strategy = "regex"
+remediation = "Define and apply security schemes globally or per operation in the API specification."
+
+[[rules]]
+id = "SA-005"
+name = "Insecure API Transport"
+severity = "Medium"
+category = "Security Misconfiguration"
+description = "API specification or configuration references plaintext HTTP endpoints."
+patterns = ["schemes\\s*:\\s*\\[?\\s*http\\s*\\]?", "url\\s*:\\s*http://"]
+match_strategy = "regex"
+remediation = "Require HTTPS/TLS for all API endpoints and remove plaintext HTTP schemes."
+
+[[rules]]
+id = "SA-006"
+name = "Exposed API Documentation or Debug Endpoints"
+severity = "Low"
+category = "Improper Inventory"
+description = "API documentation or debug endpoints appear to be enabled in production routes."
+patterns = ["/swagger(?:/|$)", "\\bswagger-ui\\b", "/openapi\\.json\\b", "\\bgraphiql\\b", "/actuator(?:/|$)"]
+match_strategy = "regex"
+remediation = "Restrict API documentation and debug endpoints to authenticated or internal access."

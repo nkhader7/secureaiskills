@@ -1,0 +1,395 @@
+{
+  "decision": "pass",
+  "reports": [
+    {
+      "skill": "audit-asvs-compliance",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 83.6,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 5.91,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "audit-asvs-compliance is testable with 6 generated Agent 3 cases and 345 loaded rules."
+    },
+    {
+      "skill": "audit-auth-session-management",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 94.1,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.53,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "audit-auth-session-management is testable with 6 generated Agent 3 cases and 12 loaded rules."
+    },
+    {
+      "skill": "audit-crypto-usage",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 94.4,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.6,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "audit-crypto-usage is testable with 6 generated Agent 3 cases and 12 loaded rules."
+    },
+    {
+      "skill": "audit-logging-monitoring",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 94.4,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.59,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "audit-logging-monitoring is testable with 6 generated Agent 3 cases and 12 loaded rules."
+    },
+    {
+      "skill": "detect-secrets",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 84.1,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 6.03,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "detect-secrets is testable with 6 generated Agent 3 cases and 393 loaded rules."
+    },
+    {
+      "skill": "detect-supply-chain-risks",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.7,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.42,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "detect-supply-chain-risks is testable with 6 generated Agent 3 cases and 20 loaded rules."
+    },
+    {
+      "skill": "generate-dependency-graph",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.7,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.42,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "generate-dependency-graph is testable with 6 generated Agent 3 cases and 10 loaded rules."
+    },
+    {
+      "skill": "generate-sbom",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.8,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.45,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "generate-sbom is testable with 6 generated Agent 3 cases and 10 loaded rules."
+    },
+    {
+      "skill": "scan-api-security",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 94.2,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.54,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-api-security is testable with 6 generated Agent 3 cases and 6 loaded rules."
+    },
+    {
+      "skill": "scan-broken-access-control",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.4,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.36,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-broken-access-control is testable with 6 generated Agent 3 cases and 12 loaded rules."
+    },
+    {
+      "skill": "scan-container-image",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 83.7,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 5.92,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-container-image is testable with 6 generated Agent 3 cases and 128 loaded rules."
+    },
+    {
+      "skill": "scan-exception-handling",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.6,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.41,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-exception-handling is testable with 6 generated Agent 3 cases and 10 loaded rules."
+    },
+    {
+      "skill": "scan-for-injection",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.7,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.42,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-for-injection is testable with 6 generated Agent 3 cases and 7 loaded rules."
+    },
+    {
+      "skill": "scan-for-ssrf",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.1,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.28,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-for-ssrf is testable with 6 generated Agent 3 cases and 8 loaded rules."
+    },
+    {
+      "skill": "scan-for-xss",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.6,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.41,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-for-xss is testable with 6 generated Agent 3 cases and 12 loaded rules."
+    },
+    {
+      "skill": "scan-iac-security",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 83.8,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 5.94,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-iac-security is testable with 6 generated Agent 3 cases and 1746 loaded rules."
+    },
+    {
+      "skill": "scan-json-security",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 96.2,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 9.06,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-json-security is testable with 6 generated Agent 3 cases and 5 loaded rules."
+    },
+    {
+      "skill": "scan-kubernetes-manifests",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 83.9,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 5.98,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-kubernetes-manifests is testable with 6 generated Agent 3 cases and 131 loaded rules."
+    },
+    {
+      "skill": "scan-markdown-security",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 96.1,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 9.02,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-markdown-security is testable with 6 generated Agent 3 cases and 5 loaded rules."
+    },
+    {
+      "skill": "scan-sca-dependencies",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 91.2,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 7.79,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-sca-dependencies is testable with 6 generated Agent 3 cases and 28 loaded rules."
+    },
+    {
+      "skill": "scan-security-headers",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 94.4,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.59,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-security-headers is testable with 6 generated Agent 3 cases and 12 loaded rules."
+    },
+    {
+      "skill": "scan-static-analysis",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 91.0,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 7.74,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-static-analysis is testable with 6 generated Agent 3 cases and 30 loaded rules."
+    },
+    {
+      "skill": "scan-toml-security",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 96.3,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 9.08,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-toml-security is testable with 6 generated Agent 3 cases and 5 loaded rules."
+    },
+    {
+      "skill": "scan-xml-security",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 96.3,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 9.08,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-xml-security is testable with 6 generated Agent 3 cases and 5 loaded rules."
+    },
+    {
+      "skill": "scan-yaml-security",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 96.2,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 9.06,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "scan-yaml-security is testable with 6 generated Agent 3 cases and 5 loaded rules."
+    },
+    {
+      "skill": "threat-model-system",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 93.1,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 8.27,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "threat-model-system is testable with 6 generated Agent 3 cases and 12 loaded rules."
+    }
+  ]
+}

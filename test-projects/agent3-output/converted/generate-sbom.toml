@@ -1,0 +1,104 @@
+name = "generate-sbom"
+description = "Generates or reviews software bills of materials for applications, repositories, containers, SBOM files, and release artifacts using SPDX or CycloneDX conventions. Use when the user asks for SBOM generation, dependency inventory, component inventory, package URLs, image SBOMs, license inventory, or release artifact component metadata."
+version = "1.0"
+intent = "# generate-sbom"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "SBOM-001"
+name = "Emit SPDX or CycloneDX SBOM"
+severity = "High"
+category = "Format"
+description = "Ensure output uses a standard SBOM format instead of informal dependency lists."
+match_strategy = "sbom_format"
+remediation = "Generate CycloneDX or SPDX JSON unless the user requests another format."
+
+[[rules]]
+id = "SBOM-002"
+name = "Include package name, version, ecosystem, and purl"
+severity = "High"
+category = "Component Identity"
+description = "Identify components missing stable identity fields."
+match_strategy = "sbom_component_identity"
+remediation = "Include name, version, package URL, ecosystem, supplier, and source path."
+
+[[rules]]
+id = "SBOM-003"
+name = "Record dependency relationships"
+severity = "Medium"
+category = "Direct/Transitive"
+description = "Identify SBOMs without direct/transitive or dependsOn relationships."
+match_strategy = "sbom_relationships"
+remediation = "Include dependency graph relationships where tooling supports them."
+
+[[rules]]
+id = "SBOM-004"
+name = "Generate SBOMs for container image OS packages"
+severity = "High"
+category = "Container Image"
+description = "Identify container artifacts without OS package inventory."
+match_strategy = "sbom_container"
+remediation = "Generate image SBOMs with OS and application packages."
+
+[[rules]]
+id = "SBOM-005"
+name = "Include license metadata"
+severity = "Medium"
+category = "Licenses"
+description = "Identify missing or ambiguous license fields."
+match_strategy = "sbom_license"
+remediation = "Include declared and detected licenses and flag unknown licenses."
+
+[[rules]]
+id = "SBOM-006"
+name = "Include hashes for artifacts and packages"
+severity = "Medium"
+category = "Hashes"
+description = "Identify missing checksums or digests."
+match_strategy = "sbom_hashes"
+remediation = "Include hashes for files, packages, and container images when available."
+
+[[rules]]
+id = "SBOM-007"
+name = "Attach SBOM to release artifacts"
+severity = "High"
+category = "Release Attachment"
+description = "Identify releases without SBOM artifacts or links."
+match_strategy = "sbom_release"
+remediation = "Publish SBOMs alongside release artifacts and container images."
+
+[[rules]]
+id = "SBOM-008"
+name = "Regenerate SBOM during build"
+severity = "Medium"
+category = "Freshness"
+description = "Identify stale SBOMs not generated from current lockfiles or image digests."
+match_strategy = "sbom_freshness"
+remediation = "Generate SBOMs during CI from the exact release artifact."
+
+[[rules]]
+id = "SBOM-009"
+name = "Support VEX or vulnerability status links"
+severity = "Medium"
+category = "VEX Link"
+description = "Identify no way to record vulnerability applicability decisions."
+match_strategy = "sbom_vex"
+remediation = "Attach VEX or equivalent vulnerability status documents where needed."
+
+[[rules]]
+id = "SBOM-010"
+name = "Validate SBOM schema"
+severity = "Info"
+category = "Validation"
+description = "Identify SBOMs that do not validate against their declared schema."
+match_strategy = "sbom_validation"
+remediation = "Validate generated SBOMs before publication."

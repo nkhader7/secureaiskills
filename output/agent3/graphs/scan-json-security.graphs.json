@@ -1,0 +1,198 @@
+{
+  "skill_execution_graph": {
+    "graph": "skill_execution_graph",
+    "nodes": [
+      {
+        "id": "load_skill",
+        "label": "load_skill"
+      },
+      {
+        "id": "load_rules",
+        "label": "load_rules"
+      },
+      {
+        "id": "assemble_context",
+        "label": "assemble_context"
+      },
+      {
+        "id": "llm_validate",
+        "label": "llm_validate"
+      },
+      {
+        "id": "scan_targets",
+        "label": "scan_targets"
+      },
+      {
+        "id": "render_report",
+        "label": "render_report"
+      }
+    ],
+    "edges": [
+      {
+        "source": "load_skill",
+        "target": "load_rules"
+      },
+      {
+        "source": "load_rules",
+        "target": "assemble_context"
+      },
+      {
+        "source": "assemble_context",
+        "target": "llm_validate"
+      },
+      {
+        "source": "llm_validate",
+        "target": "scan_targets"
+      },
+      {
+        "source": "scan_targets",
+        "target": "render_report"
+      }
+    ]
+  },
+  "agent_workflow_graph": {
+    "graph": "agent_workflow_graph",
+    "nodes": [
+      {
+        "id": "convert"
+      },
+      {
+        "id": "test"
+      },
+      {
+        "id": "benchmark"
+      },
+      {
+        "id": "visualize"
+      },
+      {
+        "id": "report"
+      },
+      {
+        "id": "ci_cd"
+      }
+    ],
+    "edges": [
+      {
+        "source": "convert",
+        "target": "test"
+      },
+      {
+        "source": "convert",
+        "target": "benchmark"
+      },
+      {
+        "source": "convert",
+        "target": "visualize"
+      },
+      {
+        "source": "convert",
+        "target": "report"
+      },
+      {
+        "source": "convert",
+        "target": "ci_cd"
+      }
+    ]
+  },
+  "dependency_graph": {
+    "graph": "dependency_graph",
+    "nodes": [
+      {
+        "id": "scan-json-security",
+        "type": "skill"
+      },
+      {
+        "id": "references/rules.yaml",
+        "type": "reference"
+      },
+      {
+        "id": "references/report-template.md",
+        "type": "reference"
+      },
+      {
+        "id": "../_shared/base-report.md",
+        "type": "reference"
+      },
+      {
+        "id": "../_shared/owasp-cheatsheets.yaml",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "source": "scan-json-security",
+        "target": "references/rules.yaml"
+      },
+      {
+        "source": "scan-json-security",
+        "target": "references/report-template.md"
+      },
+      {
+        "source": "scan-json-security",
+        "target": "../_shared/base-report.md"
+      },
+      {
+        "source": "scan-json-security",
+        "target": "../_shared/owasp-cheatsheets.yaml"
+      }
+    ]
+  },
+  "benchmark_comparison_graph": {
+    "graph": "benchmark_comparison_graph",
+    "nodes": [
+      {
+        "id": "json",
+        "score": 9.57
+      },
+      {
+        "id": "toml",
+        "score": 9.21
+      },
+      {
+        "id": "python",
+        "score": 8.98
+      },
+      {
+        "id": "markdown",
+        "score": 8.92
+      },
+      {
+        "id": "yaml",
+        "score": 8.62
+      }
+    ],
+    "edges": []
+  },
+  "file_relationship_graph": {
+    "graph": "file_relationship_graph",
+    "nodes": [
+      {
+        "id": "SKILL.md"
+      },
+      {
+        "id": "rules.yaml"
+      },
+      {
+        "id": "report-template.md"
+      },
+      {
+        "id": "agent3-report.json"
+      }
+    ],
+    "edges": [
+      {
+        "source": "SKILL.md",
+        "target": "rules.yaml"
+      },
+      {
+        "source": "SKILL.md",
+        "target": "report-template.md"
+      },
+      {
+        "source": "rules.yaml",
+        "target": "agent3-report.json"
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 """
-Security Skill Format Lab — Streamlit app.
+3-Agent Security Skill Format Lab — Streamlit app.
 
-Tabs:  Benchmark | Skill Writer | Test Project Builder | Requirements
+Tabs:  Benchmark | Skill Writer | Live Run | Test Project Builder | Requirements
 
 Run:   streamlit run streamlit_app.py
 """
@@ -807,8 +807,8 @@ def render_sidebar(data: dict) -> dict:
 
         st.divider()
         st.caption("**Links**")
-        st.markdown("- [Static dashboard](http://localhost:8765)")
-        st.markdown("- [Simulator](http://localhost:8765/simulator.html)")
+        st.markdown("- [Static dashboard](http://localhost:8080)")
+        st.markdown("- [Simulator](http://localhost:8080/simulator.html)")
 
         st.divider()
         st.caption("**Quick start**")
@@ -1152,14 +1152,14 @@ def tab_requirements() -> None:
 
 def main() -> None:
     st.set_page_config(
-        page_title="Security Skill Lab",
+        page_title="3-Agent Skill Governance Lab",
         page_icon=":lock:",
         layout="wide",
         initial_sidebar_state="expanded",
     )
-    st.title(":lock: Security Skill Format Lab")
+    st.title(":lock: 3-Agent Security Skill Format Lab")
     st.caption(
-        "Build skills · generate all 6 formats · run skills live via your LLM · "
+        "Understand skills · secure and govern them · validate and benchmark them · "
         "create TP/FP/FN/TN test projects · scan skill safety · inspect benchmark results."
     )
 

@@ -1,0 +1,122 @@
+name = "audit-crypto-usage"
+description = "Audits code and configuration for cryptographic failures including weak algorithms, insecure random number generation, poor key management, unsafe TLS, missing encryption, weak password hashing, hardcoded keys, and misuse of crypto APIs."
+version = "1.0"
+intent = "# audit-crypto-usage"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required for skill execution"
+output_requires_evidence = true
+
+[[rules]]
+id = "ACU-001"
+name = "Detect MD5, SHA1, RC4, DES, 3DES, ECB, or broken crypto"
+severity = "Critical"
+category = "Weak Algorithms"
+description = "Identify cryptographic algorithms no longer suitable for security-sensitive use."
+match_strategy = "crypto_weak_algorithm"
+remediation = "Use modern approved primitives such as AES-GCM, ChaCha20-Poly1305, SHA-256+, and Ed25519/ECDSA/RSA-PSS as appropriate."
+
+[[rules]]
+id = "ACU-002"
+name = "Detect disabled certificate verification"
+severity = "Critical"
+category = "TLS Verification"
+description = "Identify rejectUnauthorized=false, verify=False, insecureSkipVerify, or equivalent TLS bypasses."
+match_strategy = "crypto_tls_verify_disabled"
+remediation = "Enable certificate and hostname verification and use trusted CA stores or pinning only when justified."
+
+[[rules]]
+id = "ACU-003"
+name = "Detect insecure random generators"
+severity = "High"
+category = "Randomness"
+description = "Identify Math.random, rand, or non-cryptographic PRNGs used for tokens, keys, nonces, or passwords."
+match_strategy = "crypto_insecure_random"
+remediation = "Use cryptographically secure random APIs."
+
+[[rules]]
+id = "ACU-004"
+name = "Detect hardcoded cryptographic keys"
+severity = "Critical"
+category = "Key Exposure"
+description = "Identify embedded private keys, symmetric keys, salts, or signing secrets."
+match_strategy = "crypto_hardcoded_key"
+remediation = "Move keys to a secret manager or KMS and rotate exposed material."
+
+[[rules]]
+id = "ACU-005"
+name = "Detect weak password hashing"
+severity = "High"
+category = "Password Hashing"
+description = "Identify plaintext, unsalted, fast hashes, or encryption used for passwords."
+match_strategy = "crypto_password_hash"
+remediation = "Use Argon2id, bcrypt, scrypt, or PBKDF2 with strong parameters and salts."
+
+[[rules]]
+id = "ACU-006"
+name = "Detect missing key rotation and ownership"
+severity = "High"
+category = "Key Management"
+description = "Identify keys without rotation process, owner, expiry, or KMS control."
+match_strategy = "crypto_key_rotation"
+remediation = "Define key ownership, rotation, revocation, and audit controls."
+
+[[rules]]
+id = "ACU-007"
+name = "Detect sensitive data stored without encryption"
+severity = "High"
+category = "Encryption at Rest"
+description = "Identify sensitive data stored in databases, files, queues, or object stores without encryption."
+match_strategy = "crypto_storage"
+remediation = "Use envelope encryption, KMS-managed keys, and field-level encryption where needed."
+
+[[rules]]
+id = "ACU-008"
+name = "Detect static or reused IVs and nonces"
+severity = "Medium"
+category = "IV/Nonce"
+description = "Identify constant IVs, predictable nonces, or reuse with stream/AEAD ciphers."
+match_strategy = "crypto_nonce_reuse"
+remediation = "Generate unique unpredictable IVs/nonces according to algorithm requirements."
+
+[[rules]]
+id = "ACU-009"
+name = "Detect weak JWT signing keys or algorithms"
+severity = "High"
+category = "JWT Signing"
+description = "Identify none algorithm, HS/RS confusion, weak HMAC secrets, or missing key rotation."
+match_strategy = "crypto_jwt_signing"
+remediation = "Enforce fixed algorithms, strong keys, key IDs, and rotation."
+
+[[rules]]
+id = "ACU-010"
+name = "Detect expired or long-lived certificates"
+severity = "Medium"
+category = "Certificate Lifecycle"
+description = "Identify certificates without expiry tracking, renewal process, or appropriate validity windows."
+match_strategy = "crypto_cert_lifecycle"
+remediation = "Automate certificate renewal and monitor expiry."
+
+[[rules]]
+id = "ACU-011"
+name = "Detect homegrown cryptographic protocols"
+severity = "Medium"
+category = "Custom Crypto"
+description = "Identify custom encryption, signing, tokenization, or obfuscation schemes."
+match_strategy = "crypto_custom"
+remediation = "Replace with vetted libraries and protocols."
+
+[[rules]]
+id = "ACU-012"
+name = "Detect cryptographic material logged"
+severity = "Medium"
+category = "Secrets in Logs"
+description = "Identify keys, tokens, signatures, or decrypted sensitive data written to logs."
+match_strategy = "crypto_log_exposure"
+remediation = "Redact sensitive crypto material and restrict log access."

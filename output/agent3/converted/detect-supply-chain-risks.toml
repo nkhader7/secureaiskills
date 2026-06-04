@@ -1,0 +1,194 @@
+name = "detect-supply-chain-risks"
+description = "Detects software supply chain risks across repositories, dependency manifests, package registries, CI/CD workflows, container references, release artifacts, build scripts, and provenance evidence. Use when reviewing dependency confusion, typosquatting, unpinned GitHub Actions, mutable image tags, unsigned artifacts, missing SBOM/provenance, unsafe package install scripts, weak CI permissions, registry trust, or software/data integrity failures."
+version = "1.0"
+intent = "# detect-supply-chain-risks"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = ["references/rules.yaml", "references/report-template.md", "../_shared/base-report.md", "../_shared/owasp-cheatsheets.yaml"]
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true
+
+[[rules]]
+id = "SCR-001"
+name = "Detect private package names that may resolve from public registries"
+severity = "Critical"
+category = "Dependency Confusion"
+description = "Identify dependencies that appear internal or private but are configured to resolve from a public registry without scoped registry controls."
+match_strategy = "supply_chain_dependency_confusion"
+remediation = "Configure scoped private registries, reserve package names, block public fallback, and require authenticated registry access for internal package scopes."
+
+[[rules]]
+id = "SCR-002"
+name = "Detect suspiciously similar package names"
+severity = "High"
+category = "Typosquatting"
+description = "Flag packages whose names are visually or edit-distance similar to common dependencies, internal packages, or organization-owned packages."
+match_strategy = "supply_chain_typosquatting"
+remediation = "Verify publisher identity, package provenance, download source, and repository ownership before use."
+
+[[rules]]
+id = "SCR-003"
+name = "Pin third-party GitHub Actions to immutable commit SHAs"
+severity = "Critical"
+category = "CI/CD Integrity"
+description = "GitHub Actions referenced by tags or branches can change after review and should be pinned to full commit SHAs for high-trust workflows."
+match_strategy = "supply_chain_unpinned_github_actions"
+remediation = "Pin third-party actions to a full-length commit SHA and review updates through dependency automation or explicit pull requests."
+
+[[rules]]
+id = "SCR-004"
+name = "Pin container images by digest for production deployments"
+severity = "High"
+category = "Container Integrity"
+description = "Mutable image tags such as latest, stable, main, or version-only tags can be retargeted after approval."
+match_strategy = "supply_chain_mutable_container_image"
+remediation = "Pin production image references to immutable digests and use automation to update digests after image verification."
+
+[[rules]]
+id = "SCR-005"
+name = "Require signatures or attestations for release artifacts"
+severity = "High"
+category = "Release Integrity"
+description = "Release artifacts should have verifiable signatures, attestations, or checksums tied to a trusted identity."
+match_strategy = "supply_chain_unsigned_artifacts"
+remediation = "Sign artifacts with an approved signing system and verify signatures before publishing or deployment."
+
+[[rules]]
+id = "SCR-006"
+name = "Require build provenance for released artifacts"
+severity = "High"
+category = "Provenance"
+description = "Released artifacts should include provenance showing source repository, commit, builder identity, and build parameters."
+match_strategy = "supply_chain_missing_provenance"
+remediation = "Generate and verify SLSA-style provenance or equivalent attestations for release and deployment artifacts."
+
+[[rules]]
+id = "SCR-007"
+name = "Require lockfiles for application dependencies"
+severity = "High"
+category = "Lockfile Integrity"
+description = "Missing lockfiles allow dependency versions to drift between review, build, and deployment."
+match_strategy = "supply_chain_missing_lockfile"
+remediation = "Commit ecosystem-appropriate lockfiles and enforce frozen or clean installs in CI."
+
+[[rules]]
+id = "SCR-008"
+name = "Verify package integrity hashes where supported"
+severity = "High"
+category = "Package Integrity"
+description = "Package manager lockfiles should include integrity hashes or checksums so downloaded packages can be verified."
+match_strategy = "supply_chain_missing_integrity_hash"
+remediation = "Regenerate lockfiles with integrity metadata and reject installs when integrity checks fail."
+
+[[rules]]
+id = "SCR-009"
+name = "Minimize CI token permissions"
+severity = "Critical"
+category = "CI/CD Permissions"
+description = "CI workflows should use least-privilege tokens and avoid broad write permissions unless required."
+match_strategy = "supply_chain_ci_permissions"
+remediation = "Set explicit read-only defaults and grant write permissions only to jobs that publish trusted artifacts."
+
+[[rules]]
+id = "SCR-010"
+name = "Detect untrusted input reaching shell commands in CI"
+severity = "High"
+category = "CI/CD Injection"
+description = "Pull request titles, branch names, issue text, commit messages, and other untrusted fields should not be interpolated directly into shell commands."
+match_strategy = "supply_chain_ci_injection"
+remediation = "Pass untrusted values through environment variables, quote safely, validate inputs, or avoid shell evaluation."
+
+[[rules]]
+id = "SCR-011"
+name = "Review package install scripts and lifecycle hooks"
+severity = "High"
+category = "Install Script Risk"
+description = "Package lifecycle scripts such as preinstall, install, postinstall, prepare, setup hooks, and build scripts can execute attacker-controlled code."
+match_strategy = "supply_chain_install_scripts"
+remediation = "Disable scripts where possible, allowlist trusted packages, review lifecycle scripts, and run installs in constrained build environments."
+
+[[rules]]
+id = "SCR-012"
+name = "Enforce trusted package registries"
+severity = "High"
+category = "Registry Trust"
+description = "Package managers and build tools should use approved registries and should not silently fall back to public or insecure registries."
+match_strategy = "supply_chain_registry_trust"
+remediation = "Configure registry allowlists, private mirrors, TLS validation, authentication, and package scope routing."
+
+[[rules]]
+id = "SCR-013"
+name = "Flag packages with unclear maintainer or source repository identity"
+severity = "Medium"
+category = "Maintainer Trust"
+description = "Packages should have a clear publisher, source repository, and release process suitable for the trust level of the application."
+match_strategy = "supply_chain_maintainer_identity"
+remediation = "Verify maintainer identity, project activity, source repository links, and release history before accepting the package."
+
+[[rules]]
+id = "SCR-014"
+name = "Build untrusted dependencies in isolated environments"
+severity = "High"
+category = "Build Isolation"
+description = "Build steps that install or execute third-party code should run in isolated environments without long-lived secrets or broad network access."
+match_strategy = "supply_chain_build_isolation"
+remediation = "Use ephemeral builders, scoped credentials, network egress controls, and secret minimization for dependency installation and build jobs."
+
+[[rules]]
+id = "SCR-015"
+name = "Prevent release and build workflows from exposing secrets to untrusted code"
+severity = "High"
+category = "Secret Exposure"
+description = "Workflows triggered from forks, pull requests, or untrusted branches should not expose deployment credentials, signing keys, or registry tokens."
+match_strategy = "supply_chain_secret_exposure"
+remediation = "Restrict secret access by event type, environment protection, branch protection, and manual approvals for privileged release jobs."
+
+[[rules]]
+id = "SCR-016"
+name = "Verify downloaded artifacts before execution"
+severity = "Medium"
+category = "Artifact Checksums"
+description = "Scripts should not download and execute remote artifacts without checksum, signature, digest, or pinned immutable source verification."
+match_strategy = "supply_chain_unverified_download"
+remediation = "Pin artifact versions, verify checksums or signatures, and avoid pipe-to-shell installation patterns."
+
+[[rules]]
+id = "SCR-017"
+name = "Produce SBOMs for release artifacts"
+severity = "Medium"
+category = "SBOM"
+description = "Release artifacts and container images should have SBOMs so dependency content can be audited and monitored after release."
+match_strategy = "supply_chain_missing_sbom"
+remediation = "Generate CycloneDX or SPDX SBOMs during build and attach them to release or artifact metadata."
+
+[[rules]]
+id = "SCR-018"
+name = "Protect release branches and tags"
+severity = "High"
+category = "Branch and Tag Protection"
+description = "Release branches and tags should require review, protected ref rules, and restricted write access to prevent artifact substitution."
+match_strategy = "supply_chain_unprotected_release_refs"
+remediation = "Enable protected branches, protected tags, required reviews, status checks, and release environment approvals."
+
+[[rules]]
+id = "SCR-019"
+name = "Require review for dependency update automation"
+severity = "Medium"
+category = "Dependency Update Governance"
+description = "Automated dependency updates should not auto-merge into sensitive code or release branches without policy checks."
+match_strategy = "supply_chain_dependency_bot_governance"
+remediation = "Require CI, approvals, semantic version policies, and security review for high-risk updates."
+
+[[rules]]
+id = "SCR-020"
+name = "Prefer reproducible builds for high-trust artifacts"
+severity = "High"
+category = "Build Reproducibility"
+description = "High-trust release artifacts should be reproducible or otherwise verifiable against source and build provenance."
+match_strategy = "supply_chain_reproducible_builds"
+remediation = "Pin build tools, isolate builders, record build parameters, and compare rebuild output or provenance attestations."

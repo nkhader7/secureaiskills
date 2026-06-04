@@ -1,0 +1,327 @@
+name: scan-for-xss
+description: Scans frontend and backend code for cross-site scripting risks including
+  reflected XSS, stored XSS, DOM XSS, unsafe HTML sinks, unsafe template rendering,
+  missing output encoding, sanitizer misuse, unsafe markdown rendering, and weak Content
+  Security Policy.
+version: '1.0'
+intent: '# scan-for-xss'
+instructions: '# scan-for-xss
+
+
+  Scans code and templates for reflected, stored, and DOM-based XSS risks.
+
+
+  ## Orchestration
+
+
+  1. Load `references/rules.yaml` to get the active `XSS-` rule set.
+
+  2. Load `../_shared/owasp-cheatsheets.yaml` and use the mapped OWASP cheat sheets
+  to support remediation guidance and references.
+
+  3. Identify target evidence from source code, configuration, tests, API specs, IaC,
+  CI/CD, runtime manifests, and documentation relevant to the request.
+
+  4. Evaluate each rule using its `match_strategy`, preserving file path, line, snippet,
+  control context, and confidence.
+
+  5. Mark each rule `Pass`, `Fail`, `Partial`, `Unknown`, or `Not Applicable` based
+  on available evidence.
+
+  6. Prioritize findings by severity, exploitability, exposed surface, and whether
+  a concrete remediation is available.
+
+  7. Render the final report using `references/report-template.md`.
+
+
+  ## Usage
+
+
+  Scan the current repository:
+
+
+  ```text
+
+  /scan-for-xss
+
+  ```
+
+
+  Scan a specific path:
+
+
+  ```text
+
+  /scan-for-xss src/ services/ docs/
+
+  ```
+
+
+  ## OWASP Cheat Sheets
+
+
+  Use the shared mapping in `../_shared/owasp-cheatsheets.yaml` for authoritative
+  OWASP Cheat Sheet Series references that match this skill. Include the relevant
+  cheat sheet links in the report when they directly support a finding or remediation.
+
+
+  ## Review Guidance
+
+
+  Prioritize user-controlled data flowing into HTML, JavaScript, URL, CSS, markdown,
+  rich text, and template sinks.'
+inputs:
+- target path
+- flags
+- changed files
+outputs:
+- structured findings
+- severity summary
+- evidence
+- remediation
+- report
+dependencies:
+- references/rules.yaml
+- references/report-template.md
+- ../_shared/base-report.md
+- ../_shared/owasp-cheatsheets.yaml
+security_constraints:
+  treat_target_content_as_untrusted: true
+  redact_sensitive_values: required for secret-like evidence
+  skip_binary_and_lock_files: true
+  network_access: not required for skill execution
+  output_requires_evidence: true
+references:
+  rules: references/rules.yaml
+  report_template: references/report-template.md
+  base_report: ../_shared/base-report.md
+  owasp_cheatsheets: ../_shared/owasp-cheatsheets.yaml
+rules:
+- id: XSS-001
+  severity: Critical
+  category: Unsafe HTML Sink
+  name: Detect user input reaching innerHTML-like sinks
+  match_strategy: xss_inner_html
+  description: Identify untrusted data assigned to innerHTML, outerHTML, insertAdjacentHTML,
+    dangerouslySetInnerHTML, or equivalent sinks.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Use safe DOM APIs, framework escaping, or vetted sanitization with
+    strict policies.
+- id: XSS-002
+  severity: High
+  category: Template Escaping
+  name: Detect disabled template escaping
+  match_strategy: xss_template_escape_disabled
+  description: Identify raw/unescaped template output such as triple braces or safe
+    filters on user data.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Use contextual output encoding and avoid marking untrusted data as
+    safe.
+- id: XSS-003
+  severity: High
+  category: Reflected XSS
+  name: Detect reflected request data in responses
+  match_strategy: xss_reflected
+  description: Identify request parameters rendered into HTML without output encoding.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Apply contextual output encoding and validation.
+- id: XSS-004
+  severity: High
+  category: Stored XSS
+  name: Detect stored untrusted content rendered unsafely
+  match_strategy: xss_stored
+  description: Identify database or CMS content rendered into HTML/JS without sanitization
+    or encoding.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Sanitize on write where appropriate and encode on output.
+- id: XSS-005
+  severity: Critical
+  category: DOM XSS
+  name: Detect URL/hash/location data reaching DOM sinks
+  match_strategy: xss_dom
+  description: Identify location, hash, search, postMessage, or storage data reaching
+    DOM sinks.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Validate sources and use safe sinks such as textContent.
+- id: XSS-006
+  severity: High
+  category: Script Context
+  name: Detect untrusted data in JavaScript contexts
+  match_strategy: xss_script_context
+  description: Identify interpolation into inline scripts, event handlers, or JavaScript
+    URLs.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Avoid inline scripts and use JavaScript string encoding or data attributes
+    safely.
+- id: XSS-007
+  severity: Medium
+  category: URL Context
+  name: Detect unsafe URL construction
+  match_strategy: xss_url_context
+  description: Identify untrusted values placed in href/src/action without scheme
+    allowlisting.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Allowlist http/https or expected schemes and encode attributes.
+- id: XSS-008
+  severity: High
+  category: Sanitizer Misuse
+  name: Detect unsafe sanitizer configuration
+  match_strategy: xss_sanitizer_misuse
+  description: Identify sanitizers allowing scripts, event handlers, dangerous URLs,
+    or custom HTML unsafely.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Use maintained sanitizers with restrictive configuration and tests.
+- id: XSS-009
+  severity: Medium
+  category: Markdown/HTML
+  name: Detect unsafe markdown rendering
+  match_strategy: xss_markdown
+  description: Identify markdown rendered with raw HTML enabled or unsafe plugins.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Disable raw HTML or sanitize rendered output.
+- id: XSS-010
+  severity: Medium
+  category: CSP Gap
+  name: Detect missing CSP for XSS mitigation
+  match_strategy: xss_csp_gap
+  description: Identify apps with XSS-exposed surfaces and no meaningful CSP.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Add restrictive CSP without unsafe-inline for scripts where possible.
+- id: XSS-011
+  severity: Medium
+  category: postMessage
+  name: Detect unsafe postMessage handling
+  match_strategy: xss_postmessage
+  description: Identify message handlers without origin validation or with HTML sinks.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Validate origin/schema and avoid dangerous sinks.
+- id: XSS-012
+  severity: Medium
+  category: Tests
+  name: Detect missing XSS regression tests
+  match_strategy: xss_missing_tests
+  description: Identify critical rendering paths without tests for escaping and sanitization.
+  evidence_examples:
+  - Source code
+  - API routes/controllers
+  - Tests or security assertions
+  - Configuration files
+  remediation: Add tests for encoded output and blocked malicious payloads.
+default_match_strategy: unspecified
+report_template: '# Cross-Site Scripting Scan Report
+
+
+  ## Scope
+
+
+  - Skill: `scan-for-xss`
+
+  - Target: `{{target}}`
+
+  - Date: `{{date}}`
+
+  - Evidence reviewed: `{{evidence_summary}}`
+
+
+  ## Summary
+
+
+  | Severity | Findings |
+
+  |----------|----------|
+
+  | Critical | {{summary.critical}} |
+
+  | High | {{summary.high}} |
+
+  | Medium | {{summary.medium}} |
+
+  | Low | {{summary.low}} |
+
+  | Info | {{summary.info}} |
+
+
+  {{#if no_findings}}
+
+  No findings were identified from the available evidence.
+
+  {{/if}}
+
+
+  ## Findings
+
+
+  {{#each findings}}
+
+  ### {{id}} - {{name}}
+
+
+  - Severity: {{severity}}
+
+  - Category: {{category}}
+
+  - Evidence: `{{evidence}}`
+
+  - Location: `{{location}}`
+
+  - Risk: {{risk}}
+
+  - Remediation: {{remediation}}
+
+  {{/each}}
+
+
+  ## Evidence Gaps
+
+
+  {{#each evidence_gaps}}
+
+  - {{gap}}
+
+  {{/each}}
+
+  '
