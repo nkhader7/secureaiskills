@@ -1,6 +1,7 @@
 import asyncio
 from typing import Dict, Any
 from .llm_client import LLMClient
+from .security_scanner import run_all_scanners
 
 class BaseAgent:
     def __init__(self, llm: LLMClient):
@@ -20,13 +21,11 @@ class Agent2(BaseAgent):
     """Security, compliance, governance analysis."""
     async def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
         prompt = f"Analyze security risks. Files: {list(context.get('files', {}).keys())}"
-        resp = await self.llm.call(prompt)
-        # Placeholder quick checks
-        findings = []
-        for name, content in context.get('files', {}).items():
-            if 'secret' in content.lower() or 'api_key' in content.lower():
-                findings.append({"file": name, "issue": "possible hardcoded secret"})
-        return {"findings": findings, "llm": resp}
+        resp = await self.llm.call(prompt, structured=True)
+        files = context.get('files', {}) or {}
+        scanner_findings = run_all_scanners(files)
+        # Aggregate and add LLM-assessed notes
+        return {"findings": scanner_findings, "llm": resp}
 
 class Agent3(BaseAgent):
     """Validate, benchmark, test generation."""

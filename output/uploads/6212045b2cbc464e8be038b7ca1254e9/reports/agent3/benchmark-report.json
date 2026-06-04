@@ -1,0 +1,73 @@
+[
+  {
+    "skill": "upload-skill",
+    "rule_count": 0,
+    "original_prompt_tokens": 51,
+    "template_tokens": 1,
+    "llm_call_count": 1,
+    "llm_prompt_tokens": 79,
+    "llm_completion_tokens": 70,
+    "estimated_latency_ms": 3.62,
+    "execution_complexity": "low",
+    "formats": [
+      {
+        "format": "json",
+        "bytes": 824,
+        "prompt_tokens": 206,
+        "parse_avg_ms": 0.0133,
+        "context_tokens": 207,
+        "redundant_instruction_score": 0.0,
+        "compression_opportunity_tokens": 96,
+        "format_efficiency_score": 9.82
+      },
+      {
+        "format": "toml",
+        "bytes": 483,
+        "prompt_tokens": 120,
+        "parse_avg_ms": 0.0014,
+        "context_tokens": 121,
+        "redundant_instruction_score": 0.0,
+        "compression_opportunity_tokens": 10,
+        "format_efficiency_score": 9.29
+      },
+      {
+        "format": "python",
+        "bytes": 741,
+        "prompt_tokens": 185,
+        "parse_avg_ms": 0.0013,
+        "context_tokens": 186,
+        "redundant_instruction_score": 0.0,
+        "compression_opportunity_tokens": 75,
+        "format_efficiency_score": 9.13
+      },
+      {
+        "format": "markdown",
+        "bytes": 443,
+        "prompt_tokens": 110,
+        "parse_avg_ms": 0.0025,
+        "context_tokens": 111,
+        "redundant_instruction_score": 0.0,
+        "compression_opportunity_tokens": 0,
+        "format_efficiency_score": 8.96
+      },
+      {
+        "format": "yaml",
+        "bytes": 675,
+        "prompt_tokens": 168,
+        "parse_avg_ms": 3.6065,
+        "context_tokens": 169,
+        "redundant_instruction_score": 0.0,
+        "compression_opportunity_tokens": 58,
+        "format_efficiency_score": 8.71
+      }
+    ],
+    "ranking": [
+      "json",
+      "toml",
+      "python",
+      "markdown",
+      "yaml"
+    ],
+    "benchmark_score": 9.18
+  }
+]

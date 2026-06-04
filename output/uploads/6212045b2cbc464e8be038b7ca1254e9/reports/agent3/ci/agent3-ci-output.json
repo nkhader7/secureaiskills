@@ -1,0 +1,20 @@
+{
+  "decision": "pass",
+  "reports": [
+    {
+      "skill": "upload-skill",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 96.7,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 9.18,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "upload-skill is testable with 6 Agent 3 cases and 0 rules."
+    }
+  ]
+}

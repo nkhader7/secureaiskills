@@ -20,7 +20,7 @@ try:
 except ImportError:
     yaml = None
 
-from agents.llm import LocalLLMClient, LLMResult, est_tokens, safe_load_yaml
+from agents.llm import LocalLLMClient, safe_load_yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = REPO_ROOT / "skills"
@@ -76,6 +76,7 @@ def _now_utc() -> str:
 
 
 def _parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
+    text = text.lstrip("\ufeff")
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)$", text, re.DOTALL)
     if not m:
         return {}, text.strip()
@@ -182,6 +183,57 @@ class Agent1:
         report = self._merge(list(results))
         self._write(report)
         return report
+
+    async def analyze_skill_context(self, ctx: Any) -> dict[str, Any]:
+        """Analyze a pre-parsed SkillContext (from core.parsers or agents.ingest)."""
+        from core.parsers import SkillContext
+        if not isinstance(ctx, SkillContext):
+            ctx = SkillContext(name=str(ctx), format="unknown", raw_text="")
+
+        rules = ctx.rules
+        fm = ctx.frontmatter
+        body = ctx.body
+
+        llm = await self.llm.complete_json(
+            "You are Agent 1. Analyze the skill and return JSON with keys: "
+            "problem_solved, success_criteria, failure_conditions, decision_logic, "
+            "execution_phases, data_flow_summary, control_flow_summary. Be concise.",
+            json.dumps({"skill": ctx.name, "description": fm.get("description", ""), "instructions_excerpt": body[:2000], "rule_count": len(rules)}),
+            mock_response={
+                "problem_solved": fm.get("description", "Uploaded skill analysis."),
+                "success_criteria": "Skill analyzed and structured report produced.",
+                "failure_conditions": ["Missing required fields"],
+                "decision_logic": ["Parse", "Evaluate", "Report"],
+                "execution_phases": ["load", "evaluate", "report"],
+                "data_flow_summary": "Parsed context → LLM evaluation → report",
+                "control_flow_summary": "Sequential: parse → evaluate → render",
+                "confidence": 0.75,
+            },
+        )
+
+        from agents.agent1 import _validate_skill, _extract_match_strategies, _extract_severities, SKILL_CATEGORY_MAP
+        skill_dir = Path(ctx.skill_dir) if ctx.skill_dir else Path(".")
+        validation = _validate_skill(fm, body, ctx.rules_data, skill_dir)
+        category = SKILL_CATEGORY_MAP.get(ctx.name, "General Security")
+
+        return {
+            "skill": ctx.name,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "confidence": round(min(0.95, 0.70 + min(len(rules), 30) / 100), 2),
+            "discovery": {"name": ctx.name, "category": category, "format": ctx.format, "framework": "LLM-native"},
+            "structure": {
+                "inputs": ["target path", "flags"],
+                "outputs": ["structured findings", "severity summary", "report"],
+                "rule_count": len(rules),
+                "match_strategies": _extract_match_strategies(rules),
+                "severity_distribution": _extract_severities(rules),
+            },
+            "functional": llm.response,
+            "validation": validation,
+            "llm": {"used_llm": llm.used_llm, "model": llm.model, "evidence": llm.evidence},
+            "evidence": [f"Parsed uploaded skill: {ctx.name} (format={ctx.format}, rules={len(rules)})"],
+            "execution_ms": 0,
+        }
 
     async def _analyze(self, skill_dir: Path) -> dict[str, Any]:
         started = time.perf_counter()

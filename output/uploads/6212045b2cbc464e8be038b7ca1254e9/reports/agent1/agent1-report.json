@@ -1,0 +1,172 @@
+{
+  "agent": "agent1",
+  "generated_at": "2026-06-04T02:05:35.220453+00:00",
+  "schema_version": "1.0",
+  "skills_analyzed": 1,
+  "confidence": 0.7,
+  "skill_results": [
+    {
+      "skill": "upload-skill",
+      "generated_at": "2026-06-04T02:05:35.192723+00:00",
+      "confidence": 0.7,
+      "discovery": {
+        "name": "upload-demo",
+        "category": "General Security",
+        "type": "analysis",
+        "framework": "LLM-native",
+        "purpose": "Uploaded demo skill",
+        "triggers": [
+          "/upload-demo"
+        ],
+        "intended_audience": [
+          "developers",
+          "AppSec engineers",
+          "CI/CD pipelines"
+        ],
+        "execution_model": "on-demand invocation; rules loaded fresh per call"
+      },
+      "structure": {
+        "inputs": [
+          "target path (optional)",
+          "flags (optional)",
+          "SKILL.md",
+          "rules.yaml",
+          "report-template.md"
+        ],
+        "outputs": [
+          "structured findings JSON",
+          "severity summary",
+          "Markdown report"
+        ],
+        "variables": [
+          "target",
+          "flags"
+        ],
+        "env_vars": [],
+        "references": {},
+        "dependencies": [],
+        "rule_count": 0,
+        "match_strategies": [],
+        "default_match_strategy": "unspecified",
+        "severity_distribution": {},
+        "rules_bytes": 0,
+        "rules_truncated_at_60kb": false
+      },
+      "functional": {
+        "problem_solved": "Uploaded demo skill",
+        "success_criteria": "Findings emitted with file, line, rule_id, severity, snippet, and remediation.",
+        "failure_conditions": [
+          "SKILL.md missing",
+          "rules.yaml empty",
+          "target has no matching files"
+        ],
+        "decision_logic": [
+          "Load rules",
+          "Identify target files",
+          "Evaluate each file \u00d7 rule",
+          "Aggregate by severity"
+        ],
+        "execution_phases": [
+          "load",
+          "assemble",
+          "evaluate",
+          "report"
+        ],
+        "data_flow_summary": "Disk \u2192 LLM context \u2192 evaluated findings \u2192 Markdown report",
+        "control_flow_summary": "Sequential: load \u2192 identify \u2192 evaluate \u2192 aggregate \u2192 render",
+        "confidence": 0.8
+      },
+      "validation": {
+        "issues": [
+          "Frontmatter missing required field: references",
+          "rules.yaml contains no rules",
+          "report-template.md not found"
+        ],
+        "warnings": [],
+        "valid": false,
+        "issue_count": 3,
+        "warning_count": 0
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 109,
+        "completion_tokens": 161,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ]
+      },
+      "evidence": [
+        "Read output\\uploads\\6212045b2cbc464e8be038b7ca1254e9\\skills\\upload-skill\\SKILL.md",
+        "Read D:\\Download\\CascadeProjects\\secureaiskills\\output\\uploads\\6212045b2cbc464e8be038b7ca1254e9\\skills\\upload-skill\\references\\rules.yaml (0 rules)"
+      ],
+      "execution_ms": 5.57
+    }
+  ],
+  "coverage_report": [
+    {
+      "skill": "upload-skill",
+      "category": "General Security",
+      "type": "analysis",
+      "rules": 0,
+      "valid": false,
+      "issues": 3,
+      "warnings": 0
+    }
+  ],
+  "dependency_map": {
+    "upload-skill": []
+  },
+  "execution_flow": [
+    "User invokes skill",
+    "SKILL.md loaded (frontmatter + orchestration body)",
+    "rules.yaml loaded (capped at 60 KB)",
+    "Target files identified (git diff or user path)",
+    "LLM evaluates each file \u00d7 rule using match_strategy",
+    "Findings aggregated by severity",
+    "report-template.md populated with findings",
+    "Markdown report streamed to user"
+  ],
+  "coverage_map": {
+    "covered_domains": [
+      "General Security"
+    ],
+    "missing_domains": [
+      "DAST",
+      "LLM Security",
+      "Prompt Injection Testing",
+      "Runtime Validation",
+      "Exploit Validation",
+      "CI/CD Enforcement"
+    ],
+    "coverage_score": 0.68
+  },
+  "gap_analysis": {
+    "validation_issues": [
+      "Frontmatter missing required field: references",
+      "rules.yaml contains no rules",
+      "report-template.md not found"
+    ],
+    "uncovered_domains": [
+      "DAST",
+      "LLM Security",
+      "Prompt Injection Testing",
+      "Runtime Validation",
+      "Exploit Validation",
+      "CI/CD Enforcement"
+    ],
+    "skills_with_issues": [
+      "upload-skill"
+    ],
+    "total_issues": 3
+  },
+  "recommendations": [
+    "Add scan-llm-security skill to cover LLM/AI model security domain.",
+    "Add scan-prompt-injection skill to cover prompt injection testing.",
+    "Add enforce-security-gate skill to support CI/CD enforcement.",
+    "Consider splitting scan-iac-security (1,746 rules) to avoid 60 KB truncation.",
+    "Add HOST/PORT env var support to the API server for containerized deployments."
+  ],
+  "downloadable_json": "output/agent1/agent1-report.json"
+}

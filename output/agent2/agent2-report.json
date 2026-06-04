@@ -1,6 +1,6 @@
 {
   "agent": "agent2",
-  "generated_at": "2026-06-04T01:45:18.530320+00:00",
+  "generated_at": "2026-06-04T02:07:25.406022+00:00",
   "schema_version": "1.0",
   "skills_analyzed": 26,
   "overall_risk": "low",
@@ -8,7 +8,7 @@
   "skill_results": [
     {
       "skill": "audit-asvs-compliance",
-      "generated_at": "2026-06-04T01:45:07.417958+00:00",
+      "generated_at": "2026-06-04T02:07:01.001435+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -31,6 +31,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -49,7 +105,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "345 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -81,11 +169,11 @@
         "Scanned skills\\audit-asvs-compliance\\SKILL.md for injection patterns",
         "Reviewed 345 rules for governance compliance"
       ],
-      "execution_ms": 350.42
+      "execution_ms": 333.83
     },
     {
       "skill": "audit-auth-session-management",
-      "generated_at": "2026-06-04T01:45:07.425688+00:00",
+      "generated_at": "2026-06-04T02:07:01.007402+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -108,6 +196,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -139,7 +283,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "12 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -171,11 +347,11 @@
         "Scanned skills\\audit-auth-session-management\\SKILL.md for injection patterns",
         "Reviewed 12 rules for governance compliance"
       ],
-      "execution_ms": 7.36
+      "execution_ms": 5.67
     },
     {
       "skill": "audit-crypto-usage",
-      "generated_at": "2026-06-04T01:45:07.431529+00:00",
+      "generated_at": "2026-06-04T02:07:01.013003+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -198,6 +374,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -229,7 +461,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "12 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -261,11 +525,11 @@
         "Scanned skills\\audit-crypto-usage\\SKILL.md for injection patterns",
         "Reviewed 12 rules for governance compliance"
       ],
-      "execution_ms": 5.78
+      "execution_ms": 5.55
     },
     {
       "skill": "audit-logging-monitoring",
-      "generated_at": "2026-06-04T01:45:07.437059+00:00",
+      "generated_at": "2026-06-04T02:07:01.018570+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -288,6 +552,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -319,7 +639,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "12 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -351,11 +703,11 @@
         "Scanned skills\\audit-logging-monitoring\\SKILL.md for injection patterns",
         "Reviewed 12 rules for governance compliance"
       ],
-      "execution_ms": 5.48
+      "execution_ms": 5.5
     },
     {
       "skill": "detect-secrets",
-      "generated_at": "2026-06-04T01:45:07.657366+00:00",
+      "generated_at": "2026-06-04T02:07:01.233907+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -378,6 +730,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -396,7 +804,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "393 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -428,11 +868,11 @@
         "Scanned skills\\detect-secrets\\SKILL.md for injection patterns",
         "Reviewed 393 rules for governance compliance"
       ],
-      "execution_ms": 220.26
+      "execution_ms": 215.29
     },
     {
       "skill": "detect-supply-chain-risks",
-      "generated_at": "2026-06-04T01:45:07.664981+00:00",
+      "generated_at": "2026-06-04T02:07:01.241261+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -455,6 +895,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -494,7 +990,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "20 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -526,11 +1054,11 @@
         "Scanned skills\\detect-supply-chain-risks\\SKILL.md for injection patterns",
         "Reviewed 20 rules for governance compliance"
       ],
-      "execution_ms": 7.34
+      "execution_ms": 7.12
     },
     {
       "skill": "generate-dependency-graph",
-      "generated_at": "2026-06-04T01:45:07.670318+00:00",
+      "generated_at": "2026-06-04T02:07:01.246331+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -553,6 +1081,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -582,7 +1166,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "10 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -614,11 +1230,11 @@
         "Scanned skills\\generate-dependency-graph\\SKILL.md for injection patterns",
         "Reviewed 10 rules for governance compliance"
       ],
-      "execution_ms": 5.27
+      "execution_ms": 5.02
     },
     {
       "skill": "generate-sbom",
-      "generated_at": "2026-06-04T01:45:07.675979+00:00",
+      "generated_at": "2026-06-04T02:07:01.251538+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -641,6 +1257,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -670,7 +1342,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "10 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -702,11 +1406,11 @@
         "Scanned skills\\generate-sbom\\SKILL.md for injection patterns",
         "Reviewed 10 rules for governance compliance"
       ],
-      "execution_ms": 5.61
+      "execution_ms": 5.15
     },
     {
       "skill": "scan-api-security",
-      "generated_at": "2026-06-04T01:45:07.679782+00:00",
+      "generated_at": "2026-06-04T02:07:01.255401+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -729,6 +1433,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -747,7 +1507,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "6 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -779,11 +1571,11 @@
         "Scanned skills\\scan-api-security\\SKILL.md for injection patterns",
         "Reviewed 6 rules for governance compliance"
       ],
-      "execution_ms": 3.75
+      "execution_ms": 3.81
     },
     {
       "skill": "scan-broken-access-control",
-      "generated_at": "2026-06-04T01:45:07.685378+00:00",
+      "generated_at": "2026-06-04T02:07:01.260971+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -806,6 +1598,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -837,7 +1685,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "12 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -869,11 +1749,11 @@
         "Scanned skills\\scan-broken-access-control\\SKILL.md for injection patterns",
         "Reviewed 12 rules for governance compliance"
       ],
-      "execution_ms": 5.55
+      "execution_ms": 5.53
     },
     {
       "skill": "scan-container-image",
-      "generated_at": "2026-06-04T01:45:07.848197+00:00",
+      "generated_at": "2026-06-04T02:07:01.417223+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -896,6 +1776,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -1041,7 +1977,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "128 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -1073,11 +2041,11 @@
         "Scanned skills\\scan-container-image\\SKILL.md for injection patterns",
         "Reviewed 128 rules for governance compliance"
       ],
-      "execution_ms": 162.77
+      "execution_ms": 156.2
     },
     {
       "skill": "scan-exception-handling",
-      "generated_at": "2026-06-04T01:45:07.853612+00:00",
+      "generated_at": "2026-06-04T02:07:01.422415+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -1100,6 +2068,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -1129,7 +2153,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "10 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -1161,11 +2217,11 @@
         "Scanned skills\\scan-exception-handling\\SKILL.md for injection patterns",
         "Reviewed 10 rules for governance compliance"
       ],
-      "execution_ms": 5.16
+      "execution_ms": 5.0
     },
     {
       "skill": "scan-for-injection",
-      "generated_at": "2026-06-04T01:45:07.859146+00:00",
+      "generated_at": "2026-06-04T02:07:01.427586+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -1188,6 +2244,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -1206,7 +2318,39 @@
         },
         "owasp_mapping_present": true,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: True. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "7 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 3,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 100.0
+        }
       },
       "llm": {
         "used_llm": false,
@@ -1238,11 +2382,11 @@
         "Scanned skills\\scan-for-injection\\SKILL.md for injection patterns",
         "Reviewed 7 rules for governance compliance"
       ],
-      "execution_ms": 5.49
+      "execution_ms": 5.12
     },
     {
       "skill": "scan-for-ssrf",
-      "generated_at": "2026-06-04T01:45:07.866026+00:00",
+      "generated_at": "2026-06-04T02:07:01.434392+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -1265,6 +2409,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -1283,7 +2483,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "8 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -1315,11 +2547,11 @@
         "Scanned skills\\scan-for-ssrf\\SKILL.md for injection patterns",
         "Reviewed 8 rules for governance compliance"
       ],
-      "execution_ms": 6.83
+      "execution_ms": 6.76
     },
     {
       "skill": "scan-for-xss",
-      "generated_at": "2026-06-04T01:45:07.872299+00:00",
+      "generated_at": "2026-06-04T02:07:01.439817+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -1342,6 +2574,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -1373,7 +2661,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "12 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -1405,11 +2725,11 @@
         "Scanned skills\\scan-for-xss\\SKILL.md for injection patterns",
         "Reviewed 12 rules for governance compliance"
       ],
-      "execution_ms": 6.23
+      "execution_ms": 5.38
     },
     {
       "skill": "scan-iac-security",
-      "generated_at": "2026-06-04T01:45:08.151614+00:00",
+      "generated_at": "2026-06-04T02:07:01.707158+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -1432,6 +2752,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -2929,7 +4305,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "1746 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -2961,11 +4369,11 @@
         "Scanned skills\\scan-iac-security\\SKILL.md for injection patterns",
         "Reviewed 1746 rules for governance compliance"
       ],
-      "execution_ms": 279.26
+      "execution_ms": 267.3
     },
     {
       "skill": "scan-json-security",
-      "generated_at": "2026-06-04T01:45:08.155368+00:00",
+      "generated_at": "2026-06-04T02:07:01.710572+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -2988,6 +4396,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3006,7 +4470,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "needs_review",
+              "evidence": [
+                "5 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3038,11 +4534,11 @@
         "Scanned skills\\scan-json-security\\SKILL.md for injection patterns",
         "Reviewed 5 rules for governance compliance"
       ],
-      "execution_ms": 3.29
+      "execution_ms": 3.08
     },
     {
       "skill": "scan-kubernetes-manifests",
-      "generated_at": "2026-06-04T01:45:08.272290+00:00",
+      "generated_at": "2026-06-04T02:07:01.824056+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3065,6 +4561,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3215,7 +4767,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "131 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3247,11 +4831,11 @@
         "Scanned skills\\scan-kubernetes-manifests\\SKILL.md for injection patterns",
         "Reviewed 131 rules for governance compliance"
       ],
-      "execution_ms": 116.86
+      "execution_ms": 113.44
     },
     {
       "skill": "scan-markdown-security",
-      "generated_at": "2026-06-04T01:45:08.275816+00:00",
+      "generated_at": "2026-06-04T02:07:01.827151+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3274,6 +4858,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3292,7 +4932,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "needs_review",
+              "evidence": [
+                "5 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3324,11 +4996,11 @@
         "Scanned skills\\scan-markdown-security\\SKILL.md for injection patterns",
         "Reviewed 5 rules for governance compliance"
       ],
-      "execution_ms": 3.36
+      "execution_ms": 2.97
     },
     {
       "skill": "scan-sca-dependencies",
-      "generated_at": "2026-06-04T01:45:08.291965+00:00",
+      "generated_at": "2026-06-04T02:07:01.842484+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3351,6 +5023,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3389,7 +5117,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "28 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3421,11 +5181,11 @@
         "Scanned skills\\scan-sca-dependencies\\SKILL.md for injection patterns",
         "Reviewed 28 rules for governance compliance"
       ],
-      "execution_ms": 16.09
+      "execution_ms": 15.29
     },
     {
       "skill": "scan-security-headers",
-      "generated_at": "2026-06-04T01:45:08.297625+00:00",
+      "generated_at": "2026-06-04T02:07:01.848128+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3448,6 +5208,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3479,7 +5295,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "12 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3511,11 +5359,11 @@
         "Scanned skills\\scan-security-headers\\SKILL.md for injection patterns",
         "Reviewed 12 rules for governance compliance"
       ],
-      "execution_ms": 5.6
+      "execution_ms": 5.57
     },
     {
       "skill": "scan-static-analysis",
-      "generated_at": "2026-06-04T01:45:08.325970+00:00",
+      "generated_at": "2026-06-04T02:07:01.875433+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3538,6 +5386,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3587,7 +5491,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "30 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3619,11 +5555,11 @@
         "Scanned skills\\scan-static-analysis\\SKILL.md for injection patterns",
         "Reviewed 30 rules for governance compliance"
       ],
-      "execution_ms": 28.3
+      "execution_ms": 27.25
     },
     {
       "skill": "scan-toml-security",
-      "generated_at": "2026-06-04T01:45:08.328760+00:00",
+      "generated_at": "2026-06-04T02:07:01.878268+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3646,6 +5582,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3664,7 +5656,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "needs_review",
+              "evidence": [
+                "5 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3696,11 +5720,11 @@
         "Scanned skills\\scan-toml-security\\SKILL.md for injection patterns",
         "Reviewed 5 rules for governance compliance"
       ],
-      "execution_ms": 2.71
+      "execution_ms": 2.76
     },
     {
       "skill": "scan-xml-security",
-      "generated_at": "2026-06-04T01:45:08.331495+00:00",
+      "generated_at": "2026-06-04T02:07:01.881022+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3723,6 +5747,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3741,7 +5821,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "needs_review",
+              "evidence": [
+                "5 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3773,11 +5885,11 @@
         "Scanned skills\\scan-xml-security\\SKILL.md for injection patterns",
         "Reviewed 5 rules for governance compliance"
       ],
-      "execution_ms": 2.69
+      "execution_ms": 2.71
     },
     {
       "skill": "scan-yaml-security",
-      "generated_at": "2026-06-04T01:45:08.334315+00:00",
+      "generated_at": "2026-06-04T02:07:01.883883+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3800,6 +5912,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3818,7 +5986,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": true,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "pass",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: True."
+              ]
+            },
+            "MEASURE": {
+              "status": "needs_review",
+              "evidence": [
+                "5 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3850,11 +6050,11 @@
         "Scanned skills\\scan-yaml-security\\SKILL.md for injection patterns",
         "Reviewed 5 rules for governance compliance"
       ],
-      "execution_ms": 2.78
+      "execution_ms": 2.82
     },
     {
       "skill": "threat-model-system",
-      "generated_at": "2026-06-04T01:45:08.344546+00:00",
+      "generated_at": "2026-06-04T02:07:01.893663+00:00",
       "confidence": 0.82,
       "overall_risk": "low",
       "security": {
@@ -3877,6 +6077,62 @@
           "filesystem_write_required": false,
           "excessive_permissions": false,
           "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
         }
       },
       "governance": {
@@ -3895,7 +6151,39 @@
         },
         "owasp_mapping_present": false,
         "cwe_mapping_present": false,
-        "remediation_coverage": 1.0
+        "remediation_coverage": 1.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "pass",
+              "evidence": [
+                "12 rules with 100.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 100.0,
+          "compliance_score": 93.3
+        }
       },
       "llm": {
         "used_llm": false,
@@ -3927,7 +6215,7 @@
         "Scanned skills\\threat-model-system\\SKILL.md for injection patterns",
         "Reviewed 12 rules for governance compliance"
       ],
-      "execution_ms": 10.19
+      "execution_ms": 9.74
     }
   ],
   "security_report": [
@@ -4095,7 +6383,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "audit-auth-session-management",
@@ -4103,7 +6400,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "audit-crypto-usage",
@@ -4111,7 +6417,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "audit-logging-monitoring",
@@ -4119,7 +6434,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "detect-secrets",
@@ -4127,7 +6451,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "detect-supply-chain-risks",
@@ -4135,7 +6468,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "generate-dependency-graph",
@@ -4143,7 +6485,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "generate-sbom",
@@ -4151,7 +6502,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-api-security",
@@ -4159,7 +6519,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-broken-access-control",
@@ -4167,7 +6536,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-container-image",
@@ -4175,7 +6553,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-exception-handling",
@@ -4183,7 +6570,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-for-injection",
@@ -4191,7 +6587,16 @@
       "owasp_mapped": true,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 100.0,
+      "slsa_level": 3,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-for-ssrf",
@@ -4199,7 +6604,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-for-xss",
@@ -4207,7 +6621,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-iac-security",
@@ -4215,7 +6638,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-json-security",
@@ -4223,7 +6655,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-kubernetes-manifests",
@@ -4231,7 +6672,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-markdown-security",
@@ -4239,7 +6689,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-sca-dependencies",
@@ -4247,7 +6706,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-security-headers",
@@ -4255,7 +6723,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-static-analysis",
@@ -4263,7 +6740,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-toml-security",
@@ -4271,7 +6757,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-xml-security",
@@ -4279,7 +6774,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-yaml-security",
@@ -4287,7 +6791,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "threat-model-system",
@@ -4295,7 +6808,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     }
   ],
   "risk_summary": {

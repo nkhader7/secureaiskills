@@ -1,0 +1,128 @@
+{
+  "id": "sample-report-001",
+  "skill_id": "sample-privacy-checker",
+  "timestamp": "2026-06-03T14:30:00Z",
+  "summary": {
+    "skill_name": "Data Privacy Checker",
+    "skill_type": "analyzer",
+    "purpose": "Detect privacy violations and GDPR non-compliance",
+    "files_analyzed": 3,
+    "total_lines_of_code": 250
+  },
+  "agent1": {
+    "structure": {
+      "files": ["README.md", "skill.py", "requirements.txt"],
+      "inputs": ["document_text", "check_pii", "check_gdpr"],
+      "outputs": ["findings"],
+      "dependencies": ["regex", "pydantic"]
+    },
+    "intent": "Analyze documents for privacy violations and GDPR compliance"
+  },
+  "agent2": {
+    "findings": [
+      {
+        "file": "skill.py",
+        "type": "secret",
+        "subtype": "generic_api_key",
+        "severity": "critical",
+        "match": "api_key = 'sk-...'",
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "owasp_llm": "OWASP LLM-01: Prompt Injection (hardcoded secrets risk exposure)",
+        "nist": ["ID.RA-1", "PR.AC-1"],
+        "cis": ["CIS 1.1", "CIS 6.1"]
+      },
+      {
+        "file": "requirements.txt",
+        "type": "dependency",
+        "issue": "unpinned_version",
+        "line": 1,
+        "severity": "medium",
+        "text": "regex",
+        "owasp_llm": "OWASP LLM-06: Supply Chain Vulnerabilities",
+        "nist": ["SC.L1-3.14"],
+        "cis": ["CIS 3.10"]
+      }
+    ],
+    "summary": {
+      "critical_count": 1,
+      "high_count": 0,
+      "medium_count": 1,
+      "low_count": 0
+    }
+  },
+  "agent3": {
+    "tests": [
+      {
+        "file": "skill.py",
+        "test_type": "unit",
+        "description": "Test PII detection accuracy",
+        "test_cases": [
+          "Email detection",
+          "SSN detection",
+          "Credit card detection"
+        ]
+      }
+    ],
+    "benchmarks": {
+      "token_count": 1200,
+      "estimated_latency_ms": 2300,
+      "complexity_score": 5
+    }
+  },
+  "security_score": 65,
+  "compliance_score": 70,
+  "validation_score": 80,
+  "overall_score": 71.67,
+  "pass_fail": "fail",
+  "recommendations": [
+    "Remove hardcoded API keys from source code; use environment variables instead",
+    "Pin all dependencies to specific versions in requirements.txt",
+    "Add unit tests for edge cases",
+    "Review GDPR compliance logic for accuracy"
+  ],
+  "visualizations": {
+    "execution_graph": {
+      "nodes": [
+        {"id": "input", "label": "Skill Upload", "type": "input"},
+        {"id": "agent1", "label": "Agent1: Structure & Intent", "type": "agent"},
+        {"id": "agent2", "label": "Agent2: Security & Compliance", "type": "agent"},
+        {"id": "agent3", "label": "Agent3: Validation & Benchmarking", "type": "agent"},
+        {"id": "orchestrator", "label": "Report Orchestrator", "type": "processor"},
+        {"id": "output", "label": "Report Output", "type": "output"}
+      ],
+      "edges": [
+        {"source": "input", "target": "agent1", "type": "parallel"},
+        {"source": "input", "target": "agent2", "type": "parallel"},
+        {"source": "input", "target": "agent3", "type": "parallel"},
+        {"source": "agent1", "target": "orchestrator", "type": "merge"},
+        {"source": "agent2", "target": "orchestrator", "type": "merge"},
+        {"source": "agent3", "target": "orchestrator", "type": "merge"},
+        {"source": "orchestrator", "target": "output", "type": "generates"}
+      ]
+    },
+    "security_coverage": {
+      "nodes": [
+        {"id": "coverage", "label": "Security Coverage", "type": "root"},
+        {"id": "sev-critical", "label": "Critical (1)", "type": "severity"},
+        {"id": "sev-high", "label": "High (0)", "type": "severity"},
+        {"id": "sev-medium", "label": "Medium (1)", "type": "severity"},
+        {"id": "sev-low", "label": "Low (0)", "type": "severity"},
+        {"id": "type-secret", "label": "Secret (1)", "type": "issue_type"},
+        {"id": "type-dependency", "label": "Dependency (1)", "type": "issue_type"}
+      ],
+      "edges": [
+        {"source": "coverage", "target": "sev-critical", "type": "categorizes"},
+        {"source": "coverage", "target": "sev-high", "type": "categorizes"},
+        {"source": "coverage", "target": "sev-medium", "type": "categorizes"},
+        {"source": "coverage", "target": "sev-low", "type": "categorizes"},
+        {"source": "coverage", "target": "type-secret", "type": "categorizes"},
+        {"source": "coverage", "target": "type-dependency", "type": "categorizes"}
+      ],
+      "summary": {
+        "total_findings": 2,
+        "by_severity": {"critical": 1, "high": 0, "medium": 1, "low": 0},
+        "by_type": {"secret": 1, "dependency": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "upload-demo",
+  "description": "Uploaded demo skill",
+  "version": "1.0",
+  "intent": "# upload-demo",
+  "instructions": "# upload-demo\n\n## Orchestration\n1. Read target files.\n2. Return JSON findings.\n\n## Usage\n/upload-demo",
+  "inputs": [
+    "target path",
+    "flags",
+    "changed files"
+  ],
+  "outputs": [
+    "structured findings",
+    "severity summary",
+    "evidence",
+    "remediation",
+    "report"
+  ],
+  "dependencies": [],
+  "security_constraints": {
+    "treat_target_content_as_untrusted": true,
+    "redact_sensitive_values": "required for secret-like evidence",
+    "skip_binary_and_lock_files": true,
+    "network_access": "not required",
+    "output_requires_evidence": true
+  },
+  "references": {},
+  "rules": [],
+  "default_match_strategy": "unspecified",
+  "report_template": ""
+}

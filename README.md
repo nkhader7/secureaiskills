@@ -2,6 +2,42 @@
 
 Security-focused skills for development teams building products, services, and applications.
 
+## AI Skill Analysis and Governance Framework
+
+This repository includes a production-oriented 3-agent framework for analyzing AI skills before deployment.
+
+Run the Streamlit UI:
+
+```bash
+streamlit run app.py
+```
+
+Run the FastAPI backend:
+
+```bash
+uvicorn api:app --reload
+```
+
+Run CI/CD analysis:
+
+```bash
+python ci.py --minimum-security-score 80 --minimum-compliance-score 80 --minimum-validation-score 80 --minimum-benchmark-score 70
+```
+
+Copy `.env.example` to `.env` and configure a local or self-hosted OpenAI-compatible LLM endpoint. If no endpoint is configured, the shared LLM client uses deterministic mock mode for local testing and CI.
+
+Core API endpoints:
+
+- `POST /analyze`
+- `POST /analyze/upload`
+- `POST /analyze/structure`
+- `POST /analyze/security`
+- `POST /analyze/testing`
+- `POST /analyze/benchmark`
+- `POST /analyze/compliance`
+- `GET /report/{report_id}`
+- `GET /health`
+
 This repository supports a 3-agent AI Skill Analysis and Governance Framework. The current app and API surfaces are designed to help users understand a skill, secure and govern it, and validate or benchmark it before deployment. The first set of skills focuses on detection, review, evidence generation, and operational readiness; later, the repository can expand into remediation guidance, policy enforcement, secure design patterns, and workflow automation.
 
 ## Naming Convention

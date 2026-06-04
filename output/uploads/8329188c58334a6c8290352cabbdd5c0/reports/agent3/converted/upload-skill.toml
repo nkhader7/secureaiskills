@@ -1,0 +1,14 @@
+name = ""
+description = ""
+version = "1.0"
+intent = "\ufeff---\nname: upload-demo\ndescription: Uploaded demo skill\ntriggers:\n  - /upload-demo\nreferences: {}\n---"
+inputs = ["target path", "flags", "changed files"]
+outputs = ["structured findings", "severity summary", "evidence", "remediation", "report"]
+dependencies = []
+
+[security_constraints]
+treat_target_content_as_untrusted = true
+redact_sensitive_values = "required for secret-like evidence"
+skip_binary_and_lock_files = true
+network_access = "not required"
+output_requires_evidence = true

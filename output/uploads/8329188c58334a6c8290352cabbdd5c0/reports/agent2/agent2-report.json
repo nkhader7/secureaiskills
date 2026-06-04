@@ -1,0 +1,214 @@
+{
+  "agent": "agent2",
+  "generated_at": "2026-06-04T02:04:49.668126+00:00",
+  "schema_version": "1.0",
+  "skills_analyzed": 1,
+  "overall_risk": "low",
+  "confidence": 0.82,
+  "skill_results": [
+    {
+      "skill": "upload-skill",
+      "generated_at": "2026-06-04T02:04:49.662335+00:00",
+      "confidence": 0.82,
+      "overall_risk": "low",
+      "security": {
+        "prompt_injection": {
+          "risk_level": "low",
+          "matches": [],
+          "match_count": 0
+        },
+        "unsafe_instructions": {
+          "found": false,
+          "matches": []
+        },
+        "secret_exposure": {
+          "found": false,
+          "matches": [],
+          "count": 0
+        },
+        "permissions": {
+          "network_access_required": false,
+          "filesystem_write_required": false,
+          "excessive_permissions": false,
+          "notes": []
+        },
+        "ai_security": {
+          "categories": {
+            "LLM01": {
+              "name": "Prompt Injection",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM02": {
+              "name": "Sensitive Information Disclosure",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM03": {
+              "name": "Supply Chain Vulnerabilities",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM04": {
+              "name": "Data and Model Poisoning",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM05": {
+              "name": "Improper Output Handling",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM06": {
+              "name": "Excessive Agency",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM07": {
+              "name": "System Prompt Leakage",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM08": {
+              "name": "Vector and Embedding Weaknesses",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM09": {
+              "name": "Misinformation",
+              "status": "pass",
+              "findings": []
+            },
+            "LLM10": {
+              "name": "Unbounded Consumption",
+              "status": "pass",
+              "findings": []
+            }
+          },
+          "triggered_count": 0,
+          "risk_level": "low"
+        }
+      },
+      "governance": {
+        "rules_governance": {
+          "issues": [],
+          "warnings": [],
+          "total_rules": 0,
+          "critical_rules": 0,
+          "governance_valid": true
+        },
+        "supply_chain": {
+          "external_references": [],
+          "external_reference_count": 0,
+          "risk_level": "low",
+          "notes": []
+        },
+        "owasp_mapping_present": false,
+        "cwe_mapping_present": false,
+        "remediation_coverage": 0.0,
+        "compliance_mapping": {
+          "nist_ai_rmf": {
+            "GOVERN": {
+              "status": "pass",
+              "evidence": [
+                "Governance rules validated."
+              ]
+            },
+            "MAP": {
+              "status": "needs_review",
+              "evidence": [
+                "OWASP mapped: False. CWE mapped: False."
+              ]
+            },
+            "MEASURE": {
+              "status": "needs_review",
+              "evidence": [
+                "0 rules with 0.0% remediation coverage."
+              ]
+            },
+            "MANAGE": {
+              "status": "pass",
+              "evidence": [
+                "Supply chain risk: low."
+              ]
+            }
+          },
+          "slsa_level": 1,
+          "owasp_llm_top10_pass": true,
+          "remediation_coverage_pct": 0.0,
+          "compliance_score": 73.3
+        }
+      },
+      "llm": {
+        "used_llm": false,
+        "model": "deterministic-mock",
+        "prompt_tokens": 186,
+        "completion_tokens": 67,
+        "latency_ms": 0.0,
+        "evidence": [
+          "LOCAL_LLM_BASE_URL not set."
+        ],
+        "response": {
+          "compliance_posture": "good",
+          "privacy_risk": "low",
+          "operational_risk": "low",
+          "additional_findings": [],
+          "recommendations": [
+            "Ensure skill output masks sensitive values before display.",
+            "Review match patterns for potential false-positive rate."
+          ],
+          "confidence": 0.78
+        }
+      },
+      "findings": [],
+      "recommendations": [
+        "Ensure skill output masks sensitive values before display.",
+        "Review match patterns for potential false-positive rate."
+      ],
+      "evidence": [
+        "Scanned output\\uploads\\8329188c58334a6c8290352cabbdd5c0\\skills\\upload-skill\\SKILL.md for injection patterns",
+        "Reviewed 0 rules for governance compliance"
+      ],
+      "execution_ms": 0.24
+    }
+  ],
+  "security_report": [
+    {
+      "skill": "upload-skill",
+      "overall_risk": "low",
+      "prompt_injection_risk": "low",
+      "findings_count": 0
+    }
+  ],
+  "compliance_report": [
+    {
+      "skill": "upload-skill",
+      "governance_valid": true,
+      "owasp_mapped": false,
+      "cwe_mapped": false,
+      "remediation_coverage": 0.0,
+      "compliance_posture": "good",
+      "compliance_score": 73.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
+    }
+  ],
+  "risk_summary": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "total_findings": 0,
+  "all_findings": [],
+  "recommendations": [
+    "Ensure skill output masks sensitive values before display.",
+    "Review match patterns for potential false-positive rate."
+  ],
+  "downloadable_json": "output/agent2/agent2-report.json"
+}

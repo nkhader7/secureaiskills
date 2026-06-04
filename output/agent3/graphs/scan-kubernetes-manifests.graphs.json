@@ -151,11 +151,11 @@
       },
       {
         "id": "python",
-        "score": 5.64
+        "score": 5.62
       },
       {
         "id": "json",
-        "score": 5.26
+        "score": 5.18
       },
       {
         "id": "yaml",
@@ -192,6 +192,94 @@
       {
         "source": "rules.yaml",
         "target": "agent3-report.json"
+      }
+    ]
+  },
+  "tool_usage_graph": {
+    "graph": "tool_usage_graph",
+    "nodes": [
+      {
+        "id": "local_llm_client"
+      },
+      {
+        "id": "yaml_parser"
+      },
+      {
+        "id": "json_parser"
+      },
+      {
+        "id": "artifact_writer"
+      },
+      {
+        "id": "ci_runner"
+      },
+      {
+        "id": "benchmark_engine"
+      }
+    ],
+    "edges": [
+      {
+        "source": "ci_runner",
+        "target": "local_llm_client"
+      },
+      {
+        "source": "ci_runner",
+        "target": "artifact_writer"
+      },
+      {
+        "source": "benchmark_engine",
+        "target": "yaml_parser"
+      },
+      {
+        "source": "benchmark_engine",
+        "target": "json_parser"
+      }
+    ]
+  },
+  "security_coverage_graph": {
+    "graph": "security_coverage_graph",
+    "nodes": [
+      {
+        "id": "treat_target_content_as_untrusted",
+        "covered": true
+      },
+      {
+        "id": "redact_sensitive_values",
+        "covered": true
+      },
+      {
+        "id": "skip_binary_and_lock_files",
+        "covered": true
+      },
+      {
+        "id": "network_access",
+        "covered": true
+      },
+      {
+        "id": "output_requires_evidence",
+        "covered": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "scan-kubernetes-manifests",
+        "target": "treat_target_content_as_untrusted"
+      },
+      {
+        "source": "scan-kubernetes-manifests",
+        "target": "redact_sensitive_values"
+      },
+      {
+        "source": "scan-kubernetes-manifests",
+        "target": "skip_binary_and_lock_files"
+      },
+      {
+        "source": "scan-kubernetes-manifests",
+        "target": "network_access"
+      },
+      {
+        "source": "scan-kubernetes-manifests",
+        "target": "output_requires_evidence"
       }
     ]
   }

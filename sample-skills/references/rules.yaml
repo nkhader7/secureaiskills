@@ -1,0 +1,78 @@
+version: "1.0"
+default_match_strategy: regex
+
+rules:
+  - id: SS-001
+    severity: Critical
+    category: Secrets Detection
+    name: Hardcoded API Key
+    description: Detects hardcoded API keys in source code
+    owasp_2025_category: A02 Cryptographic Failures
+    cwe: CWE-798
+    match_strategy: regex
+    patterns:
+      - '(?i)api[_-]?key\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}["\']?'
+      - '(?i)apikey\s*[:=]\s*["\']?[A-Za-z0-9_\-]{20,}["\']?'
+    remediation: >
+      Remove the hardcoded API key and replace with an environment variable or
+      secret manager reference. Rotate the exposed key immediately.
+
+  - id: SS-002
+    severity: Critical
+    category: Secrets Detection
+    name: Hardcoded Password
+    description: Detects hardcoded passwords in source code or config files
+    owasp_2025_category: A07 Authentication Failures
+    cwe: CWE-259
+    match_strategy: regex
+    patterns:
+      - '(?i)password\s*[:=]\s*["\'][^"\']{8,}["\']'
+      - '(?i)passwd\s*[:=]\s*["\'][^"\']{8,}["\']'
+      - '(?i)db_pass\s*[:=]\s*["\'][^"\']{8,}["\']'
+    remediation: >
+      Replace hardcoded passwords with environment variables or a vault integration.
+      Rotate the exposed credential immediately and audit access logs.
+
+  - id: SS-003
+    severity: High
+    category: Secrets Detection
+    name: AWS Access Key
+    description: Detects exposed AWS access key IDs
+    owasp_2025_category: A02 Cryptographic Failures
+    cwe: CWE-798
+    match_strategy: regex
+    patterns:
+      - '(?i)AKIA[0-9A-Z]{16}'
+      - '(?i)aws[_-]?access[_-]?key[_-]?id\s*[:=]\s*[A-Z0-9]{20}'
+    remediation: >
+      Immediately revoke the exposed AWS key in the IAM console.
+      Use IAM roles or AWS Secrets Manager instead of embedded credentials.
+
+  - id: SS-004
+    severity: High
+    category: Secrets Detection
+    name: Bearer Token or JWT
+    description: Detects embedded bearer tokens or JWT strings
+    owasp_2025_category: A07 Authentication Failures
+    cwe: CWE-522
+    match_strategy: regex
+    patterns:
+      - '(?i)bearer\s+[A-Za-z0-9\-_\.]{20,}'
+      - '(?i)eyJ[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+'
+    remediation: >
+      Remove the embedded token. Use short-lived tokens obtained at runtime
+      from a secure identity provider. Add token scanning to pre-commit hooks.
+
+  - id: SS-005
+    severity: Medium
+    category: Secrets Detection
+    name: Generic Secret Variable
+    description: Detects generic secret-named variables with non-empty values
+    owasp_2025_category: A02 Cryptographic Failures
+    cwe: CWE-312
+    match_strategy: regex
+    patterns:
+      - '(?i)(secret|private[_-]?key|client[_-]?secret)\s*[:=]\s*["\'][^"\']{8,}["\']'
+    remediation: >
+      Move all secrets to environment variables, a vault, or a secrets manager.
+      Never commit secret values to version control.

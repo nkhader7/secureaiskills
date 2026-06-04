@@ -35,6 +35,7 @@ def _now_utc() -> str:
 
 
 def _parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
+    text = text.lstrip("\ufeff")
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)$", text, re.DOTALL)
     if not m:
         return {}, text.strip()
@@ -339,6 +340,21 @@ class Agent3:
                     {"source": "SKILL.md", "target": "report-template.md"},
                     {"source": "rules.yaml", "target": "agent3-report.json"},
                 ],
+            ),
+            "tool_usage_graph": g(
+                "tool_usage_graph",
+                [{"id": n} for n in ["local_llm_client", "yaml_parser", "json_parser", "artifact_writer", "ci_runner", "benchmark_engine"]],
+                [
+                    {"source": "ci_runner", "target": "local_llm_client"},
+                    {"source": "ci_runner", "target": "artifact_writer"},
+                    {"source": "benchmark_engine", "target": "yaml_parser"},
+                    {"source": "benchmark_engine", "target": "json_parser"},
+                ],
+            ),
+            "security_coverage_graph": g(
+                "security_coverage_graph",
+                [{"id": k, "covered": bool(v)} for k, v in canonical["security_constraints"].items()],
+                [{"source": skill_name, "target": k} for k in canonical["security_constraints"]],
             ),
         }
 

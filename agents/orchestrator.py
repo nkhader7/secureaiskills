@@ -11,9 +11,9 @@ from pathlib import Path
 from typing import Any
 
 from agents.llm import LocalLLMClient
-from agents.agent1 import run_agent1, DEFAULT_OUTPUT_DIR as A1_OUT
-from agents.agent2 import run_agent2, DEFAULT_OUTPUT_DIR as A2_OUT
-from agents.agent3 import run_agent3, DEFAULT_OUTPUT_DIR as A3_OUT
+from agents.agent1 import run_agent1
+from agents.agent2 import run_agent2
+from agents.agent3 import run_agent3
 from agents.schemas import score_summary
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

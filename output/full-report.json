@@ -1,6 +1,6 @@
 {
   "orchestrator": "secureai-skills",
-  "generated_at": "2026-06-04T01:45:18.622970+00:00",
+  "generated_at": "2026-06-04T02:07:25.652873+00:00",
   "schema_version": "1.0",
   "skills_analyzed": 26,
   "confidence": 0.83,
@@ -199,7 +199,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "audit-auth-session-management",
@@ -207,7 +216,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "audit-crypto-usage",
@@ -215,7 +233,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "audit-logging-monitoring",
@@ -223,7 +250,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "detect-secrets",
@@ -231,7 +267,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "detect-supply-chain-risks",
@@ -239,7 +284,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "generate-dependency-graph",
@@ -247,7 +301,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "generate-sbom",
@@ -255,7 +318,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-api-security",
@@ -263,7 +335,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-broken-access-control",
@@ -271,7 +352,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-container-image",
@@ -279,7 +369,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-exception-handling",
@@ -287,7 +386,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-for-injection",
@@ -295,7 +403,16 @@
       "owasp_mapped": true,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 100.0,
+      "slsa_level": 3,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-for-ssrf",
@@ -303,7 +420,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-for-xss",
@@ -311,7 +437,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-iac-security",
@@ -319,7 +454,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-json-security",
@@ -327,7 +471,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-kubernetes-manifests",
@@ -335,7 +488,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-markdown-security",
@@ -343,7 +505,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-sca-dependencies",
@@ -351,7 +522,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-security-headers",
@@ -359,7 +539,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-static-analysis",
@@ -367,7 +556,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-toml-security",
@@ -375,7 +573,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-xml-security",
@@ -383,7 +590,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "scan-yaml-security",
@@ -391,7 +607,16 @@
       "owasp_mapped": false,
       "cwe_mapped": true,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "pass",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
     },
     {
       "skill": "threat-model-system",
@@ -399,7 +624,16 @@
       "owasp_mapped": false,
       "cwe_mapped": false,
       "remediation_coverage": 1.0,
-      "compliance_posture": "good"
+      "compliance_posture": "good",
+      "compliance_score": 93.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "pass",
+        "MANAGE": "pass"
+      }
     }
   ],
   "coverage_report": [
@@ -647,14 +881,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 2581,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 363.23,
+      "estimated_latency_ms": 864.95,
       "execution_complexity": "high",
       "formats": [
         {
           "format": "markdown",
           "bytes": 3838,
           "prompt_tokens": 959,
-          "parse_avg_ms": 0.0069,
+          "parse_avg_ms": 0.0074,
           "context_tokens": 1459,
           "redundant_instruction_score": 0.87,
           "compression_opportunity_tokens": 0,
@@ -664,7 +898,7 @@
           "format": "toml",
           "bytes": 30783,
           "prompt_tokens": 7695,
-          "parse_avg_ms": 0.022,
+          "parse_avg_ms": 0.0399,
           "context_tokens": 8195,
           "redundant_instruction_score": 7.73,
           "compression_opportunity_tokens": 6736,
@@ -674,27 +908,27 @@
           "format": "python",
           "bytes": 505064,
           "prompt_tokens": 126258,
-          "parse_avg_ms": 0.2974,
+          "parse_avg_ms": 0.7114,
           "context_tokens": 126758,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 125299,
-          "format_efficiency_score": 5.59
+          "format_efficiency_score": 5.48
         },
         {
           "format": "json",
           "bytes": 588107,
           "prompt_tokens": 147026,
-          "parse_avg_ms": 0.9751,
+          "parse_avg_ms": 2.1412,
           "context_tokens": 147526,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 146067,
-          "format_efficiency_score": 5.11
+          "format_efficiency_score": 4.81
         },
         {
           "format": "yaml",
           "bytes": 501011,
           "prompt_tokens": 125252,
-          "parse_avg_ms": 361.9274,
+          "parse_avg_ms": 862.0469,
           "context_tokens": 125752,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 124293,
@@ -708,7 +942,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 5.91
+      "benchmark_score": 5.83
     },
     {
       "skill": "audit-auth-session-management",
@@ -718,14 +952,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1087,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 6.35,
+      "estimated_latency_ms": 14.36,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 5138,
           "prompt_tokens": 1284,
-          "parse_avg_ms": 0.0051,
+          "parse_avg_ms": 0.0093,
           "context_tokens": 1476,
           "redundant_instruction_score": 0.29,
           "compression_opportunity_tokens": 762,
@@ -735,7 +969,7 @@
           "format": "python",
           "bytes": 9299,
           "prompt_tokens": 2324,
-          "parse_avg_ms": 0.0036,
+          "parse_avg_ms": 0.0065,
           "context_tokens": 2516,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1802,
@@ -745,7 +979,7 @@
           "format": "markdown",
           "bytes": 2091,
           "prompt_tokens": 522,
-          "parse_avg_ms": 0.0021,
+          "parse_avg_ms": 0.0041,
           "context_tokens": 714,
           "redundant_instruction_score": 1.6,
           "compression_opportunity_tokens": 0,
@@ -755,21 +989,21 @@
           "format": "json",
           "bytes": 10602,
           "prompt_tokens": 2650,
-          "parse_avg_ms": 0.0235,
+          "parse_avg_ms": 0.0402,
           "context_tokens": 2842,
           "redundant_instruction_score": 7.27,
           "compression_opportunity_tokens": 2128,
-          "format_efficiency_score": 8.75
+          "format_efficiency_score": 8.74
         },
         {
           "format": "yaml",
           "bytes": 9140,
           "prompt_tokens": 2285,
-          "parse_avg_ms": 6.3147,
+          "parse_avg_ms": 14.3002,
           "context_tokens": 2477,
           "redundant_instruction_score": 4.15,
           "compression_opportunity_tokens": 1763,
-          "format_efficiency_score": 7.33
+          "format_efficiency_score": 6.41
         }
       ],
       "ranking": [
@@ -779,7 +1013,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 8.55
+      "benchmark_score": 8.37
     },
     {
       "skill": "audit-crypto-usage",
@@ -789,14 +1023,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1088,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 6.14,
+      "estimated_latency_ms": 18.0,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 5031,
           "prompt_tokens": 1257,
-          "parse_avg_ms": 0.0049,
+          "parse_avg_ms": 0.0129,
           "context_tokens": 1442,
           "redundant_instruction_score": 0.53,
           "compression_opportunity_tokens": 751,
@@ -806,7 +1040,7 @@
           "format": "markdown",
           "bytes": 2025,
           "prompt_tokens": 506,
-          "parse_avg_ms": 0.002,
+          "parse_avg_ms": 0.0039,
           "context_tokens": 691,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -816,7 +1050,7 @@
           "format": "python",
           "bytes": 9119,
           "prompt_tokens": 2279,
-          "parse_avg_ms": 0.0035,
+          "parse_avg_ms": 0.0064,
           "context_tokens": 2464,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1773,
@@ -826,21 +1060,21 @@
           "format": "json",
           "bytes": 10422,
           "prompt_tokens": 2605,
-          "parse_avg_ms": 0.0232,
+          "parse_avg_ms": 0.0738,
           "context_tokens": 2790,
           "redundant_instruction_score": 7.21,
           "compression_opportunity_tokens": 2099,
-          "format_efficiency_score": 8.76
+          "format_efficiency_score": 8.75
         },
         {
           "format": "yaml",
           "bytes": 8930,
           "prompt_tokens": 2232,
-          "parse_avg_ms": 6.1045,
+          "parse_avg_ms": 17.899,
           "context_tokens": 2417,
           "redundant_instruction_score": 4.05,
           "compression_opportunity_tokens": 1726,
-          "format_efficiency_score": 7.4
+          "format_efficiency_score": 6.42
         }
       ],
       "ranking": [
@@ -850,7 +1084,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 8.6
+      "benchmark_score": 8.4
     },
     {
       "skill": "audit-logging-monitoring",
@@ -860,14 +1094,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1069,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 6.28,
+      "estimated_latency_ms": 13.8,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 4783,
           "prompt_tokens": 1195,
-          "parse_avg_ms": 0.005,
+          "parse_avg_ms": 0.0093,
           "context_tokens": 1384,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 673,
@@ -877,7 +1111,7 @@
           "format": "python",
           "bytes": 8911,
           "prompt_tokens": 2227,
-          "parse_avg_ms": 0.0035,
+          "parse_avg_ms": 0.0063,
           "context_tokens": 2416,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1705,
@@ -887,7 +1121,7 @@
           "format": "json",
           "bytes": 10214,
           "prompt_tokens": 2553,
-          "parse_avg_ms": 0.0243,
+          "parse_avg_ms": 0.0422,
           "context_tokens": 2742,
           "redundant_instruction_score": 7.07,
           "compression_opportunity_tokens": 2031,
@@ -897,7 +1131,7 @@
           "format": "markdown",
           "bytes": 2089,
           "prompt_tokens": 522,
-          "parse_avg_ms": 0.0021,
+          "parse_avg_ms": 0.0041,
           "context_tokens": 711,
           "redundant_instruction_score": 1.6,
           "compression_opportunity_tokens": 0,
@@ -907,11 +1141,11 @@
           "format": "yaml",
           "bytes": 8706,
           "prompt_tokens": 2176,
-          "parse_avg_ms": 6.2459,
+          "parse_avg_ms": 13.7364,
           "context_tokens": 2365,
           "redundant_instruction_score": 4.12,
           "compression_opportunity_tokens": 1654,
-          "format_efficiency_score": 7.36
+          "format_efficiency_score": 6.42
         }
       ],
       "ranking": [
@@ -921,7 +1155,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 8.58
+      "benchmark_score": 8.39
     },
     {
       "skill": "detect-secrets",
@@ -931,54 +1165,54 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1408,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 215.99,
+      "estimated_latency_ms": 509.4,
       "execution_complexity": "high",
       "formats": [
         {
           "format": "markdown",
           "bytes": 2391,
           "prompt_tokens": 595,
-          "parse_avg_ms": 0.0043,
+          "parse_avg_ms": 0.0078,
           "context_tokens": 941,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
-          "format_efficiency_score": 8.9
+          "format_efficiency_score": 8.89
         },
         {
           "format": "toml",
           "bytes": 25208,
           "prompt_tokens": 6302,
-          "parse_avg_ms": 0.0212,
+          "parse_avg_ms": 0.0408,
           "context_tokens": 6648,
           "redundant_instruction_score": 4.34,
           "compression_opportunity_tokens": 5707,
-          "format_efficiency_score": 7.99
+          "format_efficiency_score": 7.98
         },
         {
           "format": "python",
           "bytes": 285075,
           "prompt_tokens": 71264,
-          "parse_avg_ms": 0.1476,
+          "parse_avg_ms": 0.6216,
           "context_tokens": 71610,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 70669,
-          "format_efficiency_score": 5.62
+          "format_efficiency_score": 5.5
         },
         {
           "format": "json",
           "bytes": 337672,
           "prompt_tokens": 84418,
-          "parse_avg_ms": 0.7691,
+          "parse_avg_ms": 1.4419,
           "context_tokens": 84764,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 83823,
-          "format_efficiency_score": 5.16
+          "format_efficiency_score": 4.99
         },
         {
           "format": "yaml",
           "bytes": 273573,
           "prompt_tokens": 68393,
-          "parse_avg_ms": 215.0476,
+          "parse_avg_ms": 507.2923,
           "context_tokens": 68739,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 67798,
@@ -992,7 +1226,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 6.06
+      "benchmark_score": 6.0
     },
     {
       "skill": "detect-supply-chain-risks",
@@ -1002,34 +1236,34 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1456,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 8.75,
+      "estimated_latency_ms": 22.54,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 16514,
           "prompt_tokens": 4128,
-          "parse_avg_ms": 0.0317,
+          "parse_avg_ms": 0.0552,
           "context_tokens": 4576,
           "redundant_instruction_score": 0.75,
           "compression_opportunity_tokens": 3297,
-          "format_efficiency_score": 9.19
+          "format_efficiency_score": 9.18
         },
         {
           "format": "toml",
           "bytes": 10178,
           "prompt_tokens": 2544,
-          "parse_avg_ms": 0.0089,
+          "parse_avg_ms": 0.0158,
           "context_tokens": 2992,
           "redundant_instruction_score": 0.35,
           "compression_opportunity_tokens": 1713,
-          "format_efficiency_score": 8.92
+          "format_efficiency_score": 8.91
         },
         {
           "format": "markdown",
           "bytes": 3325,
           "prompt_tokens": 831,
-          "parse_avg_ms": 0.0032,
+          "parse_avg_ms": 0.0064,
           "context_tokens": 1279,
           "redundant_instruction_score": 1.05,
           "compression_opportunity_tokens": 0,
@@ -1039,7 +1273,7 @@
           "format": "python",
           "bytes": 15271,
           "prompt_tokens": 3817,
-          "parse_avg_ms": 0.0057,
+          "parse_avg_ms": 0.0103,
           "context_tokens": 4265,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 2986,
@@ -1049,11 +1283,11 @@
           "format": "yaml",
           "bytes": 15124,
           "prompt_tokens": 3781,
-          "parse_avg_ms": 8.7047,
+          "parse_avg_ms": 22.4547,
           "context_tokens": 4229,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 2950,
-          "format_efficiency_score": 6.93
+          "format_efficiency_score": 6.61
         }
       ],
       "ranking": [
@@ -1063,7 +1297,7 @@
         "python",
         "yaml"
       ],
-      "benchmark_score": 8.48
+      "benchmark_score": 8.42
     },
     {
       "skill": "generate-dependency-graph",
@@ -1073,14 +1307,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1055,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 5.36,
+      "estimated_latency_ms": 16.84,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 4120,
           "prompt_tokens": 1030,
-          "parse_avg_ms": 0.0043,
+          "parse_avg_ms": 0.0082,
           "context_tokens": 1217,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 498,
@@ -1090,7 +1324,7 @@
           "format": "python",
           "bytes": 8021,
           "prompt_tokens": 2005,
-          "parse_avg_ms": 0.0031,
+          "parse_avg_ms": 0.006,
           "context_tokens": 2192,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1473,
@@ -1100,7 +1334,7 @@
           "format": "json",
           "bytes": 9128,
           "prompt_tokens": 2282,
-          "parse_avg_ms": 0.0214,
+          "parse_avg_ms": 0.041,
           "context_tokens": 2469,
           "redundant_instruction_score": 7.01,
           "compression_opportunity_tokens": 1750,
@@ -1110,7 +1344,7 @@
           "format": "markdown",
           "bytes": 2130,
           "prompt_tokens": 532,
-          "parse_avg_ms": 0.0024,
+          "parse_avg_ms": 0.0044,
           "context_tokens": 719,
           "redundant_instruction_score": 1.6,
           "compression_opportunity_tokens": 0,
@@ -1120,11 +1354,11 @@
           "format": "yaml",
           "bytes": 7834,
           "prompt_tokens": 1958,
-          "parse_avg_ms": 5.3244,
+          "parse_avg_ms": 16.7768,
           "context_tokens": 2145,
           "redundant_instruction_score": 3.78,
           "compression_opportunity_tokens": 1426,
-          "format_efficiency_score": 7.66
+          "format_efficiency_score": 6.49
         }
       ],
       "ranking": [
@@ -1134,7 +1368,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 8.65
+      "benchmark_score": 8.42
     },
     {
       "skill": "generate-sbom",
@@ -1144,14 +1378,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1058,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 5.33,
+      "estimated_latency_ms": 12.62,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 3989,
           "prompt_tokens": 997,
-          "parse_avg_ms": 0.0043,
+          "parse_avg_ms": 0.0077,
           "context_tokens": 1178,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 461,
@@ -1161,7 +1395,7 @@
           "format": "markdown",
           "bytes": 2144,
           "prompt_tokens": 536,
-          "parse_avg_ms": 0.0023,
+          "parse_avg_ms": 0.0041,
           "context_tokens": 717,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -1171,7 +1405,7 @@
           "format": "python",
           "bytes": 7844,
           "prompt_tokens": 1961,
-          "parse_avg_ms": 0.0031,
+          "parse_avg_ms": 0.0055,
           "context_tokens": 2142,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1425,
@@ -1181,7 +1415,7 @@
           "format": "json",
           "bytes": 8951,
           "prompt_tokens": 2237,
-          "parse_avg_ms": 0.0214,
+          "parse_avg_ms": 0.0375,
           "context_tokens": 2418,
           "redundant_instruction_score": 6.9,
           "compression_opportunity_tokens": 1701,
@@ -1191,11 +1425,11 @@
           "format": "yaml",
           "bytes": 7661,
           "prompt_tokens": 1915,
-          "parse_avg_ms": 5.2947,
+          "parse_avg_ms": 12.5604,
           "context_tokens": 2096,
           "redundant_instruction_score": 3.91,
           "compression_opportunity_tokens": 1379,
-          "format_efficiency_score": 7.66
+          "format_efficiency_score": 6.48
         }
       ],
       "ranking": [
@@ -1205,7 +1439,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 8.69
+      "benchmark_score": 8.45
     },
     {
       "skill": "scan-api-security",
@@ -1215,68 +1449,68 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1239,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 4.55,
+      "estimated_latency_ms": 16.13,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 8365,
           "prompt_tokens": 2091,
-          "parse_avg_ms": 0.0236,
+          "parse_avg_ms": 0.1366,
           "context_tokens": 2395,
           "redundant_instruction_score": 3.24,
           "compression_opportunity_tokens": 1537,
-          "format_efficiency_score": 9.23
+          "format_efficiency_score": 9.2
         },
         {
           "format": "markdown",
           "bytes": 2216,
           "prompt_tokens": 554,
-          "parse_avg_ms": 0.0025,
+          "parse_avg_ms": 0.0045,
           "context_tokens": 858,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
           "format_efficiency_score": 8.9
         },
         {
-          "format": "python",
-          "bytes": 7519,
-          "prompt_tokens": 1879,
-          "parse_avg_ms": 0.0045,
-          "context_tokens": 2183,
-          "redundant_instruction_score": 0.0,
-          "compression_opportunity_tokens": 1325,
-          "format_efficiency_score": 8.9
-        },
-        {
           "format": "toml",
           "bytes": 3601,
           "prompt_tokens": 900,
-          "parse_avg_ms": 0.0033,
+          "parse_avg_ms": 0.0066,
           "context_tokens": 1204,
           "redundant_instruction_score": 2.92,
           "compression_opportunity_tokens": 346,
           "format_efficiency_score": 8.89
         },
         {
+          "format": "python",
+          "bytes": 7519,
+          "prompt_tokens": 1879,
+          "parse_avg_ms": 0.0194,
+          "context_tokens": 2183,
+          "redundant_instruction_score": 0.0,
+          "compression_opportunity_tokens": 1325,
+          "format_efficiency_score": 8.89
+        },
+        {
           "format": "yaml",
           "bytes": 7409,
           "prompt_tokens": 1852,
-          "parse_avg_ms": 4.5122,
+          "parse_avg_ms": 15.963,
           "context_tokens": 2156,
           "redundant_instruction_score": 1.92,
           "compression_opportunity_tokens": 1298,
-          "format_efficiency_score": 8.06
+          "format_efficiency_score": 6.69
         }
       ],
       "ranking": [
         "json",
         "markdown",
-        "python",
         "toml",
+        "python",
         "yaml"
       ],
-      "benchmark_score": 8.8
+      "benchmark_score": 8.51
     },
     {
       "skill": "scan-broken-access-control",
@@ -1286,24 +1520,24 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1130,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 6.35,
+      "estimated_latency_ms": 21.88,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 5307,
           "prompt_tokens": 1326,
-          "parse_avg_ms": 0.0051,
+          "parse_avg_ms": 0.0098,
           "context_tokens": 1513,
           "redundant_instruction_score": 0.27,
           "compression_opportunity_tokens": 801,
-          "format_efficiency_score": 9.1
+          "format_efficiency_score": 9.09
         },
         {
           "format": "python",
           "bytes": 9459,
           "prompt_tokens": 2364,
-          "parse_avg_ms": 0.0037,
+          "parse_avg_ms": 0.0066,
           "context_tokens": 2551,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1839,
@@ -1313,7 +1547,7 @@
           "format": "markdown",
           "bytes": 2102,
           "prompt_tokens": 525,
-          "parse_avg_ms": 0.0022,
+          "parse_avg_ms": 0.0047,
           "context_tokens": 712,
           "redundant_instruction_score": 1.6,
           "compression_opportunity_tokens": 0,
@@ -1323,7 +1557,7 @@
           "format": "json",
           "bytes": 10762,
           "prompt_tokens": 2690,
-          "parse_avg_ms": 0.0243,
+          "parse_avg_ms": 0.0449,
           "context_tokens": 2877,
           "redundant_instruction_score": 7.16,
           "compression_opportunity_tokens": 2165,
@@ -1333,11 +1567,11 @@
           "format": "yaml",
           "bytes": 9296,
           "prompt_tokens": 2324,
-          "parse_avg_ms": 6.3137,
+          "parse_avg_ms": 21.8182,
           "context_tokens": 2511,
           "redundant_instruction_score": 4.07,
           "compression_opportunity_tokens": 1799,
-          "format_efficiency_score": 7.33
+          "format_efficiency_score": 6.41
         }
       ],
       "ranking": [
@@ -1347,7 +1581,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 8.55
+      "benchmark_score": 8.37
     },
     {
       "skill": "scan-container-image",
@@ -1357,14 +1591,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 4047,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 192.27,
+      "estimated_latency_ms": 423.62,
       "execution_complexity": "high",
       "formats": [
         {
           "format": "markdown",
           "bytes": 4059,
           "prompt_tokens": 1013,
-          "parse_avg_ms": 0.0062,
+          "parse_avg_ms": 0.01,
           "context_tokens": 1475,
           "redundant_instruction_score": 0.98,
           "compression_opportunity_tokens": 0,
@@ -1374,7 +1608,7 @@
           "format": "toml",
           "bytes": 31467,
           "prompt_tokens": 7866,
-          "parse_avg_ms": 0.0248,
+          "parse_avg_ms": 0.0419,
           "context_tokens": 8328,
           "redundant_instruction_score": 6.28,
           "compression_opportunity_tokens": 6853,
@@ -1384,27 +1618,27 @@
           "format": "python",
           "bytes": 331043,
           "prompt_tokens": 82725,
-          "parse_avg_ms": 0.1716,
+          "parse_avg_ms": 0.5569,
           "context_tokens": 83187,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 81712,
-          "format_efficiency_score": 5.62
+          "format_efficiency_score": 5.52
         },
         {
           "format": "json",
           "bytes": 363641,
           "prompt_tokens": 90910,
-          "parse_avg_ms": 0.6144,
+          "parse_avg_ms": 1.6476,
           "context_tokens": 91372,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 89897,
-          "format_efficiency_score": 5.2
+          "format_efficiency_score": 4.94
         },
         {
           "format": "yaml",
           "bytes": 339885,
           "prompt_tokens": 84971,
-          "parse_avg_ms": 191.4541,
+          "parse_avg_ms": 421.3674,
           "context_tokens": 85433,
           "redundant_instruction_score": 9.05,
           "compression_opportunity_tokens": 83958,
@@ -1418,7 +1652,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 5.97
+      "benchmark_score": 5.9
     },
     {
       "skill": "scan-exception-handling",
@@ -1428,14 +1662,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1095,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 5.47,
+      "estimated_latency_ms": 12.06,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 4331,
           "prompt_tokens": 1082,
-          "parse_avg_ms": 0.0045,
+          "parse_avg_ms": 0.0078,
           "context_tokens": 1267,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 547,
@@ -1445,7 +1679,7 @@
           "format": "python",
           "bytes": 8223,
           "prompt_tokens": 2055,
-          "parse_avg_ms": 0.0032,
+          "parse_avg_ms": 0.0061,
           "context_tokens": 2240,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1520,
@@ -1455,17 +1689,17 @@
           "format": "json",
           "bytes": 9330,
           "prompt_tokens": 2332,
-          "parse_avg_ms": 0.0226,
+          "parse_avg_ms": 0.0357,
           "context_tokens": 2517,
           "redundant_instruction_score": 7.01,
           "compression_opportunity_tokens": 1797,
-          "format_efficiency_score": 8.82
+          "format_efficiency_score": 8.81
         },
         {
           "format": "markdown",
           "bytes": 2141,
           "prompt_tokens": 535,
-          "parse_avg_ms": 0.0024,
+          "parse_avg_ms": 0.0046,
           "context_tokens": 720,
           "redundant_instruction_score": 1.6,
           "compression_opportunity_tokens": 0,
@@ -1475,11 +1709,11 @@
           "format": "yaml",
           "bytes": 8060,
           "prompt_tokens": 2015,
-          "parse_avg_ms": 5.4347,
+          "parse_avg_ms": 12.002,
           "context_tokens": 2200,
           "redundant_instruction_score": 3.7,
           "compression_opportunity_tokens": 1480,
-          "format_efficiency_score": 7.63
+          "format_efficiency_score": 6.49
         }
       ],
       "ranking": [
@@ -1489,7 +1723,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 8.64
+      "benchmark_score": 8.41
     },
     {
       "skill": "scan-for-injection",
@@ -1499,24 +1733,24 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1402,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 5.57,
+      "estimated_latency_ms": 15.31,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 10421,
           "prompt_tokens": 2605,
-          "parse_avg_ms": 0.0327,
+          "parse_avg_ms": 0.0572,
           "context_tokens": 2871,
           "redundant_instruction_score": 3.92,
           "compression_opportunity_tokens": 2151,
-          "format_efficiency_score": 9.09
+          "format_efficiency_score": 9.08
         },
         {
           "format": "markdown",
           "bytes": 1817,
           "prompt_tokens": 454,
-          "parse_avg_ms": 0.002,
+          "parse_avg_ms": 0.0039,
           "context_tokens": 720,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -1526,7 +1760,7 @@
           "format": "python",
           "bytes": 9180,
           "prompt_tokens": 2294,
-          "parse_avg_ms": 0.0053,
+          "parse_avg_ms": 0.0126,
           "context_tokens": 2560,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1840,
@@ -1536,7 +1770,7 @@
           "format": "toml",
           "bytes": 5805,
           "prompt_tokens": 1451,
-          "parse_avg_ms": 0.0044,
+          "parse_avg_ms": 0.009,
           "context_tokens": 1717,
           "redundant_instruction_score": 4.91,
           "compression_opportunity_tokens": 997,
@@ -1546,11 +1780,11 @@
           "format": "yaml",
           "bytes": 8953,
           "prompt_tokens": 2238,
-          "parse_avg_ms": 5.5235,
+          "parse_avg_ms": 15.2278,
           "context_tokens": 2504,
           "redundant_instruction_score": 1.83,
           "compression_opportunity_tokens": 1784,
-          "format_efficiency_score": 7.76
+          "format_efficiency_score": 6.64
         }
       ],
       "ranking": [
@@ -1560,7 +1794,7 @@
         "toml",
         "yaml"
       ],
-      "benchmark_score": 8.64
+      "benchmark_score": 8.42
     },
     {
       "skill": "scan-for-ssrf",
@@ -1570,14 +1804,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 2306,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 8.5,
+      "estimated_latency_ms": 23.55,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "markdown",
           "bytes": 2354,
           "prompt_tokens": 585,
-          "parse_avg_ms": 0.0049,
+          "parse_avg_ms": 0.0069,
           "context_tokens": 919,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -1587,17 +1821,17 @@
           "format": "json",
           "bytes": 17139,
           "prompt_tokens": 4284,
-          "parse_avg_ms": 0.0461,
+          "parse_avg_ms": 0.0866,
           "context_tokens": 4618,
           "redundant_instruction_score": 4.0,
           "compression_opportunity_tokens": 3699,
-          "format_efficiency_score": 8.84
+          "format_efficiency_score": 8.83
         },
         {
           "format": "toml",
           "bytes": 11240,
           "prompt_tokens": 2810,
-          "parse_avg_ms": 0.0077,
+          "parse_avg_ms": 0.0153,
           "context_tokens": 3144,
           "redundant_instruction_score": 2.3,
           "compression_opportunity_tokens": 2225,
@@ -1607,7 +1841,7 @@
           "format": "python",
           "bytes": 15654,
           "prompt_tokens": 3903,
-          "parse_avg_ms": 0.0075,
+          "parse_avg_ms": 0.0157,
           "context_tokens": 4237,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 3318,
@@ -1617,11 +1851,11 @@
           "format": "yaml",
           "bytes": 15820,
           "prompt_tokens": 3955,
-          "parse_avg_ms": 8.4314,
+          "parse_avg_ms": 23.4223,
           "context_tokens": 4289,
           "redundant_instruction_score": 1.88,
           "compression_opportunity_tokens": 3370,
-          "format_efficiency_score": 6.79
+          "format_efficiency_score": 6.4
         }
       ],
       "ranking": [
@@ -1631,7 +1865,7 @@
         "python",
         "yaml"
       ],
-      "benchmark_score": 8.36
+      "benchmark_score": 8.28
     },
     {
       "skill": "scan-for-xss",
@@ -1641,14 +1875,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1062,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 6.09,
+      "estimated_latency_ms": 15.74,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 4851,
           "prompt_tokens": 1212,
-          "parse_avg_ms": 0.0052,
+          "parse_avg_ms": 0.0093,
           "context_tokens": 1395,
           "redundant_instruction_score": 0.28,
           "compression_opportunity_tokens": 715,
@@ -1658,7 +1892,7 @@
           "format": "markdown",
           "bytes": 1991,
           "prompt_tokens": 497,
-          "parse_avg_ms": 0.0023,
+          "parse_avg_ms": 0.0039,
           "context_tokens": 680,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -1668,7 +1902,7 @@
           "format": "python",
           "bytes": 8890,
           "prompt_tokens": 2222,
-          "parse_avg_ms": 0.0034,
+          "parse_avg_ms": 0.0063,
           "context_tokens": 2405,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1725,
@@ -1678,7 +1912,7 @@
           "format": "json",
           "bytes": 10193,
           "prompt_tokens": 2548,
-          "parse_avg_ms": 0.0245,
+          "parse_avg_ms": 0.0427,
           "context_tokens": 2731,
           "redundant_instruction_score": 7.26,
           "compression_opportunity_tokens": 2051,
@@ -1688,11 +1922,11 @@
           "format": "yaml",
           "bytes": 8691,
           "prompt_tokens": 2172,
-          "parse_avg_ms": 6.0543,
+          "parse_avg_ms": 15.6765,
           "context_tokens": 2355,
           "redundant_instruction_score": 4.2,
           "compression_opportunity_tokens": 1675,
-          "format_efficiency_score": 7.4
+          "format_efficiency_score": 6.42
         }
       ],
       "ranking": [
@@ -1702,7 +1936,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 8.61
+      "benchmark_score": 8.41
     },
     {
       "skill": "scan-iac-security",
@@ -1712,14 +1946,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1519,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 501.84,
+      "estimated_latency_ms": 1163.44,
       "execution_complexity": "high",
       "formats": [
         {
           "format": "markdown",
           "bytes": 3632,
           "prompt_tokens": 908,
-          "parse_avg_ms": 0.0038,
+          "parse_avg_ms": 0.0065,
           "context_tokens": 1204,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -1729,37 +1963,37 @@
           "format": "toml",
           "bytes": 21299,
           "prompt_tokens": 5324,
-          "parse_avg_ms": 0.0198,
+          "parse_avg_ms": 0.0504,
           "context_tokens": 5620,
           "redundant_instruction_score": 8.48,
           "compression_opportunity_tokens": 4416,
-          "format_efficiency_score": 7.71
+          "format_efficiency_score": 7.7
         },
         {
           "format": "python",
           "bytes": 680573,
           "prompt_tokens": 170142,
-          "parse_avg_ms": 0.6719,
+          "parse_avg_ms": 1.0181,
           "context_tokens": 170438,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 169234,
-          "format_efficiency_score": 5.49
+          "format_efficiency_score": 5.41
         },
         {
           "format": "json",
           "bytes": 772251,
           "prompt_tokens": 193062,
-          "parse_avg_ms": 1.484,
+          "parse_avg_ms": 3.23,
           "context_tokens": 193358,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 192154,
-          "format_efficiency_score": 4.98
+          "format_efficiency_score": 4.54
         },
         {
           "format": "yaml",
           "bytes": 642381,
           "prompt_tokens": 160595,
-          "parse_avg_ms": 499.6623,
+          "parse_avg_ms": 1159.1315,
           "context_tokens": 160891,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 159687,
@@ -1773,7 +2007,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 5.93
+      "benchmark_score": 5.83
     },
     {
       "skill": "scan-json-security",
@@ -1783,14 +2017,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 870,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 3.41,
+      "estimated_latency_ms": 7.33,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 5688,
           "prompt_tokens": 1422,
-          "parse_avg_ms": 0.018,
+          "parse_avg_ms": 0.0348,
           "context_tokens": 1628,
           "redundant_instruction_score": 0.77,
           "compression_opportunity_tokens": 1021,
@@ -1800,7 +2034,7 @@
           "format": "toml",
           "bytes": 2714,
           "prompt_tokens": 678,
-          "parse_avg_ms": 0.0026,
+          "parse_avg_ms": 0.0051,
           "context_tokens": 884,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 277,
@@ -1810,7 +2044,7 @@
           "format": "python",
           "bytes": 5059,
           "prompt_tokens": 1264,
-          "parse_avg_ms": 0.0021,
+          "parse_avg_ms": 0.0042,
           "context_tokens": 1470,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 863,
@@ -1820,7 +2054,7 @@
           "format": "markdown",
           "bytes": 1605,
           "prompt_tokens": 401,
-          "parse_avg_ms": 0.002,
+          "parse_avg_ms": 0.0035,
           "context_tokens": 607,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -1830,11 +2064,11 @@
           "format": "yaml",
           "bytes": 4972,
           "prompt_tokens": 1243,
-          "parse_avg_ms": 3.3829,
+          "parse_avg_ms": 7.2795,
           "context_tokens": 1449,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 842,
-          "format_efficiency_score": 8.62
+          "format_efficiency_score": 7.65
         }
       ],
       "ranking": [
@@ -1844,7 +2078,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 9.06
+      "benchmark_score": 8.87
     },
     {
       "skill": "scan-kubernetes-manifests",
@@ -1854,14 +2088,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 2774,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 130.65,
+      "estimated_latency_ms": 303.87,
       "execution_complexity": "high",
       "formats": [
         {
           "format": "markdown",
           "bytes": 3513,
           "prompt_tokens": 878,
-          "parse_avg_ms": 0.0038,
+          "parse_avg_ms": 0.0068,
           "context_tokens": 1362,
           "redundant_instruction_score": 1.08,
           "compression_opportunity_tokens": 0,
@@ -1871,7 +2105,7 @@
           "format": "toml",
           "bytes": 28673,
           "prompt_tokens": 7168,
-          "parse_avg_ms": 0.0218,
+          "parse_avg_ms": 0.0404,
           "context_tokens": 7652,
           "redundant_instruction_score": 6.67,
           "compression_opportunity_tokens": 6290,
@@ -1881,27 +2115,27 @@
           "format": "python",
           "bytes": 202423,
           "prompt_tokens": 50605,
-          "parse_avg_ms": 0.0724,
+          "parse_avg_ms": 0.1475,
           "context_tokens": 51089,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 49727,
-          "format_efficiency_score": 5.64
+          "format_efficiency_score": 5.62
         },
         {
           "format": "json",
           "bytes": 228750,
           "prompt_tokens": 57187,
-          "parse_avg_ms": 0.3606,
+          "parse_avg_ms": 0.6817,
           "context_tokens": 57671,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 56309,
-          "format_efficiency_score": 5.26
+          "format_efficiency_score": 5.18
         },
         {
           "format": "yaml",
           "bytes": 201594,
           "prompt_tokens": 50398,
-          "parse_avg_ms": 130.1868,
+          "parse_avg_ms": 302.9983,
           "context_tokens": 50882,
           "redundant_instruction_score": 10.0,
           "compression_opportunity_tokens": 49520,
@@ -1915,7 +2149,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 5.98
+      "benchmark_score": 5.96
     },
     {
       "skill": "scan-markdown-security",
@@ -1925,24 +2159,24 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 915,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 3.5,
+      "estimated_latency_ms": 8.39,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 5926,
           "prompt_tokens": 1481,
-          "parse_avg_ms": 0.0181,
+          "parse_avg_ms": 0.0368,
           "context_tokens": 1691,
           "redundant_instruction_score": 0.71,
           "compression_opportunity_tokens": 1087,
-          "format_efficiency_score": 9.57
+          "format_efficiency_score": 9.56
         },
         {
           "format": "toml",
           "bytes": 2938,
           "prompt_tokens": 734,
-          "parse_avg_ms": 0.0027,
+          "parse_avg_ms": 0.0057,
           "context_tokens": 944,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 340,
@@ -1952,7 +2186,7 @@
           "format": "python",
           "bytes": 5285,
           "prompt_tokens": 1321,
-          "parse_avg_ms": 0.0023,
+          "parse_avg_ms": 0.0047,
           "context_tokens": 1531,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 927,
@@ -1962,7 +2196,7 @@
           "format": "markdown",
           "bytes": 1576,
           "prompt_tokens": 394,
-          "parse_avg_ms": 0.0019,
+          "parse_avg_ms": 0.0035,
           "context_tokens": 604,
           "redundant_instruction_score": 1.82,
           "compression_opportunity_tokens": 0,
@@ -1972,11 +2206,11 @@
           "format": "yaml",
           "bytes": 5200,
           "prompt_tokens": 1300,
-          "parse_avg_ms": 3.4754,
+          "parse_avg_ms": 8.3372,
           "context_tokens": 1510,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 906,
-          "format_efficiency_score": 8.59
+          "format_efficiency_score": 7.37
         }
       ],
       "ranking": [
@@ -1986,7 +2220,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 9.02
+      "benchmark_score": 8.77
     },
     {
       "skill": "scan-sca-dependencies",
@@ -1996,14 +2230,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1489,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 18.77,
+      "estimated_latency_ms": 46.52,
       "execution_complexity": "medium",
       "formats": [
         {
           "format": "markdown",
           "bytes": 5423,
           "prompt_tokens": 1354,
-          "parse_avg_ms": 0.0089,
+          "parse_avg_ms": 0.0126,
           "context_tokens": 1975,
           "redundant_instruction_score": 0.85,
           "compression_opportunity_tokens": 0,
@@ -2013,7 +2247,7 @@
           "format": "toml",
           "bytes": 21230,
           "prompt_tokens": 5307,
-          "parse_avg_ms": 0.0154,
+          "parse_avg_ms": 0.0284,
           "context_tokens": 5928,
           "redundant_instruction_score": 2.93,
           "compression_opportunity_tokens": 3953,
@@ -2023,27 +2257,27 @@
           "format": "json",
           "bytes": 37607,
           "prompt_tokens": 9401,
-          "parse_avg_ms": 0.0621,
+          "parse_avg_ms": 0.1047,
           "context_tokens": 10022,
           "redundant_instruction_score": 3.28,
           "compression_opportunity_tokens": 8047,
-          "format_efficiency_score": 8.19
+          "format_efficiency_score": 8.18
         },
         {
           "format": "python",
           "bytes": 34761,
           "prompt_tokens": 8686,
-          "parse_avg_ms": 0.0172,
+          "parse_avg_ms": 0.0412,
           "context_tokens": 9307,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 7332,
-          "format_efficiency_score": 7.94
+          "format_efficiency_score": 7.93
         },
         {
           "format": "yaml",
           "bytes": 35092,
           "prompt_tokens": 8773,
-          "parse_avg_ms": 18.6676,
+          "parse_avg_ms": 46.3352,
           "context_tokens": 9394,
           "redundant_instruction_score": 0.83,
           "compression_opportunity_tokens": 7419,
@@ -2057,7 +2291,7 @@
         "python",
         "yaml"
       ],
-      "benchmark_score": 7.79
+      "benchmark_score": 7.78
     },
     {
       "skill": "scan-security-headers",
@@ -2067,14 +2301,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1028,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 6.0,
+      "estimated_latency_ms": 15.36,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "toml",
           "bytes": 4787,
           "prompt_tokens": 1196,
-          "parse_avg_ms": 0.0049,
+          "parse_avg_ms": 0.0095,
           "context_tokens": 1380,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 681,
@@ -2084,7 +2318,7 @@
           "format": "python",
           "bytes": 8872,
           "prompt_tokens": 2218,
-          "parse_avg_ms": 0.0034,
+          "parse_avg_ms": 0.0062,
           "context_tokens": 2402,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 1703,
@@ -2094,7 +2328,7 @@
           "format": "markdown",
           "bytes": 2062,
           "prompt_tokens": 515,
-          "parse_avg_ms": 0.0023,
+          "parse_avg_ms": 0.004,
           "context_tokens": 699,
           "redundant_instruction_score": 1.6,
           "compression_opportunity_tokens": 0,
@@ -2104,21 +2338,21 @@
           "format": "json",
           "bytes": 10175,
           "prompt_tokens": 2543,
-          "parse_avg_ms": 0.0224,
+          "parse_avg_ms": 0.0445,
           "context_tokens": 2727,
           "redundant_instruction_score": 7.42,
           "compression_opportunity_tokens": 2028,
-          "format_efficiency_score": 8.75
+          "format_efficiency_score": 8.74
         },
         {
           "format": "yaml",
           "bytes": 8673,
           "prompt_tokens": 2168,
-          "parse_avg_ms": 5.9631,
+          "parse_avg_ms": 15.2909,
           "context_tokens": 2352,
           "redundant_instruction_score": 4.05,
           "compression_opportunity_tokens": 1653,
-          "format_efficiency_score": 7.44
+          "format_efficiency_score": 6.43
         }
       ],
       "ranking": [
@@ -2128,7 +2362,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 8.59
+      "benchmark_score": 8.38
     },
     {
       "skill": "scan-static-analysis",
@@ -2138,14 +2372,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 1876,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 29.14,
+      "estimated_latency_ms": 68.14,
       "execution_complexity": "medium",
       "formats": [
         {
           "format": "markdown",
           "bytes": 3153,
           "prompt_tokens": 788,
-          "parse_avg_ms": 0.0082,
+          "parse_avg_ms": 0.0075,
           "context_tokens": 1221,
           "redundant_instruction_score": 0.91,
           "compression_opportunity_tokens": 0,
@@ -2155,7 +2389,7 @@
           "format": "toml",
           "bytes": 12105,
           "prompt_tokens": 3026,
-          "parse_avg_ms": 0.0121,
+          "parse_avg_ms": 0.0213,
           "context_tokens": 3459,
           "redundant_instruction_score": 3.7,
           "compression_opportunity_tokens": 2238,
@@ -2165,27 +2399,27 @@
           "format": "python",
           "bytes": 35145,
           "prompt_tokens": 8786,
-          "parse_avg_ms": 0.0128,
+          "parse_avg_ms": 0.0235,
           "context_tokens": 9219,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 7998,
-          "format_efficiency_score": 7.93
+          "format_efficiency_score": 7.92
         },
         {
           "format": "json",
           "bytes": 44658,
           "prompt_tokens": 11164,
-          "parse_avg_ms": 0.1092,
+          "parse_avg_ms": 0.1774,
           "context_tokens": 11597,
           "redundant_instruction_score": 4.27,
           "compression_opportunity_tokens": 10376,
-          "format_efficiency_score": 7.83
+          "format_efficiency_score": 7.82
         },
         {
           "format": "yaml",
           "bytes": 34538,
           "prompt_tokens": 8634,
-          "parse_avg_ms": 28.9991,
+          "parse_avg_ms": 67.9095,
           "context_tokens": 9067,
           "redundant_instruction_score": 3.04,
           "compression_opportunity_tokens": 7846,
@@ -2199,7 +2433,7 @@
         "json",
         "yaml"
       ],
-      "benchmark_score": 7.74
+      "benchmark_score": 7.73
     },
     {
       "skill": "scan-toml-security",
@@ -2209,14 +2443,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 806,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 3.25,
+      "estimated_latency_ms": 8.25,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 5431,
           "prompt_tokens": 1357,
-          "parse_avg_ms": 0.0168,
+          "parse_avg_ms": 0.0293,
           "context_tokens": 1563,
           "redundant_instruction_score": 0.77,
           "compression_opportunity_tokens": 987,
@@ -2226,7 +2460,7 @@
           "format": "toml",
           "bytes": 2566,
           "prompt_tokens": 641,
-          "parse_avg_ms": 0.0024,
+          "parse_avg_ms": 0.0045,
           "context_tokens": 847,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 271,
@@ -2236,7 +2470,7 @@
           "format": "python",
           "bytes": 4830,
           "prompt_tokens": 1207,
-          "parse_avg_ms": 0.0019,
+          "parse_avg_ms": 0.0034,
           "context_tokens": 1413,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 837,
@@ -2246,7 +2480,7 @@
           "format": "markdown",
           "bytes": 1480,
           "prompt_tokens": 370,
-          "parse_avg_ms": 0.0019,
+          "parse_avg_ms": 0.0035,
           "context_tokens": 576,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -2256,11 +2490,11 @@
           "format": "yaml",
           "bytes": 4694,
           "prompt_tokens": 1173,
-          "parse_avg_ms": 3.2236,
+          "parse_avg_ms": 8.2047,
           "context_tokens": 1379,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 803,
-          "format_efficiency_score": 8.67
+          "format_efficiency_score": 7.42
         }
       ],
       "ranking": [
@@ -2270,7 +2504,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 9.08
+      "benchmark_score": 8.83
     },
     {
       "skill": "scan-xml-security",
@@ -2280,14 +2514,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 837,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 3.41,
+      "estimated_latency_ms": 8.27,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 5565,
           "prompt_tokens": 1391,
-          "parse_avg_ms": 0.0173,
+          "parse_avg_ms": 0.0293,
           "context_tokens": 1596,
           "redundant_instruction_score": 0.38,
           "compression_opportunity_tokens": 1014,
@@ -2297,7 +2531,7 @@
           "format": "toml",
           "bytes": 2669,
           "prompt_tokens": 667,
-          "parse_avg_ms": 0.0026,
+          "parse_avg_ms": 0.0048,
           "context_tokens": 872,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 290,
@@ -2307,7 +2541,7 @@
           "format": "python",
           "bytes": 4948,
           "prompt_tokens": 1237,
-          "parse_avg_ms": 0.0022,
+          "parse_avg_ms": 0.0039,
           "context_tokens": 1442,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 860,
@@ -2317,7 +2551,7 @@
           "format": "markdown",
           "bytes": 1511,
           "prompt_tokens": 377,
-          "parse_avg_ms": 0.0018,
+          "parse_avg_ms": 0.0035,
           "context_tokens": 582,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -2327,11 +2561,11 @@
           "format": "yaml",
           "bytes": 4839,
           "prompt_tokens": 1209,
-          "parse_avg_ms": 3.3852,
+          "parse_avg_ms": 8.2274,
           "context_tokens": 1414,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 832,
-          "format_efficiency_score": 8.62
+          "format_efficiency_score": 7.41
         }
       ],
       "ranking": [
@@ -2341,7 +2575,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 9.07
+      "benchmark_score": 8.83
     },
     {
       "skill": "scan-yaml-security",
@@ -2351,14 +2585,14 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 912,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 3.39,
+      "estimated_latency_ms": 9.03,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 5878,
           "prompt_tokens": 1469,
-          "parse_avg_ms": 0.0178,
+          "parse_avg_ms": 0.0295,
           "context_tokens": 1675,
           "redundant_instruction_score": 0.38,
           "compression_opportunity_tokens": 1058,
@@ -2368,7 +2602,7 @@
           "format": "toml",
           "bytes": 2834,
           "prompt_tokens": 708,
-          "parse_avg_ms": 0.0026,
+          "parse_avg_ms": 0.0198,
           "context_tokens": 914,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 297,
@@ -2378,7 +2612,7 @@
           "format": "python",
           "bytes": 5253,
           "prompt_tokens": 1313,
-          "parse_avg_ms": 0.0022,
+          "parse_avg_ms": 0.0042,
           "context_tokens": 1519,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 902,
@@ -2388,7 +2622,7 @@
           "format": "markdown",
           "bytes": 1646,
           "prompt_tokens": 411,
-          "parse_avg_ms": 0.002,
+          "parse_avg_ms": 0.0035,
           "context_tokens": 617,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 0,
@@ -2398,11 +2632,11 @@
           "format": "yaml",
           "bytes": 5130,
           "prompt_tokens": 1282,
-          "parse_avg_ms": 3.3615,
+          "parse_avg_ms": 8.9743,
           "context_tokens": 1488,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 871,
-          "format_efficiency_score": 8.62
+          "format_efficiency_score": 7.22
         }
       ],
       "ranking": [
@@ -2412,7 +2646,7 @@
         "markdown",
         "yaml"
       ],
-      "benchmark_score": 9.07
+      "benchmark_score": 8.79
     },
     {
       "skill": "threat-model-system",
@@ -2422,24 +2656,24 @@
       "llm_call_count": 1,
       "llm_prompt_tokens": 2042,
       "llm_completion_tokens": 70,
-      "estimated_latency_ms": 10.76,
+      "estimated_latency_ms": 28.13,
       "execution_complexity": "low",
       "formats": [
         {
           "format": "json",
           "bytes": 20252,
           "prompt_tokens": 5063,
-          "parse_avg_ms": 0.0382,
+          "parse_avg_ms": 0.0674,
           "context_tokens": 5468,
           "redundant_instruction_score": 2.45,
           "compression_opportunity_tokens": 4269,
-          "format_efficiency_score": 8.89
+          "format_efficiency_score": 8.88
         },
         {
           "format": "markdown",
           "bytes": 3177,
           "prompt_tokens": 794,
-          "parse_avg_ms": 0.0034,
+          "parse_avg_ms": 0.0062,
           "context_tokens": 1199,
           "redundant_instruction_score": 1.03,
           "compression_opportunity_tokens": 0,
@@ -2449,7 +2683,7 @@
           "format": "toml",
           "bytes": 6332,
           "prompt_tokens": 1583,
-          "parse_avg_ms": 0.0054,
+          "parse_avg_ms": 0.0104,
           "context_tokens": 1988,
           "redundant_instruction_score": 3.33,
           "compression_opportunity_tokens": 789,
@@ -2459,7 +2693,7 @@
           "format": "python",
           "bytes": 17893,
           "prompt_tokens": 4473,
-          "parse_avg_ms": 0.0066,
+          "parse_avg_ms": 0.0123,
           "context_tokens": 4878,
           "redundant_instruction_score": 0.0,
           "compression_opportunity_tokens": 3679,
@@ -2469,7 +2703,7 @@
           "format": "yaml",
           "bytes": 17954,
           "prompt_tokens": 4488,
-          "parse_avg_ms": 10.7086,
+          "parse_avg_ms": 28.0303,
           "context_tokens": 4893,
           "redundant_instruction_score": 0.78,
           "compression_opportunity_tokens": 3694,
@@ -6211,10 +6445,10 @@
       "skill": "audit-asvs-compliance",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 83.6,
+      "validation_score": 83.3,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 5.91,
+      "benchmark_score": 5.83,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6226,10 +6460,10 @@
       "skill": "audit-auth-session-management",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.2,
+      "validation_score": 93.5,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.55,
+      "benchmark_score": 8.37,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6241,10 +6475,10 @@
       "skill": "audit-crypto-usage",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.4,
+      "validation_score": 93.6,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.6,
+      "benchmark_score": 8.4,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6256,10 +6490,10 @@
       "skill": "audit-logging-monitoring",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.3,
+      "validation_score": 93.6,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.58,
+      "benchmark_score": 8.39,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6271,10 +6505,10 @@
       "skill": "detect-secrets",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 84.2,
+      "validation_score": 84.0,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 6.06,
+      "benchmark_score": 6.0,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6286,10 +6520,10 @@
       "skill": "detect-supply-chain-risks",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 93.9,
+      "validation_score": 93.7,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.48,
+      "benchmark_score": 8.42,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6301,10 +6535,10 @@
       "skill": "generate-dependency-graph",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.6,
+      "validation_score": 93.7,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.65,
+      "benchmark_score": 8.42,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6316,10 +6550,10 @@
       "skill": "generate-sbom",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.8,
+      "validation_score": 93.8,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.69,
+      "benchmark_score": 8.45,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6331,10 +6565,10 @@
       "skill": "scan-api-security",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 95.2,
+      "validation_score": 94.0,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.8,
+      "benchmark_score": 8.51,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6346,10 +6580,10 @@
       "skill": "scan-broken-access-control",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.2,
+      "validation_score": 93.5,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.55,
+      "benchmark_score": 8.37,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6361,10 +6595,10 @@
       "skill": "scan-container-image",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 83.9,
+      "validation_score": 83.6,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 5.97,
+      "benchmark_score": 5.9,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6376,10 +6610,10 @@
       "skill": "scan-exception-handling",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.6,
+      "validation_score": 93.6,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.64,
+      "benchmark_score": 8.41,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6391,10 +6625,10 @@
       "skill": "scan-for-injection",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.6,
+      "validation_score": 93.7,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.64,
+      "benchmark_score": 8.42,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6406,10 +6640,10 @@
       "skill": "scan-for-ssrf",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 93.4,
+      "validation_score": 93.1,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.36,
+      "benchmark_score": 8.28,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6421,10 +6655,10 @@
       "skill": "scan-for-xss",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.4,
+      "validation_score": 93.6,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.61,
+      "benchmark_score": 8.41,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6436,10 +6670,10 @@
       "skill": "scan-iac-security",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 83.7,
+      "validation_score": 83.3,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 5.93,
+      "benchmark_score": 5.83,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6451,10 +6685,10 @@
       "skill": "scan-json-security",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 96.2,
+      "validation_score": 95.5,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 9.06,
+      "benchmark_score": 8.87,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6466,10 +6700,10 @@
       "skill": "scan-kubernetes-manifests",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 83.9,
+      "validation_score": 83.8,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 5.98,
+      "benchmark_score": 5.96,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6481,10 +6715,10 @@
       "skill": "scan-markdown-security",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 96.1,
+      "validation_score": 95.1,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 9.02,
+      "benchmark_score": 8.77,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6496,10 +6730,10 @@
       "skill": "scan-sca-dependencies",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 91.2,
+      "validation_score": 91.1,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 7.79,
+      "benchmark_score": 7.78,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6511,10 +6745,10 @@
       "skill": "scan-security-headers",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 94.4,
+      "validation_score": 93.5,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 8.59,
+      "benchmark_score": 8.38,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6526,10 +6760,10 @@
       "skill": "scan-static-analysis",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 91.0,
+      "validation_score": 90.9,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 7.74,
+      "benchmark_score": 7.73,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6541,10 +6775,10 @@
       "skill": "scan-toml-security",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 96.3,
+      "validation_score": 95.3,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 9.08,
+      "benchmark_score": 8.83,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6556,10 +6790,10 @@
       "skill": "scan-xml-security",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 96.3,
+      "validation_score": 95.3,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 9.07,
+      "benchmark_score": 8.83,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6571,10 +6805,10 @@
       "skill": "scan-yaml-security",
       "decision": "pass",
       "failure_reasons": [],
-      "validation_score": 96.3,
+      "validation_score": 95.2,
       "security_gate_status": "pass",
       "compliance_gate_status": "pass",
-      "benchmark_score": 9.07,
+      "benchmark_score": 8.79,
       "recommended_actions": [
         "Wire Agent 3 output into the final orchestrator merge step.",
         "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
@@ -6752,11 +6986,11 @@
           },
           {
             "id": "python",
-            "score": 5.59
+            "score": 5.48
           },
           {
             "id": "json",
-            "score": 5.11
+            "score": 4.81
           },
           {
             "id": "yaml",
@@ -6793,6 +7027,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "audit-asvs-compliance",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "audit-asvs-compliance",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "audit-asvs-compliance",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "audit-asvs-compliance",
+            "target": "network_access"
+          },
+          {
+            "source": "audit-asvs-compliance",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -6954,11 +7276,11 @@
           },
           {
             "id": "json",
-            "score": 8.75
+            "score": 8.74
           },
           {
             "id": "yaml",
-            "score": 7.33
+            "score": 6.41
           }
         ],
         "edges": []
@@ -6991,6 +7313,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "audit-auth-session-management",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "audit-auth-session-management",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "audit-auth-session-management",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "audit-auth-session-management",
+            "target": "network_access"
+          },
+          {
+            "source": "audit-auth-session-management",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -7152,11 +7562,11 @@
           },
           {
             "id": "json",
-            "score": 8.76
+            "score": 8.75
           },
           {
             "id": "yaml",
-            "score": 7.4
+            "score": 6.42
           }
         ],
         "edges": []
@@ -7189,6 +7599,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "audit-crypto-usage",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "audit-crypto-usage",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "audit-crypto-usage",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "audit-crypto-usage",
+            "target": "network_access"
+          },
+          {
+            "source": "audit-crypto-usage",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -7354,7 +7852,7 @@
           },
           {
             "id": "yaml",
-            "score": 7.36
+            "score": 6.42
           }
         ],
         "edges": []
@@ -7387,6 +7885,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "audit-logging-monitoring",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "audit-logging-monitoring",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "audit-logging-monitoring",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "audit-logging-monitoring",
+            "target": "network_access"
+          },
+          {
+            "source": "audit-logging-monitoring",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -7536,19 +8122,19 @@
         "nodes": [
           {
             "id": "markdown",
-            "score": 8.9
+            "score": 8.89
           },
           {
             "id": "toml",
-            "score": 7.99
+            "score": 7.98
           },
           {
             "id": "python",
-            "score": 5.62
+            "score": 5.5
           },
           {
             "id": "json",
-            "score": 5.16
+            "score": 4.99
           },
           {
             "id": "yaml",
@@ -7585,6 +8171,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "detect-secrets",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "detect-secrets",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "detect-secrets",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "detect-secrets",
+            "target": "network_access"
+          },
+          {
+            "source": "detect-secrets",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -7734,11 +8408,11 @@
         "nodes": [
           {
             "id": "json",
-            "score": 9.19
+            "score": 9.18
           },
           {
             "id": "toml",
-            "score": 8.92
+            "score": 8.91
           },
           {
             "id": "markdown",
@@ -7750,7 +8424,7 @@
           },
           {
             "id": "yaml",
-            "score": 6.93
+            "score": 6.61
           }
         ],
         "edges": []
@@ -7783,6 +8457,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "detect-supply-chain-risks",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "detect-supply-chain-risks",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "detect-supply-chain-risks",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "detect-supply-chain-risks",
+            "target": "network_access"
+          },
+          {
+            "source": "detect-supply-chain-risks",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -7948,7 +8710,7 @@
           },
           {
             "id": "yaml",
-            "score": 7.66
+            "score": 6.49
           }
         ],
         "edges": []
@@ -7981,6 +8743,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "generate-dependency-graph",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "generate-dependency-graph",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "generate-dependency-graph",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "generate-dependency-graph",
+            "target": "network_access"
+          },
+          {
+            "source": "generate-dependency-graph",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -8146,7 +8996,7 @@
           },
           {
             "id": "yaml",
-            "score": 7.66
+            "score": 6.48
           }
         ],
         "edges": []
@@ -8179,6 +9029,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "generate-sbom",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "generate-sbom",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "generate-sbom",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "generate-sbom",
+            "target": "network_access"
+          },
+          {
+            "source": "generate-sbom",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -8328,14 +9266,10 @@
         "nodes": [
           {
             "id": "json",
-            "score": 9.23
+            "score": 9.2
           },
           {
             "id": "markdown",
-            "score": 8.9
-          },
-          {
-            "id": "python",
             "score": 8.9
           },
           {
@@ -8343,8 +9277,12 @@
             "score": 8.89
           },
           {
+            "id": "python",
+            "score": 8.89
+          },
+          {
             "id": "yaml",
-            "score": 8.06
+            "score": 6.69
           }
         ],
         "edges": []
@@ -8377,6 +9315,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-api-security",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-api-security",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-api-security",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-api-security",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-api-security",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -8526,7 +9552,7 @@
         "nodes": [
           {
             "id": "toml",
-            "score": 9.1
+            "score": 9.09
           },
           {
             "id": "python",
@@ -8542,7 +9568,7 @@
           },
           {
             "id": "yaml",
-            "score": 7.33
+            "score": 6.41
           }
         ],
         "edges": []
@@ -8575,6 +9601,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-broken-access-control",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-broken-access-control",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-broken-access-control",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-broken-access-control",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-broken-access-control",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -8732,11 +9846,11 @@
           },
           {
             "id": "python",
-            "score": 5.62
+            "score": 5.52
           },
           {
             "id": "json",
-            "score": 5.2
+            "score": 4.94
           },
           {
             "id": "yaml",
@@ -8773,6 +9887,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-container-image",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-container-image",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-container-image",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-container-image",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-container-image",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -8930,7 +10132,7 @@
           },
           {
             "id": "json",
-            "score": 8.82
+            "score": 8.81
           },
           {
             "id": "markdown",
@@ -8938,7 +10140,7 @@
           },
           {
             "id": "yaml",
-            "score": 7.63
+            "score": 6.49
           }
         ],
         "edges": []
@@ -8971,6 +10173,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-exception-handling",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-exception-handling",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-exception-handling",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-exception-handling",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-exception-handling",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -9120,7 +10410,7 @@
         "nodes": [
           {
             "id": "json",
-            "score": 9.09
+            "score": 9.08
           },
           {
             "id": "markdown",
@@ -9136,7 +10426,7 @@
           },
           {
             "id": "yaml",
-            "score": 7.76
+            "score": 6.64
           }
         ],
         "edges": []
@@ -9169,6 +10459,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-for-injection",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-for-injection",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-for-injection",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-for-injection",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-for-injection",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -9322,7 +10700,7 @@
           },
           {
             "id": "json",
-            "score": 8.84
+            "score": 8.83
           },
           {
             "id": "toml",
@@ -9334,7 +10712,7 @@
           },
           {
             "id": "yaml",
-            "score": 6.79
+            "score": 6.4
           }
         ],
         "edges": []
@@ -9367,6 +10745,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-for-ssrf",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-for-ssrf",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-for-ssrf",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-for-ssrf",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-for-ssrf",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -9532,7 +10998,7 @@
           },
           {
             "id": "yaml",
-            "score": 7.4
+            "score": 6.42
           }
         ],
         "edges": []
@@ -9565,6 +11031,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-for-xss",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-for-xss",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-for-xss",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-for-xss",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-for-xss",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -9718,15 +11272,15 @@
           },
           {
             "id": "toml",
-            "score": 7.71
+            "score": 7.7
           },
           {
             "id": "python",
-            "score": 5.49
+            "score": 5.41
           },
           {
             "id": "json",
-            "score": 4.98
+            "score": 4.54
           },
           {
             "id": "yaml",
@@ -9763,6 +11317,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-iac-security",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-iac-security",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-iac-security",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-iac-security",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-iac-security",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -9928,7 +11570,7 @@
           },
           {
             "id": "yaml",
-            "score": 8.62
+            "score": 7.65
           }
         ],
         "edges": []
@@ -9961,6 +11603,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-json-security",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-json-security",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-json-security",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-json-security",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-json-security",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -10118,11 +11848,11 @@
           },
           {
             "id": "python",
-            "score": 5.64
+            "score": 5.62
           },
           {
             "id": "json",
-            "score": 5.26
+            "score": 5.18
           },
           {
             "id": "yaml",
@@ -10159,6 +11889,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-kubernetes-manifests",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-kubernetes-manifests",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-kubernetes-manifests",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-kubernetes-manifests",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-kubernetes-manifests",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -10308,7 +12126,7 @@
         "nodes": [
           {
             "id": "json",
-            "score": 9.57
+            "score": 9.56
           },
           {
             "id": "toml",
@@ -10324,7 +12142,7 @@
           },
           {
             "id": "yaml",
-            "score": 8.59
+            "score": 7.37
           }
         ],
         "edges": []
@@ -10357,6 +12175,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-markdown-security",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-markdown-security",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-markdown-security",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-markdown-security",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-markdown-security",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -10514,11 +12420,11 @@
           },
           {
             "id": "json",
-            "score": 8.19
+            "score": 8.18
           },
           {
             "id": "python",
-            "score": 7.94
+            "score": 7.93
           },
           {
             "id": "yaml",
@@ -10555,6 +12461,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-sca-dependencies",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-sca-dependencies",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-sca-dependencies",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-sca-dependencies",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-sca-dependencies",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -10716,11 +12710,11 @@
           },
           {
             "id": "json",
-            "score": 8.75
+            "score": 8.74
           },
           {
             "id": "yaml",
-            "score": 7.44
+            "score": 6.43
           }
         ],
         "edges": []
@@ -10753,6 +12747,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-security-headers",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-security-headers",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-security-headers",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-security-headers",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-security-headers",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -10910,11 +12992,11 @@
           },
           {
             "id": "python",
-            "score": 7.93
+            "score": 7.92
           },
           {
             "id": "json",
-            "score": 7.83
+            "score": 7.82
           },
           {
             "id": "yaml",
@@ -10951,6 +13033,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-static-analysis",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-static-analysis",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-static-analysis",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-static-analysis",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-static-analysis",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -11116,7 +13286,7 @@
           },
           {
             "id": "yaml",
-            "score": 8.67
+            "score": 7.42
           }
         ],
         "edges": []
@@ -11149,6 +13319,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-toml-security",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-toml-security",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-toml-security",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-toml-security",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-toml-security",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -11314,7 +13572,7 @@
           },
           {
             "id": "yaml",
-            "score": 8.62
+            "score": 7.41
           }
         ],
         "edges": []
@@ -11347,6 +13605,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-xml-security",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-xml-security",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-xml-security",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-xml-security",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-xml-security",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -11512,7 +13858,7 @@
           },
           {
             "id": "yaml",
-            "score": 8.62
+            "score": 7.22
           }
         ],
         "edges": []
@@ -11545,6 +13891,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "scan-yaml-security",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "scan-yaml-security",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "scan-yaml-security",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "scan-yaml-security",
+            "target": "network_access"
+          },
+          {
+            "source": "scan-yaml-security",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -11694,7 +14128,7 @@
         "nodes": [
           {
             "id": "json",
-            "score": 8.89
+            "score": 8.88
           },
           {
             "id": "markdown",
@@ -11743,6 +14177,94 @@
           {
             "source": "rules.yaml",
             "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "threat-model-system",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "threat-model-system",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "threat-model-system",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "threat-model-system",
+            "target": "network_access"
+          },
+          {
+            "source": "threat-model-system",
+            "target": "output_requires_evidence"
           }
         ]
       }
@@ -11808,5 +14330,23 @@
     "agent2": "output/agent2/agent2-report.json",
     "agent3": "output/agent3/agent3-report.json"
   },
-  "streamlit_dashboard": "app.py"
+  "streamlit_dashboard": "app.py",
+  "security_score": 100.0,
+  "compliance_score": 100.0,
+  "validation_score": 91.8,
+  "coverage_score": 68.0,
+  "benchmark_score": 79.5,
+  "overall_score": 87.9,
+  "summary": {
+    "skills_analyzed": 26,
+    "overall_risk": "low",
+    "pass_fail": "pass",
+    "security_score": 100.0,
+    "compliance_score": 100.0,
+    "validation_score": 91.8,
+    "coverage_score": 68.0,
+    "benchmark_score": 79.5,
+    "overall_score": 87.9
+  },
+  "pass_fail": "pass"
 }

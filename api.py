@@ -152,38 +152,42 @@ def full_report() -> dict[str, Any]:
     return _read_report(DEFAULT_OUTPUT_DIR / "full-report.json")
 
 
+# Specific named report routes MUST be declared before the {report_id} catch-all;
+# FastAPI matches routes in registration order and /report/agent1 would otherwise
+# be captured by the wildcard and never reach these handlers.
+@app.get("/report/agent1")
+def report_agent1() -> dict[str, Any]:
+    return _read_report(DEFAULT_OUTPUT_DIR / "agent1" / "agent1-report.json")
+
+
+@app.get("/report/agent2")
+def report_agent2() -> dict[str, Any]:
+    return _read_report(DEFAULT_OUTPUT_DIR / "agent2" / "agent2-report.json")
+
+
+@app.get("/report/agent3")
+def report_agent3() -> dict[str, Any]:
+    return _read_report(DEFAULT_OUTPUT_DIR / "agent3" / "agent3-report.json")
+
+
+@app.get("/report/benchmark")
+def report_benchmark() -> dict[str, Any]:
+    return _read_report(DEFAULT_OUTPUT_DIR / "agent3" / "benchmark-report.json")
+
+
 @app.get("/report/{report_id}")
 def report_by_id(report_id: str) -> dict[str, Any]:
     mapping = {
         "full": DEFAULT_OUTPUT_DIR / "full-report.json",
         "executive": DEFAULT_OUTPUT_DIR / "full-report.json",
         "structure": DEFAULT_OUTPUT_DIR / "agent1" / "agent1-report.json",
-        "agent1": DEFAULT_OUTPUT_DIR / "agent1" / "agent1-report.json",
         "security": DEFAULT_OUTPUT_DIR / "agent2" / "agent2-report.json",
         "compliance": DEFAULT_OUTPUT_DIR / "agent2" / "agent2-report.json",
-        "agent2": DEFAULT_OUTPUT_DIR / "agent2" / "agent2-report.json",
         "testing": DEFAULT_OUTPUT_DIR / "agent3" / "agent3-report.json",
-        "benchmark": DEFAULT_OUTPUT_DIR / "agent3" / "benchmark-report.json",
-        "agent3": DEFAULT_OUTPUT_DIR / "agent3" / "agent3-report.json",
     }
     if report_id not in mapping:
-        raise HTTPException(status_code=404, detail=f"Unknown report id: {report_id}")
+        raise HTTPException(status_code=404, detail=f"Unknown report id '{report_id}'. Use: {list(mapping)}")
     return _read_report(mapping[report_id])
-
-
-@app.get("/report/agent1")
-def agent1_report() -> dict[str, Any]:
-    return _read_report(DEFAULT_OUTPUT_DIR / "agent1" / "agent1-report.json")
-
-
-@app.get("/report/agent2")
-def agent2_report() -> dict[str, Any]:
-    return _read_report(DEFAULT_OUTPUT_DIR / "agent2" / "agent2-report.json")
-
-
-@app.get("/report/agent3")
-def agent3_report() -> dict[str, Any]:
-    return _read_report(DEFAULT_OUTPUT_DIR / "agent3" / "agent3-report.json")
 
 
 if __name__ == "__main__":

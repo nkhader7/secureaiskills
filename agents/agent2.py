@@ -21,7 +21,7 @@ try:
 except ImportError:
     yaml = None
 
-from agents.llm import LocalLLMClient, LLMResult, est_tokens, safe_load_yaml
+from agents.llm import LocalLLMClient, safe_load_yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = REPO_ROOT / "skills"
@@ -65,12 +65,26 @@ OWASP_CATEGORIES = {
     "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10",
 }
 
+OWASP_LLM_TOP10: dict[str, str] = {
+    "LLM01": "Prompt Injection",
+    "LLM02": "Sensitive Information Disclosure",
+    "LLM03": "Supply Chain Vulnerabilities",
+    "LLM04": "Data and Model Poisoning",
+    "LLM05": "Improper Output Handling",
+    "LLM06": "Excessive Agency",
+    "LLM07": "System Prompt Leakage",
+    "LLM08": "Vector and Embedding Weaknesses",
+    "LLM09": "Misinformation",
+    "LLM10": "Unbounded Consumption",
+}
+
 
 def _now_utc() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
 def _parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
+    text = text.lstrip("\ufeff")
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)$", text, re.DOTALL)
     if not m:
         return {}, text.strip()
@@ -163,6 +177,92 @@ def _check_supply_chain(fm: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _check_ai_security(
+    body: str,
+    pi: dict[str, Any],
+    secrets: dict[str, Any],
+    supply_chain: dict[str, Any],
+    unsafe: dict[str, Any],
+    permissions: dict[str, Any],
+) -> dict[str, Any]:
+    """Map detected risks to OWASP LLM Top 10 categories."""
+    findings: dict[str, list[str]] = {k: [] for k in OWASP_LLM_TOP10}
+    if pi["match_count"] > 0:
+        findings["LLM01"].extend(pi["matches"][:3])
+        findings["LLM07"].append("Potential system-prompt exposure pattern detected.")
+    if secrets["found"]:
+        findings["LLM02"].append(f"{secrets['count']} secret-like value(s) found in SKILL.md.")
+    if supply_chain.get("external_reference_count", 0) > 0:
+        findings["LLM03"].append(f"{supply_chain['external_reference_count']} external URL(s) in skill references.")
+    if unsafe["found"]:
+        findings["LLM05"].extend(unsafe["matches"][:3])
+    if permissions.get("excessive_permissions"):
+        findings["LLM06"].extend(permissions.get("notes", []))
+    if re.search(r"stream|token.?budget|unbounded|unlimited", body, re.IGNORECASE):
+        findings["LLM10"].append("Skill may produce unbounded token consumption.")
+    scored = {k: {"name": OWASP_LLM_TOP10[k], "status": "fail" if v else "pass", "findings": v} for k, v in findings.items()}
+    triggered = sum(1 for v in scored.values() if v["status"] == "fail")
+    return {"categories": scored, "triggered_count": triggered, "risk_level": "high" if triggered >= 3 else "medium" if triggered else "low"}
+
+
+def _map_compliance(
+    ai_sec: dict[str, Any],
+    rules_gov: dict[str, Any],
+    pi: dict[str, Any],
+    supply_chain: dict[str, Any],
+    rules: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Map skill posture to NIST AI RMF, OWASP ASVS indicators, and SLSA level."""
+    rule_count = len(rules)
+    gov_valid = rules_gov["governance_valid"]
+    owasp_mapped = any(r.get("owasp_2025_category") for r in rules)
+    cwe_mapped = any(r.get("cwe") for r in rules)
+    remediation_pct = round(sum(1 for r in rules if r.get("remediation")) / max(rule_count, 1) * 100, 1)
+
+    nist_ai_rmf = {
+        "GOVERN": {
+            "status": "pass" if gov_valid else "needs_review",
+            "evidence": ["Governance rules validated." if gov_valid else "Rule governance issues found."],
+        },
+        "MAP": {
+            "status": "pass" if (owasp_mapped or cwe_mapped) else "needs_review",
+            "evidence": [f"OWASP mapped: {owasp_mapped}. CWE mapped: {cwe_mapped}."],
+        },
+        "MEASURE": {
+            "status": "pass" if rule_count > 5 else "needs_review",
+            "evidence": [f"{rule_count} rules with {remediation_pct}% remediation coverage."],
+        },
+        "MANAGE": {
+            "status": "pass" if supply_chain["risk_level"] == "low" else "needs_review",
+            "evidence": [f"Supply chain risk: {supply_chain['risk_level']}."],
+        },
+    }
+
+    # SLSA level estimation
+    slsa_level = 1
+    if gov_valid and owasp_mapped:
+        slsa_level = 2
+    if gov_valid and owasp_mapped and cwe_mapped and remediation_pct >= 80:
+        slsa_level = 3
+
+    llm_top10_pass = ai_sec["triggered_count"] == 0
+    compliance_score = round(
+        (100 if gov_valid else 50) * 0.35
+        + (100 if llm_top10_pass else max(0, 100 - ai_sec["triggered_count"] * 15)) * 0.35
+        + (remediation_pct) * 0.20
+        + (slsa_level / 3 * 100) * 0.10,
+        1,
+    )
+
+    return {
+        "nist_ai_rmf": nist_ai_rmf,
+        "slsa_level": slsa_level,
+        "owasp_llm_top10_pass": llm_top10_pass,
+        "remediation_coverage_pct": remediation_pct,
+        "compliance_score": compliance_score,
+    }
+
+
 def _overall_risk(
     prompt_injection: dict[str, Any],
     unsafe: dict[str, Any],
@@ -217,14 +317,15 @@ class Agent2:
         rules_path = skill_dir / refs.get("rules", "references/rules.yaml")
         rules_data = _safe_load_yaml(rules_path)
         rules = rules_data.get("rules", [])
-        all_text = text + "\n" + (rules_path.read_text(encoding="utf-8", errors="replace") if rules_path.exists() else "")
 
         prompt_injection = _check_prompt_injection(body)
         unsafe = _check_unsafe_instructions(body)
-        secrets = _check_secret_exposure(body)  # rules.yaml contains intentional example patterns; only scan instructions
+        secrets = _check_secret_exposure(body)  # rules.yaml has intentional example patterns; only scan instructions
         rules_gov = _check_rules_governance(rules, rules_data)
         permissions = _check_permissions(fm, body)
         supply_chain = _check_supply_chain(fm)
+        ai_security = _check_ai_security(body, prompt_injection, secrets, supply_chain, unsafe, permissions)
+        compliance_mapping = _map_compliance(ai_security, rules_gov, prompt_injection, supply_chain, rules)
         overall = _overall_risk(prompt_injection, unsafe, secrets, rules_gov, permissions)
 
         llm = await self.llm.complete_json(
@@ -272,6 +373,7 @@ class Agent2:
                 "unsafe_instructions": unsafe,
                 "secret_exposure": secrets,
                 "permissions": permissions,
+                "ai_security": ai_security,
             },
             "governance": {
                 "rules_governance": rules_gov,
@@ -281,6 +383,7 @@ class Agent2:
                 "remediation_coverage": round(
                     sum(1 for r in rules if r.get("remediation")) / max(len(rules), 1), 2
                 ),
+                "compliance_mapping": compliance_mapping,
             },
             "llm": {
                 "used_llm": llm.used_llm,
@@ -334,6 +437,10 @@ class Agent2:
                     "cwe_mapped": r["governance"]["cwe_mapping_present"],
                     "remediation_coverage": r["governance"]["remediation_coverage"],
                     "compliance_posture": r["llm"]["response"].get("compliance_posture", "unknown"),
+                    "compliance_score": r["governance"]["compliance_mapping"]["compliance_score"],
+                    "slsa_level": r["governance"]["compliance_mapping"]["slsa_level"],
+                    "owasp_llm_top10_pass": r["governance"]["compliance_mapping"]["owasp_llm_top10_pass"],
+                    "nist_ai_rmf": {k: v["status"] for k, v in r["governance"]["compliance_mapping"]["nist_ai_rmf"].items()},
                 }
                 for r in valid
             ],

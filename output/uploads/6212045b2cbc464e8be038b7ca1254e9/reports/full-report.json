@@ -1,0 +1,615 @@
+{
+  "orchestrator": "secureai-skills",
+  "generated_at": "2026-06-04T02:05:35.265458+00:00",
+  "schema_version": "1.0",
+  "skills_analyzed": 1,
+  "confidence": 0.75,
+  "overall_risk": "low",
+  "pass_fail_decision": "pass",
+  "executive_report": [
+    "upload-skill is testable with 6 Agent 3 cases and 0 rules."
+  ],
+  "security_report": [
+    {
+      "skill": "upload-skill",
+      "overall_risk": "low",
+      "prompt_injection_risk": "low",
+      "findings_count": 0
+    }
+  ],
+  "compliance_report": [
+    {
+      "skill": "upload-skill",
+      "governance_valid": true,
+      "owasp_mapped": false,
+      "cwe_mapped": false,
+      "remediation_coverage": 0.0,
+      "compliance_posture": "good",
+      "compliance_score": 73.3,
+      "slsa_level": 1,
+      "owasp_llm_top10_pass": true,
+      "nist_ai_rmf": {
+        "GOVERN": "pass",
+        "MAP": "needs_review",
+        "MEASURE": "needs_review",
+        "MANAGE": "pass"
+      }
+    }
+  ],
+  "coverage_report": [
+    {
+      "skill": "upload-skill",
+      "category": "General Security",
+      "type": "analysis",
+      "rules": 0,
+      "valid": false,
+      "issues": 3,
+      "warnings": 0
+    }
+  ],
+  "benchmark_report": [
+    {
+      "skill": "upload-skill",
+      "rule_count": 0,
+      "original_prompt_tokens": 51,
+      "template_tokens": 1,
+      "llm_call_count": 1,
+      "llm_prompt_tokens": 79,
+      "llm_completion_tokens": 70,
+      "estimated_latency_ms": 3.62,
+      "execution_complexity": "low",
+      "formats": [
+        {
+          "format": "json",
+          "bytes": 824,
+          "prompt_tokens": 206,
+          "parse_avg_ms": 0.0133,
+          "context_tokens": 207,
+          "redundant_instruction_score": 0.0,
+          "compression_opportunity_tokens": 96,
+          "format_efficiency_score": 9.82
+        },
+        {
+          "format": "toml",
+          "bytes": 483,
+          "prompt_tokens": 120,
+          "parse_avg_ms": 0.0014,
+          "context_tokens": 121,
+          "redundant_instruction_score": 0.0,
+          "compression_opportunity_tokens": 10,
+          "format_efficiency_score": 9.29
+        },
+        {
+          "format": "python",
+          "bytes": 741,
+          "prompt_tokens": 185,
+          "parse_avg_ms": 0.0013,
+          "context_tokens": 186,
+          "redundant_instruction_score": 0.0,
+          "compression_opportunity_tokens": 75,
+          "format_efficiency_score": 9.13
+        },
+        {
+          "format": "markdown",
+          "bytes": 443,
+          "prompt_tokens": 110,
+          "parse_avg_ms": 0.0025,
+          "context_tokens": 111,
+          "redundant_instruction_score": 0.0,
+          "compression_opportunity_tokens": 0,
+          "format_efficiency_score": 8.96
+        },
+        {
+          "format": "yaml",
+          "bytes": 675,
+          "prompt_tokens": 168,
+          "parse_avg_ms": 3.6065,
+          "context_tokens": 169,
+          "redundant_instruction_score": 0.0,
+          "compression_opportunity_tokens": 58,
+          "format_efficiency_score": 8.71
+        }
+      ],
+      "ranking": [
+        "json",
+        "toml",
+        "python",
+        "markdown",
+        "yaml"
+      ],
+      "benchmark_score": 9.18
+    }
+  ],
+  "test_report": [
+    {
+      "skill": "upload-skill",
+      "project_name": "upload-skill-agent3-test-project",
+      "case_count": 6,
+      "suites": [
+        "ci_cd",
+        "mock_llm",
+        "regression",
+        "unit",
+        "validation"
+      ],
+      "cases": [
+        {
+          "case_id": "upload-skill-agent3-01",
+          "suite": "unit",
+          "kind": "positive",
+          "severity": "High",
+          "rule_id": "RULE-001",
+          "input_file": "cases/01-positive.txt",
+          "expected": "Rule evidence should produce a finding.",
+          "mock_response": {
+            "findings": [
+              {
+                "rule_id": "RULE-001",
+                "severity": "High"
+              }
+            ],
+            "confidence": 0.8,
+            "evidence": [
+              "Rule evidence should produce a finding."
+            ]
+          }
+        },
+        {
+          "case_id": "upload-skill-agent3-02",
+          "suite": "unit",
+          "kind": "negative",
+          "severity": "Info",
+          "rule_id": "RULE-001",
+          "input_file": "cases/02-negative.txt",
+          "expected": "Safe content should produce no finding.",
+          "mock_response": {
+            "findings": [],
+            "confidence": 0.8,
+            "evidence": [
+              "Safe content should produce no finding."
+            ]
+          }
+        },
+        {
+          "case_id": "upload-skill-agent3-03",
+          "suite": "validation",
+          "kind": "edge",
+          "severity": "Medium",
+          "rule_id": "RULE-001",
+          "input_file": "cases/03-edge.txt",
+          "expected": "Large or ambiguous target should include assumptions.",
+          "mock_response": {
+            "findings": [
+              {
+                "rule_id": "RULE-001",
+                "severity": "Medium"
+              }
+            ],
+            "confidence": 0.8,
+            "evidence": [
+              "Large or ambiguous target should include assumptions."
+            ]
+          }
+        },
+        {
+          "case_id": "upload-skill-agent3-04",
+          "suite": "mock_llm",
+          "kind": "mock_response",
+          "severity": "Info",
+          "rule_id": "RULE-001",
+          "input_file": "cases/04-mock_response.txt",
+          "expected": "Mock LLM response must match output contract.",
+          "mock_response": {
+            "findings": [
+              {
+                "rule_id": "RULE-001",
+                "severity": "Info"
+              }
+            ],
+            "confidence": 0.8,
+            "evidence": [
+              "Mock LLM response must match output contract."
+            ]
+          }
+        },
+        {
+          "case_id": "upload-skill-agent3-05",
+          "suite": "ci_cd",
+          "kind": "failure",
+          "severity": "High",
+          "rule_id": "RULE-001",
+          "input_file": "cases/05-failure.txt",
+          "expected": "Missing evidence should fail validation.",
+          "mock_response": {
+            "findings": [
+              {
+                "rule_id": "RULE-001",
+                "severity": "High"
+              }
+            ],
+            "confidence": 0.8,
+            "evidence": [
+              "Missing evidence should fail validation."
+            ]
+          }
+        },
+        {
+          "case_id": "upload-skill-agent3-06",
+          "suite": "regression",
+          "kind": "regression",
+          "severity": "High",
+          "rule_id": "RULE-001",
+          "input_file": "cases/06-regression.txt",
+          "expected": "Known risky pattern remains detected.",
+          "mock_response": {
+            "findings": [
+              {
+                "rule_id": "RULE-001",
+                "severity": "High"
+              }
+            ],
+            "confidence": 0.8,
+            "evidence": [
+              "Known risky pattern remains detected."
+            ]
+          }
+        }
+      ],
+      "validation_contract": [
+        "findings",
+        "severity_counts",
+        "confidence",
+        "evidence",
+        "recommendations"
+      ],
+      "confidence": 0.84
+    }
+  ],
+  "ci_cd_report": [
+    {
+      "skill": "upload-skill",
+      "decision": "pass",
+      "failure_reasons": [],
+      "validation_score": 96.7,
+      "security_gate_status": "pass",
+      "compliance_gate_status": "pass",
+      "benchmark_score": 9.18,
+      "recommended_actions": [
+        "Wire Agent 3 output into the final orchestrator merge step.",
+        "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+        "Review formats with high compression opportunity for instruction deduplication."
+      ],
+      "summary": "upload-skill is testable with 6 Agent 3 cases and 0 rules."
+    }
+  ],
+  "graph_artifacts": {
+    "upload-skill": {
+      "skill_execution_graph": {
+        "graph": "skill_execution_graph",
+        "nodes": [
+          {
+            "id": "load_skill",
+            "label": "load_skill"
+          },
+          {
+            "id": "load_rules",
+            "label": "load_rules"
+          },
+          {
+            "id": "assemble_context",
+            "label": "assemble_context"
+          },
+          {
+            "id": "llm_validate",
+            "label": "llm_validate"
+          },
+          {
+            "id": "scan_targets",
+            "label": "scan_targets"
+          },
+          {
+            "id": "render_report",
+            "label": "render_report"
+          }
+        ],
+        "edges": [
+          {
+            "source": "load_skill",
+            "target": "load_rules"
+          },
+          {
+            "source": "load_rules",
+            "target": "assemble_context"
+          },
+          {
+            "source": "assemble_context",
+            "target": "llm_validate"
+          },
+          {
+            "source": "llm_validate",
+            "target": "scan_targets"
+          },
+          {
+            "source": "scan_targets",
+            "target": "render_report"
+          }
+        ]
+      },
+      "agent_workflow_graph": {
+        "graph": "agent_workflow_graph",
+        "nodes": [
+          {
+            "id": "convert"
+          },
+          {
+            "id": "test"
+          },
+          {
+            "id": "benchmark"
+          },
+          {
+            "id": "visualize"
+          },
+          {
+            "id": "report"
+          },
+          {
+            "id": "ci_cd"
+          }
+        ],
+        "edges": [
+          {
+            "source": "convert",
+            "target": "test"
+          },
+          {
+            "source": "convert",
+            "target": "benchmark"
+          },
+          {
+            "source": "convert",
+            "target": "visualize"
+          },
+          {
+            "source": "convert",
+            "target": "report"
+          },
+          {
+            "source": "convert",
+            "target": "ci_cd"
+          }
+        ]
+      },
+      "dependency_graph": {
+        "graph": "dependency_graph",
+        "nodes": [
+          {
+            "id": "upload-skill",
+            "type": "skill"
+          }
+        ],
+        "edges": []
+      },
+      "benchmark_comparison_graph": {
+        "graph": "benchmark_comparison_graph",
+        "nodes": [
+          {
+            "id": "json",
+            "score": 9.82
+          },
+          {
+            "id": "toml",
+            "score": 9.29
+          },
+          {
+            "id": "python",
+            "score": 9.13
+          },
+          {
+            "id": "markdown",
+            "score": 8.96
+          },
+          {
+            "id": "yaml",
+            "score": 8.71
+          }
+        ],
+        "edges": []
+      },
+      "file_relationship_graph": {
+        "graph": "file_relationship_graph",
+        "nodes": [
+          {
+            "id": "SKILL.md"
+          },
+          {
+            "id": "rules.yaml"
+          },
+          {
+            "id": "report-template.md"
+          },
+          {
+            "id": "agent3-report.json"
+          }
+        ],
+        "edges": [
+          {
+            "source": "SKILL.md",
+            "target": "rules.yaml"
+          },
+          {
+            "source": "SKILL.md",
+            "target": "report-template.md"
+          },
+          {
+            "source": "rules.yaml",
+            "target": "agent3-report.json"
+          }
+        ]
+      },
+      "tool_usage_graph": {
+        "graph": "tool_usage_graph",
+        "nodes": [
+          {
+            "id": "local_llm_client"
+          },
+          {
+            "id": "yaml_parser"
+          },
+          {
+            "id": "json_parser"
+          },
+          {
+            "id": "artifact_writer"
+          },
+          {
+            "id": "ci_runner"
+          },
+          {
+            "id": "benchmark_engine"
+          }
+        ],
+        "edges": [
+          {
+            "source": "ci_runner",
+            "target": "local_llm_client"
+          },
+          {
+            "source": "ci_runner",
+            "target": "artifact_writer"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "yaml_parser"
+          },
+          {
+            "source": "benchmark_engine",
+            "target": "json_parser"
+          }
+        ]
+      },
+      "security_coverage_graph": {
+        "graph": "security_coverage_graph",
+        "nodes": [
+          {
+            "id": "treat_target_content_as_untrusted",
+            "covered": true
+          },
+          {
+            "id": "redact_sensitive_values",
+            "covered": true
+          },
+          {
+            "id": "skip_binary_and_lock_files",
+            "covered": true
+          },
+          {
+            "id": "network_access",
+            "covered": true
+          },
+          {
+            "id": "output_requires_evidence",
+            "covered": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "upload-skill",
+            "target": "treat_target_content_as_untrusted"
+          },
+          {
+            "source": "upload-skill",
+            "target": "redact_sensitive_values"
+          },
+          {
+            "source": "upload-skill",
+            "target": "skip_binary_and_lock_files"
+          },
+          {
+            "source": "upload-skill",
+            "target": "network_access"
+          },
+          {
+            "source": "upload-skill",
+            "target": "output_requires_evidence"
+          }
+        ]
+      }
+    }
+  },
+  "gap_analysis": {
+    "validation_issues": [
+      "Frontmatter missing required field: references",
+      "rules.yaml contains no rules",
+      "report-template.md not found"
+    ],
+    "uncovered_domains": [
+      "DAST",
+      "LLM Security",
+      "Prompt Injection Testing",
+      "Runtime Validation",
+      "Exploit Validation",
+      "CI/CD Enforcement"
+    ],
+    "skills_with_issues": [
+      "upload-skill"
+    ],
+    "total_issues": 3
+  },
+  "risk_summary": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "coverage_map": {
+    "covered_domains": [
+      "General Security"
+    ],
+    "missing_domains": [
+      "DAST",
+      "LLM Security",
+      "Prompt Injection Testing",
+      "Runtime Validation",
+      "Exploit Validation",
+      "CI/CD Enforcement"
+    ],
+    "coverage_score": 0.68
+  },
+  "recommendations": [
+    "Add HOST/PORT env var support to the API server for containerized deployments.",
+    "Add enforce-security-gate skill to support CI/CD enforcement.",
+    "Add scan-llm-security skill to cover LLM/AI model security domain.",
+    "Add scan-prompt-injection skill to cover prompt injection testing.",
+    "Consider splitting scan-iac-security (1,746 rules) to avoid 60 KB truncation.",
+    "Ensure skill output masks sensitive values before display.",
+    "Review formats with high compression opportunity for instruction deduplication.",
+    "Review match patterns for potential false-positive rate.",
+    "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
+    "Wire Agent 3 output into the final orchestrator merge step."
+  ],
+  "downloadable_json": "output/full-report.json",
+  "agent_reports": {
+    "agent1": "output/agent1/agent1-report.json",
+    "agent2": "output/agent2/agent2-report.json",
+    "agent3": "output/agent3/agent3-report.json"
+  },
+  "streamlit_dashboard": "app.py",
+  "security_score": 100.0,
+  "compliance_score": 100.0,
+  "validation_score": 96.7,
+  "coverage_score": 68.0,
+  "benchmark_score": 91.8,
+  "overall_score": 91.3,
+  "summary": {
+    "skills_analyzed": 1,
+    "overall_risk": "low",
+    "pass_fail": "pass",
+    "security_score": 100.0,
+    "compliance_score": 100.0,
+    "validation_score": 96.7,
+    "coverage_score": 68.0,
+    "benchmark_score": 91.8,
+    "overall_score": 91.3
+  },
+  "pass_fail": "pass"
+}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import base64
 import json
 import re
 import time
@@ -84,10 +85,13 @@ class LLMResult:
 class LocalLLMClient:
     def __init__(self, env: dict[str, str]) -> None:
         self.enabled = env.get("LOCAL_LLM_ENABLED", "true").lower() not in {"0", "false", "no"}
-        self.base_url = env.get("LOCAL_LLM_BASE_URL", "").rstrip("/")
-        self.model = env.get("LOCAL_LLM_MODEL", "local-llm")
+        self.base_url = (env.get("LOCAL_LLM_BASE_URL") or env.get("LLM_BASE_URL") or "").rstrip("/")
+        self.model = env.get("LOCAL_LLM_MODEL") or env.get("LLM_MODEL") or "local-llm"
         self.api_key = env.get("LOCAL_LLM_API_KEY", "")
-        self.timeout = float(env.get("LOCAL_LLM_TIMEOUT_SECONDS", "30"))
+        self.client_id = env.get("LLM_CLIENT_ID", "")
+        self.client_secret = env.get("LLM_CLIENT_SECRET", "")
+        self.timeout = float(env.get("LOCAL_LLM_TIMEOUT_SECONDS") or env.get("LLM_TIMEOUT") or "30")
+        self.max_retries = int(env.get("LOCAL_LLM_MAX_RETRIES") or env.get("LLM_MAX_RETRIES") or "1")
 
     @classmethod
     def from_env_file(cls, root: Path) -> "LocalLLMClient":
@@ -104,33 +108,53 @@ class LocalLLMClient:
             "response_format": {"type": "json_object"},
         }
         started = time.perf_counter()
-        try:
-            raw = await asyncio.to_thread(self._post, payload)
-            latency_ms = (time.perf_counter() - started) * 1000
-            content = raw["choices"][0]["message"]["content"]
-            parsed = json.loads(content)
-            usage = raw.get("usage") or {}
-            return LLMResult(
-                used_llm=True,
-                model=self.model,
-                prompt_tokens=int(usage.get("prompt_tokens", prompt_tokens)),
-                completion_tokens=int(usage.get("completion_tokens", est_tokens(content))),
-                latency_ms=round(latency_ms, 2),
-                response=parsed,
-                evidence=["OpenAI-compatible local LLM returned JSON."],
-            )
-        except (urllib.error.URLError, TimeoutError, KeyError, json.JSONDecodeError, OSError) as exc:
-            return self._mock(prompt_tokens, f"LLM unavailable; deterministic mock used: {exc}", mock_response)
+        last_exc: Exception | None = None
+        for attempt in range(1, max(self.max_retries, 1) + 1):
+            try:
+                raw = await asyncio.to_thread(self._post, payload)
+                latency_ms = (time.perf_counter() - started) * 1000
+                content = raw["choices"][0]["message"]["content"]
+                parsed = json.loads(content)
+                usage = raw.get("usage") or {}
+                return LLMResult(
+                    used_llm=True,
+                    model=self.model,
+                    prompt_tokens=int(usage.get("prompt_tokens", prompt_tokens)),
+                    completion_tokens=int(usage.get("completion_tokens", est_tokens(content))),
+                    latency_ms=round(latency_ms, 2),
+                    response=parsed,
+                    evidence=[f"OpenAI-compatible local LLM returned JSON on attempt {attempt}."],
+                )
+            except (urllib.error.URLError, TimeoutError, KeyError, json.JSONDecodeError, OSError) as exc:
+                last_exc = exc
+                if attempt < self.max_retries:
+                    await asyncio.sleep(min(0.25 * attempt, 1.0))
+        return self._mock(prompt_tokens, f"LLM unavailable; deterministic mock used: {last_exc}", mock_response)
+
+    async def stream_json(self, system: str, user: str, mock_response: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        """Streaming-compatible facade for local test mode.
+
+        Local gateways vary widely in streaming protocol. The framework exposes a
+        stable async method now and returns a single structured event when the
+        endpoint is non-streaming or mock mode is active.
+        """
+        result = await self.complete_json(system, user, mock_response)
+        return [{"event": "complete", "data": result.response, "model": result.model, "used_llm": result.used_llm}]
 
     def _post(self, payload: dict[str, Any]) -> dict[str, Any]:
         data = json.dumps(payload).encode("utf-8")
+        headers = {"Content-Type": "application/json"}
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+        elif self.client_id or self.client_secret:
+            token = base64.b64encode(f"{self.client_id}:{self.client_secret}".encode("utf-8")).decode("ascii")
+            headers["Authorization"] = f"Basic {token}"
+        else:
+            headers["Authorization"] = "Bearer local"
         req = urllib.request.Request(
             f"{self.base_url}/chat/completions",
             data=data,
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {self.api_key}" if self.api_key else "Bearer local",
-            },
+            headers=headers,
             method="POST",
         )
         with urllib.request.urlopen(req, timeout=self.timeout) as resp:
