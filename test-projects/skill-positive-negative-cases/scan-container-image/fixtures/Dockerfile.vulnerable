@@ -1,0 +1,19 @@
+# VULNERABLE FIXTURE — scan-container-image test
+
+FROM ubuntu:latest
+
+# Running as root (CIS Docker 4.1)
+USER root
+
+# Adding sensitive files
+ADD .env /app/.env
+ADD secrets/ /app/secrets/
+
+# chmod 777 — world-writable (CIS Docker 4.2)
+RUN chmod 777 /app && chmod 777 /tmp
+
+# Privileged capability added
+RUN apt-get install -y sudo && echo "appuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# No health check defined
+CMD ["node", "app.js"]

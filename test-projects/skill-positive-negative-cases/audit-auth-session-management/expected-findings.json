@@ -1,0 +1,48 @@
+{
+  "skill": "audit-auth-session-management",
+  "version": "1.0",
+  "match_strategy": "mixed",
+  "rule_count": 12,
+  "has_regex_patterns": false,
+  "cases": [
+    {
+      "id": "AUDI-POS-001",
+      "type": "positive",
+      "description": "Invoke audit-auth-session-management against known-vulnerable fixture code",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "ASM-001",
+        "ASM-002",
+        "ASM-003"
+      ],
+      "expected_severity": "Critical",
+      "notes": "LLM evaluates target files against all rules; expects at least one finding"
+    },
+    {
+      "id": "AUDI-NEG-001",
+      "type": "negative",
+      "description": "Request that should NOT invoke audit-auth-session-management",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Non-security request \u2014 skill should not be triggered"
+    },
+    {
+      "id": "AUDI-EDGE-001",
+      "type": "edge",
+      "description": "Borderline case \u2014 partial evidence, context-dependent finding",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "ASM-001"
+      ],
+      "notes": "Skill should surface evidence with appropriate confidence qualifier"
+    },
+    {
+      "id": "AUDI-FP-001",
+      "type": "false_positive",
+      "description": "Code that contains keywords but is not vulnerable",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Correct remediation or safe pattern should not produce critical finding"
+    }
+  ]
+}

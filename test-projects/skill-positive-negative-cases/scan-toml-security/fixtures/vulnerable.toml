@@ -1,0 +1,12 @@
+# VULNERABLE FIXTURE — scan-toml-security test
+
+[database]
+password = "MySuperS3cretPa$$word"
+api_key = "sk-live-abc123secretkey456"
+
+[auth]
+secret = "hardcoded-jwt-secret-do-not-use"
+token = "bearer-abc123realtoken456"
+
+[server]
+debug = true

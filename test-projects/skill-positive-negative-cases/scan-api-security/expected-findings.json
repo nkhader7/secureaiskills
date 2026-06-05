@@ -1,0 +1,48 @@
+{
+  "skill": "scan-api-security",
+  "version": "1.0",
+  "match_strategy": "mixed",
+  "rule_count": 6,
+  "has_regex_patterns": true,
+  "cases": [
+    {
+      "id": "SCAN-POS-001",
+      "type": "positive",
+      "description": "Invoke scan-api-security against known-vulnerable fixture code",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "SA-001",
+        "SA-002",
+        "SA-003"
+      ],
+      "expected_severity": "High",
+      "notes": "LLM evaluates target files against all rules; expects at least one finding"
+    },
+    {
+      "id": "SCAN-NEG-001",
+      "type": "negative",
+      "description": "Request that should NOT invoke scan-api-security",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Non-security request \u2014 skill should not be triggered"
+    },
+    {
+      "id": "SCAN-EDGE-001",
+      "type": "edge",
+      "description": "Borderline case \u2014 partial evidence, context-dependent finding",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "SA-001"
+      ],
+      "notes": "Skill should surface evidence with appropriate confidence qualifier"
+    },
+    {
+      "id": "SCAN-FP-001",
+      "type": "false_positive",
+      "description": "Code that contains keywords but is not vulnerable",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Correct remediation or safe pattern should not produce critical finding"
+    }
+  ]
+}

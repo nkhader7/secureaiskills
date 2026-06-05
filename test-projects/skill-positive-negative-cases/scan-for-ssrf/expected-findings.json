@@ -1,0 +1,59 @@
+{
+  "skill": "scan-for-ssrf",
+  "version": "1.0",
+  "description": "Server-Side Request Forgery pattern tests",
+  "cases": [
+    {
+      "id": "SSRF-POS-001",
+      "type": "positive",
+      "description": "User-controlled URL passed directly to requests.get",
+      "fixture": "fixtures/vulnerable.py",
+      "expected_rule_ids": ["SSRF-001"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "request\\.args\\.get"
+    },
+    {
+      "id": "SSRF-POS-002",
+      "type": "positive",
+      "description": "Direct request to AWS IMDS metadata endpoint",
+      "fixture": "fixtures/vulnerable.py",
+      "expected_rule_ids": ["SSRF-002"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "169\\.254\\.169\\.254"
+    },
+    {
+      "id": "SSRF-POS-003",
+      "type": "positive",
+      "description": "localhost in URL string",
+      "fixture": "fixtures/vulnerable.py",
+      "expected_rule_ids": ["SSRF-003"],
+      "expected_severity": "High",
+      "evidence_pattern": "localhost"
+    },
+    {
+      "id": "SSRF-NEG-001",
+      "type": "negative",
+      "description": "URL validated against allowlist before fetch",
+      "fixture": "fixtures/safe.py",
+      "expected_rule_ids": [],
+      "notes": "is_safe_url validates scheme, host, and IP range before fetching"
+    },
+    {
+      "id": "SSRF-EDGE-001",
+      "type": "edge",
+      "description": "localhost in safe health check — hardcoded, not user-controlled",
+      "fixture": "fixtures/safe.py",
+      "expected_rule_ids": ["SSRF-003"],
+      "expected_severity": "High",
+      "notes": "Pattern matches localhost; LLM should assess whether URL is user-controlled"
+    },
+    {
+      "id": "SSRF-FP-001",
+      "type": "false_positive",
+      "description": "URL validation code contains 'localhost' in exclusion logic",
+      "fixture": "fixtures/safe.py",
+      "expected_rule_ids": [],
+      "notes": "localhost appears in is_loopback check, not in a fetch call"
+    }
+  ]
+}

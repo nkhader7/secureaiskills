@@ -1,0 +1,48 @@
+{
+  "skill": "detect-supply-chain-risks",
+  "version": "1.0",
+  "match_strategy": "mixed",
+  "rule_count": 20,
+  "has_regex_patterns": false,
+  "cases": [
+    {
+      "id": "DETE-POS-001",
+      "type": "positive",
+      "description": "Invoke detect-supply-chain-risks against known-vulnerable fixture code",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "SCR-001",
+        "SCR-002",
+        "SCR-003"
+      ],
+      "expected_severity": "Critical",
+      "notes": "LLM evaluates target files against all rules; expects at least one finding"
+    },
+    {
+      "id": "DETE-NEG-001",
+      "type": "negative",
+      "description": "Request that should NOT invoke detect-supply-chain-risks",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Non-security request \u2014 skill should not be triggered"
+    },
+    {
+      "id": "DETE-EDGE-001",
+      "type": "edge",
+      "description": "Borderline case \u2014 partial evidence, context-dependent finding",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "SCR-001"
+      ],
+      "notes": "Skill should surface evidence with appropriate confidence qualifier"
+    },
+    {
+      "id": "DETE-FP-001",
+      "type": "false_positive",
+      "description": "Code that contains keywords but is not vulnerable",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Correct remediation or safe pattern should not produce critical finding"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# VULNERABLE FIXTURE — scan-yaml-security test
+
+# YAML-001: authentication disabled
+authentication: false
+authorization: disabled
+
+# YAML-002: secrets inline
+database:
+  password: "MySuperS3cretPa$$word"
+  api_key: "sk-live-abc123secretkey456"
+
+# YAML-003: YAML merge key with external reference (injection risk)
+defaults: &anchor
+  host: !python/object/apply:os.system ["rm -rf /"]
+
+# YAML-004: Overly permissive CORS
+cors:
+  allowed_origins: ["*"]
+  allow_credentials: true

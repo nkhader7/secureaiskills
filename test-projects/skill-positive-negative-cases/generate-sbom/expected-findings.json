@@ -1,0 +1,48 @@
+{
+  "skill": "generate-sbom",
+  "version": "1.0",
+  "match_strategy": "mixed",
+  "rule_count": 10,
+  "has_regex_patterns": false,
+  "cases": [
+    {
+      "id": "GENE-POS-001",
+      "type": "positive",
+      "description": "Invoke generate-sbom against known-vulnerable fixture code",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "SBOM-001",
+        "SBOM-002",
+        "SBOM-003"
+      ],
+      "expected_severity": "High",
+      "notes": "LLM evaluates target files against all rules; expects at least one finding"
+    },
+    {
+      "id": "GENE-NEG-001",
+      "type": "negative",
+      "description": "Request that should NOT invoke generate-sbom",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Non-security request \u2014 skill should not be triggered"
+    },
+    {
+      "id": "GENE-EDGE-001",
+      "type": "edge",
+      "description": "Borderline case \u2014 partial evidence, context-dependent finding",
+      "fixture": "positive.md",
+      "expected_rule_ids": [
+        "SBOM-001"
+      ],
+      "notes": "Skill should surface evidence with appropriate confidence qualifier"
+    },
+    {
+      "id": "GENE-FP-001",
+      "type": "false_positive",
+      "description": "Code that contains keywords but is not vulnerable",
+      "fixture": "negative.md",
+      "expected_rule_ids": [],
+      "notes": "Correct remediation or safe pattern should not produce critical finding"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-"""CI/CD runner — executes all agents and exits non-zero on failure."""
+"""CI/CD runner - executes validation checks and exits non-zero on failure."""
 from __future__ import annotations
 
 import argparse

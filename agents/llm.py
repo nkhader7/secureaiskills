@@ -87,9 +87,9 @@ class LocalLLMClient:
         self.enabled = env.get("LOCAL_LLM_ENABLED", "true").lower() not in {"0", "false", "no"}
         self.base_url = (env.get("LOCAL_LLM_BASE_URL") or env.get("LLM_BASE_URL") or "").rstrip("/")
         self.model = env.get("LOCAL_LLM_MODEL") or env.get("LLM_MODEL") or "local-llm"
-        self.api_key = env.get("LOCAL_LLM_API_KEY", "")
-        self.client_id = env.get("LLM_CLIENT_ID", "")
-        self.client_secret = env.get("LLM_CLIENT_SECRET", "")
+        self.api_key = env.get("LOCAL_LLM_API_KEY") or env.get("LLM_API_KEY", "")
+        self.client_id = env.get("LOCAL_LLM_CLIENT_ID") or env.get("LLM_CLIENT_ID", "")
+        self.client_secret = env.get("LOCAL_LLM_CLIENT_SECRET") or env.get("LLM_CLIENT_SECRET", "")
         self.timeout = float(env.get("LOCAL_LLM_TIMEOUT_SECONDS") or env.get("LLM_TIMEOUT") or "30")
         self.max_retries = int(env.get("LOCAL_LLM_MAX_RETRIES") or env.get("LLM_MAX_RETRIES") or "1")
 

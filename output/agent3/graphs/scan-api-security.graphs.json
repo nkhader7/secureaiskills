@@ -143,10 +143,14 @@
     "nodes": [
       {
         "id": "json",
-        "score": 9.2
+        "score": 9.23
       },
       {
         "id": "markdown",
+        "score": 8.9
+      },
+      {
+        "id": "python",
         "score": 8.9
       },
       {
@@ -154,12 +158,8 @@
         "score": 8.89
       },
       {
-        "id": "python",
-        "score": 8.89
-      },
-      {
         "id": "yaml",
-        "score": 6.69
+        "score": 8.07
       }
     ],
     "edges": []

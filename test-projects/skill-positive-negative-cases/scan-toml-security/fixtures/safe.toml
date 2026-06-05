@@ -1,0 +1,13 @@
+# SAFE FIXTURE — scan-toml-security test
+
+[database]
+password = "${DB_PASSWORD}"
+api_key = "${API_KEY}"
+
+[auth]
+secret = "${JWT_SECRET}"
+token = ""
+
+[server]
+debug = false
+environment = "production"

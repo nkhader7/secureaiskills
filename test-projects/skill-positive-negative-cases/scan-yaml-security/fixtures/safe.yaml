@@ -1,0 +1,21 @@
+# SAFE FIXTURE — scan-yaml-security test
+
+authentication:
+  enabled: true
+  provider: oauth2
+  require_mfa: true
+
+authorization:
+  mode: rbac
+  default_deny: true
+
+database:
+  host: "${DB_HOST}"
+  password: "${DB_PASSWORD}"
+  api_key: "${API_KEY}"
+
+cors:
+  allowed_origins:
+    - "https://app.example.com"
+    - "https://admin.example.com"
+  allow_credentials: false

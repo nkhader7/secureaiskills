@@ -1,0 +1,41 @@
+{
+  "skill": "scan-yaml-security",
+  "version": "1.0",
+  "description": "YAML configuration security pattern tests",
+  "cases": [
+    {
+      "id": "YAML-POS-001",
+      "type": "positive",
+      "description": "authentication set to false in YAML config",
+      "fixture": "fixtures/vulnerable.yaml",
+      "expected_rule_ids": ["YAML-001"],
+      "expected_severity": "High",
+      "evidence_pattern": "authentication:\\s*false"
+    },
+    {
+      "id": "YAML-POS-002",
+      "type": "positive",
+      "description": "Hardcoded password in YAML config",
+      "fixture": "fixtures/vulnerable.yaml",
+      "expected_rule_ids": ["YAML-002"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "password:\\s*[\"'][^\"']+[\"']"
+    },
+    {
+      "id": "YAML-NEG-001",
+      "type": "negative",
+      "description": "All secrets are environment variable references",
+      "fixture": "fixtures/safe.yaml",
+      "expected_rule_ids": [],
+      "evidence_pattern": null
+    },
+    {
+      "id": "YAML-NEG-002",
+      "type": "negative",
+      "description": "Authentication explicitly enabled with RBAC",
+      "fixture": "fixtures/safe.yaml",
+      "expected_rule_ids": [],
+      "evidence_pattern": null
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-"""FastAPI service exposing upload ingestion, all three agents, and the orchestrator."""
+"""FastAPI service exposing upload ingestion, validation services, and the orchestrator."""
 from __future__ import annotations
 
 import json
@@ -15,9 +15,9 @@ from agents.orchestrator import DEFAULT_OUTPUT_DIR, run_all
 from agents.schemas import AnalyzeRequest, Thresholds, UploadAnalyzeResponse, apply_thresholds
 
 app = FastAPI(
-    title="SecureAI Skills - 3-Agent Framework",
+    title="SecureAI Skills Validation Framework",
     version="2.1",
-    description="Agent 1: Intelligence | Agent 2: Security & Governance | Agent 3: Validate & Benchmark",
+    description="Structure analysis | Security and governance | Testing, conversion, and benchmarking",
 )
 
 
@@ -31,7 +31,7 @@ def _read_report(path: Path) -> dict[str, Any]:
 def health() -> dict[str, Any]:
     return {
         "status": "ok",
-        "agents": ["agent1", "agent2", "agent3"],
+        "modules": ["structure", "security", "validation"],
         "endpoints": [
             "/analyze",
             "/analyze/upload",
@@ -112,7 +112,7 @@ async def analyze_security(request: AnalyzeRequest) -> dict[str, Any]:
 @app.post("/analyze/testing")
 async def analyze_testing(request: AnalyzeRequest) -> dict[str, Any]:
     report = await run_agent3(request.skills_dir, skills=request.skills or None)
-    return {"test_report": report.get("test_report", []), "ci_cd_report": report.get("ci_cd_report", []), "agent3": report}
+    return {"test_report": report.get("test_report", []), "ci_cd_report": report.get("ci_cd_report", []), "validation_report": report}
 
 
 @app.post("/analyze/benchmark")
@@ -132,17 +132,17 @@ async def run_legacy(request: AnalyzeRequest) -> dict[str, Any]:
     return await analyze(request)
 
 
-@app.post("/agent1/run")
+@app.post("/agent1/run", include_in_schema=False)
 async def run_agent1_endpoint(request: AnalyzeRequest) -> dict[str, Any]:
     return await analyze_structure(request)
 
 
-@app.post("/agent2/run")
+@app.post("/agent2/run", include_in_schema=False)
 async def run_agent2_endpoint(request: AnalyzeRequest) -> dict[str, Any]:
     return await analyze_security(request)
 
 
-@app.post("/agent3/run")
+@app.post("/agent3/run", include_in_schema=False)
 async def run_agent3_endpoint(request: AnalyzeRequest) -> dict[str, Any]:
     return await run_agent3(request.skills_dir, skills=request.skills or None)
 
@@ -153,19 +153,19 @@ def full_report() -> dict[str, Any]:
 
 
 # Specific named report routes MUST be declared before the {report_id} catch-all;
-# FastAPI matches routes in registration order and /report/agent1 would otherwise
+# FastAPI matches routes in registration order and legacy report paths would otherwise
 # be captured by the wildcard and never reach these handlers.
-@app.get("/report/agent1")
+@app.get("/report/agent1", include_in_schema=False)
 def report_agent1() -> dict[str, Any]:
     return _read_report(DEFAULT_OUTPUT_DIR / "agent1" / "agent1-report.json")
 
 
-@app.get("/report/agent2")
+@app.get("/report/agent2", include_in_schema=False)
 def report_agent2() -> dict[str, Any]:
     return _read_report(DEFAULT_OUTPUT_DIR / "agent2" / "agent2-report.json")
 
 
-@app.get("/report/agent3")
+@app.get("/report/agent3", include_in_schema=False)
 def report_agent3() -> dict[str, Any]:
     return _read_report(DEFAULT_OUTPUT_DIR / "agent3" / "agent3-report.json")
 

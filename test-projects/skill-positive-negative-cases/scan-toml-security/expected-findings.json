@@ -1,0 +1,44 @@
+{
+  "skill": "scan-toml-security",
+  "version": "1.0",
+  "description": "TOML configuration security pattern tests",
+  "match_strategy": "regex",
+  "cases": [
+    {
+      "id": "TOML-POS-001",
+      "type": "positive",
+      "description": "Hardcoded password in TOML config",
+      "fixture": "fixtures/vulnerable.toml",
+      "expected_rule_ids": [
+        "TOML-001"
+      ],
+      "expected_severity": "Critical",
+      "evidence_pattern": "password\\s*=\\s*"
+    },
+    {
+      "id": "TOML-NEG-001",
+      "type": "negative",
+      "description": "All secrets are environment variable references",
+      "fixture": "fixtures/safe.toml",
+      "expected_rule_ids": []
+    },
+    {
+      "id": "TOML-EDGE-001",
+      "type": "edge",
+      "description": "debug=true in dev config",
+      "fixture": "fixtures/vulnerable.toml",
+      "expected_rule_ids": [
+        "TOML-004"
+      ],
+      "expected_severity": "Medium"
+    },
+    {
+      "id": "TOML-FP-001",
+      "type": "false_positive",
+      "description": "password key with placeholder value",
+      "fixture": "fixtures/safe.toml",
+      "expected_rule_ids": [],
+      "notes": "Placeholder value does not match literal-value pattern"
+    }
+  ]
+}

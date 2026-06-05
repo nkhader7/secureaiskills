@@ -1,0 +1,15 @@
+{
+  "authentication": false,
+  "validateToken": null,
+  "authorization": "disabled",
+  "api_key": "sk-live-abc123secretkey456",
+  "database_password": "MySuperS3cretP@ss",
+  "cors": {
+    "allowed_origins": ["*"],
+    "allow_credentials": true
+  },
+  "admin": {
+    "password": "admin123",
+    "enabled": true
+  }
+}

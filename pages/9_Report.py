@@ -1,106 +1,109 @@
-"""Page 9 — Final Report: combined scores, executive summary, download."""
+"""Page 9 — Final Report"""
 from __future__ import annotations
-
 import json
-from pathlib import Path
-
 import streamlit as st
+from pages._shared import inject_theme, sidebar_nav, load_report, badge, risk_badge, score_row, divider, empty_state, stat_block
 
-FULL_PATH = Path("output/full-report.json")
-st.title("Final Report — All Agents")
-st.caption("Executive report · Security · Compliance · Coverage · Benchmark · CI/CD · Downloadable JSON.")
+inject_theme()
+sidebar_nav()
+st.title("Final Report")
+st.caption("Executive summary, validation scores, CI/CD gate, and downloadable JSON.")
 
-report: dict = {}
-if FULL_PATH.exists():
-    report = json.loads(FULL_PATH.read_text(encoding="utf-8"))
-
-if not report:
-    st.info("No full report found. Run all agents from the home page.")
+full = load_report("full")
+if not full:
+    empty_state("No full report found. Run validation.", "📋")
     st.stop()
 
-# Score summary banner
-decision = str(report.get("pass_fail_decision", "—")).upper()
-risk = str(report.get("overall_risk", "—")).upper()
-color = "🟢" if decision == "PASS" else "🔴"
-st.subheader(f"{color} Decision: {decision}  |  Risk: {risk}")
+decision = str(full.get("pass_fail_decision","?")).upper()
+risk     = str(full.get("overall_risk","?")).upper()
+badge_d  = '🟢' if decision=="PASS" else '🔴'
+risk_c   = {"LOW":"#22c55e","MEDIUM":"#f59e0b","HIGH":"#ef4444"}.get(risk,"#7a90b0")
 
-cols = st.columns(6)
-for col, key, label in zip(cols, [
-    "overall_score", "security_score", "compliance_score",
-    "validation_score", "coverage_score", "benchmark_score",
-], ["Overall", "Security", "Compliance", "Validation", "Coverage", "Benchmark"]):
-    col.metric(label, report.get(key, "—"))
+st.markdown(
+    f'<div style="background:rgba(14,21,37,.85);border:1px solid #1e2d44;border-radius:10px;'
+    f'padding:20px 24px;margin:8px 0">'
+    f'<div style="display:flex;align-items:center;gap:16px">'
+    f'<div style="font-size:40px">{badge_d}</div>'
+    f'<div>'
+    f'<div style="color:#f1f5fb;font-size:22px;font-weight:800">{decision}</div>'
+    f'<div style="color:{risk_c};font-size:14px;font-weight:600;margin-top:2px">{risk} RISK</div>'
+    f'</div>'
+    f'<div style="margin-left:auto;text-align:right">'
+    f'<div style="color:#38bdf8;font-size:36px;font-weight:800;font-family:monospace">{full.get("overall_score","?")}</div>'
+    f'<div style="color:#7a90b0;font-size:10px;letter-spacing:1.2px">OVERALL SCORE</div></div></div></div>',
+    unsafe_allow_html=True)
 
-tabs = st.tabs(["Executive", "Security", "Compliance", "Coverage", "Benchmarks", "CI/CD", "Download"])
+score_row(
+    (float(full.get("security_score",0)),    "Security"),
+    (float(full.get("compliance_score",0)),  "Compliance"),
+    (float(full.get("validation_score",0)),  "Validation"),
+    (float(full.get("coverage_score",0)),    "Coverage"),
+    (float(full.get("benchmark_score",0)),   "Benchmark"),
+)
+divider()
+
+tabs = st.tabs(["Executive","Security","Compliance","Coverage","CI/CD","Download"])
 
 with tabs[0]:
-    st.subheader("Executive Report")
-    for line in report.get("executive_report", []):
-        st.write(f"- {line}")
-    summary = report.get("summary", {})
+    for line in full.get("executive_report",[]):
+        st.markdown(f'<div style="padding:6px 0;border-bottom:1px solid #1e2d44;color:#e2eaf6;font-size:13px">{line}</div>',
+                    unsafe_allow_html=True)
+    summary = full.get("summary",{})
     if summary:
-        st.subheader("Summary")
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Skills Analyzed", summary.get("skills_analyzed", "—"))
-        col2.metric("Pass/Fail", str(summary.get("pass_fail", "—")).upper())
-        col3.metric("Overall Risk", str(summary.get("overall_risk", "—")).upper())
+        divider()
+        st.markdown(stat_block([
+            (str(summary.get("skills_analyzed","?")), "Skills",      "#38bdf8"),
+            (str(summary.get("pass_fail","?")),        "Decision",    "#22c55e" if summary.get("pass_fail","")=="pass" else "#ef4444"),
+            (str(summary.get("overall_risk","?")),     "Risk",        risk_c),
+            (str(summary.get("overall_score","?")),    "Score",       "#38bdf8"),
+        ]), unsafe_allow_html=True)
 
 with tabs[1]:
-    st.subheader("Security Report")
-    for row in report.get("security_report", []):
-        risk_col = "🔴" if row.get("overall_risk") == "high" else "🟡" if row.get("overall_risk") == "medium" else "🟢"
-        st.write(f"{risk_col} **{row.get('skill', '?')}** — {row.get('overall_risk', '?')}")
+    for row in full.get("security_report",[]):
+        rc = {"high":"#ef4444","medium":"#f59e0b","low":"#22c55e"}.get(row.get("overall_risk","low"),"#7a90b0")
+        st.markdown(
+            f'<div style="padding:6px 0;border-bottom:1px solid #1e2d44;display:flex;align-items:center;gap:10px">'
+            f'<span style="width:8px;height:8px;border-radius:50%;background:{rc};display:inline-block;flex-shrink:0"></span>'
+            f'<span style="color:#f1f5fb;font-family:monospace;font-size:13px">{row.get("skill","?")}</span>'
+            f'<span style="color:{rc};font-size:11px;margin-left:auto">{str(row.get("overall_risk","?")).upper()}</span></div>',
+            unsafe_allow_html=True)
 
 with tabs[2]:
-    st.subheader("Compliance Report")
-    st.dataframe(report.get("compliance_report", []), use_container_width=True)
+    st.dataframe(full.get("compliance_report",[]), use_container_width=True)
 
 with tabs[3]:
-    st.subheader("Coverage Report")
-    st.dataframe(report.get("coverage_report", []), use_container_width=True)
-    cmap = report.get("coverage_map", {})
-    col1, col2 = st.columns(2)
-    col1.write("**Covered domains:**")
-    for d in cmap.get("covered_domains", []):
-        col1.write(f"  ✓ {d}")
-    col2.write("**Missing domains:**")
-    for d in cmap.get("missing_domains", []):
-        col2.write(f"  ✗ {d}")
+    cmap = full.get("coverage_map",{})
+    col1,col2 = st.columns(2)
+    with col1:
+        for d in cmap.get("covered_domains",[]):
+            st.markdown(f'<div style="color:#86efac;font-size:13px;padding:3px 0">✓ {d}</div>', unsafe_allow_html=True)
+    with col2:
+        for d in cmap.get("missing_domains",[]):
+            st.markdown(f'<div style="color:#fca5a5;font-size:13px;padding:3px 0">✗ {d}</div>', unsafe_allow_html=True)
 
 with tabs[4]:
-    st.subheader("Benchmark Report")
-    rows = []
-    for r in report.get("benchmark_report", []):
-        best = r["formats"][0] if r.get("formats") else {}
-        rows.append({"skill": r["skill"], "score": r["benchmark_score"], "best_format": best.get("format", "—")})
-    st.dataframe(rows, use_container_width=True)
+    ci = full.get("ci_cd_report",[])
+    passing = sum(1 for r in ci if r.get("decision")=="pass")
+    st.markdown(
+        f'<div style="color:{"#22c55e" if passing==len(ci) else "#f59e0b"};font-size:14px;margin-bottom:8px">'
+        f'{"✓ All" if passing==len(ci) else f"⚠ {passing}/{len(ci)}"} skills pass CI gate</div>',
+        unsafe_allow_html=True)
+    st.dataframe(ci, use_container_width=True)
+    divider()
+    for rec in full.get("recommendations",[]):
+        st.markdown(f'<div style="padding:7px 12px;margin:3px 0;background:rgba(56,189,248,.06);'
+                    f'border-left:2px solid #38bdf8;border-radius:0 6px 6px 0;color:#94a3b8;font-size:13px">→ {rec}</div>',
+                    unsafe_allow_html=True)
 
 with tabs[5]:
-    st.subheader("CI/CD Report")
-    st.dataframe(report.get("ci_cd_report", []), use_container_width=True)
-    st.subheader("Recommendations")
-    for rec in report.get("recommendations", []):
-        st.write(f"- {rec}")
-
-with tabs[6]:
-    st.subheader("Download Artifacts")
-    st.download_button(
-        "Full Report JSON",
-        json.dumps(report, indent=2),
-        file_name="secureai-full-report.json",
-        mime="application/json",
-    )
-    for name, path in [
-        ("Agent 1 Report", Path("output/agent1/agent1-report.json")),
-        ("Agent 2 Report", Path("output/agent2/agent2-report.json")),
-        ("Agent 3 Report", Path("output/agent3/agent3-report.json")),
-        ("Benchmark Report", Path("output/agent3/benchmark-report.json")),
-    ]:
-        if path.exists():
-            st.download_button(
-                name,
-                path.read_text(encoding="utf-8"),
-                file_name=path.name,
-                mime="application/json",
-                key=f"dl_{path.stem}",
-            )
+    st.download_button("⬇ Full Report JSON", json.dumps(full,indent=2),
+                       file_name="secureai-full-report.json", mime="application/json",
+                       use_container_width=True)
+    divider()
+    for name, agent in [("Structure Report","agent1"),("Security & Compliance Report","agent2"),
+                        ("Operational Readiness Report","agent3")]:
+        r = load_report(agent)
+        if r:
+            st.download_button(f"⬇ {name}", json.dumps(r,indent=2),
+                               file_name=f"secureai-{agent}-report.json", mime="application/json",
+                               key=f"dl_{agent}")

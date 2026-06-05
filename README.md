@@ -4,32 +4,67 @@ Security-focused skills for development teams building products, services, and a
 
 ## AI Skill Analysis and Governance Framework
 
-This repository includes a production-oriented 3-agent framework for analyzing AI skills before deployment.
+This repository includes a production-oriented validation framework for analyzing AI skills before deployment.
 
-Run the Streamlit UI:
+The framework can run as a Streamlit application, a FastAPI service, or a CI/CD gate. It accepts an uploaded skill in Markdown, YAML, TOML, JSON, Python, text, or ZIP form, including multi-file skill collections with references, dependencies, and nested folders.
+
+### Capabilities
+
+- Upload and ingest single-file skills, ZIP archives, repositories, and skill collections.
+- Analyze structure, intent, references, dependencies, execution flow, and functional completeness using a local/self-hosted LLM.
+- Review the skill definition itself for security, privacy, governance, unsafe instructions, standards gaps, supply-chain concerns, and compliance posture.
+- Generate test cases, validation tests, mock LLM tests, regression tests, failure tests, and CI/CD-ready validation output.
+- Convert the skill into Markdown, YAML, TOML, JSON, and Python representations while preserving intent, inputs, outputs, dependencies, and security constraints.
+- Benchmark prompt size, context size, token usage, token efficiency, format efficiency, latency estimates, complexity, redundancy, compression opportunities, and LLM call counts.
+- Produce graph-ready JSON for execution flow, module workflow, dependencies, tool usage, security coverage, benchmarks, and file relationships.
+- Emit downloadable JSON reports for executive, security, compliance, coverage, benchmark, test, graph, and CI/CD consumers.
+
+### Configure the local/self-hosted LLM
+
+Copy `.env.example` to `.env` and configure an OpenAI-compatible local or self-hosted LLM endpoint:
+
+```bash
+cp .env.example .env
+```
+
+```dotenv
+LOCAL_LLM_ENABLED=true
+LOCAL_LLM_BASE_URL=http://localhost:8000/v1
+LOCAL_LLM_MODEL=your-local-model
+LOCAL_LLM_API_KEY=
+LOCAL_LLM_CLIENT_ID=your-client-id
+LOCAL_LLM_CLIENT_SECRET=your-client-secret
+LOCAL_LLM_TIMEOUT_SECONDS=60
+LOCAL_LLM_MAX_RETRIES=3
+```
+
+Authentication behavior:
+
+- If `LOCAL_LLM_API_KEY` is set, the client sends `Authorization: Bearer <key>`.
+- If client ID or secret are set, the client sends HTTP Basic auth using `LOCAL_LLM_CLIENT_ID:LOCAL_LLM_CLIENT_SECRET`.
+- If no endpoint is configured, deterministic mock mode is used for local testing and CI.
+
+Compatibility aliases are also supported: `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY`, `LLM_CLIENT_ID`, `LLM_CLIENT_SECRET`, `LLM_TIMEOUT`, and `LLM_MAX_RETRIES`.
+
+### Run the Streamlit application
 
 ```bash
 streamlit run app.py
 ```
 
-Run the FastAPI backend:
+Open `http://127.0.0.1:8501`, upload a skill or ZIP, or choose an existing skill from the repository and run validation.
+
+### Run the FastAPI service
 
 ```bash
 uvicorn api:app --reload
 ```
 
-Run CI/CD analysis:
-
-```bash
-python ci.py --minimum-security-score 80 --minimum-compliance-score 80 --minimum-validation-score 80 --minimum-benchmark-score 70
-```
-
-Copy `.env.example` to `.env` and configure a local or self-hosted OpenAI-compatible LLM endpoint. If no endpoint is configured, the shared LLM client uses deterministic mock mode for local testing and CI.
-
 Core API endpoints:
 
 - `POST /analyze`
 - `POST /analyze/upload`
+- `POST /analyze/path`
 - `POST /analyze/structure`
 - `POST /analyze/security`
 - `POST /analyze/testing`
@@ -38,7 +73,31 @@ Core API endpoints:
 - `GET /report/{report_id}`
 - `GET /health`
 
-This repository supports a 3-agent AI Skill Analysis and Governance Framework. The current app and API surfaces are designed to help users understand a skill, secure and govern it, and validate or benchmark it before deployment. The first set of skills focuses on detection, review, evidence generation, and operational readiness; later, the repository can expand into remediation guidance, policy enforcement, secure design patterns, and workflow automation.
+Example:
+
+```bash
+curl -X POST http://127.0.0.1:8000/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"skills":["detect-secrets"]}'
+```
+
+### Run in CI/CD
+
+```bash
+python ci.py --minimum-security-score 80 --minimum-compliance-score 80 --minimum-validation-score 80 --minimum-benchmark-score 70
+```
+
+The GitHub Actions workflow at `.github/workflows/skill-framework-ci.yml` installs dependencies, runs tests, executes the validation framework, and uploads generated reports from `output/`.
+
+### Modular architecture
+
+The implementation is modular so teams can run the full framework or call focused endpoints independently:
+
+- Structure and functional analysis: skill intent, architecture, dependencies, references, execution flow, lifecycle coverage, and functional validation.
+- Security and governance review: unsafe instructions, prompt-injection risk, secret exposure, excessive permissions, supply-chain risk, remediation quality, and governance checks.
+- Validation and operational readiness: tests, mock LLM responses, conversions, benchmarks, token evaluator, graph artifacts, reports, and CI/CD output.
+
+The orchestrator runs the modules in parallel and merges outputs into executive, security, compliance, coverage, benchmark, test, CI/CD, downloadable JSON, and Streamlit dashboard results.
 
 ## Naming Convention
 

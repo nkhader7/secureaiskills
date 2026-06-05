@@ -18,11 +18,11 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from agents.ingest import ingest_bytes
-from agents.llm import LocalLLMClient, _read_env
+from agents.llm import LocalLLMClient, _read_env, safe_load_yaml
 from agents.orchestrator import DEFAULT_OUTPUT_DIR, run_all
-from agents.agent1 import run_agent1
-from agents.agent2 import run_agent2
-from agents.agent3 import run_agent3
+from agents.agent1 import SKILL_CATEGORY_MAP
+from agents.agent2 import SKILL_SECURITY_PROFILES
+from pages._shared import sidebar_nav
 
 REPORT_PATH = DEFAULT_OUTPUT_DIR / "full-report.json"
 A1_PATH = DEFAULT_OUTPUT_DIR / "agent1" / "agent1-report.json"
@@ -65,6 +65,112 @@ def _llm_status() -> dict:
         "max_retries": client.max_retries,
         "timeout": client.timeout,
     }
+
+
+def _available_skills() -> list[str]:
+    skills_dir = Path("skills")
+    if not skills_dir.exists():
+        return []
+    return sorted(d.name for d in skills_dir.iterdir() if d.is_dir() and not d.name.startswith("_"))
+
+
+def _skill_description(skill_dir: Path) -> str:
+    skill_md = skill_dir / "SKILL.md"
+    if not skill_md.exists():
+        return ""
+    text = skill_md.read_text(encoding="utf-8", errors="replace")
+    for line in text.splitlines():
+        if line.strip().startswith("description:"):
+            return line.split(":", 1)[1].strip().strip('"').strip("'")
+    for line in text.splitlines():
+        clean = line.strip()
+        if clean and not clean.startswith("---") and not clean.startswith("#"):
+            return clean[:180]
+    return ""
+
+
+def _skill_catalog() -> list[dict[str, Any]]:
+    skills_dir = Path("skills")
+    if not skills_dir.exists():
+        return []
+    rows: list[dict[str, Any]] = []
+    for skill_dir in sorted(p for p in skills_dir.iterdir() if p.is_dir() and not p.name.startswith("_")):
+        profile = SKILL_SECURITY_PROFILES.get(skill_dir.name, {})
+        rules_path = skill_dir / "references" / "rules.yaml"
+        rules_data = safe_load_yaml(rules_path)
+        rules = rules_data.get("rules", []) if isinstance(rules_data, dict) else []
+        rows.append({
+            "skill": skill_dir.name,
+            "category": SKILL_CATEGORY_MAP.get(skill_dir.name, profile.get("domain", "General Security")),
+            "subcategory": profile.get("subcategory", "Security Scanning"),
+            "rules": len(rules),
+            "standards": ", ".join((profile.get("owasp_top10") or [])[:4]) or "-",
+            "description": _skill_description(skill_dir),
+        })
+    return rows
+
+
+def _render_skill_catalog(catalog: list[dict[str, Any]], latest_count: int) -> None:
+    st.subheader("Skill Catalog")
+    if not catalog:
+        st.info("No local skills found in `skills/`.")
+        return
+    categories = sorted({row["category"] for row in catalog})
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Local Skills", len(catalog))
+    c2.metric("Categories", len(categories))
+    c3.metric("In Latest Report", latest_count)
+
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_category = st.selectbox("Category", ["All"] + categories, key="catalog_category")
+    filtered = catalog if selected_category == "All" else [r for r in catalog if r["category"] == selected_category]
+    with col2:
+        selected_catalog_skill = st.selectbox(
+            "Skill",
+            [r["skill"] for r in filtered],
+            key="catalog_skill",
+        )
+
+    st.dataframe(
+        filtered,
+        column_order=["skill", "category", "subcategory", "rules", "standards", "description"],
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    col_a, col_b = st.columns(2)
+    with col_a:
+        if st.button("Validate Catalog Skill", type="primary", use_container_width=True):
+            with st.spinner(f"Validating `{selected_catalog_skill}`..."):
+                try:
+                    _run_async(run_all(skills=[selected_catalog_skill]))
+                    st.success(f"`{selected_catalog_skill}` validation complete.")
+                except Exception as exc:
+                    st.error(f"Validation failed: {exc}")
+    with col_b:
+        if st.button("Validate Full Collection", use_container_width=True):
+            with st.spinner("Validating full local skill collection..."):
+                try:
+                    _run_async(run_all(skills=None))
+                    st.success("Full collection validation complete.")
+                except Exception as exc:
+                    st.error(f"Validation failed: {exc}")
+
+
+def _render_validation_flow() -> None:
+    st.subheader("Validation Flow")
+    steps = [
+        ("1", "Ingest", "Upload file, ZIP, collection, or choose local skill"),
+        ("2", "Structure", "Intent, references, dependencies, execution flow"),
+        ("3", "Security", "Unsafe instructions, secrets, permissions, governance"),
+        ("4", "Tests", "Test project, conversions, mock responses, CI output"),
+        ("5", "Benchmark", "Token evaluator, format ranking, graphs, reports"),
+    ]
+    cols = st.columns(len(steps))
+    for col, (num, title, body) in zip(cols, steps):
+        with col:
+            st.metric(f"{num}. {title}", body)
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
@@ -275,14 +381,15 @@ def _graph_html(graph: dict[str, Any], title: str) -> str:
 
 
 def main() -> None:
-    st.title("🔒 SecureAI Skills Framework")
+    _inject_dark_theme()
+    st.title("SecureAI Skill Validation")
     st.caption(
-        "Ingest any AI skill → analyze structure, security, compliance, "
-        "coverage, testing, benchmarking → generate actionable reports."
+        "Upload a skill for full validation, or choose an existing skill from the repository."
     )
 
     # ── Sidebar ───────────────────────────────────────────────────────────────
     with st.sidebar:
+        sidebar_nav()
         # LLM status
         llm = _llm_status()
         if llm["connected"]:
@@ -300,52 +407,29 @@ def main() -> None:
             )
         st.divider()
 
-        # Run controls
-        st.header("Run Analysis")
-        skill_input = st.text_area(
-            "Skills (one per line, blank = all 26)",
-            height=100,
-            help="Leave blank to analyze all skills in the skills/ directory.",
-        )
-        skills = [s.strip() for s in skill_input.splitlines() if s.strip()]
-
-        if st.button("▶ Run All Modules", type="primary", use_container_width=True):
-            with st.spinner("Running all analysis modules in parallel…"):
-                try:
-                    _run_async(run_all(skills=skills or None))
-                    st.success("Analysis complete. Reload pages to see results.")
-                except Exception as exc:
-                    st.error(f"Analysis failed: {exc}")
-
-        st.divider()
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("Module 1", use_container_width=True, help="Skill Intelligence"):
-                with st.spinner("Running…"):
-                    _run_async(run_agent1(skills=skills or None))
-                st.success("Done.")
-        with col2:
-            if st.button("Module 2", use_container_width=True, help="Security & Compliance"):
-                with st.spinner("Running…"):
-                    _run_async(run_agent2(skills=skills or None))
-                st.success("Done.")
-        with col3:
-            if st.button("Module 3", use_container_width=True, help="Test & Benchmark"):
-                with st.spinner("Running…"):
-                    _run_async(run_agent3(skills=skills or None))
-                st.success("Done.")
-
-        st.divider()
-        st.header("Upload Skill")
+        st.header("Validate")
         uploaded = st.file_uploader(
-            "Single file, ZIP, or collection",
+            "Upload skill, ZIP, or collection",
             type=["md", "yaml", "yml", "toml", "json", "py", "txt", "zip"],
-            help="Uploads are safely extracted to a temporary workspace before analysis.",
+            help="Uploads are safely extracted to a temporary workspace before validation.",
         )
-        if uploaded and st.button("Analyze Upload", use_container_width=True):
+
+        selected_skill = None
+        if uploaded:
+            st.caption("Upload detected. Validation will run against the uploaded workspace.")
+        else:
+            st.caption("No upload selected. Choose one existing skill or validate the full local collection.")
+            skill_names = _available_skills()
+            if skill_names:
+                selected_skill = st.selectbox("Existing skills", skill_names)
+                st.caption(f"{len(skill_names)} local skill(s) available.")
+            else:
+                st.warning("No local skills found in `skills/`.")
+
+        if uploaded and st.button("Validate Upload", type="primary", use_container_width=True):
             try:
                 ingested = ingest_bytes(uploaded.name, uploaded.getvalue())
-                with st.spinner(f"Analyzing {len(ingested.files)} file(s)…"):
+                with st.spinner(f"Validating {len(ingested.files)} file(s)..."):
                     _run_async(
                         run_all(
                             skills_dir=str(ingested.skills_dir),
@@ -354,24 +438,44 @@ def main() -> None:
                     )
                 for warning in ingested.warnings:
                     st.warning(warning)
-                st.success(f"Upload `{ingested.upload_id}` analyzed.")
+                st.success(f"Upload `{ingested.upload_id}` validation complete.")
             except ValueError as exc:
                 st.error(str(exc))
+        elif not uploaded and st.button("Validate Selected Skill", type="primary", use_container_width=True):
+            if selected_skill:
+                with st.spinner(f"Validating `{selected_skill}`..."):
+                    try:
+                        _run_async(run_all(skills=[selected_skill]))
+                        st.success(f"`{selected_skill}` validation complete.")
+                    except Exception as exc:
+                        st.error(f"Validation failed: {exc}")
+        elif not uploaded and st.button("Validate All Local Skills", use_container_width=True):
+            with st.spinner("Validating all local skills..."):
+                try:
+                    _run_async(run_all(skills=None))
+                    st.success("All local skills validation complete.")
+                except Exception as exc:
+                    st.error(f"Validation failed: {exc}")
 
         st.divider()
-        st.caption("Navigate to detailed pages using the sidebar navigation above.")
+        st.caption("Results refresh after validation completes.")
 
     # ── Dashboard ─────────────────────────────────────────────────────────────
     full = _load(REPORT_PATH)
     a1 = _load(A1_PATH)
     a2 = _load(A2_PATH)
     a3 = _load(A3_PATH)
+    catalog = _skill_catalog()
+    latest_count = len(a3.get("skill_results", [])) if a3 else 0
+    _render_validation_flow()
+    st.divider()
+    _render_skill_catalog(catalog, latest_count)
+    st.divider()
 
     if not full and not a1 and not a2 and not a3:
         st.info(
             "No analysis reports found yet.  \n"
-            "Click **▶ Run All Modules** in the sidebar or navigate to **1 Upload** "
-            "to upload a skill file."
+            "Upload a skill or choose an existing skill, then run validation."
         )
         _show_getting_started()
         return
@@ -398,7 +502,7 @@ def main() -> None:
     tabs = st.tabs([
         "Structure", "Security", "Compliance",
         "Coverage", "Tests", "Benchmarks",
-        "Visualizations", "Final Report", "Raw JSON",
+        "Token Size", "Visualizations", "Final Report", "Raw JSON",
     ])
 
     with tabs[0]:
@@ -460,15 +564,44 @@ def main() -> None:
         bm_rows = []
         for skill in a3.get("benchmark_report", []):
             best = skill["formats"][0] if skill.get("formats") else {}
+            token_eval = skill.get("token_evaluator", {})
             bm_rows.append({
                 "skill": skill["skill"],
+                "best_token_format": str(token_eval.get("best_token_format", "-")).upper(),
+                "lowest_context_tokens": token_eval.get("lowest_context_tokens", 0),
+                "highest_context_tokens": token_eval.get("highest_context_tokens", 0),
                 "best_format": best.get("format", "—").upper(),
                 "score": skill["benchmark_score"],
                 "complexity": skill["execution_complexity"],
             })
         st.dataframe(bm_rows, use_container_width=True)
+        reports = a3.get("benchmark_report", [])
+        if reports:
+            selected_benchmark = st.selectbox("Select benchmark", [r["skill"] for r in reports], key="benchmark_skill")
+            selected = next((r for r in reports if r["skill"] == selected_benchmark), None)
+            if selected:
+                st.caption("Token evaluator")
+                st.json(selected.get("token_evaluator", {}))
+                st.caption("Format token metrics")
+                st.dataframe(selected.get("formats", []), use_container_width=True)
 
     with tabs[6]:
+        st.subheader("Token Size by Validation Step")
+        token_summary = full.get("token_summary", {}) if full else {}
+        token_rows = full.get("token_report", []) if full else []
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Prompt Tokens", token_summary.get("total_prompt_tokens", 0))
+        c2.metric("Completion Tokens", token_summary.get("total_completion_tokens", 0))
+        c3.metric("Context Tokens", token_summary.get("total_context_tokens", 0))
+        if token_summary.get("largest_step"):
+            st.caption("Largest token step")
+            st.json(token_summary["largest_step"])
+        if token_rows:
+            st.dataframe(token_rows, use_container_width=True)
+        else:
+            st.info("Run validation to calculate token sizes for each step.")
+
+    with tabs[7]:
         st.subheader("Execution Graphs")
         graph_artifacts = a3.get("graph_artifacts", {})
         if graph_artifacts:
@@ -478,17 +611,19 @@ def main() -> None:
             graph_tabs = st.tabs(list(graphs.keys()))
             for gt, (gname, gdata) in zip(graph_tabs, graphs.items()):
                 with gt:
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.caption("Nodes")
-                        st.dataframe(gdata.get("nodes", []), use_container_width=True)
-                    with col2:
-                        st.caption("Edges")
-                        st.dataframe(gdata.get("edges", []), use_container_width=True)
+                    components.html(_graph_html(gdata, gname), height=650, scrolling=False)
+                    with st.expander("Graph data"):
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            st.caption("Nodes")
+                            st.dataframe(gdata.get("nodes", []), use_container_width=True)
+                        with col2:
+                            st.caption("Edges")
+                            st.dataframe(gdata.get("edges", []), use_container_width=True)
         else:
-            st.info("Run Module 3 to generate graph artifacts.")
+            st.info("Run validation to generate graph artifacts.")
 
-    with tabs[7]:
+    with tabs[8]:
         st.subheader("Final Report")
         if full:
             summary = full.get("summary", {})
@@ -504,9 +639,9 @@ def main() -> None:
                 mime="application/json",
             )
         else:
-            st.info("Run all modules to generate the combined report.")
+            st.info("Run validation to generate the combined report.")
 
-    with tabs[8]:
+    with tabs[9]:
         active = full or a1 or a2 or a3
         if active:
             label = "full-report.json" if full else "partial-report.json"
@@ -523,10 +658,10 @@ def _show_getting_started() -> None:
         st.code("cp .env.example .env\n# Edit LLM_BASE_URL and LLM_MODEL", language="bash")
     with col2:
         st.markdown("**2. Run analysis**")
-        st.code("# Click ▶ Run All Modules\n# or run via CLI:\npython ci.py", language="bash")
+        st.code("# Click Validate Selected Skill\n# or run via CLI:\npython ci.py", language="bash")
     with col3:
         st.markdown("**3. Upload a custom skill**")
-        st.code("# Use the Upload Skill\n# section in the sidebar\n# or navigate to page 1", language="bash")
+        st.code("# Use the upload control\n# in the sidebar", language="bash")
 
 
 if __name__ == "__main__":

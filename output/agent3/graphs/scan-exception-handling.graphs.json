@@ -151,7 +151,7 @@
       },
       {
         "id": "json",
-        "score": 8.81
+        "score": 8.82
       },
       {
         "id": "markdown",
@@ -159,7 +159,7 @@
       },
       {
         "id": "yaml",
-        "score": 6.49
+        "score": 7.61
       }
     ],
     "edges": []

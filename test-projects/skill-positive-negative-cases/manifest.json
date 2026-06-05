@@ -1,190 +1,386 @@
-﻿{
-    "generated_at":  "2026-05-31T02:03:39-05:00",
-    "source_skills":  "skills",
-    "source_positive_fixture":  "test-projects/skill-fixture",
-    "case_count":  52,
-    "skills":  [
-                   {
-                       "skill":  "audit-asvs-compliance",
-                       "trigger":  "/audit-asvs-compliance",
-                       "positive":  "audit-asvs-compliance/positive.md",
-                       "negative":  "audit-asvs-compliance/negative.md",
-                       "expected_report":  "audit-asvs-compliance/report.md"
-                   },
-                   {
-                       "skill":  "audit-auth-session-management",
-                       "trigger":  "/audit-auth-session-management",
-                       "positive":  "audit-auth-session-management/positive.md",
-                       "negative":  "audit-auth-session-management/negative.md",
-                       "expected_report":  "audit-auth-session-management/report.md"
-                   },
-                   {
-                       "skill":  "audit-crypto-usage",
-                       "trigger":  "/audit-crypto-usage",
-                       "positive":  "audit-crypto-usage/positive.md",
-                       "negative":  "audit-crypto-usage/negative.md",
-                       "expected_report":  "audit-crypto-usage/report.md"
-                   },
-                   {
-                       "skill":  "audit-logging-monitoring",
-                       "trigger":  "/audit-logging-monitoring",
-                       "positive":  "audit-logging-monitoring/positive.md",
-                       "negative":  "audit-logging-monitoring/negative.md",
-                       "expected_report":  "audit-logging-monitoring/report.md"
-                   },
-                   {
-                       "skill":  "detect-secrets",
-                       "trigger":  "/detect-secrets",
-                       "positive":  "detect-secrets/positive.md",
-                       "negative":  "detect-secrets/negative.md",
-                       "expected_report":  "detect-secrets/report.md"
-                   },
-                   {
-                       "skill":  "detect-supply-chain-risks",
-                       "trigger":  "/detect-supply-chain-risks",
-                       "positive":  "detect-supply-chain-risks/positive.md",
-                       "negative":  "detect-supply-chain-risks/negative.md",
-                       "expected_report":  "detect-supply-chain-risks/report.md"
-                   },
-                   {
-                       "skill":  "generate-dependency-graph",
-                       "trigger":  "/generate-dependency-graph",
-                       "positive":  "generate-dependency-graph/positive.md",
-                       "negative":  "generate-dependency-graph/negative.md",
-                       "expected_report":  "generate-dependency-graph/report.md"
-                   },
-                   {
-                       "skill":  "generate-sbom",
-                       "trigger":  "/generate-sbom",
-                       "positive":  "generate-sbom/positive.md",
-                       "negative":  "generate-sbom/negative.md",
-                       "expected_report":  "generate-sbom/report.md"
-                   },
-                   {
-                       "skill":  "scan-api-security",
-                       "trigger":  "/scan-api-security",
-                       "positive":  "scan-api-security/positive.md",
-                       "negative":  "scan-api-security/negative.md",
-                       "expected_report":  "scan-api-security/report.md"
-                   },
-                   {
-                       "skill":  "scan-broken-access-control",
-                       "trigger":  "/scan-broken-access-control",
-                       "positive":  "scan-broken-access-control/positive.md",
-                       "negative":  "scan-broken-access-control/negative.md",
-                       "expected_report":  "scan-broken-access-control/report.md"
-                   },
-                   {
-                       "skill":  "scan-container-image",
-                       "trigger":  "/scan-container-image",
-                       "positive":  "scan-container-image/positive.md",
-                       "negative":  "scan-container-image/negative.md",
-                       "expected_report":  "scan-container-image/report.md"
-                   },
-                   {
-                       "skill":  "scan-exception-handling",
-                       "trigger":  "/scan-exception-handling",
-                       "positive":  "scan-exception-handling/positive.md",
-                       "negative":  "scan-exception-handling/negative.md",
-                       "expected_report":  "scan-exception-handling/report.md"
-                   },
-                   {
-                       "skill":  "scan-for-injection",
-                       "trigger":  "/scan-for-injection",
-                       "positive":  "scan-for-injection/positive.md",
-                       "negative":  "scan-for-injection/negative.md",
-                       "expected_report":  "scan-for-injection/report.md"
-                   },
-                   {
-                       "skill":  "scan-for-ssrf",
-                       "trigger":  "/scan-for-ssrf",
-                       "positive":  "scan-for-ssrf/positive.md",
-                       "negative":  "scan-for-ssrf/negative.md",
-                       "expected_report":  "scan-for-ssrf/report.md"
-                   },
-                   {
-                       "skill":  "scan-for-xss",
-                       "trigger":  "/scan-for-xss",
-                       "positive":  "scan-for-xss/positive.md",
-                       "negative":  "scan-for-xss/negative.md",
-                       "expected_report":  "scan-for-xss/report.md"
-                   },
-                   {
-                       "skill":  "scan-iac-security",
-                       "trigger":  "/scan-iac-security",
-                       "positive":  "scan-iac-security/positive.md",
-                       "negative":  "scan-iac-security/negative.md",
-                       "expected_report":  "scan-iac-security/report.md"
-                   },
-                   {
-                       "skill":  "scan-json-security",
-                       "trigger":  "/scan-json-security",
-                       "positive":  "scan-json-security/positive.md",
-                       "negative":  "scan-json-security/negative.md",
-                       "expected_report":  "scan-json-security/report.md"
-                   },
-                   {
-                       "skill":  "scan-kubernetes-manifests",
-                       "trigger":  "/scan-kubernetes-manifests",
-                       "positive":  "scan-kubernetes-manifests/positive.md",
-                       "negative":  "scan-kubernetes-manifests/negative.md",
-                       "expected_report":  "scan-kubernetes-manifests/report.md"
-                   },
-                   {
-                       "skill":  "scan-markdown-security",
-                       "trigger":  "/scan-markdown-security",
-                       "positive":  "scan-markdown-security/positive.md",
-                       "negative":  "scan-markdown-security/negative.md",
-                       "expected_report":  "scan-markdown-security/report.md"
-                   },
-                   {
-                       "skill":  "scan-sca-dependencies",
-                       "trigger":  "/scan-sca-dependencies",
-                       "positive":  "scan-sca-dependencies/positive.md",
-                       "negative":  "scan-sca-dependencies/negative.md",
-                       "expected_report":  "scan-sca-dependencies/report.md"
-                   },
-                   {
-                       "skill":  "scan-security-headers",
-                       "trigger":  "/scan-security-headers",
-                       "positive":  "scan-security-headers/positive.md",
-                       "negative":  "scan-security-headers/negative.md",
-                       "expected_report":  "scan-security-headers/report.md"
-                   },
-                   {
-                       "skill":  "scan-static-analysis",
-                       "trigger":  "/scan-static-analysis",
-                       "positive":  "scan-static-analysis/positive.md",
-                       "negative":  "scan-static-analysis/negative.md",
-                       "expected_report":  "scan-static-analysis/report.md"
-                   },
-                   {
-                       "skill":  "scan-toml-security",
-                       "trigger":  "/scan-toml-security",
-                       "positive":  "scan-toml-security/positive.md",
-                       "negative":  "scan-toml-security/negative.md",
-                       "expected_report":  "scan-toml-security/report.md"
-                   },
-                   {
-                       "skill":  "scan-xml-security",
-                       "trigger":  "/scan-xml-security",
-                       "positive":  "scan-xml-security/positive.md",
-                       "negative":  "scan-xml-security/negative.md",
-                       "expected_report":  "scan-xml-security/report.md"
-                   },
-                   {
-                       "skill":  "scan-yaml-security",
-                       "trigger":  "/scan-yaml-security",
-                       "positive":  "scan-yaml-security/positive.md",
-                       "negative":  "scan-yaml-security/negative.md",
-                       "expected_report":  "scan-yaml-security/report.md"
-                   },
-                   {
-                       "skill":  "threat-model-system",
-                       "trigger":  "/threat-model-system",
-                       "positive":  "threat-model-system/positive.md",
-                       "negative":  "threat-model-system/negative.md",
-                       "expected_report":  "threat-model-system/report.md"
-                   }
-               ]
+{
+  "generated_at": "2026-06-04T04:17:10.868989+00:00",
+  "source_skills": "skills",
+  "source_positive_fixture": "test-projects/skill-fixture",
+  "skill_count": 26,
+  "total_test_cases": 109,
+  "case_types": [
+    "positive",
+    "negative",
+    "edge",
+    "false_positive"
+  ],
+  "skills": [
+    {
+      "skill": "audit-asvs-compliance",
+      "trigger": "/audit-asvs-compliance",
+      "positive": "audit-asvs-compliance/positive.md",
+      "negative": "audit-asvs-compliance/negative.md",
+      "edge": "audit-asvs-compliance/edge.md",
+      "false_positive": "audit-asvs-compliance/false-positive.md",
+      "expected_report": "audit-asvs-compliance/report.md",
+      "expected_findings": "audit-asvs-compliance/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "audit-auth-session-management",
+      "trigger": "/audit-auth-session-management",
+      "positive": "audit-auth-session-management/positive.md",
+      "negative": "audit-auth-session-management/negative.md",
+      "edge": "audit-auth-session-management/edge.md",
+      "false_positive": "audit-auth-session-management/false-positive.md",
+      "expected_report": "audit-auth-session-management/report.md",
+      "expected_findings": "audit-auth-session-management/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "audit-crypto-usage",
+      "trigger": "/audit-crypto-usage",
+      "positive": "audit-crypto-usage/positive.md",
+      "negative": "audit-crypto-usage/negative.md",
+      "edge": "audit-crypto-usage/edge.md",
+      "false_positive": "audit-crypto-usage/false-positive.md",
+      "expected_report": "audit-crypto-usage/report.md",
+      "expected_findings": "audit-crypto-usage/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "audit-logging-monitoring",
+      "trigger": "/audit-logging-monitoring",
+      "positive": "audit-logging-monitoring/positive.md",
+      "negative": "audit-logging-monitoring/negative.md",
+      "edge": "audit-logging-monitoring/edge.md",
+      "false_positive": "audit-logging-monitoring/false-positive.md",
+      "expected_report": "audit-logging-monitoring/report.md",
+      "expected_findings": "audit-logging-monitoring/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "detect-secrets",
+      "trigger": "/detect-secrets",
+      "positive": "detect-secrets/positive.md",
+      "negative": "detect-secrets/negative.md",
+      "edge": "detect-secrets/edge.md",
+      "false_positive": "detect-secrets/false-positive.md",
+      "expected_report": "detect-secrets/report.md",
+      "expected_findings": "detect-secrets/expected-findings.json",
+      "fixtures": [
+        "fixtures\\edge.py",
+        "fixtures\\safe.env",
+        "fixtures\\vulnerable.env"
+      ],
+      "case_count": 7,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "detect-supply-chain-risks",
+      "trigger": "/detect-supply-chain-risks",
+      "positive": "detect-supply-chain-risks/positive.md",
+      "negative": "detect-supply-chain-risks/negative.md",
+      "edge": "detect-supply-chain-risks/edge.md",
+      "false_positive": "detect-supply-chain-risks/false-positive.md",
+      "expected_report": "detect-supply-chain-risks/report.md",
+      "expected_findings": "detect-supply-chain-risks/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "generate-dependency-graph",
+      "trigger": "/generate-dependency-graph",
+      "positive": "generate-dependency-graph/positive.md",
+      "negative": "generate-dependency-graph/negative.md",
+      "edge": "generate-dependency-graph/edge.md",
+      "false_positive": "generate-dependency-graph/false-positive.md",
+      "expected_report": "generate-dependency-graph/report.md",
+      "expected_findings": "generate-dependency-graph/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "generate-sbom",
+      "trigger": "/generate-sbom",
+      "positive": "generate-sbom/positive.md",
+      "negative": "generate-sbom/negative.md",
+      "edge": "generate-sbom/edge.md",
+      "false_positive": "generate-sbom/false-positive.md",
+      "expected_report": "generate-sbom/report.md",
+      "expected_findings": "generate-sbom/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-api-security",
+      "trigger": "/scan-api-security",
+      "positive": "scan-api-security/positive.md",
+      "negative": "scan-api-security/negative.md",
+      "edge": "scan-api-security/edge.md",
+      "false_positive": "scan-api-security/false-positive.md",
+      "expected_report": "scan-api-security/report.md",
+      "expected_findings": "scan-api-security/expected-findings.json",
+      "fixtures": [
+        "fixtures\\vulnerable-openapi.yaml"
+      ],
+      "case_count": 4,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-broken-access-control",
+      "trigger": "/scan-broken-access-control",
+      "positive": "scan-broken-access-control/positive.md",
+      "negative": "scan-broken-access-control/negative.md",
+      "edge": "scan-broken-access-control/edge.md",
+      "false_positive": "scan-broken-access-control/false-positive.md",
+      "expected_report": "scan-broken-access-control/report.md",
+      "expected_findings": "scan-broken-access-control/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-container-image",
+      "trigger": "/scan-container-image",
+      "positive": "scan-container-image/positive.md",
+      "negative": "scan-container-image/negative.md",
+      "edge": "scan-container-image/edge.md",
+      "false_positive": "scan-container-image/false-positive.md",
+      "expected_report": "scan-container-image/report.md",
+      "expected_findings": "scan-container-image/expected-findings.json",
+      "fixtures": [
+        "fixtures\\Dockerfile.safe",
+        "fixtures\\Dockerfile.vulnerable"
+      ],
+      "case_count": 4,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-exception-handling",
+      "trigger": "/scan-exception-handling",
+      "positive": "scan-exception-handling/positive.md",
+      "negative": "scan-exception-handling/negative.md",
+      "edge": "scan-exception-handling/edge.md",
+      "false_positive": "scan-exception-handling/false-positive.md",
+      "expected_report": "scan-exception-handling/report.md",
+      "expected_findings": "scan-exception-handling/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-for-injection",
+      "trigger": "/scan-for-injection",
+      "positive": "scan-for-injection/positive.md",
+      "negative": "scan-for-injection/negative.md",
+      "edge": "scan-for-injection/edge.md",
+      "false_positive": "scan-for-injection/false-positive.md",
+      "expected_report": "scan-for-injection/report.md",
+      "expected_findings": "scan-for-injection/expected-findings.json",
+      "fixtures": [
+        "fixtures\\edge.js",
+        "fixtures\\safe.js",
+        "fixtures\\vulnerable.js"
+      ],
+      "case_count": 8,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-for-ssrf",
+      "trigger": "/scan-for-ssrf",
+      "positive": "scan-for-ssrf/positive.md",
+      "negative": "scan-for-ssrf/negative.md",
+      "edge": "scan-for-ssrf/edge.md",
+      "false_positive": "scan-for-ssrf/false-positive.md",
+      "expected_report": "scan-for-ssrf/report.md",
+      "expected_findings": "scan-for-ssrf/expected-findings.json",
+      "fixtures": [
+        "fixtures\\safe.py",
+        "fixtures\\vulnerable.py"
+      ],
+      "case_count": 6,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-for-xss",
+      "trigger": "/scan-for-xss",
+      "positive": "scan-for-xss/positive.md",
+      "negative": "scan-for-xss/negative.md",
+      "edge": "scan-for-xss/edge.md",
+      "false_positive": "scan-for-xss/false-positive.md",
+      "expected_report": "scan-for-xss/report.md",
+      "expected_findings": "scan-for-xss/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-iac-security",
+      "trigger": "/scan-iac-security",
+      "positive": "scan-iac-security/positive.md",
+      "negative": "scan-iac-security/negative.md",
+      "edge": "scan-iac-security/edge.md",
+      "false_positive": "scan-iac-security/false-positive.md",
+      "expected_report": "scan-iac-security/report.md",
+      "expected_findings": "scan-iac-security/expected-findings.json",
+      "fixtures": [
+        "fixtures\\safe.tf",
+        "fixtures\\vulnerable.tf"
+      ],
+      "case_count": 4,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-json-security",
+      "trigger": "/scan-json-security",
+      "positive": "scan-json-security/positive.md",
+      "negative": "scan-json-security/negative.md",
+      "edge": "scan-json-security/edge.md",
+      "false_positive": "scan-json-security/false-positive.md",
+      "expected_report": "scan-json-security/report.md",
+      "expected_findings": "scan-json-security/expected-findings.json",
+      "fixtures": [
+        "fixtures\\safe.json",
+        "fixtures\\vulnerable.json"
+      ],
+      "case_count": 2,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-kubernetes-manifests",
+      "trigger": "/scan-kubernetes-manifests",
+      "positive": "scan-kubernetes-manifests/positive.md",
+      "negative": "scan-kubernetes-manifests/negative.md",
+      "edge": "scan-kubernetes-manifests/edge.md",
+      "false_positive": "scan-kubernetes-manifests/false-positive.md",
+      "expected_report": "scan-kubernetes-manifests/report.md",
+      "expected_findings": "scan-kubernetes-manifests/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-markdown-security",
+      "trigger": "/scan-markdown-security",
+      "positive": "scan-markdown-security/positive.md",
+      "negative": "scan-markdown-security/negative.md",
+      "edge": "scan-markdown-security/edge.md",
+      "false_positive": "scan-markdown-security/false-positive.md",
+      "expected_report": "scan-markdown-security/report.md",
+      "expected_findings": "scan-markdown-security/expected-findings.json",
+      "fixtures": [
+        "fixtures\\vulnerable.md"
+      ],
+      "case_count": 4,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-sca-dependencies",
+      "trigger": "/scan-sca-dependencies",
+      "positive": "scan-sca-dependencies/positive.md",
+      "negative": "scan-sca-dependencies/negative.md",
+      "edge": "scan-sca-dependencies/edge.md",
+      "false_positive": "scan-sca-dependencies/false-positive.md",
+      "expected_report": "scan-sca-dependencies/report.md",
+      "expected_findings": "scan-sca-dependencies/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-security-headers",
+      "trigger": "/scan-security-headers",
+      "positive": "scan-security-headers/positive.md",
+      "negative": "scan-security-headers/negative.md",
+      "edge": "scan-security-headers/edge.md",
+      "false_positive": "scan-security-headers/false-positive.md",
+      "expected_report": "scan-security-headers/report.md",
+      "expected_findings": "scan-security-headers/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-static-analysis",
+      "trigger": "/scan-static-analysis",
+      "positive": "scan-static-analysis/positive.md",
+      "negative": "scan-static-analysis/negative.md",
+      "edge": "scan-static-analysis/edge.md",
+      "false_positive": "scan-static-analysis/false-positive.md",
+      "expected_report": "scan-static-analysis/report.md",
+      "expected_findings": "scan-static-analysis/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    },
+    {
+      "skill": "scan-toml-security",
+      "trigger": "/scan-toml-security",
+      "positive": "scan-toml-security/positive.md",
+      "negative": "scan-toml-security/negative.md",
+      "edge": "scan-toml-security/edge.md",
+      "false_positive": "scan-toml-security/false-positive.md",
+      "expected_report": "scan-toml-security/report.md",
+      "expected_findings": "scan-toml-security/expected-findings.json",
+      "fixtures": [
+        "fixtures\\safe.toml",
+        "fixtures\\vulnerable.toml"
+      ],
+      "case_count": 4,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-xml-security",
+      "trigger": "/scan-xml-security",
+      "positive": "scan-xml-security/positive.md",
+      "negative": "scan-xml-security/negative.md",
+      "edge": "scan-xml-security/edge.md",
+      "false_positive": "scan-xml-security/false-positive.md",
+      "expected_report": "scan-xml-security/report.md",
+      "expected_findings": "scan-xml-security/expected-findings.json",
+      "fixtures": [
+        "fixtures\\safe.xml",
+        "fixtures\\vulnerable.xml"
+      ],
+      "case_count": 2,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "scan-yaml-security",
+      "trigger": "/scan-yaml-security",
+      "positive": "scan-yaml-security/positive.md",
+      "negative": "scan-yaml-security/negative.md",
+      "edge": "scan-yaml-security/edge.md",
+      "false_positive": "scan-yaml-security/false-positive.md",
+      "expected_report": "scan-yaml-security/report.md",
+      "expected_findings": "scan-yaml-security/expected-findings.json",
+      "fixtures": [
+        "fixtures\\safe.yaml",
+        "fixtures\\vulnerable.yaml"
+      ],
+      "case_count": 4,
+      "has_regex_fixtures": true
+    },
+    {
+      "skill": "threat-model-system",
+      "trigger": "/threat-model-system",
+      "positive": "threat-model-system/positive.md",
+      "negative": "threat-model-system/negative.md",
+      "edge": "threat-model-system/edge.md",
+      "false_positive": "threat-model-system/false-positive.md",
+      "expected_report": "threat-model-system/report.md",
+      "expected_findings": "threat-model-system/expected-findings.json",
+      "fixtures": [],
+      "case_count": 4,
+      "has_regex_fixtures": false
+    }
+  ]
 }

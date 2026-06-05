@@ -1,0 +1,44 @@
+{
+  "skill": "scan-markdown-security",
+  "version": "1.0",
+  "description": "Markdown security pattern tests",
+  "match_strategy": "regex",
+  "cases": [
+    {
+      "id": "MD-POS-001",
+      "type": "positive",
+      "description": "AWS access key hardcoded in Markdown",
+      "fixture": "fixtures/vulnerable.md",
+      "expected_rule_ids": [
+        "MD-001"
+      ],
+      "expected_severity": "Critical",
+      "evidence_pattern": "AKIA[0-9A-Z]{16}"
+    },
+    {
+      "id": "MD-NEG-001",
+      "type": "negative",
+      "description": "Plain documentation with no secrets",
+      "fixture": "positive.md",
+      "expected_rule_ids": []
+    },
+    {
+      "id": "MD-EDGE-001",
+      "type": "edge",
+      "description": "Pipe-to-bash command in setup docs",
+      "fixture": "fixtures/vulnerable.md",
+      "expected_rule_ids": [
+        "MD-003"
+      ],
+      "expected_severity": "High"
+    },
+    {
+      "id": "MD-FP-001",
+      "type": "false_positive",
+      "description": "curl used without unsafe flags",
+      "fixture": "positive.md",
+      "expected_rule_ids": [],
+      "notes": "curl without -k flag should not trigger MD-002"
+    }
+  ]
+}

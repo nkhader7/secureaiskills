@@ -1,0 +1,24 @@
+{
+  "skill": "scan-json-security",
+  "version": "1.0",
+  "description": "JSON configuration security pattern tests",
+  "cases": [
+    {
+      "id": "JSON-POS-001",
+      "type": "positive",
+      "description": "authentication set to false in JSON config",
+      "fixture": "fixtures/vulnerable.json",
+      "expected_rule_ids": ["JSON-001"],
+      "expected_severity": "High",
+      "evidence_pattern": "\"authentication\"\\s*:\\s*(false|null)"
+    },
+    {
+      "id": "JSON-NEG-001",
+      "type": "negative",
+      "description": "Authentication explicitly enabled, secrets are references",
+      "fixture": "fixtures/safe.json",
+      "expected_rule_ids": [],
+      "evidence_pattern": null
+    }
+  ]
+}

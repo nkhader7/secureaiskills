@@ -1,0 +1,17 @@
+{
+  "authentication": {
+    "enabled": true,
+    "provider": "oauth2",
+    "require_mfa": true
+  },
+  "authorization": {
+    "mode": "rbac",
+    "default_deny": true
+  },
+  "api_key": "${API_KEY}",
+  "database_password": "${DB_PASSWORD}",
+  "cors": {
+    "allowed_origins": ["https://app.example.com"],
+    "allow_credentials": false
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "skill": "scan-xml-security",
+  "version": "1.0",
+  "description": "XML injection and XXE pattern tests",
+  "cases": [
+    {
+      "id": "XML-POS-001",
+      "type": "positive",
+      "description": "XXE via ENTITY SYSTEM directive",
+      "fixture": "fixtures/vulnerable.xml",
+      "expected_rule_ids": ["XML-001"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "<!ENTITY\\s+[^>]+SYSTEM"
+    },
+    {
+      "id": "XML-NEG-001",
+      "type": "negative",
+      "description": "Plain XML without DOCTYPE or external entities",
+      "fixture": "fixtures/safe.xml",
+      "expected_rule_ids": [],
+      "evidence_pattern": null
+    }
+  ]
+}

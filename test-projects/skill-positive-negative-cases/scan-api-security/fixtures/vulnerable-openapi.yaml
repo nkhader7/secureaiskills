@@ -1,0 +1,25 @@
+openapi: "3.0.0"
+info:
+  title: Vulnerable API
+  version: "1.0"
+# SA: No security scheme defined — unauthenticated API
+paths:
+  /admin/users:
+    get:
+      summary: List all users (no auth required)
+      # SA: Debug endpoint exposed
+      responses:
+        "200":
+          description: User list
+  /debug/env:
+    get:
+      summary: Dump environment variables
+      responses:
+        "200":
+          description: Env dump
+  /internal/config:
+    get:
+      summary: Internal config — no auth, no rate limit
+      responses:
+        "200":
+          description: Config

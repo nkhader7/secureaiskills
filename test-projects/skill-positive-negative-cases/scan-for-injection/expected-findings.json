@@ -1,0 +1,76 @@
+{
+  "skill": "scan-for-injection",
+  "version": "1.0",
+  "description": "SQL, command, code, and NoSQL injection pattern tests",
+  "cases": [
+    {
+      "id": "INJ-POS-001",
+      "type": "positive",
+      "description": "SQL injection via template literal with user-controlled input",
+      "fixture": "fixtures/vulnerable.js",
+      "expected_rule_ids": ["SI-001"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "SELECT.*\\$\\{req\\.params"
+    },
+    {
+      "id": "INJ-POS-002",
+      "type": "positive",
+      "description": "Command injection via exec with concatenated user input",
+      "fixture": "fixtures/vulnerable.js",
+      "expected_rule_ids": ["SI-002"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "exec\\s*\\(.*req\\.query"
+    },
+    {
+      "id": "INJ-POS-003",
+      "type": "positive",
+      "description": "Code injection via eval with request body",
+      "fixture": "fixtures/vulnerable.js",
+      "expected_rule_ids": ["SI-003"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "eval\\s*\\(.*req\\.body"
+    },
+    {
+      "id": "INJ-POS-004",
+      "type": "positive",
+      "description": "NoSQL injection via $where with user input",
+      "fixture": "fixtures/vulnerable.js",
+      "expected_rule_ids": ["SI-004"],
+      "expected_severity": "High",
+      "evidence_pattern": "\\$where.*req\\.body"
+    },
+    {
+      "id": "INJ-NEG-001",
+      "type": "negative",
+      "description": "Parameterized query — no injection possible",
+      "fixture": "fixtures/safe.js",
+      "expected_rule_ids": [],
+      "evidence_pattern": null
+    },
+    {
+      "id": "INJ-NEG-002",
+      "type": "negative",
+      "description": "execFile with array args — shell not invoked",
+      "fixture": "fixtures/safe.js",
+      "expected_rule_ids": [],
+      "evidence_pattern": null
+    },
+    {
+      "id": "INJ-EDGE-001",
+      "type": "edge",
+      "description": "Template SQL with only sanitized numeric offset",
+      "fixture": "fixtures/edge.js",
+      "expected_rule_ids": ["SI-001"],
+      "expected_severity": "Critical",
+      "notes": "Pattern matches even though parseInt is applied; LLM should assess risk level"
+    },
+    {
+      "id": "INJ-FP-001",
+      "type": "false_positive",
+      "description": "eval of a static string literal — no user input",
+      "fixture": "fixtures/safe.js",
+      "expected_rule_ids": [],
+      "notes": "eval on constant string should not produce Critical finding"
+    }
+  ]
+}

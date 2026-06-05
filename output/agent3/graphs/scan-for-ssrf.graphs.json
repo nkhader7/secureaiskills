@@ -147,7 +147,7 @@
       },
       {
         "id": "json",
-        "score": 8.83
+        "score": 8.84
       },
       {
         "id": "toml",
@@ -159,7 +159,7 @@
       },
       {
         "id": "yaml",
-        "score": 6.4
+        "score": 6.88
       }
     ],
     "edges": []

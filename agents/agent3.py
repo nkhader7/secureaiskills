@@ -256,6 +256,9 @@ class Agent3:
         llm: LLMResult,
     ) -> dict[str, Any]:
         rows = []
+        template_tokens = est_tokens(template)
+        min_format_tokens = min(r["tokens_estimate"] for r in conversions.values()) if conversions else 0
+        rule_count = max(len(rules), 1)
         for fmt, item in conversions.items():
             content = item["content"]
             timings = []
@@ -274,22 +277,30 @@ class Agent3:
             parse_score = max(0.0, 10.0 - statistics.mean(timings))
             structure = {"json": 9.5, "yaml": 8.8, "toml": 7.7, "python": 7.2, "markdown": 6.6}[fmt]
             efficiency = round((compactness * 0.35) + (parse_score * 0.25) + (structure * 0.30) + ((10 - redundancy) * 0.10), 2)
+            context_tokens = tokens + template_tokens
+            compression_opportunity = max(0, tokens - min_format_tokens)
             rows.append({
                 "format": fmt,
                 "bytes": item["bytes"],
                 "prompt_tokens": tokens,
                 "parse_avg_ms": round(statistics.mean(timings), 4),
-                "context_tokens": tokens + est_tokens(template),
+                "context_tokens": context_tokens,
                 "redundant_instruction_score": redundancy,
-                "compression_opportunity_tokens": max(0, tokens - min(r["tokens_estimate"] for r in conversions.values())),
+                "compression_opportunity_tokens": compression_opportunity,
+                "compression_opportunity_pct": round((compression_opportunity / max(tokens, 1)) * 100, 2),
+                "tokens_per_rule": round(tokens / rule_count, 2),
+                "context_window_risk": self._context_window_risk(context_tokens),
                 "format_efficiency_score": efficiency,
             })
+
+        token_rows = self._evaluate_token_rows(rows)
+        token_evaluator = self._token_evaluator(token_rows, llm, est_tokens(skill_text), template_tokens)
         rows.sort(key=lambda r: r["format_efficiency_score"], reverse=True)
         return {
             "skill": skill_name,
             "rule_count": len(rules),
             "original_prompt_tokens": est_tokens(skill_text),
-            "template_tokens": est_tokens(template),
+            "template_tokens": template_tokens,
             "llm_call_count": 1,
             "llm_prompt_tokens": llm.prompt_tokens,
             "llm_completion_tokens": llm.completion_tokens,
@@ -297,6 +308,8 @@ class Agent3:
             "execution_complexity": "high" if len(rules) > 100 else "medium" if len(rules) > 20 else "low",
             "formats": rows,
             "ranking": [r["format"] for r in rows],
+            "token_evaluator": token_evaluator,
+            "token_efficiency_ranking": token_evaluator["token_efficiency_ranking"],
             "benchmark_score": round(statistics.mean(r["format_efficiency_score"] for r in rows), 2),
         }
 
@@ -305,6 +318,72 @@ class Agent3:
         if not lines:
             return 0.0
         return round(min(10.0, (len(lines) - len(set(lines))) / max(len(lines), 1) * 20), 2)
+
+    def _context_window_risk(self, context_tokens: int) -> str:
+        if context_tokens >= 32000:
+            return "high"
+        if context_tokens >= 12000:
+            return "medium"
+        return "low"
+
+    def _evaluate_token_rows(self, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        if not rows:
+            return []
+        min_context = max(1, min(r["context_tokens"] for r in rows))
+        for row in rows:
+            risk_penalty = {"low": 0.0, "medium": 0.8, "high": 1.6}[row["context_window_risk"]]
+            compression_penalty = min(1.8, row["compression_opportunity_pct"] / 30)
+            token_score = max(0.0, (10.0 * min_context / max(row["context_tokens"], 1)) - risk_penalty - compression_penalty)
+            row["token_efficiency_score"] = round(token_score, 2)
+            row["estimated_prompt_cost_units"] = row["context_tokens"]
+        return rows
+
+    def _token_evaluator(
+        self,
+        rows: list[dict[str, Any]],
+        llm: LLMResult,
+        original_prompt_tokens: int,
+        template_tokens: int,
+    ) -> dict[str, Any]:
+        if not rows:
+            return {
+                "best_token_format": None,
+                "worst_token_format": None,
+                "token_efficiency_ranking": [],
+                "compression_recommendations": ["No converted formats were available for token evaluation."],
+            }
+        ranked = sorted(rows, key=lambda r: (r["token_efficiency_score"], -r["context_tokens"]), reverse=True)
+        by_context = sorted(rows, key=lambda r: r["context_tokens"])
+        high_risk = [r["format"] for r in rows if r["context_window_risk"] == "high"]
+        medium_risk = [r["format"] for r in rows if r["context_window_risk"] == "medium"]
+        recommendations = []
+        if by_context[-1]["context_tokens"] > by_context[0]["context_tokens"] * 1.5:
+            recommendations.append(
+                f"Prefer {by_context[0]['format']} for low-token CI paths; {by_context[-1]['format']} is the largest context."
+            )
+        if high_risk:
+            recommendations.append(f"Split or summarize high-risk formats before LLM calls: {', '.join(high_risk)}.")
+        if medium_risk:
+            recommendations.append(f"Review medium-risk formats for removable duplicate instructions: {', '.join(medium_risk)}.")
+        if not recommendations:
+            recommendations.append("All converted formats fit the current token budget with low context-window risk.")
+        return {
+            "best_token_format": ranked[0]["format"],
+            "worst_token_format": ranked[-1]["format"],
+            "lowest_context_tokens": by_context[0]["context_tokens"],
+            "highest_context_tokens": by_context[-1]["context_tokens"],
+            "average_context_tokens": round(statistics.mean(r["context_tokens"] for r in rows), 2),
+            "original_prompt_tokens": original_prompt_tokens,
+            "template_tokens": template_tokens,
+            "llm_call_tokens": {
+                "prompt_tokens": llm.prompt_tokens,
+                "completion_tokens": llm.completion_tokens,
+                "total_tokens": llm.prompt_tokens + llm.completion_tokens,
+            },
+            "token_efficiency_ranking": [r["format"] for r in ranked],
+            "context_window_risk_by_format": {r["format"]: r["context_window_risk"] for r in rows},
+            "compression_recommendations": recommendations,
+        }
 
     def _graphs(self, skill_name: str, canonical: dict[str, Any], tests: dict[str, Any], benchmark: dict[str, Any]) -> dict[str, Any]:
         def g(name: str, nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> dict[str, Any]:
@@ -360,10 +439,10 @@ class Agent3:
 
     def _summaries(self, skill_name: str, canonical: dict[str, Any], tests: dict[str, Any], benchmark: dict[str, Any], llm: LLMResult) -> dict[str, Any]:
         return {
-            "executive_summary": f"{skill_name} is testable with {tests['case_count']} Agent 3 cases and {len(canonical['rules'])} rules.",
+            "executive_summary": f"{skill_name} is testable with {tests['case_count']} validation cases and {len(canonical['rules'])} rules.",
             "technical_summary": f"Converted to {', '.join(FORMATS)}; {benchmark['ranking'][0]} ranked highest by efficiency.",
             "security_summary": "Security constraints preserve untrusted target handling, evidence requirements, and secret redaction.",
-            "compliance_summary": "Agent 3 emits JSON reports, CI gates, graph artifacts, and evidence-backed confidence scores.",
+            "compliance_summary": "Validation emits JSON reports, CI gates, graph artifacts, and evidence-backed confidence scores.",
             "benchmark_summary": f"Avg benchmark score {benchmark['benchmark_score']}/10; complexity {benchmark['execution_complexity']}.",
             "test_summary": f"Suites: {', '.join(tests['suites'])}. LLM used: {llm.used_llm}.",
         }
@@ -382,7 +461,7 @@ class Agent3:
             "compliance_gate_status": compliance_gate,
             "benchmark_score": benchmark["benchmark_score"],
             "recommended_actions": [
-                "Wire Agent 3 output into the final orchestrator merge step.",
+                "Wire validation output into the final orchestrator merge step.",
                 "Run local LLM validation in pre-merge CI when LOCAL_LLM_BASE_URL is available.",
                 "Review formats with high compression opportunity for instruction deduplication.",
             ],

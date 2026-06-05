@@ -1,0 +1,67 @@
+{
+  "skill": "detect-secrets",
+  "version": "1.0",
+  "description": "Credential and secret detection pattern tests",
+  "cases": [
+    {
+      "id": "SEC-POS-001",
+      "type": "positive",
+      "description": "AWS Access Key ID hardcoded in .env file",
+      "fixture": "fixtures/vulnerable.env",
+      "expected_rule_ids": ["DS-001"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "AKIA[0-9A-Z]{16}"
+    },
+    {
+      "id": "SEC-POS-002",
+      "type": "positive",
+      "description": "Azure client secret hardcoded",
+      "fixture": "fixtures/vulnerable.env",
+      "expected_rule_ids": ["DS-003"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "AZURE_CLIENT_SECRET\\s*=\\s*[^\\s]+"
+    },
+    {
+      "id": "SEC-POS-003",
+      "type": "positive",
+      "description": "RSA private key marker present",
+      "fixture": "fixtures/vulnerable.env",
+      "expected_rule_ids": ["DS-004"],
+      "expected_severity": "Critical",
+      "evidence_pattern": "-----BEGIN RSA PRIVATE KEY-----"
+    },
+    {
+      "id": "SEC-NEG-001",
+      "type": "negative",
+      "description": "Env var references only — no actual secrets",
+      "fixture": "fixtures/safe.env",
+      "expected_rule_ids": [],
+      "evidence_pattern": null
+    },
+    {
+      "id": "SEC-EDGE-001",
+      "type": "edge",
+      "description": "AWS key in a test variable — pattern still matches",
+      "fixture": "fixtures/edge.py",
+      "expected_rule_ids": ["DS-001"],
+      "expected_severity": "Critical",
+      "notes": "Pattern match is correct; LLM should note test context and still flag for review"
+    },
+    {
+      "id": "SEC-EDGE-002",
+      "type": "edge",
+      "description": "AWS key in a comment only — no assignment",
+      "fixture": "fixtures/edge.py",
+      "expected_rule_ids": [],
+      "notes": "Key appears in comment text only — skill should note low risk"
+    },
+    {
+      "id": "SEC-FP-001",
+      "type": "false_positive",
+      "description": "CERTIFICATE header is not a private key",
+      "fixture": "fixtures/edge.py",
+      "expected_rule_ids": [],
+      "notes": "BEGIN CERTIFICATE is different from BEGIN RSA PRIVATE KEY"
+    }
+  ]
+}
